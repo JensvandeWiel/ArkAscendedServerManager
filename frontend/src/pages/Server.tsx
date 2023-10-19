@@ -1,6 +1,5 @@
-import {ThemeSwitcher} from "../components/ThemeSwitcher";
 import {Button, ButtonGroup, Card, IconButton, Tab, TabList, TabPanel, Tabs} from "@mui/joy";
-import {IconSettings} from "@tabler/icons-react";
+
 
 type Props = {
     server: number | undefined
