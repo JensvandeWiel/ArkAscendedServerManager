@@ -1,8 +1,9 @@
+import wailsLogo from './assets/wails.png'
+import './App.css'
 
 function App() {
-
     return (
-        <div id="App">
+        <div className="min-h-screen">
             test
         </div>
     )
