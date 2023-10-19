@@ -1,6 +1,6 @@
 import {
     Button,
-    Card, DialogActions,
+    DialogActions,
     DialogTitle, Divider,
     Drawer, List, ListItem,
     ListItemButton,
@@ -13,33 +13,38 @@ import {IconArrowLeft, IconPlus} from "@tabler/icons-react";
 
 
 function App() {
-    const [activeServer, setActiveServer] = useState(1)
+    const [activeServer, setActiveServer] = useState<number | undefined>(0)
     const [drawerOpen, setDrawerOpen] = useState(false);
 
-    const ServerDrawer = () => (
-        <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} size="md">
-            <ModalClose/>
-            <DialogTitle>Servers:</DialogTitle>
-            <List>
-                {[...new Array(4)].map((_, index) => (
-                    <ListItem key={index}>
-                        <ListItemButton onClick={() => setActiveServer(index)}>
-                            Server {index}
-                        </ListItemButton>
-                    </ListItem>
-                ))}
-            </List>
-            <Divider></Divider>
-            <DialogActions>
+    const ServerDrawer = (
+            <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} size="md">
+                <ModalClose/>
+                <DialogTitle>Servers:</DialogTitle>
                 <List>
-                    <ListItem>
-                        <ListItemButton>
-                            <IconPlus/> Create new server
-                        </ListItemButton>
-                    </ListItem>
+
+                    <ListItemButton onClick={() => setActiveServer(undefined)}>
+                        None
+                    </ListItemButton>
+                    {[...new Array(4)].map((_, index) => (
+                        <ListItem key={index}>
+
+                            <ListItemButton onClick={() => setActiveServer(index)}>
+                                Server {index}
+                            </ListItemButton>
+                        </ListItem>
+                    ))}
                 </List>
-            </DialogActions>
-        </Drawer>
+                <Divider></Divider>
+                <DialogActions>
+                    <List>
+                        <ListItem>
+                            <ListItemButton>
+                                <IconPlus/> Create new server
+                            </ListItemButton>
+                        </ListItem>
+                    </List>
+                </DialogActions>
+            </Drawer>
     );
 
     return (
@@ -54,7 +59,7 @@ function App() {
             </div>
             <Server className={'row-span-5 m-5'} server={activeServer}/>
 
-            {ServerDrawer()}
+            {ServerDrawer}
         </div>
     )
 }

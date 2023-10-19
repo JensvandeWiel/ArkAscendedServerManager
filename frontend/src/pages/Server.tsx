@@ -3,18 +3,18 @@ import {Button, ButtonGroup, Card, IconButton, Tab, TabList, TabPanel, Tabs} fro
 import {IconSettings} from "@tabler/icons-react";
 
 type Props = {
-    server: number | null
+    server: number | undefined
     className?: string
 }
 
 
 export const Server = ({server, className}: Props) => {
-    if (server) {
+    if (server !== undefined) {
         return (
             <Card className={className}>
                 <Tabs size="sm" className={'flex h-full w-full overflow-y-auto'}>
                     <div className={'h-16 flex w-full'}>
-                        <p className={'text-lg font-bold ml-8'}>ARK: Survival Ascended server 1</p>
+                        <p className={'text-lg font-bold ml-8'}>ARK: Survival Ascended server {server}</p>
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
                                 <Button color={'success'} variant="solid">Start</Button>
