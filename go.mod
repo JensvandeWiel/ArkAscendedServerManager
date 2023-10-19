@@ -1,8 +1,11 @@
-module changeme
+module ark-ascended-server-manager
 
 go 1.18
 
-require github.com/wailsapp/wails/v2 v2.6.0
+require (
+	github.com/adrg/xdg v0.4.0
+	github.com/wailsapp/wails/v2 v2.6.0
+)
 
 require (
 	github.com/bep/debounce v1.2.1 // indirect
@@ -28,7 +31,7 @@ require (
 	golang.org/x/crypto v0.9.0 // indirect
 	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1 // indirect
 	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sys v0.8.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.9.0 // indirect
 )
 
