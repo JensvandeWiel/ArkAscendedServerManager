@@ -3,6 +3,8 @@
 import {server} from '../models';
 import {context} from '../models';
 
+export function GetAllServers():Promise<{[key: number]: server.Server}|boolean>;
+
 export function GetServer(arg1:number):Promise<server.Server>;
 
 export function SaveServer(arg1:server.Server):Promise<boolean>;

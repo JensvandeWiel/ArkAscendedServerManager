@@ -47,7 +47,7 @@ func (c *ServerController) GetServer(id int) Server {
 	server, exists := c.Servers[id]
 	// If it does not exist in the map check the server dir
 	if !exists {
-		s, err := c.getServerFromDir(id)
+		s, err := c.getServerFromDir(id, true)
 		if err != nil {
 			runtime.LogErrorf(c.ctx, "Error getting server instance: %s", err.Error())
 			return Server{
@@ -63,7 +63,7 @@ func (c *ServerController) GetServer(id int) Server {
 }
 
 // getServerFromDir gets the server from the server dir if it does not exist it returns a new server.
-func (c *ServerController) getServerFromDir(id int) (Server, error) {
+func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Server, error) {
 	serverDir := path.Join(c.serverDir, strconv.Itoa(id))
 
 	/*// Check if config dir exists
@@ -78,10 +78,15 @@ func (c *ServerController) getServerFromDir(id int) (Server, error) {
 	_, err := os.Stat(path.Join(serverDir, configFileName))
 	if err != nil {
 		if os.IsNotExist(err) {
-			runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning new server instance")
-			return Server{
-				Id: id,
-			}, nil
+			if shouldReturnNew {
+				runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning new server instance")
+				return Server{
+					Id: id,
+				}, nil
+			} else {
+				runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning empty server instance, with error \"Server does not exist\"")
+				return Server{}, fmt.Errorf("server does not exist")
+			}
 		}
 		return Server{}, fmt.Errorf("Error reading server config file: " + err.Error())
 	}
@@ -132,6 +137,40 @@ func (c *ServerController) SaveServer(server Server) bool {
 		return false
 	}
 	return true
+}
+
+// GetAllServers gets all servers from dir and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. This will overwrite c.Servers!
+func (c *ServerController) GetAllServers() (map[int]Server, bool) {
+	allserverDir := c.serverDir
+
+	children, err := os.ReadDir(allserverDir)
+	if err != nil {
+		runtime.LogError(c.ctx, "Failed to read children in "+c.serverDir+" error: "+err.Error())
+	}
+
+	servers := make(map[int]Server)
+
+	for _, child := range children {
+		if child.IsDir() {
+			index, err := strconv.Atoi(child.Name())
+			if err != nil {
+				runtime.LogError(c.ctx, "Failed to parse to int: "+child.Name()+" error: "+err.Error())
+				return nil, false
+			}
+
+			server, err := c.getServerFromDir(index, false)
+			if err != nil {
+				runtime.LogError(c.ctx, "Failed to get server: "+child.Name()+" error: "+err.Error())
+				return nil, false
+			}
+
+			servers[index] = server
+		}
+	}
+
+	c.Servers = servers
+
+	return c.Servers, true
 }
 
 // Server contains the server "stuff"
