@@ -60,6 +60,11 @@ func (c *ServerController) GetServer(id int) Server {
 	}
 }
 
+// GetServerDir returns the server directory
+func (c *ServerController) GetServerDir() string {
+	return c.serverDir
+}
+
 // CreateServer Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns false and an empty server
 func (c *ServerController) CreateServer(saveToConfig bool) (Server, bool, int) {
 	id, server, err := c.CreateServerWithError(saveToConfig)

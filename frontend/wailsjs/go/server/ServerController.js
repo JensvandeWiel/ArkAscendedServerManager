@@ -18,6 +18,10 @@ export function GetServer(arg1) {
   return window['go']['server']['ServerController']['GetServer'](arg1);
 }
 
+export function GetServerDir() {
+  return window['go']['server']['ServerController']['GetServerDir']();
+}
+
 export function SaveServer(arg1) {
   return window['go']['server']['ServerController']['SaveServer'](arg1);
 }

@@ -11,6 +11,8 @@ export function GetAllServers():Promise<{[key: number]: server.Server}|boolean>;
 
 export function GetServer(arg1:number):Promise<server.Server>;
 
+export function GetServerDir():Promise<string>;
+
 export function SaveServer(arg1:server.Server):Promise<boolean>;
 
 export function SaveServerWithError(arg1:server.Server):Promise<void>;
