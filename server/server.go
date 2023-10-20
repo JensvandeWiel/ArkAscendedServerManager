@@ -42,17 +42,15 @@ func (c *ServerController) Startup(ctx context.Context) {
 	c.serverDir = serverDir
 }
 
-// GetServer returns the server with the given id if it does not exist it returns a new server. This function checks the server dir too. If it does not exist in the map it and does in the dir then it will add it to the map.
+// GetServer returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map.
 func (c *ServerController) GetServer(id int) Server {
 	server, exists := c.Servers[id]
 	// If it does not exist in the map check the server dir
 	if !exists {
-		s, err := c.getServerFromDir(id, true)
+		s, err := c.getServerFromDir(id, false)
 		if err != nil {
 			runtime.LogErrorf(c.ctx, "Error getting server instance: %s", err.Error())
-			return Server{
-				Id: id,
-			}
+			return Server{}
 		}
 
 		c.Servers[id] = s
@@ -62,7 +60,46 @@ func (c *ServerController) GetServer(id int) Server {
 	}
 }
 
-// getServerFromDir gets the server from the server dir if it does not exist it returns a new server.
+// CreateServer Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns false and an empty server
+func (c *ServerController) CreateServer(saveToConfig bool) (Server, bool, int) {
+	id, server, err := c.CreateServerWithError(saveToConfig)
+	if err != nil {
+		runtime.LogError(c.ctx, "Failed saving new server: "+err.Error())
+		return Server{}, false, -1
+	}
+	return server, true, id
+
+}
+
+// CreateServerWithError Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns an error and an empty server and int -1
+func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server, error) {
+	// get the highest in to generate new id
+	maxKey := findHighestKey(c.Servers)
+	id := maxKey + 1
+	if _, exists := c.Servers[id]; exists {
+		return -1, Server{}, fmt.Errorf("Found a server with an key higher than the maximum key, max key: " + strconv.Itoa(maxKey) + " exists: " + strconv.Itoa(id))
+	}
+
+	// Check if it exists
+	if _, exists := c.Servers[id]; exists {
+		return -1, Server{}, fmt.Errorf("Found a server with new key in c.Servers key: " + strconv.Itoa(id))
+	}
+
+	NewServer := generateNewDefaultServer(id)
+	c.Servers[id] = NewServer
+
+	if saveToConfig {
+		err := c.SaveServerWithError(c.Servers[id])
+		if err != nil {
+			// Don't handle this error because the server is already made, just mention it.
+			runtime.LogError(c.ctx, "Failed saving new server: "+err.Error())
+		}
+	}
+
+	return id, NewServer, nil
+}
+
+// getServerFromDir gets the server from the server dir if it does not exist and shouldReturnNew is true it returns a new server.
 func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Server, error) {
 	serverDir := path.Join(c.serverDir, strconv.Itoa(id))
 
@@ -107,15 +144,24 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 	return serv, nil
 }
 
-// SaveServer saves the server with the given id, and returns if successful
+// SaveServer saves the server with the given id, and returns bool if successful
 func (c *ServerController) SaveServer(server Server) bool {
+	err := c.SaveServerWithError(server)
+	if err != nil {
+		runtime.LogError(c.ctx, "Error saving server: "+err.Error())
+		return false
+	}
+	return true
+}
+
+// SaveServerWithError saves the server, and returns an error if it fails
+func (c *ServerController) SaveServerWithError(server Server) error {
 	c.Servers[server.Id] = server
 	serverDir := path.Join(c.serverDir, strconv.Itoa(server.Id))
 
 	serverFile, err := json.MarshalIndent(server, "", " ")
 	if err != nil {
-		runtime.LogError(c.ctx, "Error marshalling config file: "+err.Error())
-		return false
+		return fmt.Errorf("Error marshalling config file: " + err.Error())
 	}
 
 	// If config dir does not exist create a new one
@@ -124,8 +170,7 @@ func (c *ServerController) SaveServer(server Server) bool {
 		if os.IsNotExist(err) {
 			runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(server.Id)+" directory does not exist, creating it")
 			if err := os.MkdirAll(serverDir, os.ModePerm); err != nil {
-				runtime.LogError(c.ctx, "Error creating server dir: "+serverDir+"with error: "+err.Error())
-				return false
+				return fmt.Errorf("Error creating server dir: " + serverDir + "with error: " + err.Error())
 			}
 		}
 	}
@@ -133,10 +178,9 @@ func (c *ServerController) SaveServer(server Server) bool {
 	err = os.WriteFile(path.Join(serverDir, configFileName), serverFile, 0644)
 
 	if err != nil {
-		runtime.LogError(c.ctx, "Error writing config file: "+err.Error())
-		return false
+		return fmt.Errorf("Error writing config file: " + err.Error())
 	}
-	return true
+	return nil
 }
 
 // GetAllServers gets all servers from dir and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. This will overwrite c.Servers!

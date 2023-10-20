@@ -3,10 +3,16 @@
 import {server} from '../models';
 import {context} from '../models';
 
+export function CreateServer(arg1:boolean):Promise<server.Server>;
+
+export function CreateServerWithError(arg1:boolean):Promise<number>;
+
 export function GetAllServers():Promise<{[key: number]: server.Server}|boolean>;
 
 export function GetServer(arg1:number):Promise<server.Server>;
 
 export function SaveServer(arg1:server.Server):Promise<boolean>;
+
+export function SaveServerWithError(arg1:server.Server):Promise<void>;
 
 export function Startup(arg1:context.Context):Promise<void>;
