@@ -2,17 +2,17 @@ import {
     Button,
     DialogActions,
     DialogTitle, Divider,
-    Drawer, List, ListItem,
+    Drawer, IconButton, List, ListItem,
     ListItemButton,
-    ModalClose,
+    ModalClose, Tooltip,
 } from "@mui/joy";
 import {ThemeSwitcher} from "./components/ThemeSwitcher";
 import {useEffect, useState} from "react";
 import {Server} from "./pages/Server";
-import {IconArrowLeft, IconPlus} from "@tabler/icons-react";
-import {CreateServer, GetAllServers} from "../wailsjs/go/server/ServerController";
+import {IconArrowLeft, IconExternalLink, IconPlus, IconRefresh} from "@tabler/icons-react";
+import {CreateServer, GetAllServers, GetServerDir} from "../wailsjs/go/server/ServerController";
 import {server} from "../wailsjs/go/models";
-import {LogDebug, LogError} from "../wailsjs/runtime";
+import {BrowserOpenURL, LogDebug, LogError} from "../wailsjs/runtime";
 
 
 
@@ -86,6 +86,7 @@ function App() {
     const ServerDrawer = (
             <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} size="md">
                 <ModalClose/>
+
                 <DialogTitle>Servers:</DialogTitle>
                 <List>
                     <ListItemButton onClick={() => setActiveServer(undefined)}>
@@ -96,6 +97,10 @@ function App() {
                 <Divider></Divider>
                 <DialogActions>
                     <List>
+                        <ListItem>
+                            <Tooltip title={'Refresh server list'}><IconButton onClick={() => getServers()}><IconRefresh/></IconButton></Tooltip>
+                            <Tooltip title={'Open servers folder'}><IconButton onClick={() => {GetServerDir().then((dir: string) => BrowserOpenURL("file:///" + dir))}}><IconExternalLink/></IconButton></Tooltip>
+                        </ListItem>
                         <ListItem>
                             <ListItemButton onClick={handleCreateNewServerClicked}>
                                 <IconPlus/> Create new server
