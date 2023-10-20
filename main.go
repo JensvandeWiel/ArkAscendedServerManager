@@ -1,9 +1,10 @@
 package main
 
 import (
-	"ark-ascended-server-manager/config"
 	"context"
 	"embed"
+	"github.com/JensvandeWiel/ArkAscendedServerManager/config"
+	"github.com/JensvandeWiel/ArkAscendedServerManager/server"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
@@ -16,6 +17,7 @@ func main() {
 	// Create an instance of the app structure
 	app := NewApp()
 	c := config.NewConfigController()
+	s := server.NewServerController()
 
 	// Create application with options
 	err := wails.Run(&options.App{
@@ -29,10 +31,12 @@ func main() {
 		OnStartup: func(ctx context.Context) {
 			app.startup(ctx)
 			c.Startup(ctx)
+			s.Startup(ctx)
 		},
 		Bind: []interface{}{
 			app,
 			c,
+			s,
 		},
 	})
 

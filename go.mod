@@ -1,4 +1,4 @@
-module ark-ascended-server-manager
+module github.com/JensvandeWiel/ArkAscendedServerManager
 
 go 1.18
 
