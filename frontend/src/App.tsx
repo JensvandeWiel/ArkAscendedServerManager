@@ -7,38 +7,97 @@ import {
     ModalClose,
 } from "@mui/joy";
 import {ThemeSwitcher} from "./components/ThemeSwitcher";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Server} from "./pages/Server";
 import {IconArrowLeft, IconPlus} from "@tabler/icons-react";
+import {CreateServer, GetAllServers} from "../wailsjs/go/server/ServerController";
+import {server} from "../wailsjs/go/models";
+import {LogDebug, LogError} from "../wailsjs/runtime";
+
+
 
 
 function App() {
-    const [activeServer, setActiveServer] = useState<number | undefined>(0)
+    const [activeServer, setActiveServer] = useState<number | undefined>(undefined)
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [servers, setServers] = useState<{[key: number]: server.Server}|null>(null);
+
+    function getServers() {
+        GetAllServers()
+            .then(result => {
+                if (typeof result === 'object') {
+                    setServers(result);
+                } else {
+                    // Handle the case where the function returns a boolean.
+                    LogDebug('GetAllServers status: ' + result)
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
+    useEffect(() => {
+        getServers()
+        return () => {
+            //TODO save all servers
+        };
+
+    }, []);
+
+    const handleCreateNewServerClicked = () => {
+        CreateServer(true).then(() => {
+            getServers()
+        })
+    }
+
+    const ServerList = (
+        <List>
+            {
+                (servers === null) ? (
+                    <ListItem>
+                        Not servers found or failed to find servers
+                    </ListItem>
+                ) : (
+                    Object.keys(servers).map((key) => {
+                        const index = parseInt(key, 10); // The second argument is the base (radix), 10 for base 10 (decimal)
+
+                        if (isNaN(index)) {
+                            LogError("Parsing server key failed")
+                        }
+
+                        const server = servers[index]; // Parse the key to a number
+                        return (
+                            <ListItem key={index}>
+
+                                <ListItemButton onClick={() => setActiveServer(index)}>
+                                    Server {server.id}
+                                </ListItemButton>
+                            </ListItem>
+                        );
+                    })
+                )
+            }
+        </List>
+    )
+
+
 
     const ServerDrawer = (
             <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} size="md">
                 <ModalClose/>
                 <DialogTitle>Servers:</DialogTitle>
                 <List>
-
                     <ListItemButton onClick={() => setActiveServer(undefined)}>
                         None
                     </ListItemButton>
-                    {[...new Array(4)].map((_, index) => (
-                        <ListItem key={index}>
-
-                            <ListItemButton onClick={() => setActiveServer(index)}>
-                                Server {index}
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    {ServerList}
                 </List>
                 <Divider></Divider>
                 <DialogActions>
                     <List>
                         <ListItem>
-                            <ListItemButton>
+                            <ListItemButton onClick={handleCreateNewServerClicked}>
                                 <IconPlus/> Create new server
                             </ListItemButton>
                         </ListItem>
