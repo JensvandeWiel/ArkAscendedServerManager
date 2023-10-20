@@ -56,7 +56,7 @@ function App() {
             {
                 (servers === null) ? (
                     <ListItem>
-                        Not servers found or failed to find servers
+                        No servers found or failed to find servers
                     </ListItem>
                 ) : (
                     Object.keys(servers).map((key) => {
