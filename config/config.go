@@ -60,8 +60,9 @@ func (c *ConfigController) GetConfig() bool {
 	_, err := os.Stat(path.Join(c.configFileDir, "config.json"))
 	if err != nil {
 		if os.IsNotExist(err) {
-			runtime.LogDebug(c.ctx, "Config file is empty, returning new configuration")
-			// "set new config"
+			runtime.LogDebug(c.ctx, "Config file does not exist, returning new configuration")
+			//TODO set new config
+			c.Config = Config{}
 			return true
 		}
 		runtime.LogError(c.ctx, "Error reading config file: "+err.Error())
@@ -93,6 +94,16 @@ func (c *ConfigController) SaveConfig() bool {
 		runtime.LogError(c.ctx, "Error marshalling config file: "+err.Error())
 		return false
 	}
+
+	// Check if config dir exists
+	if _, err := os.Stat(filepath.Dir(c.configFileDir)); os.IsNotExist(err) {
+		runtime.LogDebug(c.ctx, "Config file does not exist, creating it")
+		if err := os.MkdirAll(filepath.Dir(c.configFileDir), os.ModePerm); err != nil {
+			runtime.LogError(c.ctx, "Error creating config dir")
+			return false
+		}
+	}
+
 	err = os.WriteFile(c.configFileDir, configFile, 0644)
 
 	if err != nil {
