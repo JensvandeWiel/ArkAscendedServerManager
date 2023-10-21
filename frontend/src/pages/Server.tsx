@@ -58,7 +58,7 @@ export const Server = ({id, className}: Props) => {
                         <Tab variant="plain" indicatorInset color="neutral">Plugins</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Modifiers</Tab>
                     </TabList>
-                    <General/>
+                    <General serv={serv} setServ={setServ}/>
                     <Settings/>
                 </Tabs>
             </Card>

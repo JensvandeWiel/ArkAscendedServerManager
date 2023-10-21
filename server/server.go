@@ -291,4 +291,11 @@ func (c *ServerController) GetAllServersFromDir() (map[int]Server, bool) {
 type Server struct {
 	Id          int    `json:"id"`
 	ServerAlias string `json:"serverAlias"`
+
+	//Server Name and Passwords
+	ServerName string `json:"serverName"`
+
+	ServerPassword    string `json:"serverPassword"`
+	AdminPassword     string `json:"adminPassword"`
+	SpectatorPassword string `json:"spectatorPassword"`
 }
