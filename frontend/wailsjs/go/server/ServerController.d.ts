@@ -9,9 +9,15 @@ export function CreateServerWithError(arg1:boolean):Promise<number>;
 
 export function GetAllServers():Promise<{[key: number]: server.Server}|boolean>;
 
+export function GetAllServersFromDir():Promise<{[key: number]: server.Server}|boolean>;
+
+export function GetAllServersWithError():Promise<{[key: number]: server.Server}>;
+
 export function GetServer(arg1:number):Promise<server.Server>;
 
 export function GetServerDir():Promise<string>;
+
+export function GetServerWithError(arg1:number):Promise<server.Server>;
 
 export function SaveServer(arg1:server.Server):Promise<boolean>;
 

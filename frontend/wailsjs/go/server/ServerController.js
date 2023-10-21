@@ -14,12 +14,24 @@ export function GetAllServers() {
   return window['go']['server']['ServerController']['GetAllServers']();
 }
 
+export function GetAllServersFromDir() {
+  return window['go']['server']['ServerController']['GetAllServersFromDir']();
+}
+
+export function GetAllServersWithError() {
+  return window['go']['server']['ServerController']['GetAllServersWithError']();
+}
+
 export function GetServer(arg1) {
   return window['go']['server']['ServerController']['GetServer'](arg1);
 }
 
 export function GetServerDir() {
   return window['go']['server']['ServerController']['GetServerDir']();
+}
+
+export function GetServerWithError(arg1) {
+  return window['go']['server']['ServerController']['GetServerWithError'](arg1);
 }
 
 export function SaveServer(arg1) {

@@ -22,6 +22,7 @@ function App() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [servers, setServers] = useState<{[key: number]: server.Server}|null>(null);
 
+    //TODO This gets all the servers but if one server is changed manually it does not update it!
     function getServers() {
         GetAllServers()
             .then(result => {

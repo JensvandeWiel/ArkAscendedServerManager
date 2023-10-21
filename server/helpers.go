@@ -36,4 +36,9 @@ func generateNewDefaultServer(id int) Server {
 }
 */
 
+// GetServerDir returns the server directory
+func (c *ServerController) GetServerDir() string {
+	return c.serverDir
+}
+
 //endregion

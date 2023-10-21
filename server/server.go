@@ -1,3 +1,14 @@
+/*
+This file contains all the logic for saving and getting servers and making sure they stay updated through the application.
+
+Events:
+- "serverSaved" is called on a server save and has the server id as int as optional data.
+- "serverCreated" is called when a server is created and has the server id as int as optional data.
+- "gotServer" is called when a server is retrieved and has the server id as int as optional data.
+
+
+*/
+
 package server
 
 import (
@@ -44,64 +55,31 @@ func (c *ServerController) Startup(ctx context.Context) {
 
 // GetServer returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map.
 func (c *ServerController) GetServer(id int) Server {
+	server, err := c.GetServerWithError(id)
+	if err != nil {
+		runtime.LogError(c.ctx, "Failed getting server: "+strconv.Itoa(id)+" with: "+err.Error())
+		return server
+	}
+	return server
+}
+
+// GetServerWithError returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map.
+func (c *ServerController) GetServerWithError(id int) (Server, error) {
 	server, exists := c.Servers[id]
 	// If it does not exist in the map check the server dir
 	if !exists {
 		s, err := c.getServerFromDir(id, false)
 		if err != nil {
-			runtime.LogErrorf(c.ctx, "Error getting server instance: %s", err.Error())
-			return Server{}
+			return Server{}, fmt.Errorf("Error getting server instance: %s", err.Error())
 		}
 
 		c.Servers[id] = s
-		return s
+		runtime.EventsEmit(c.ctx, "gotServer", s.Id)
+		return s, nil
 	} else {
-		return server
+		runtime.EventsEmit(c.ctx, "gotServer", server.Id)
+		return server, nil
 	}
-}
-
-// GetServerDir returns the server directory
-func (c *ServerController) GetServerDir() string {
-	return c.serverDir
-}
-
-// CreateServer Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns false and an empty server
-func (c *ServerController) CreateServer(saveToConfig bool) (Server, bool, int) {
-	id, server, err := c.CreateServerWithError(saveToConfig)
-	if err != nil {
-		runtime.LogError(c.ctx, "Failed saving new server: "+err.Error())
-		return Server{}, false, -1
-	}
-	return server, true, id
-
-}
-
-// CreateServerWithError Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns an error and an empty server and int -1
-func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server, error) {
-	// get the highest in to generate new id
-	maxKey := findHighestKey(c.Servers)
-	id := maxKey + 1
-	if _, exists := c.Servers[id]; exists {
-		return -1, Server{}, fmt.Errorf("Found a server with an key higher than the maximum key, max key: " + strconv.Itoa(maxKey) + " exists: " + strconv.Itoa(id))
-	}
-
-	// Check if it exists
-	if _, exists := c.Servers[id]; exists {
-		return -1, Server{}, fmt.Errorf("Found a server with new key in c.Servers key: " + strconv.Itoa(id))
-	}
-
-	NewServer := generateNewDefaultServer(id)
-	c.Servers[id] = NewServer
-
-	if saveToConfig {
-		err := c.SaveServerWithError(c.Servers[id])
-		if err != nil {
-			// Don't handle this error because the server is already made, just mention it.
-			runtime.LogError(c.ctx, "Failed saving new server: "+err.Error())
-		}
-	}
-
-	return id, NewServer, nil
 }
 
 // getServerFromDir gets the server from the server dir if it does not exist and shouldReturnNew is true it returns a new server.
@@ -149,6 +127,47 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 	return serv, nil
 }
 
+// CreateServer Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns false and an empty server
+func (c *ServerController) CreateServer(saveToConfig bool) (Server, bool, int) {
+	id, server, err := c.CreateServerWithError(saveToConfig)
+	if err != nil {
+		runtime.LogError(c.ctx, "Failed saving new server: "+err.Error())
+		return Server{}, false, -1
+	}
+	return server, true, id
+
+}
+
+// CreateServerWithError Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns an error and an empty server and int -1
+func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server, error) {
+	// get the highest in to generate new id
+	maxKey := findHighestKey(c.Servers)
+	id := maxKey + 1
+	if _, exists := c.Servers[id]; exists {
+		return -1, Server{}, fmt.Errorf("Found a server with an key higher than the maximum key, max key: " + strconv.Itoa(maxKey) + " exists: " + strconv.Itoa(id))
+	}
+
+	// Check if it exists
+	if _, exists := c.Servers[id]; exists {
+		return -1, Server{}, fmt.Errorf("Found a server with new key in c.Servers key: " + strconv.Itoa(id))
+	}
+
+	NewServer := generateNewDefaultServer(id)
+	c.Servers[id] = NewServer
+
+	if saveToConfig {
+		err := c.SaveServerWithError(c.Servers[id])
+		if err != nil {
+			// Don't handle this error because the server is already made, just mention it.
+			runtime.LogError(c.ctx, "Failed saving new server: "+err.Error())
+		}
+	}
+
+	runtime.EventsEmit(c.ctx, "serverCreated", NewServer.Id)
+
+	return id, NewServer, nil
+}
+
 // SaveServer saves the server with the given id, and returns bool if successful
 func (c *ServerController) SaveServer(server Server) bool {
 	err := c.SaveServerWithError(server)
@@ -181,15 +200,62 @@ func (c *ServerController) SaveServerWithError(server Server) error {
 	}
 
 	err = os.WriteFile(path.Join(serverDir, configFileName), serverFile, 0644)
-
 	if err != nil {
 		return fmt.Errorf("Error writing config file: " + err.Error())
 	}
+
+	runtime.EventsEmit(c.ctx, "serverSaved", server.Id)
+
 	return nil
 }
 
-// GetAllServers gets all servers from dir and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. This will overwrite c.Servers!
+// GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. If they already exist in the map it will just get that.
 func (c *ServerController) GetAllServers() (map[int]Server, bool) {
+
+	servers, err := c.GetAllServersWithError()
+	if err != nil {
+		runtime.LogError(c.ctx, "Failed to get all servers "+c.serverDir+" error: "+err.Error())
+		return nil, false
+	}
+
+	c.Servers = servers
+	return c.Servers, true
+}
+
+// GetAllServersWithError gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. If they already exist in the map it will just get that.
+func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
+	allServerDir := c.serverDir
+
+	children, err := os.ReadDir(allServerDir)
+	if err != nil {
+		return nil, fmt.Errorf("Failed to read children in " + c.serverDir + " error: " + err.Error())
+	}
+
+	servers := make(map[int]Server)
+
+	for _, child := range children {
+		if child.IsDir() {
+			index, err := strconv.Atoi(child.Name())
+			if err != nil {
+				return nil, fmt.Errorf("Failed to parse to int: " + child.Name() + " error: " + err.Error())
+			}
+
+			server, err := c.GetServerWithError(index)
+			if err != nil {
+				return nil, fmt.Errorf("Failed to get server: " + child.Name() + " error: " + err.Error())
+			}
+
+			servers[index] = server
+		}
+	}
+
+	c.Servers = servers
+
+	return c.Servers, nil
+}
+
+// GetAllServersFromDir gets all servers from dir and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. This will overwrite c.Servers!
+func (c *ServerController) GetAllServersFromDir() (map[int]Server, bool) {
 	allserverDir := c.serverDir
 
 	children, err := os.ReadDir(allserverDir)
