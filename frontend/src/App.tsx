@@ -10,9 +10,9 @@ import {ThemeSwitcher} from "./components/ThemeSwitcher";
 import {useEffect, useState} from "react";
 import {Server} from "./pages/Server";
 import {IconArrowLeft, IconExternalLink, IconPlus, IconRefresh} from "@tabler/icons-react";
-import {CreateServer, GetAllServers, GetServerDir} from "../wailsjs/go/server/ServerController";
+import {CreateServer, GetAllServers, GetAllServersFromDir, GetServerDir} from "../wailsjs/go/server/ServerController";
 import {server} from "../wailsjs/go/models";
-import {BrowserOpenURL, LogDebug, LogError} from "../wailsjs/runtime";
+import {BrowserOpenURL, EventsOff, EventsOn, LogDebug, LogError} from "../wailsjs/runtime";
 
 
 
@@ -22,7 +22,7 @@ function App() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [servers, setServers] = useState<{[key: number]: server.Server}|null>(null);
 
-    //TODO This gets all the servers but if one server is changed manually it does not update it!
+    //This gets all the servers but if one server is changed manually it does not update it!
     function getServers() {
         GetAllServers()
             .then(result => {
@@ -38,12 +38,32 @@ function App() {
             });
     }
 
+    function getServersFromDir() {
+        GetAllServersFromDir()
+            .then(result => {
+                if (typeof result === 'object') {
+                    setServers(result);
+                    console.log(result)
+                } else {
+                    // Handle the case where the function returns a boolean.
+                    LogDebug('GetAllServers status: ' + result)
+                }
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
+
     useEffect(() => {
         getServers()
-        return () => {
-            //TODO save all servers
-        };
+    }, []);
 
+    //events
+    useEffect(() => {
+        EventsOn("serverSaved", getServers)
+        return () => {
+            EventsOff("serverSaved")
+        }
     }, []);
 
     const handleCreateNewServerClicked = () => {
@@ -71,8 +91,8 @@ function App() {
                         return (
                             <ListItem key={index}>
 
-                                <ListItemButton onClick={() => setActiveServer(index)}>
-                                    Server {server.id}
+                                <ListItemButton onClick={() => {setActiveServer(index); setDrawerOpen(false)}}>
+                                    {index}: {server.serverAlias? server.serverAlias : "Unnamed Server"}
                                 </ListItemButton>
                             </ListItem>
                         );
@@ -99,7 +119,8 @@ function App() {
                 <DialogActions>
                     <List>
                         <ListItem>
-                            <Tooltip title={'Refresh server list'}><IconButton onClick={() => getServers()}><IconRefresh/></IconButton></Tooltip>
+                            <Tooltip title={'Reload servers from disk'}><IconButton  color={'danger'} variant={"solid"}  onClick={() => getServersFromDir()}><IconRefresh/></IconButton></Tooltip>
+                            <Tooltip title={'Refresh server list from cache'}><IconButton onClick={() => getServers()}><IconRefresh/></IconButton></Tooltip>
                             <Tooltip title={'Open servers folder'}><IconButton onClick={() => {GetServerDir().then((dir: string) => BrowserOpenURL("file:///" + dir))}}><IconExternalLink/></IconButton></Tooltip>
                         </ListItem>
                         <ListItem>
@@ -122,7 +143,7 @@ function App() {
                 </div>
                 <div className={'ml-auto my-auto mr-8'}><ThemeSwitcher/></div>
             </div>
-            <Server className={'row-span-5 m-5'} server={activeServer}/>
+            <Server className={'row-span-5 m-5'} id={activeServer}/>
 
             {ServerDrawer}
         </div>

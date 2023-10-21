@@ -278,7 +278,6 @@ func (c *ServerController) GetAllServersFromDir() (map[int]Server, bool) {
 				runtime.LogError(c.ctx, "Failed to get server: "+child.Name()+" error: "+err.Error())
 				return nil, false
 			}
-
 			servers[index] = server
 		}
 	}
@@ -290,6 +289,6 @@ func (c *ServerController) GetAllServersFromDir() (map[int]Server, bool) {
 
 // Server contains the server "stuff"
 type Server struct {
-	Id   int    `json:"id"`
-	Test string `json:"test"`
+	Id          int    `json:"id"`
+	ServerAlias string `json:"serverAlias"`
 }
