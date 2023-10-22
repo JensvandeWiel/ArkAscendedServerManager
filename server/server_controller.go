@@ -226,6 +226,13 @@ func (c *ServerController) GetAllServers() (map[int]Server, bool) {
 func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
 	allServerDir := c.serverDir
 
+	if _, err := os.Stat(allServerDir); err != nil {
+		if os.IsNotExist(err) {
+			return nil, fmt.Errorf(allServerDir + " does not exit")
+		}
+		return nil, fmt.Errorf("Getting all servers from directory failed: " + err.Error())
+	}
+
 	children, err := os.ReadDir(allServerDir)
 	if err != nil {
 		return nil, fmt.Errorf("Failed to read children in " + c.serverDir + " error: " + err.Error())
@@ -257,6 +264,16 @@ func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
 // GetAllServersFromDir gets all servers from dir and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. This will overwrite c.Servers!
 func (c *ServerController) GetAllServersFromDir() (map[int]Server, bool) {
 	allserverDir := c.serverDir
+
+	if _, err := os.Stat(allserverDir); err != nil {
+		if os.IsNotExist(err) {
+			runtime.LogError(c.ctx, allserverDir+" does not exit")
+			return nil, false
+		}
+
+		runtime.LogError(c.ctx, "Getting all servers from directory failed: "+err.Error())
+		return nil, false
+	}
 
 	children, err := os.ReadDir(allserverDir)
 	if err != nil {
