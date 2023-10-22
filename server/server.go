@@ -298,4 +298,11 @@ type Server struct {
 	ServerPassword    string `json:"serverPassword"`
 	AdminPassword     string `json:"adminPassword"`
 	SpectatorPassword string `json:"spectatorPassword"`
+
+	//Server Networking
+	IpAddress  string `json:"ipAddress"`
+	ServerPort int    `json:"serverPort"`
+	PeerPort   int    `json:"peerPort"`
+	QueryPort  int    `json:"queryPort"`
+	RCONPort   int    `json:"rconPort"`
 }

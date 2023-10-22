@@ -22,6 +22,10 @@ export function GetAllServersWithError() {
   return window['go']['server']['ServerController']['GetAllServersWithError']();
 }
 
+export function GetNetworkInterfacesIp() {
+  return window['go']['server']['ServerController']['GetNetworkInterfacesIp']();
+}
+
 export function GetServer(arg1) {
   return window['go']['server']['ServerController']['GetServer'](arg1);
 }

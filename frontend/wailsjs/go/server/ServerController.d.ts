@@ -13,6 +13,8 @@ export function GetAllServersFromDir():Promise<{[key: number]: server.Server}|bo
 
 export function GetAllServersWithError():Promise<{[key: number]: server.Server}>;
 
+export function GetNetworkInterfacesIp():Promise<{[key: string]: string}>;
+
 export function GetServer(arg1:number):Promise<server.Server>;
 
 export function GetServerDir():Promise<string>;

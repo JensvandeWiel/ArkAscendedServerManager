@@ -16,6 +16,7 @@ export const Server = ({id, className}: Props) => {
     const defaultServer = new server.Server
     defaultServer.id = -1
     defaultServer.serverAlias = ""
+    defaultServer.ipAddress = "0.0.0.0"
 
 
 
@@ -33,6 +34,8 @@ export const Server = ({id, className}: Props) => {
         } else {
             SaveServer(serv)
         }
+
+
     }, [serv]);
 
 
