@@ -15,6 +15,7 @@ import {server} from "../../../wailsjs/go/models";
 import React, {useEffect, useState} from "react";
 import {GetNetworkInterfacesIp} from "../../../wailsjs/go/server/ServerController";
 import {LogError} from "../../../wailsjs/runtime";
+import {PasswordInput} from "../../components/PasswordInput";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -59,15 +60,15 @@ export function General({serv, setServ}: Props) {
                 <div className={'space-x-4 w-full flex'}>
                     <div className={'inline-block'}>
                         <FormLabel>Server Password:</FormLabel>
-                        <Input className={''} required type={'password'} value={serv?.serverPassword} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value }))} ></Input>
+                        <PasswordInput value={serv?.serverPassword} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value }))} ></PasswordInput>
                     </div>
                     <div className={'inline-block'}>
                         <FormLabel>Admin Password:</FormLabel>
-                        <Input className={''} required type={'password'} value={serv?.adminPassword} onChange={(e) => setServ((p) => ({ ...p, adminPassword: e.target.value }))} ></Input>
+                        <PasswordInput value={serv?.adminPassword} onChange={(e) => setServ((p) => ({ ...p, adminPassword: e.target.value }))} ></PasswordInput>
                     </div>
                     <div className={'inline-block'}>
                         <FormLabel>Spectator Password:</FormLabel>
-                        <Input className={''} required type={'password'} value={serv?.spectatorPassword} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value }))} ></Input>
+                        <PasswordInput value={serv?.spectatorPassword} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value }))} ></PasswordInput>
                     </div>
                 </div>
             </Card>
