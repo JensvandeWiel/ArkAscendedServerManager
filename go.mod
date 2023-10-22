@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/adrg/xdg v0.4.0
+	github.com/sethvargo/go-password v0.2.0
 	github.com/wailsapp/wails/v2 v2.6.0
 )
 
