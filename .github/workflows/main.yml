@@ -22,4 +22,5 @@ jobs:
         with:
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
-          zip-installer-only: true
+          nsis: true
+          package: true
