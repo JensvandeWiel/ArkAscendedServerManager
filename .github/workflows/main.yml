@@ -1,24 +1,23 @@
 name: AASM build
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
-        build: [
-          {name: Windows, platform: windows/amd64, os: windows-latest},
-        ]
+        build:
+          - name: Windows
+            platform: windows/amd64
+            os: windows-latest
     runs-on: ${{ matrix.build.os }}
     steps:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
-      - name: Set up bin and cd to it
-        run: |
-          mkdir bin
-          cd bin
       - name: Set direct proxy
         run: go env -w GOPROXY=direct
       - run: go install github.com/wailsapp/wails/cmd/wails@latest
@@ -29,3 +28,12 @@ jobs:
           build: false
           nsis: true
           package: true
+      - name: Create bin directory
+        run: |
+          mkdir bin
+          mv *.exe bin/
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: AASM build artifacts
+          path: bin/
