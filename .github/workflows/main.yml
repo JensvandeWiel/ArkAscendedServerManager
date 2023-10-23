@@ -25,4 +25,4 @@ jobs:
           nsis: true
           package: true
       - name: clean unnecessary files
-        run: rm -Force ./Windows
+        run: rm -Force ./build/bin/Windows
