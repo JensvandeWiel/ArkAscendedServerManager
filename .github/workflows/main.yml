@@ -32,6 +32,7 @@ jobs:
         run: |
           mkdir bin
           mv *.exe bin/
+          ls -R bin
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
