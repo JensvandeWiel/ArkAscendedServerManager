@@ -1,4 +1,4 @@
-name: Wails build
+name: AASM build
 
 on: [push]
 
@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         build: [
-          {name: wailsTest, platform: windows/amd64, os: windows-latest},
+          {name: Windows, platform: windows/amd64, os: windows-latest},
         ]
     runs-on: ${{ matrix.build.os }}
     steps:
@@ -18,8 +18,8 @@ jobs:
       - name: Set direct proxy
         run: go env -w GOPROXY=direct
       - run: go install github.com/wailsapp/wails/cmd/wails@latest
-      
       - uses: dAppServer/wails-build-action@v2.2
         with:
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
+          zip-installer-only: true
