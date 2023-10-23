@@ -28,13 +28,8 @@ jobs:
           build: true
           nsis: true
           package: true
-      - name: Create bin directory
-        run: |
-          mkdir bin
-          mv *.exe bin/
-          ls -R bin
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
           name: AASM build artifacts
-          path: bin/
+          path: build/bin/*.exe
