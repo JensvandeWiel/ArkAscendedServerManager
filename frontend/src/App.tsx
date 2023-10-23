@@ -7,6 +7,7 @@ import {
     ModalClose, Tooltip,
 } from "@mui/joy";
 import {ThemeSwitcher} from "./components/ThemeSwitcher";
+import {HomeButton} from "./components/HomeButton";
 import {useEffect, useState} from "react";
 import {Server} from "./pages/Server";
 import {IconArrowLeft, IconExternalLink, IconPlus, IconRefresh} from "@tabler/icons-react";
@@ -110,9 +111,6 @@ function App() {
 
                 <DialogTitle>Servers:</DialogTitle>
                 <List>
-                    <ListItemButton onClick={() => setActiveServer(undefined)}>
-                        None
-                    </ListItemButton>
                     {ServerList}
                 </List>
                 <Divider></Divider>
@@ -145,6 +143,7 @@ function App() {
                     <ThemeSwitcher/>
                     <HomeButton setServ={setActiveServer}/>
                 </div>
+            </div>
             <Server className={'row-span-5 m-5'} id={activeServer}/>
 
             {ServerDrawer}
