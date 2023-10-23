@@ -1,6 +1,6 @@
 name: AASM build
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -24,3 +24,5 @@ jobs:
           build-platform: ${{ matrix.build.platform }}
           nsis: true
           package: true
+      - name: clean unnecessary files
+        run: rm -rf ./Windows
