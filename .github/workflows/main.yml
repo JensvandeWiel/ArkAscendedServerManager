@@ -25,7 +25,7 @@ jobs:
         with:
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
-          build: false
+          build: true
           nsis: true
           package: true
       - name: Create bin directory
