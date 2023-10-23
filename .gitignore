@@ -18,6 +18,8 @@ coverage
 bower_components
 .lock-wscript
 build/Release
+wailsjs/
+package.json.md5
 node_modules/
 jspm_packages/
 web_modules/
