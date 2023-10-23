@@ -22,7 +22,7 @@ jobs:
         with:
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
-          path: ./bin/
+          app-working-directory: ./bin/
           build: false
           nsis: true
           package: true
