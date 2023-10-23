@@ -124,6 +124,11 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 		return Server{}, fmt.Errorf("Error unmarshalling server config file: " + err.Error())
 	}
 
+	// Check if server is correct.
+	if err := CheckIfServerCorrect(serv); err != nil {
+		return Server{}, fmt.Errorf("Parsing server instance failed: " + err.Error())
+	}
+
 	return serv, nil
 }
 
@@ -180,6 +185,12 @@ func (c *ServerController) SaveServer(server Server) bool {
 
 // SaveServerWithError saves the server, and returns an error if it fails
 func (c *ServerController) SaveServerWithError(server Server) error {
+
+	// Check if server is correct.
+	if err := CheckIfServerCorrect(server); err != nil {
+		return fmt.Errorf("Parsing server instance failed: " + err.Error())
+	}
+
 	c.Servers[server.Id] = server
 	serverDir := path.Join(c.serverDir, strconv.Itoa(server.Id))
 
