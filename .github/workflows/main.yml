@@ -22,7 +22,6 @@ jobs:
         with:
           build-name: ${{ matrix.build.name }}
           build-platform: ${{ matrix.build.platform }}
+          build: false
           nsis: true
           package: true
-      - name: clean unnecessary files
-        run: rm -Force ./build/bin/Windows
