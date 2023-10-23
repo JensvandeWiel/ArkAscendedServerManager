@@ -8,7 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         build: [
-          name: wailsTest, platform: windows/amd64, os: windows-latest},
+          {name: wailsTest, platform: windows/amd64, os: windows-latest},
         ]
     runs-on: ${{ matrix.build.os }}
     steps:
