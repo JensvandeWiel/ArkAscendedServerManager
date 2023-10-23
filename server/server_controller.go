@@ -15,7 +15,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/adrg/xdg"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
@@ -126,7 +125,7 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 	}
 
 	// Check if server is correct.
-	if err := helpers.CheckIfServerCorrect(serv); err != nil {
+	if err := CheckIfServerCorrect(serv); err != nil {
 		return Server{}, fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
 
@@ -188,7 +187,7 @@ func (c *ServerController) SaveServer(server Server) bool {
 func (c *ServerController) SaveServerWithError(server Server) error {
 
 	// Check if server is correct.
-	if err := helpers.CheckIfServerCorrect(server); err != nil {
+	if err := CheckIfServerCorrect(server); err != nil {
 		return fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
 
