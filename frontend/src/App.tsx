@@ -141,8 +141,10 @@ function App() {
                         <IconArrowLeft/> Select server
                     </Button>
                 </div>
-                <div className={'ml-auto my-auto mr-8'}><ThemeSwitcher/></div>
-            </div>
+                <div className={'ml-auto my-auto mr-8 gap-2 flex'}>
+                    <ThemeSwitcher/>
+                    <HomeButton setServ={setActiveServer}/>
+                </div>
             <Server className={'row-span-5 m-5'} id={activeServer}/>
 
             {ServerDrawer}
