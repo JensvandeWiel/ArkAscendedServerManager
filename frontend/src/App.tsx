@@ -1,5 +1,6 @@
 import {
     Button,
+    Card,
     DialogActions,
     DialogTitle, Divider,
     Drawer, IconButton, List, ListItem,
@@ -15,8 +16,10 @@ import {CreateServer, GetAllServers, GetAllServersFromDir, GetServerDir} from ".
 import {server} from "../wailsjs/go/models";
 import {BrowserOpenURL, EventsOff, EventsOn, LogDebug, LogError} from "../wailsjs/runtime";
 
-
-
+enum ServerListType {
+    CARD,
+    LIST,
+}
 
 function App() {
     const [activeServer, setActiveServer] = useState<number | undefined>(undefined)
@@ -75,37 +78,57 @@ function App() {
         }).catch((r) => console.error(r))
     }
 
-    const ServerList = (
-        <List>
-            {
-                (servers === null) ? (
-                    <ListItem>
-                        No servers found or failed to find servers
-                    </ListItem>
-                ) : (
-                    Object.keys(servers).map((key) => {
-                        const index = parseInt(key, 10); // The second argument is the base (radix), 10 for base 10 (decimal)
+    function getServerList(serverListType: ServerListType) {
+        return (
+            <>
+                <List className={'flex flex-row flex-wrap items-start'}>
+                {
+                    (servers === null) ? (
+                        <ListItem>
+                            No servers found or failed to find servers
+                        </ListItem>
+                    ) : (
+                        Object.keys(servers).map((key) => {
+                            const index = parseInt(key, 10); // The second argument is the base (radix), 10 for base 10 (decimal)
 
-                        if (isNaN(index)) {
-                            LogError("Parsing server key failed")
-                        }
+                            if (isNaN(index)) {
+                                LogError("Parsing server key failed")
+                            }
 
-                        const server = servers[index]; // Parse the key to a number
-                        return (
-                            <ListItem key={index}>
+                            const server = servers[index]; // Parse the key to a number
+                            if(serverListType === ServerListType.LIST){
+                                return (
+                                    <ListItem key={index}>
+                                        <ListItemButton onClick={() => {setActiveServer(index); setDrawerOpen(false)}}>
+                                            {index}: {server.serverAlias? server.serverAlias : "Unnamed Server"}
+                                        </ListItemButton>
+                                    </ListItem>
+                                );
+                            }
+                            else if(serverListType === ServerListType.CARD){
+                                console.log(server)
+                                return (
+                                    <ListItem className={'w-[calc(100%_*_(1/4))] p-[10px]'} key={index}>
+                                        <Card className={'cursor-pointer w-full'} onClick={() => {setActiveServer(index)}}>
+                                            <div className={'px-2'}>
+                                                <div className={'text-xl font-bold break-all'}>{server.serverAlias? server.serverAlias : "Unnamed Server"}</div>
+                                                <div className={'text-lg mb-2'}>{server.ipAddress}:{server.queryPort}</div>
 
-                                <ListItemButton onClick={() => {setActiveServer(index); setDrawerOpen(false)}}>
-                                    {index}: {server.serverAlias? server.serverAlias : "Unnamed Server"}
-                                </ListItemButton>
-                            </ListItem>
-                        );
-                    })
-                )
-            }
-        </List>
-    )
-
-
+                                                <div>Players: 0/40</div> {/* this still needs to be implemented! */}
+                                                <div>Status: Running</div> {/* this still needs to be implemented! */}
+                                            </div>
+                                        </Card>
+                                    </ListItem>
+                                );
+                            }
+                        })
+                    )
+                }
+                </List>
+                {serverListType === ServerListType.CARD ? <Button className={'ml-[10px]'} onClick={() => handleCreateNewServerClicked()}><IconPlus/> Create new server</Button> : <></>}
+            </>
+        )
+    }
 
     const ServerDrawer = (
             <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} size="md">
@@ -113,7 +136,7 @@ function App() {
 
                 <DialogTitle>Servers:</DialogTitle>
                 <List>
-                    {ServerList}
+                    {getServerList(ServerListType.LIST)}
                 </List>
                 <Divider></Divider>
                 <DialogActions>
@@ -141,7 +164,7 @@ function App() {
             mainUi = (
                 <div className={'row-span-5 m-5'}>
                     <h2>Select a server:</h2>
-                    {ServerList}
+                    {getServerList(ServerListType.CARD)}
                 </div>
             )
         }
