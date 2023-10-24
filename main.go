@@ -16,6 +16,9 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+//go:embed .KEY
+var key string
+
 const (
 	logFilePath = "main.log"
 )
