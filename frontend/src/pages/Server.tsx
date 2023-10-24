@@ -24,7 +24,7 @@ export const Server = ({id, className}: Props) => {
 
     useEffect(() => {
         if (id !== undefined) {
-            GetServer(id).then((s) => setServ(s))
+            GetServer(id).then((s) => setServ(s)).catch((reason) => console.error(reason))
         }
     }, [id]);
 
@@ -32,7 +32,7 @@ export const Server = ({id, className}: Props) => {
         if (serv.id == -1) {
 
         } else {
-            SaveServer(serv)
+            SaveServer(serv).catch((reason) => console.error(reason))
         }
 
 

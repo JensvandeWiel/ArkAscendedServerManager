@@ -70,7 +70,7 @@ function App() {
     const handleCreateNewServerClicked = () => {
         CreateServer(true).then(() => {
             getServers()
-        })
+        }).catch((r) => console.error(r))
     }
 
     const ServerList = (
