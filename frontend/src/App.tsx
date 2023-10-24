@@ -68,8 +68,10 @@ function App() {
     }, []);
 
     const handleCreateNewServerClicked = () => {
-        CreateServer(true).then(() => {
+        CreateServer(true).then((server) => {
             getServers()
+            setActiveServer(server.id)
+            setDrawerOpen(false)
         }).catch((r) => console.error(r))
     }
 
@@ -131,6 +133,28 @@ function App() {
             </Drawer>
     );
 
+    let mainUi = null;
+    if (activeServer !== undefined) {
+        mainUi = <Server id={activeServer} className={'row-span-5 m-5'}/>
+    } else {
+        if(servers !== null && Object.keys(servers).length > 0) {
+            mainUi = (
+                <div className={'row-span-5 m-5'}>
+                    <h2>Select a server:</h2>
+                    {ServerList}
+                </div>
+            )
+        }
+        else {
+            mainUi = (
+                <div className={'row-span-5 m-5'}>
+                    <h2>You have no servers yet!</h2>
+                    <Button onClick={() => handleCreateNewServerClicked()}><IconPlus/> Create new server</Button>
+                </div>
+            )
+        }
+    }
+
     return (
         <div className={'min-h-screen max-h-screen overflow-y-auto flex-col'}>
             <div className={'h-16 flex'}>
@@ -144,7 +168,7 @@ function App() {
                     <HomeButton setServ={setActiveServer}/>
                 </div>
             </div>
-            <Server className={'row-span-5 m-5'} id={activeServer}/>
+            {mainUi}
 
             {ServerDrawer}
         </div>
