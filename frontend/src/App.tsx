@@ -1,5 +1,6 @@
 import {
     Button,
+    Card,
     DialogActions,
     DialogTitle, Divider,
     Drawer, IconButton, List, ListItem,
@@ -7,6 +8,8 @@ import {
     ModalClose, Tooltip,
 } from "@mui/joy";
 import {ThemeSwitcher} from "./components/ThemeSwitcher";
+import {HomeButton} from "./components/HomeButton";
+import { ServerList } from "./components/ServerList";
 import {useEffect, useState} from "react";
 import {Server} from "./pages/Server";
 import {IconArrowLeft, IconExternalLink, IconPlus, IconRefresh} from "@tabler/icons-react";
@@ -14,8 +17,10 @@ import {CreateServer, GetAllServers, GetAllServersFromDir, GetServerDir} from ".
 import {server} from "../wailsjs/go/models";
 import {BrowserOpenURL, EventsOff, EventsOn, LogDebug, LogError} from "../wailsjs/runtime";
 
-
-
+enum ServerListType {
+    CARD,
+    LIST,
+}
 
 function App() {
     const [activeServer, setActiveServer] = useState<number | undefined>(undefined)
@@ -67,54 +72,19 @@ function App() {
     }, []);
 
     const handleCreateNewServerClicked = () => {
-        CreateServer(true).then(() => {
+        CreateServer(true).then((server) => {
             getServers()
+            setActiveServer(server.id)
+            setDrawerOpen(false)
         }).catch((r) => console.error(r))
     }
-
-    const ServerList = (
-        <List>
-            {
-                (servers === null) ? (
-                    <ListItem>
-                        No servers found or failed to find servers
-                    </ListItem>
-                ) : (
-                    Object.keys(servers).map((key) => {
-                        const index = parseInt(key, 10); // The second argument is the base (radix), 10 for base 10 (decimal)
-
-                        if (isNaN(index)) {
-                            LogError("Parsing server key failed")
-                        }
-
-                        const server = servers[index]; // Parse the key to a number
-                        return (
-                            <ListItem key={index}>
-
-                                <ListItemButton onClick={() => {setActiveServer(index); setDrawerOpen(false)}}>
-                                    {index}: {server.serverAlias? server.serverAlias : "Unnamed Server"}
-                                </ListItemButton>
-                            </ListItem>
-                        );
-                    })
-                )
-            }
-        </List>
-    )
-
-
 
     const ServerDrawer = (
             <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} size="md">
                 <ModalClose/>
 
                 <DialogTitle>Servers:</DialogTitle>
-                <List>
-                    <ListItemButton onClick={() => setActiveServer(undefined)}>
-                        None
-                    </ListItemButton>
-                    {ServerList}
-                </List>
+                <ServerList serverListType={ServerListType.LIST} servers={servers} setActiveServer={setActiveServer} setDrawerOpen={setDrawerOpen} handleCreateNewServerClicked={handleCreateNewServerClicked} />
                 <Divider></Divider>
                 <DialogActions>
                     <List>
@@ -133,6 +103,28 @@ function App() {
             </Drawer>
     );
 
+    let mainUi = null;
+    if (activeServer !== undefined) {
+        mainUi = <Server id={activeServer} className={'row-span-5 m-5'}/>
+    } else {
+        if(servers !== null && Object.keys(servers).length > 0) {
+            mainUi = (
+                <div className={'row-span-5 m-5'}>
+                    <h2>Select a server:</h2>
+                    <ServerList serverListType={ServerListType.CARD} servers={servers} setActiveServer={setActiveServer} setDrawerOpen={setDrawerOpen} handleCreateNewServerClicked={handleCreateNewServerClicked} />
+                </div>
+            )
+        }
+        else {
+            mainUi = (
+                <div className={'row-span-5 m-5'}>
+                    <h2>You have no servers yet!</h2>
+                    <Button onClick={() => handleCreateNewServerClicked()}><IconPlus/> Create new server</Button>
+                </div>
+            )
+        }
+    }
+
     return (
         <div className={'min-h-screen max-h-screen overflow-y-auto flex-col'}>
             <div className={'h-16 flex'}>
@@ -141,9 +133,12 @@ function App() {
                         <IconArrowLeft/> Select server
                     </Button>
                 </div>
-                <div className={'ml-auto my-auto mr-8'}><ThemeSwitcher/></div>
+                <div className={'ml-auto my-auto mr-8 gap-2 flex'}>
+                    <ThemeSwitcher/>
+                    <HomeButton setServ={setActiveServer}/>
+                </div>
             </div>
-            <Server className={'row-span-5 m-5'} id={activeServer}/>
+            {mainUi}
 
             {ServerDrawer}
         </div>
