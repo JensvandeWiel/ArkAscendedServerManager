@@ -34,3 +34,9 @@ jobs:
         with:
           name: AASM Installer
           path: build/bin/*.exe
+      - uses: actions/checkout@v3
+      - name: Upload Release Assets
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run:
+          gh release upload ${{ github.ref }} build/bin/*.exe
