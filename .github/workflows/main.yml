@@ -37,11 +37,12 @@ jobs:
       - name: Upload Release Assets
         run: |
           gh api repos/dAppServer/Ark-Ascended-Server-Manager/releases/tags/${{ github.ref }} \
-            -F "release_id=$(gh api repos/dAppServer/Ark-Ascended-Server-Manager/releases/tags/${{ github.ref }} | jq -r .id)" \
-            -F "name=Ark-Ascended-Server-Manager.exe" \
-            -F "label=Win64-Standalone" \
-            -F "data=@build/bin/Ark-Ascended-Server-Manager.exe"
+            -f "release_id=$(gh api repos/dAppServer/Ark-Ascended-Server-Manager/releases/tags/${{ github.ref }} | jq -r .id)" \
+            -f "name=Ark-Ascended-Server-Manager.exe" \
+            -f "label=Win64-Standalone" \
+            -f "data=@build/bin/Ark-Ascended-Server-Manager.exe"
           gh api repos/dAppServer/Ark-Ascended-Server-Manager/releases/tags/${{ github.ref }} \
-            -F "release_id=$(gh api repos/dAppServer/Ark-Ascended-Server-Manager/releases/tags/${{ github.ref }} | jq -r .id)" \
-            -F "name=Ark-Ascended-Server-Manager-amd64-installer.exe" \
-            -F "label=Win64-Installer"
+            -f "release_id=$(gh api repos/dAppServer/Ark-Ascended-Server-Manager/releases/tags/${{ github.ref }} | jq -r .id)" \
+            -f "name=Ark-Ascended-Server-Manager-amd64-installer.exe" \
+            -f "label=Win64-Installer"
+            -f "data=@build/bin/Ark-Ascended-Server-Manager-amd64-installer.exe"
