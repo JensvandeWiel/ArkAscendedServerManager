@@ -27,7 +27,7 @@ jobs:
           build-platform: ${{ matrix.build.platform }}
           build: true
           nsis: true
-          package: true
+          package: false
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
