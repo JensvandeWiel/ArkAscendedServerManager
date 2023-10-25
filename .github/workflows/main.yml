@@ -16,7 +16,7 @@ jobs:
             os: windows-latest
     runs-on: ${{ matrix.build.os }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Set direct proxy
@@ -34,9 +34,10 @@ jobs:
         with:
           name: AASM Installer
           path: build/bin/*.exe
-      - uses: actions/checkout@v3
       - name: Upload Release Assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            build/bin/*.exe
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run:
-          gh release upload ${{ github.ref }} build/bin/*.exe
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
