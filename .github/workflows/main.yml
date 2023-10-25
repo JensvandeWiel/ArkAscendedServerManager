@@ -36,5 +36,5 @@ jobs:
           path: build/bin/*.exe
       - name: Upload Release Assets
         run: |
-          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" --hostname ${{ github.api_url }} /repos/${{ github.repository }}/releases/tag/${{ github.ref }}  -f '@Ark-Ascended-Server-Manager.exe'  -label 'Win64-Standalone'
-          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" --hostname ${{ github.api_url }} /repos/${{ github.repository }}/releases/tag/${{ github.ref }}  -f '@Ark-Ascended-Server-Manager-amd64-installer.exe' -label 'Win64-Installer'
+          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" --hostname ${{ github.api_url }} /repos/${{ github.repository }}/releases/tag/${{ github.ref }}  -f '@Ark-Ascended-Server-Manager.exe'  -F label="Win64-Standalone"
+          gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" --hostname ${{ github.api_url }} /repos/${{ github.repository }}/releases/tag/${{ github.ref }}  -f '@Ark-Ascended-Server-Manager-amd64-installer.exe' -F label="Win64-Installer"
