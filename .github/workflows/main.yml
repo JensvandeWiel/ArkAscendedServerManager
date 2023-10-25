@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: Windows
+          - name: 
             platform: windows/amd64
             os: windows-latest
     runs-on: ${{ matrix.build.os }}
@@ -28,7 +28,7 @@ jobs:
           build-platform: ${{ matrix.build.platform }}
           build: true
           nsis: true
-          package: false
+          package: true
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
@@ -38,6 +38,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            build/bin/*.exe
+            build/bin/Ark Ascended Server Manager.exe
+            build/bin/Ark Ascended Server Manager-amd64-installer.exe
+          name: |
+            Win64Standalone
+            Win64Installer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
