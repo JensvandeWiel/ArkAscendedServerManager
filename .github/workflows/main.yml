@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: "Ark Ascended Server Manager.exe"
+          - name: "Ark-Ascended-Server-Manager.exe"
             platform: windows/amd64
             os: windows-latest
     runs-on: ${{ matrix.build.os }}
@@ -35,13 +35,8 @@ jobs:
           name: AASM Installer
           path: build/bin/*.exe
       - name: Upload Release Assets
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            build/bin/Ark Ascended Server Manager.exe
-            build/bin/Ark Ascended Server Manager-amd64-installer.exe
-          name: |
-            Win64-Standalone
-            Win64-Installer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload ${{ github.ref }} build/bin/Ark-Ascended-Server-Manager.exe --clobber --label "Win64-Standalone"
+          gh release upload ${{ github.ref }} build/bin/Ark-Ascended-Server-Manager-amd64-installer.exe --clobber --label "Win64-Installer"
