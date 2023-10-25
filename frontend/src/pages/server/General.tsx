@@ -39,7 +39,7 @@ export function General({serv, setServ}: Props) {
     ));
 
     useEffect(() => {
-        GetNetworkInterfacesIp().then((val) => setInterfaces(val))
+        GetNetworkInterfacesIp().then((val) => setInterfaces(val)).catch((reason) => console.error(reason))
 
     }, []);
 
