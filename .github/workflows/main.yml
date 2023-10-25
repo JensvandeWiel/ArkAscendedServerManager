@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: 
+          - name: "Ark Ascended Server Manager.exe"
             platform: windows/amd64
             os: windows-latest
     runs-on: ${{ matrix.build.os }}
@@ -41,7 +41,7 @@ jobs:
             build/bin/Ark Ascended Server Manager.exe
             build/bin/Ark Ascended Server Manager-amd64-installer.exe
           name: |
-            Win64Standalone
-            Win64Installer
+            Win64-Standalone
+            Win64-Installer
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
