@@ -2,7 +2,8 @@ name: AASM build
 
 on:
   push:
-  pull_request:
+    tags:
+      - v*.**
 
 jobs:
   build:
