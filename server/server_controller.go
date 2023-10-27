@@ -33,6 +33,8 @@ type ServerController struct {
 	serverDir string
 }
 
+//region Struct Initialization and Creation
+
 // NewServerController creates a new ServerController application struct
 func NewServerController() *ServerController {
 	return &ServerController{
@@ -53,16 +55,9 @@ func (c *ServerController) Startup(ctx context.Context) {
 	c.serverDir = serverDir
 }
 
-// GetServer returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map. It can error which is catch-able in the frontend
-func (c *ServerController) GetServer(id int) (Server, error) {
-	server, err := c.GetServerWithError(id)
-	if err != nil {
-		newErr := fmt.Errorf("Failed getting server: " + strconv.Itoa(id) + " with: " + err.Error())
-		runtime.LogError(c.ctx, newErr.Error())
-		return server, newErr
-	}
-	return server, nil
-}
+//endregion
+
+//region Saving and Loading
 
 // GetServerWithError returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map.
 func (c *ServerController) GetServerWithError(id int) (Server, error) {
@@ -81,68 +76,6 @@ func (c *ServerController) GetServerWithError(id int) (Server, error) {
 		runtime.EventsEmit(c.ctx, "gotServer", server.Id)
 		return server, nil
 	}
-}
-
-// getServerFromDir gets the server from the server dir if it does not exist and shouldReturnNew is true it returns a new server.
-func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Server, error) {
-	serverDir := path.Join(c.serverDir, strconv.Itoa(id))
-
-	/*// Check if config dir exists
-	if _, err := os.Stat(serverDir); os.IsNotExist(err) {
-		runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning new server instance")
-		return Server{
-			id: id,
-		}
-	}*/
-
-	// If config file does not exist return a new instance
-	_, err := os.Stat(path.Join(serverDir, configFileName))
-	if err != nil {
-		if os.IsNotExist(err) {
-			if shouldReturnNew {
-				runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning new server instance")
-				return Server{
-					Id: id,
-				}, nil
-			} else {
-				runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning empty server instance, with error \"Server does not exist\"")
-				return Server{}, fmt.Errorf("server does not exist")
-			}
-		}
-		return Server{}, fmt.Errorf("Error reading server config file: " + err.Error())
-	}
-
-	//It exists so read the file
-	scf, err := os.ReadFile(path.Join(serverDir, configFileName))
-	if err != nil {
-		return Server{}, fmt.Errorf("Error reading server config file: " + err.Error())
-	}
-
-	serv := Server{}
-
-	err = json.Unmarshal(scf, &serv)
-	if err != nil {
-		return Server{}, fmt.Errorf("Error unmarshalling server config file: " + err.Error())
-	}
-
-	// Check if server is correct.
-	if err := CheckIfServerCorrect(serv); err != nil {
-		return Server{}, fmt.Errorf("Parsing server instance failed: " + err.Error())
-	}
-
-	return serv, nil
-}
-
-// CreateServer Creates a new server, returns it and adds it to the map. If it fails it returns an error which is catch-able in the Frontend.
-func (c *ServerController) CreateServer(saveToConfig bool) (Server, error) {
-	_, server, err := c.CreateServerWithError(saveToConfig)
-	if err != nil {
-		newErr := fmt.Errorf("Failed saving new server: " + err.Error())
-		runtime.LogError(c.ctx, newErr.Error())
-		return Server{}, newErr
-	}
-	return server, nil
-
 }
 
 // CreateServerWithError Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns an error and an empty server and int -1
@@ -173,17 +106,6 @@ func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server
 	runtime.EventsEmit(c.ctx, "serverCreated", NewServer.Id)
 
 	return id, NewServer, nil
-}
-
-// SaveServer saves the server with the given id, and returns bool if successful
-func (c *ServerController) SaveServer(server Server) error {
-	err := c.SaveServerWithError(server)
-	if err != nil {
-		newErr := fmt.Errorf("Error saving server: " + err.Error())
-		runtime.LogError(c.ctx, newErr.Error())
-		return newErr
-	}
-	return nil
 }
 
 // SaveServerWithError saves the server, and returns an error if it fails
@@ -220,18 +142,6 @@ func (c *ServerController) SaveServerWithError(server Server) error {
 	runtime.EventsEmit(c.ctx, "serverSaved", server.Id)
 
 	return nil
-}
-
-// GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
-func (c *ServerController) GetAllServers() (map[int]Server, error) {
-
-	servers, err := c.GetAllServersWithError()
-	if err != nil {
-		newErr := fmt.Errorf("Failed to get all servers " + c.serverDir + " error: " + err.Error())
-		runtime.LogError(c.ctx, newErr.Error())
-		return nil, newErr
-	}
-	return servers, nil
 }
 
 // GetAllServersWithError gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
@@ -321,3 +231,109 @@ func (c *ServerController) GetAllServersFromDir() (map[int]Server, error) {
 
 	return c.Servers, nil
 }
+
+//region Boilerplate functions
+
+// GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
+func (c *ServerController) GetAllServers() (map[int]Server, error) {
+
+	servers, err := c.GetAllServersWithError()
+	if err != nil {
+		newErr := fmt.Errorf("Failed to get all servers " + c.serverDir + " error: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return nil, newErr
+	}
+	return servers, nil
+}
+
+// SaveServer saves the server with the given id, and returns bool if successful
+func (c *ServerController) SaveServer(server Server) error {
+	err := c.SaveServerWithError(server)
+	if err != nil {
+		newErr := fmt.Errorf("Error saving server: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+	return nil
+}
+
+// GetServer returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map. It can error which is catch-able in the frontend
+func (c *ServerController) GetServer(id int) (Server, error) {
+	server, err := c.GetServerWithError(id)
+	if err != nil {
+		newErr := fmt.Errorf("Failed getting server: " + strconv.Itoa(id) + " with: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return server, newErr
+	}
+	return server, nil
+}
+
+// CreateServer Creates a new server, returns it and adds it to the map. If it fails it returns an error which is catch-able in the Frontend.
+func (c *ServerController) CreateServer(saveToConfig bool) (Server, error) {
+	_, server, err := c.CreateServerWithError(saveToConfig)
+	if err != nil {
+		newErr := fmt.Errorf("Failed saving new server: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return Server{}, newErr
+	}
+	return server, nil
+
+}
+
+//region Private
+
+// getServerFromDir gets the server from the server dir if it does not exist and shouldReturnNew is true it returns a new server.
+func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Server, error) {
+	serverDir := path.Join(c.serverDir, strconv.Itoa(id))
+
+	/*// Check if config dir exists
+	if _, err := os.Stat(serverDir); os.IsNotExist(err) {
+		runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning new server instance")
+		return Server{
+			id: id,
+		}
+	}*/
+
+	// If config file does not exist return a new instance
+	_, err := os.Stat(path.Join(serverDir, configFileName))
+	if err != nil {
+		if os.IsNotExist(err) {
+			if shouldReturnNew {
+				runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning new server instance")
+				return Server{
+					Id: id,
+				}, nil
+			} else {
+				runtime.LogDebug(c.ctx, "Server config "+strconv.Itoa(id)+" does not exist, returning empty server instance, with error \"Server does not exist\"")
+				return Server{}, fmt.Errorf("server does not exist")
+			}
+		}
+		return Server{}, fmt.Errorf("Error reading server config file: " + err.Error())
+	}
+
+	//It exists so read the file
+	scf, err := os.ReadFile(path.Join(serverDir, configFileName))
+	if err != nil {
+		return Server{}, fmt.Errorf("Error reading server config file: " + err.Error())
+	}
+
+	serv := Server{}
+
+	err = json.Unmarshal(scf, &serv)
+	if err != nil {
+		return Server{}, fmt.Errorf("Error unmarshalling server config file: " + err.Error())
+	}
+
+	// Check if server is correct.
+	if err := CheckIfServerCorrect(serv); err != nil {
+		return Server{}, fmt.Errorf("Parsing server instance failed: " + err.Error())
+	}
+
+	return serv, nil
+}
+
+//endregion
+
+//endregion
+
+//endregion
