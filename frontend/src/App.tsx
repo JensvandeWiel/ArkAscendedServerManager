@@ -89,8 +89,8 @@ function App() {
                 <DialogActions>
                     <List>
                         <ListItem>
-                            <Tooltip title={'Reload servers from disk'}><IconButton  color={'danger'} variant={"solid"}  onClick={() => getServersFromDir()}><IconRefresh/></IconButton></Tooltip>
-                            <Tooltip title={'Refresh server list from cache'}><IconButton onClick={() => getServers()}><IconRefresh/></IconButton></Tooltip>
+                            <Tooltip title={'Reload servers from disk'}><IconButton  color={'danger'} variant={"solid"}  onClick={() => {getServersFromDir(); setActiveServer(undefined)}}><IconRefresh/></IconButton></Tooltip>
+                            <Tooltip title={'Refresh server list from cache'}><IconButton onClick={() => {getServers(); setActiveServer(undefined)}}><IconRefresh/></IconButton></Tooltip>
                             <Tooltip title={'Open servers folder'}><IconButton onClick={() => {GetServerDir().then((dir: string) => BrowserOpenURL("file:///" + dir))}}><IconExternalLink/></IconButton></Tooltip>
                         </ListItem>
                         <ListItem>

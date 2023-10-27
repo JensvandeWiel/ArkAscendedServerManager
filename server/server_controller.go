@@ -188,7 +188,6 @@ func (c *ServerController) SaveServer(server Server) error {
 
 // SaveServerWithError saves the server, and returns an error if it fails
 func (c *ServerController) SaveServerWithError(server Server) error {
-
 	// Check if server is correct.
 	if err := CheckIfServerCorrect(server); err != nil {
 		return fmt.Errorf("Parsing server instance failed: " + err.Error())
@@ -223,7 +222,7 @@ func (c *ServerController) SaveServerWithError(server Server) error {
 	return nil
 }
 
-// GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. If they already exist in the map it will just get that.
+// GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
 func (c *ServerController) GetAllServers() (map[int]Server, error) {
 
 	servers, err := c.GetAllServersWithError()
@@ -232,13 +231,12 @@ func (c *ServerController) GetAllServers() (map[int]Server, error) {
 		runtime.LogError(c.ctx, newErr.Error())
 		return nil, newErr
 	}
-
-	c.Servers = servers
-	return c.Servers, nil
+	return servers, nil
 }
 
-// GetAllServersWithError gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and false. If they already exist in the map it will just get that.
+// GetAllServersWithError gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
 func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
+
 	allServerDir := c.serverDir
 
 	if _, err := os.Stat(allServerDir); err != nil {
