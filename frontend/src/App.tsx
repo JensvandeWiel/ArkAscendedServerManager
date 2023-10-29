@@ -1,4 +1,5 @@
 import {
+    Alert,
     Button,
     Card,
     DialogActions,
@@ -15,7 +16,8 @@ import {Server} from "./pages/Server";
 import {IconArrowLeft, IconExternalLink, IconPlus, IconRefresh} from "@tabler/icons-react";
 import {CreateServer, GetAllServers, GetAllServersFromDir, GetServerDir} from "../wailsjs/go/server/ServerController";
 import {server} from "../wailsjs/go/models";
-import {BrowserOpenURL, EventsOff, EventsOn, LogDebug, LogError} from "../wailsjs/runtime";
+import {BrowserOpenURL, EventsOff, EventsOn, LogDebug} from "../wailsjs/runtime";
+import {AlertProvider} from "./components/AlertProvider";
 
 enum ServerListType {
     CARD,
@@ -26,6 +28,10 @@ function App() {
     const [activeServer, setActiveServer] = useState<number | undefined>(undefined)
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [servers, setServers] = useState<{[key: number]: server.Server}|null>(null);
+
+
+
+
 
     //This gets all the servers but if one server is changed manually it does not update it!
     function getServers() {
@@ -61,6 +67,7 @@ function App() {
 
     useEffect(() => {
         getServers()
+
     }, []);
 
     //events
@@ -125,22 +132,27 @@ function App() {
         }
     }
 
-    return (
-        <div className={'min-h-screen max-h-screen overflow-y-auto flex-col'}>
-            <div className={'h-16 flex'}>
-                <div className={'text-lg font-bold ml-8 my-auto'}>
-                    <Button color={'neutral'} variant={'soft'} onClick={() => setDrawerOpen(true)}>
-                        <IconArrowLeft/> Select server
-                    </Button>
-                </div>
-                <div className={'ml-auto my-auto mr-8 gap-2 flex'}>
-                    <ThemeSwitcher/>
-                    <HomeButton setServ={setActiveServer}/>
-                </div>
-            </div>
-            {mainUi}
 
-            {ServerDrawer}
+
+
+    return (
+        <div className={'min-h-screen max-h-screen overflow-y-auto flex-col flex'}>
+            <AlertProvider>
+                <div className={'h-16 flex'}>
+                    <div className={'text-lg font-bold ml-8 my-auto'}>
+                        <Button color={'neutral'} variant={'soft'} onClick={() => setDrawerOpen(true)}>
+                            <IconArrowLeft/> Select server
+                        </Button>
+                    </div>
+                    <div className={'ml-auto my-auto mr-8 gap-2 flex'}>
+                        <ThemeSwitcher/>
+                        <HomeButton setServ={setActiveServer}/>
+                    </div>
+                </div>
+                {mainUi}
+
+                {ServerDrawer}
+            </AlertProvider>
         </div>
     )
 }

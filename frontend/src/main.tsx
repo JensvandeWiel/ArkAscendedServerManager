@@ -1,16 +1,15 @@
 import React from 'react'
-import ReactDOM, {createRoot} from 'react-dom/client'
+import {createRoot} from 'react-dom/client'
 import App from './App'
 import './index.css'
 import '@fontsource-variable/inter';
 import {
-    Button,
     CssBaseline,
     CssVarsProvider,
-    getInitColorSchemeScript,
     StyledEngineProvider,
-    useColorScheme
 } from "@mui/joy";
+
+
 
 const container = document.getElementById('root')
 

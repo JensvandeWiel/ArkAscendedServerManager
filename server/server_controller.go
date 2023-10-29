@@ -60,7 +60,7 @@ func (c *ServerController) Startup(ctx context.Context) {
 //region Saving and Loading
 
 // GetServerWithError returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map.
-func (c *ServerController) GetServerWithError(id int) (Server, error) {
+func (c *ServerController) GetServerWithError(id int, addToMap bool) (Server, error) {
 	server, exists := c.Servers[id]
 	// If it does not exist in the map check the server dir
 	if !exists {
@@ -69,7 +69,10 @@ func (c *ServerController) GetServerWithError(id int) (Server, error) {
 			return Server{}, fmt.Errorf("Error getting server instance: %s", err.Error())
 		}
 
-		c.Servers[id] = s
+		if addToMap {
+			c.Servers[id] = s
+		}
+
 		runtime.EventsEmit(c.ctx, "gotServer", s.Id)
 		return s, nil
 	} else {
@@ -170,7 +173,7 @@ func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
 				return nil, fmt.Errorf("Failed to parse to int: " + child.Name() + " error: " + err.Error())
 			}
 
-			server, err := c.GetServerWithError(index)
+			server, err := c.GetServerWithError(index, false)
 			if err != nil {
 				return nil, fmt.Errorf("Failed to get server: " + child.Name() + " error: " + err.Error())
 			}
@@ -259,7 +262,7 @@ func (c *ServerController) SaveServer(server Server) error {
 
 // GetServer returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map. It can error which is catch-able in the frontend
 func (c *ServerController) GetServer(id int) (Server, error) {
-	server, err := c.GetServerWithError(id)
+	server, err := c.GetServerWithError(id, true)
 	if err != nil {
 		newErr := fmt.Errorf("Failed getting server: " + strconv.Itoa(id) + " with: " + err.Error())
 		runtime.LogError(c.ctx, newErr.Error())
@@ -335,5 +338,25 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 //endregion
 
 //endregion
+
+//endregion
+
+//region ServerController helper functions
+
+// CheckServerInstalled Checks if the server dir exists.
+//
+// TODO: This should check more in depth.
+func (c *ServerController) CheckServerInstalled(id int) (bool, error) {
+
+	server := c.Servers[id]
+
+	if _, err := os.Stat(path.Join(server.ServerPath, "\\ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe")); os.IsNotExist(err) {
+		return false, nil
+	} else if err != nil {
+		return false, fmt.Errorf("error checking if server installed: %v", err)
+	}
+
+	return true, nil
+}
 
 //endregion
