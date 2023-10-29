@@ -341,6 +341,49 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 
 //endregion
 
+//region Server starting & stopping
+
+// StartServer starts the server. It will only start a server that exists in the map
+func (c *ServerController) StartServer(id int) error {
+
+	server, exists := c.Servers[id]
+	if !exists {
+		err := fmt.Errorf("error starting server " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	err := server.Start()
+	if err != nil {
+		err := fmt.Errorf("error starting server " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	return nil
+}
+
+func (c *ServerController) ForceStopServer(id int) error {
+
+	server, exists := c.Servers[id]
+	if !exists {
+		err := fmt.Errorf("error starting server " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	err := server.ForceStop()
+	if err != nil {
+		err := fmt.Errorf("error starting server " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	return nil
+}
+
+//endregion
+
 //region ServerController helper functions
 
 // CheckServerInstalled Checks if the server dir exists.

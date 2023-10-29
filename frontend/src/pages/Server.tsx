@@ -3,8 +3,15 @@ import {Settings} from "./server/Settings";
 import {General} from "./server/General";
 import {useEffect, useState} from "react";
 import {server} from "../../wailsjs/go/models";
-import {CheckServerInstalled, GetServer, SaveServer} from "../../wailsjs/go/server/ServerController";
+import {
+    CheckServerInstalled,
+    ForceStopServer,
+    GetServer,
+    SaveServer,
+    StartServer
+} from "../../wailsjs/go/server/ServerController";
 import {InstallUpdater} from "./InstallUpdater";
+import {useAlert} from "../components/AlertProvider";
 
 
 type Props = {
@@ -23,6 +30,7 @@ export const Server = ({id, className}: Props) => {
 
     const [serv, setServ] = useState<server.Server>(defaultServer)
     const [isInstalled, setIsInstalled] = useState(false)
+    const {addAlert} = useAlert()
 
     useEffect(() => {
         if (serv.id >= 0) {
@@ -46,6 +54,14 @@ export const Server = ({id, className}: Props) => {
 
     }, [serv]);
 
+    function onServerStartButtonClicked() {
+        StartServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)})
+    }
+
+    function onServerStopButtonClicked() {
+        ForceStopServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)})
+    }
+
 
     if (id !== undefined) {
         return (
@@ -57,8 +73,8 @@ export const Server = ({id, className}: Props) => {
 
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
-                                <Button color={'success'} variant="solid">Start</Button>
-                                <Button color={'danger'} variant="solid">Stop</Button>
+                                <Button color={'success'} variant="solid" onClick={onServerStartButtonClicked}>Start</Button>
+                                <Button color={'danger'} variant="solid" onClick={onServerStopButtonClicked}>Stop</Button>
                             </ButtonGroup>
                         </div>
                     </div>
