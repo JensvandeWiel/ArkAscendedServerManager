@@ -29,7 +29,7 @@ const (
 // ServerController struct
 type ServerController struct {
 	ctx       context.Context
-	Servers   map[int]Server
+	Servers   map[int]*Server
 	serverDir string
 }
 
@@ -38,7 +38,7 @@ type ServerController struct {
 // NewServerController creates a new ServerController application struct
 func NewServerController() *ServerController {
 	return &ServerController{
-		Servers: make(map[int]Server),
+		Servers: make(map[int]*Server),
 	}
 }
 
@@ -70,14 +70,14 @@ func (c *ServerController) GetServerWithError(id int, addToMap bool) (Server, er
 		}
 
 		if addToMap {
-			c.Servers[id] = s
+			c.Servers[id] = &s
 		}
 
 		runtime.EventsEmit(c.ctx, "gotServer", s.Id)
 		return s, nil
 	} else {
 		runtime.EventsEmit(c.ctx, "gotServer", server.Id)
-		return server, nil
+		return *server, nil
 	}
 }
 
@@ -96,7 +96,7 @@ func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server
 	}
 
 	NewServer := generateNewDefaultServer(id)
-	c.Servers[id] = NewServer
+	c.Servers[id] = &NewServer
 
 	if saveToConfig {
 		err := c.SaveServerWithError(c.Servers[id])
@@ -112,9 +112,9 @@ func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server
 }
 
 // SaveServerWithError saves the server, and returns an error if it fails
-func (c *ServerController) SaveServerWithError(server Server) error {
+func (c *ServerController) SaveServerWithError(server *Server) error {
 	// Check if server is correct.
-	if err := CheckIfServerCorrect(server); err != nil {
+	if err := CheckIfServerCorrect(*server); err != nil {
 		return fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
 
@@ -148,7 +148,7 @@ func (c *ServerController) SaveServerWithError(server Server) error {
 }
 
 // GetAllServersWithError gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
-func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
+func (c *ServerController) GetAllServersWithError() (map[int]*Server, error) {
 
 	allServerDir := c.serverDir
 
@@ -164,7 +164,7 @@ func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
 		return nil, fmt.Errorf("Failed to read children in " + c.serverDir + " error: " + err.Error())
 	}
 
-	servers := make(map[int]Server)
+	servers := make(map[int]*Server)
 
 	for _, child := range children {
 		if child.IsDir() {
@@ -178,7 +178,7 @@ func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
 				return nil, fmt.Errorf("Failed to get server: " + child.Name() + " error: " + err.Error())
 			}
 
-			servers[index] = server
+			servers[index] = &server
 		}
 	}
 
@@ -188,7 +188,7 @@ func (c *ServerController) GetAllServersWithError() (map[int]Server, error) {
 }
 
 // GetAllServersFromDir gets all servers from dir and saves them to ServerController.Servers and also returns them, if it fails it returns nil and an error which is catch-able in the frontend. This will overwrite c.Servers!
-func (c *ServerController) GetAllServersFromDir() (map[int]Server, error) {
+func (c *ServerController) GetAllServersFromDir() (map[int]*Server, error) {
 	allserverDir := c.serverDir
 
 	if _, err := os.Stat(allserverDir); err != nil {
@@ -209,7 +209,7 @@ func (c *ServerController) GetAllServersFromDir() (map[int]Server, error) {
 		return nil, newErr
 	}
 
-	servers := make(map[int]Server)
+	servers := make(map[int]*Server)
 
 	for _, child := range children {
 		if child.IsDir() {
@@ -226,7 +226,7 @@ func (c *ServerController) GetAllServersFromDir() (map[int]Server, error) {
 				runtime.LogError(c.ctx, newErr.Error())
 				return nil, newErr
 			}
-			servers[index] = server
+			servers[index] = &server
 		}
 	}
 
@@ -246,12 +246,19 @@ func (c *ServerController) GetAllServers() (map[int]Server, error) {
 		runtime.LogError(c.ctx, newErr.Error())
 		return nil, newErr
 	}
-	return servers, nil
+
+	newMap := make(map[int]Server)
+
+	// Copy the data from the original map to the new map
+	for key, value := range servers {
+		newMap[key] = *value
+	}
+	return newMap, nil
 }
 
 // SaveServer saves the server with the given id, and returns bool if successful
 func (c *ServerController) SaveServer(server Server) error {
-	err := c.SaveServerWithError(server)
+	err := c.SaveServerWithError(&server)
 	if err != nil {
 		newErr := fmt.Errorf("Error saving server: " + err.Error())
 		runtime.LogError(c.ctx, newErr.Error())

@@ -13,7 +13,7 @@ type GameUserSettings struct {
 }
 
 type Server struct {
-	Command *exec.Cmd
+	Command *exec.Cmd `json:"-"`
 
 	//CONFIGURATION VARIABLES
 
@@ -55,6 +55,10 @@ func (s *Server) Start() error {
 	err := s.UpdateConfig()
 	if err != nil {
 		return fmt.Errorf("error starting server: failed updating server configuration: %v", err)
+	}
+
+	if s.Command != nil {
+		return fmt.Errorf("error starting server: server is already started")
 	}
 
 	args := " TheIsland_WP?listen?SessionName=" + s.ServerName + "?Port=" + strconv.Itoa(s.ServerPort) + "?QueryPort=" + strconv.Itoa(s.QueryPort) + "?RCONEnabled=True?RCONServerGameLogBuffer=600?RCONPort=" + strconv.Itoa(s.RCONPort) + "?MaxPlayers=32?ServerAdminPassword=" + s.AdminPassword
