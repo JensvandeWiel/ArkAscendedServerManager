@@ -11,7 +11,7 @@ import (
 
 // region Local Helpers
 // findHighestKey returns the highest key in a map with int as key
-func findHighestKey(m map[int]Server) int {
+func findHighestKey(m map[int]*Server) int {
 	var highestKey int = -1
 
 	for key := range m {
