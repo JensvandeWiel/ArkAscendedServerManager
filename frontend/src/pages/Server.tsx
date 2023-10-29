@@ -1,9 +1,17 @@
-import {Button, ButtonGroup, Card, IconButton, Input, Tab, TabList, TabPanel, Tabs} from "@mui/joy";
+import {Button, ButtonGroup, Card, Input, Tab, TabList, Tabs} from "@mui/joy";
 import {Settings} from "./server/Settings";
 import {General} from "./server/General";
 import {useEffect, useState} from "react";
 import {server} from "../../wailsjs/go/models";
-import {GetServer, SaveServer} from "../../wailsjs/go/server/ServerController";
+import {
+    CheckServerInstalled,
+    ForceStopServer,
+    GetServer,
+    SaveServer,
+    StartServer
+} from "../../wailsjs/go/server/ServerController";
+import {InstallUpdater} from "./InstallUpdater";
+import {useAlert} from "../components/AlertProvider";
 
 
 type Props = {
@@ -21,6 +29,14 @@ export const Server = ({id, className}: Props) => {
 
 
     const [serv, setServ] = useState<server.Server>(defaultServer)
+    const [isInstalled, setIsInstalled] = useState(false)
+    const {addAlert} = useAlert()
+
+    useEffect(() => {
+        if (serv.id >= 0) {
+            CheckServerInstalled(serv.id).then((val) => setIsInstalled(val)).catch((reason) => console.error(reason))
+        }
+    }, [serv]);
 
     useEffect(() => {
         if (id !== undefined) {
@@ -38,19 +54,27 @@ export const Server = ({id, className}: Props) => {
 
     }, [serv]);
 
+    function onServerStartButtonClicked() {
+        StartServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)})
+    }
+
+    function onServerStopButtonClicked() {
+        ForceStopServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)})
+    }
+
 
     if (id !== undefined) {
         return (
             <Card className={className}>
-                <Tabs size="sm" className={'flex h-full w-full overflow-y-auto'}>
+                {isInstalled? (<Tabs size="sm" className={'flex h-full w-full overflow-y-auto'}>
                     <div className={'h-16 flex w-full'}>
                         <p className={'text-lg font-bold ml-8'}>{}<Input value={serv?.serverAlias} onChange={(e) => setServ((p) => ({ ...p, serverAlias: e.target.value }))}/></p>
 
 
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
-                                <Button color={'success'} variant="solid">Start</Button>
-                                <Button color={'danger'} variant="solid">Stop</Button>
+                                <Button color={'success'} variant="solid" onClick={onServerStartButtonClicked}>Start</Button>
+                                <Button color={'danger'} variant="solid" onClick={onServerStopButtonClicked}>Stop</Button>
                             </ButtonGroup>
                         </div>
                     </div>
@@ -63,7 +87,7 @@ export const Server = ({id, className}: Props) => {
                     </TabList>
                     <General serv={serv} setServ={setServ}/>
                     <Settings/>
-                </Tabs>
+                </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}
             </Card>
         );
     } else {
