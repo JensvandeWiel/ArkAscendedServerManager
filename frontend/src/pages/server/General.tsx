@@ -45,7 +45,7 @@ export function General({serv, setServ}: Props) {
         <TabPanel className={'space-y-8'}>
             {/* Server Name and Passwords */}
             <Card variant="soft"  className={''}>
-                <Typography level="title-md">0.
+                <Typography level="title-md">
                     Server Name and Passwords
                 </Typography>
                 <Divider className={'mx-2'}/>

@@ -8,6 +8,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"io"
 	"strconv"
+	"strings"
 )
 
 type InstallerController struct {
@@ -31,7 +32,7 @@ Events:
 */
 
 // Install installs the server and returns true is successful and error and false if failed
-func (c *InstallerController) Install(installPath string) (error, bool) {
+func (c *InstallerController) Install(installPath string) error {
 
 	prompts := []*gosteamcmd.Prompt{
 		gosteamcmd.ForceInstallDir(installPath),
@@ -68,11 +69,19 @@ func (c *InstallerController) Install(installPath string) (error, bool) {
 	i, err := cmd.Run()
 
 	if err != nil {
-		return fmt.Errorf("failed to install: " + err.Error()), false
+
+		if strings.Contains(err.Error(), "The system cannot find the file specified") {
+			runtime.LogError(c.ctx, "failed to install: "+err.Error()+" (this is likely because STEAMCMD is not installed to path)")
+			return fmt.Errorf("failed to install: " + err.Error() + " (this is likely because STEAMCMD is not installed to path)")
+		} else {
+			runtime.LogError(c.ctx, "failed to install: "+err.Error())
+			return fmt.Errorf("failed to install: " + err.Error())
+		}
+
 	}
 
 	if i != 0 {
-		return fmt.Errorf("failed to install: returned non 0 retorn code: " + strconv.Itoa(int(i))), false
+		return fmt.Errorf("failed to install: returned non 0 return code: " + strconv.Itoa(int(i)))
 	}
-	return nil, true
+	return nil
 }

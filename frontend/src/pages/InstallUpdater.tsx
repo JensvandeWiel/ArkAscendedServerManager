@@ -40,7 +40,14 @@ export function InstallUpdater({setServ, serv, onInstalled}: Props) {
             return
         }
         setInstallerModalOpen(true)
-        Install(serv.serverPath).catch((err) => {setAction("failed installing: " + err.message); console.error(err); addAlert("Installer failed: " + err, "danger")})
+        Install(serv.serverPath).catch((err) => {
+            setAction("failed installing: " + err.message);
+            setInstallerModalOpen(false);
+            console.error(err);
+            addAlert("Installer failed: " + err, "danger")
+
+
+        })
     }
 
     useEffect(() => {

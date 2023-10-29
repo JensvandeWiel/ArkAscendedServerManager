@@ -60,13 +60,13 @@ func (c *ServerController) Startup(ctx context.Context) {
 //region Saving and Loading
 
 // GetServerWithError returns the server with the given id if it does not exist it returns an empty server. This function checks the server dir too. If it does not exist in the map, and it does in the dir then it will add it to the map.
-func (c *ServerController) GetServerWithError(id int, addToMap bool) (Server, error) {
+func (c *ServerController) GetServerWithError(id int, addToMap bool) (*Server, error) {
 	server, exists := c.Servers[id]
 	// If it does not exist in the map check the server dir
 	if !exists {
 		s, err := c.getServerFromDir(id, false)
 		if err != nil {
-			return Server{}, fmt.Errorf("Error getting server instance: %s", err.Error())
+			return nil, fmt.Errorf("Error getting server instance: %s", err.Error())
 		}
 
 		if addToMap {
@@ -74,25 +74,25 @@ func (c *ServerController) GetServerWithError(id int, addToMap bool) (Server, er
 		}
 
 		runtime.EventsEmit(c.ctx, "gotServer", s.Id)
-		return s, nil
+		return &s, nil
 	} else {
 		runtime.EventsEmit(c.ctx, "gotServer", server.Id)
-		return *server, nil
+		return server, nil
 	}
 }
 
 // CreateServerWithError Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns an error and an empty server and int -1
-func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server, error) {
+func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, *Server, error) {
 	// get the highest in to generate new id
 	maxKey := findHighestKey(c.Servers)
 	id := maxKey + 1
 	if _, exists := c.Servers[id]; exists {
-		return -1, Server{}, fmt.Errorf("Found a server with an key higher than the maximum key, max key: " + strconv.Itoa(maxKey) + " exists: " + strconv.Itoa(id))
+		return -1, nil, fmt.Errorf("Found a server with an key higher than the maximum key, max key: " + strconv.Itoa(maxKey) + " exists: " + strconv.Itoa(id))
 	}
 
 	// Check if it exists
 	if _, exists := c.Servers[id]; exists {
-		return -1, Server{}, fmt.Errorf("Found a server with new key in c.Servers key: " + strconv.Itoa(id))
+		return -1, nil, fmt.Errorf("Found a server with new key in c.Servers key: " + strconv.Itoa(id))
 	}
 
 	NewServer := generateNewDefaultServer(id)
@@ -108,7 +108,7 @@ func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, Server
 
 	runtime.EventsEmit(c.ctx, "serverCreated", NewServer.Id)
 
-	return id, NewServer, nil
+	return id, &NewServer, nil
 }
 
 // SaveServerWithError saves the server, and returns an error if it fails
@@ -178,7 +178,7 @@ func (c *ServerController) GetAllServersWithError() (map[int]*Server, error) {
 				return nil, fmt.Errorf("Failed to get server: " + child.Name() + " error: " + err.Error())
 			}
 
-			servers[index] = &server
+			servers[index] = server
 		}
 	}
 
@@ -258,7 +258,19 @@ func (c *ServerController) GetAllServers() (map[int]Server, error) {
 
 // SaveServer saves the server with the given id, and returns bool if successful
 func (c *ServerController) SaveServer(server Server) error {
-	err := c.SaveServerWithError(&server)
+
+	//TODO Make sure oldserv members get passed over to new instance since frontend will change all members even Command (which should not be updated by the frontend)
+
+	oldServ, err := c.GetServerWithError(server.Id, true)
+	if err != nil {
+		newErr := fmt.Errorf("Error saving server: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	server.Command = oldServ.Command
+
+	err = c.SaveServerWithError(&server)
 	if err != nil {
 		newErr := fmt.Errorf("Error saving server: " + err.Error())
 		runtime.LogError(c.ctx, newErr.Error())
@@ -273,9 +285,9 @@ func (c *ServerController) GetServer(id int) (Server, error) {
 	if err != nil {
 		newErr := fmt.Errorf("Failed getting server: " + strconv.Itoa(id) + " with: " + err.Error())
 		runtime.LogError(c.ctx, newErr.Error())
-		return server, newErr
+		return *server, newErr
 	}
-	return server, nil
+	return *server, nil
 }
 
 // CreateServer Creates a new server, returns it and adds it to the map. If it fails it returns an error which is catch-able in the Frontend.
@@ -286,7 +298,7 @@ func (c *ServerController) CreateServer(saveToConfig bool) (Server, error) {
 		runtime.LogError(c.ctx, newErr.Error())
 		return Server{}, newErr
 	}
-	return server, nil
+	return *server, nil
 
 }
 

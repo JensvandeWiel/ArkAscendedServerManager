@@ -29,16 +29,20 @@ type Server struct {
 	//Server Name and Passwords
 	ServerName string `json:"serverName"`
 
-	ServerPassword    string `json:"serverPassword"`
+	ServerPassword    string `json:"serverPassword"` //TODO: Implement in startup/config
 	AdminPassword     string `json:"adminPassword"`
-	SpectatorPassword string `json:"spectatorPassword"`
+	SpectatorPassword string `json:"spectatorPassword"` //TODO: Implement in startup/config
 
 	//Server Networking
 	IpAddress  string `json:"ipAddress"`
 	ServerPort int    `json:"serverPort"`
-	PeerPort   int    `json:"peerPort"`
+	PeerPort   int    `json:"peerPort"` //TODO: Implement in startup/config
 	QueryPort  int    `json:"queryPort"`
 	RCONPort   int    `json:"rconPort"`
+
+	//Server configuration
+	ServerMap  string `json:"serverMap"`
+	MaxPlayers int    `json:"maxPlayers"`
 }
 
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
@@ -61,9 +65,7 @@ func (s *Server) Start() error {
 		return fmt.Errorf("error starting server: server is already started")
 	}
 
-	args := " TheIsland_WP?listen?SessionName=" + s.ServerName + "?Port=" + strconv.Itoa(s.ServerPort) + "?QueryPort=" + strconv.Itoa(s.QueryPort) + "?RCONEnabled=True?RCONServerGameLogBuffer=600?RCONPort=" + strconv.Itoa(s.RCONPort) + "?MaxPlayers=32?ServerAdminPassword=" + s.AdminPassword
-
-	s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args)
+	s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), s.CreateArguments())
 	err = s.Command.Start()
 	if err != nil {
 		return fmt.Errorf("error starting server: %v", err)
@@ -83,5 +85,19 @@ func (s *Server) ForceStop() error {
 		return fmt.Errorf("error stopping server: %v", err)
 	}
 
+	s.Command = nil
+
 	return nil
+}
+
+func (s *Server) CreateArguments() string {
+	basePrompt := s.ServerMap + "?listen"
+	basePrompt += "?MultiHome=" + s.IpAddress
+	basePrompt += "?Port=" + strconv.Itoa(s.ServerPort)
+	basePrompt += "?QueryPort=" + strconv.Itoa(s.QueryPort)
+	basePrompt += "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort=" + strconv.Itoa(s.RCONPort)
+	basePrompt += "?MaxPlayers=" + strconv.Itoa(s.MaxPlayers)
+	basePrompt += "?ServerAdminPassword=" + s.AdminPassword
+
+	return basePrompt
 }
