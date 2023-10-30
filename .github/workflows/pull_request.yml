@@ -5,6 +5,9 @@ on:
     types:
       - opened
       - synchronize
+  schedule:
+    - cron: "15 21 * * *"
+    
 
 jobs:
   build:
