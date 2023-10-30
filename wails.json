@@ -1,6 +1,6 @@
 {
   "$schema": "https://wails.io/schemas/config.v2.json",
-  "name": "Ark-Ascended-Server-Manager",
+  "name": "Ark Ascended Server Manager",
   "version": "0.0.0",
   "outputfilename": "ArkAscendedServerManager",
   "frontend:install": "npm install",

@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: Windows
+          - name: Ark-Ascended-Server-Manager.exe
             platform: windows/amd64
             os: windows-latest
     runs-on: ${{ matrix.build.os }}
