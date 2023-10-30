@@ -1,0 +1,50 @@
+name: Nightly AASM Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        build:
+          - name: Ark-Ascended-Server-Manager.exe
+            platform: windows/amd64
+            os: windows-latest
+    runs-on: ${{ matrix.build.os }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Set direct proxy
+        run: go env -w GOPROXY=direct
+      - run: go install github.com/wailsapp/wails/cmd/wails@latest
+      - uses: dAppServer/wails-build-action@v2.2
+        with:
+          build-name: ${{ matrix.build.name }}
+          build-platform: ${{ matrix.build.platform }}
+          build: true
+          nsis: true
+          package: false
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: AASM Installer
+          path: build/bin/*.exe
+
+      - name: Upload Nightly Release
+        uses: andelf/nightly-release@main
+        with:
+         tag_name: nightly
+         name: 'Desktop App Nightly Release ${{ github.run_number }}'
+         prerelease: true
+         body: 'This is a nightly release of the AASM. Its unstable compared to the official releases, use it with caution!'
+         files: |
+            build/bin/*.exe
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
