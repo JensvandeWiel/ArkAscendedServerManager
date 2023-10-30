@@ -4,8 +4,6 @@ import (
 	"context"
 	"embed"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/config"
-	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/JensvandeWiel/ArkAscendedServerManager/installer"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/logger"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/server"
 	"github.com/wailsapp/wails/v2"
@@ -39,8 +37,6 @@ func main() {
 	app := NewApp()
 	c := config.NewConfigController()
 	s := server.NewServerController()
-	i := installer.NewInstallerController()
-	h := helpers.NewHelpersController()
 
 	// Create application with options
 	err = wails.Run(&options.App{
@@ -55,8 +51,6 @@ func main() {
 			app.startup(ctx)
 			c.Startup(ctx)
 			s.Startup(ctx)
-			i.Startup(ctx)
-			h.Startup(ctx)
 		},
 		Logger:   l,
 		LogLevel: wailsLogger.TRACE,
@@ -64,8 +58,6 @@ func main() {
 			app,
 			c,
 			s,
-			i,
-			h,
 		},
 	})
 

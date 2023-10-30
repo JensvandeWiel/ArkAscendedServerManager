@@ -6,17 +6,15 @@ type Props = {
     onChange: React.ChangeEventHandler<HTMLInputElement> | undefined
     value: string | ReadonlyArray<string> | number | undefined;
     children?: any
-    className?: string | undefined
 }
 
-export function PasswordInput({onChange, value, children, className}: Props) {
+export function PasswordInput({onChange, value, children}: Props) {
     const [textVisible, setTextVisible] = useState(false)
     return (
         <Input type={textVisible? 'text' : 'password'}
                endDecorator={<IconButton onClick={() => setTextVisible(!textVisible)}>{textVisible? <IconEye/> : <IconEyeClosed/>}</IconButton>}
                value={value}
                onChange={onChange}
-               className={className}
         >{children}</Input>
     );
 }

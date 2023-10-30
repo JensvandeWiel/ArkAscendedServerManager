@@ -4,13 +4,11 @@ go 1.18
 
 require (
 	github.com/adrg/xdg v0.4.0
-	github.com/jensvandewiel/gosteamcmd v0.1.2
 	github.com/sethvargo/go-password v0.2.0
 	github.com/wailsapp/wails/v2 v2.6.0
 )
 
 require (
-	github.com/UserExistsError/conpty v0.1.1 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/google/uuid v1.3.1 // indirect
