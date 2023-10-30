@@ -7,19 +7,17 @@ import {
     TabPanel,
     Typography,
     Option,
-    ListItem,
-    ListItemButton
 } from "@mui/joy";
 
 import {server} from "../../../wailsjs/go/models";
 import React, {useEffect, useState} from "react";
 import {GetNetworkInterfacesIp} from "../../../wailsjs/go/server/ServerController";
-import {LogError} from "../../../wailsjs/runtime";
 import {PasswordInput} from "../../components/PasswordInput";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
     serv: server.Server;
+
 }
 
 
@@ -43,10 +41,6 @@ export function General({serv, setServ}: Props) {
 
     }, []);
 
-    useEffect(() => {
-        console.log(interfaces)
-    }, [interfaces]);
-
     return (
         <TabPanel className={'space-y-8'}>
             {/* Server Name and Passwords */}
@@ -55,6 +49,11 @@ export function General({serv, setServ}: Props) {
                     Server Name and Passwords
                 </Typography>
                 <Divider className={'mx-2'}/>
+
+{/*
+                <Portal container={document.getElementById("alert-root")}><Alert className={"fixed"}>dsadasd</Alert></Portal>
+*/}
+
                 <FormLabel>Server Name:</FormLabel>
                 <Input className={'w-2/3'} required value={serv?.serverName} onChange={(e) => setServ((p) => ({ ...p, serverName: e.target.value }))}  ></Input>
                 <div className={'space-x-4 w-full flex'}>
