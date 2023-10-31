@@ -88,7 +88,7 @@ func (c *InstallerController) Install(installPath string) error {
 
 	}
 
-	if i != 0 {
+	if i != 0 && i != 7 {
 		return fmt.Errorf("failed to install: returned non 0 return code: " + strconv.Itoa(int(i)))
 	}
 	return nil
