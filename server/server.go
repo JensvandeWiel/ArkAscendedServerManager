@@ -1,8 +1,10 @@
 package server
 
 import (
+	"context"
 	"fmt"
 	"github.com/keybase/go-ps"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
 
 	"path"
@@ -16,6 +18,7 @@ type GameUserSettings struct {
 
 type Server struct {
 	Command *exec.Cmd `json:"-"`
+	ctx     context.Context
 
 	//CONFIGURATION VARIABLES
 
@@ -73,7 +76,8 @@ func (s *Server) Start() error {
 		}
 		go func() {
 			_ = s.Command.Wait()
-			/*runtime.EventsEmit(context.Background(), "onServerExit", s.Id)*/
+
+			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
 		}()
 	}
 

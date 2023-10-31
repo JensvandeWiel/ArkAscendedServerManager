@@ -12,6 +12,7 @@ import {
 } from "../../wailsjs/go/server/ServerController";
 import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";
+import {EventsOff, EventsOn} from "../../wailsjs/runtime";
 
 
 type Props = {
@@ -52,6 +53,11 @@ export const Server = ({id, className}: Props) => {
             SaveServer(serv).catch((reason) => console.error(reason))
         }
     }, [serv]);
+
+    useEffect(() => {
+        EventsOn("onServerExit", () => setServerStatus(false))
+        return () => EventsOff("onServerExit")
+    }, []);
     //endregion
 
     function onServerStartButtonClicked() {

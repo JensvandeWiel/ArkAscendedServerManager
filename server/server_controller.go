@@ -74,9 +74,11 @@ func (c *ServerController) GetServerWithError(id int, addToMap bool) (*Server, e
 		}
 
 		runtime.EventsEmit(c.ctx, "gotServer", s.Id)
+		s.ctx = c.ctx
 		return &s, nil
 	} else {
 		runtime.EventsEmit(c.ctx, "gotServer", server.Id)
+		server.ctx = c.ctx
 		return server, nil
 	}
 }
@@ -107,6 +109,7 @@ func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, *Serve
 	}
 
 	runtime.EventsEmit(c.ctx, "serverCreated", NewServer.Id)
+	NewServer.ctx = c.ctx
 
 	return id, &NewServer, nil
 }
@@ -269,6 +272,7 @@ func (c *ServerController) SaveServer(server Server) error {
 	}
 
 	server.Command = oldServ.Command
+	server.ctx = c.ctx
 
 	err = c.SaveServerWithError(&server)
 	if err != nil {
