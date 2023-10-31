@@ -6,7 +6,7 @@ import {server} from "../../wailsjs/go/models";
 import {
     CheckServerInstalled,
     ForceStopServer,
-    GetServer,
+    GetServer, GetServerStatus,
     SaveServer,
     StartServer
 } from "../../wailsjs/go/server/ServerController";
@@ -30,7 +30,10 @@ export const Server = ({id, className}: Props) => {
 
     const [serv, setServ] = useState<server.Server>(defaultServer)
     const [isInstalled, setIsInstalled] = useState(false)
+    const [serverStatus, setServerStatus] = useState(false)
     const {addAlert} = useAlert()
+
+    //region useEffect land :)
 
     useEffect(() => {
         if (serv.id >= 0) {
@@ -40,28 +43,36 @@ export const Server = ({id, className}: Props) => {
 
     useEffect(() => {
         if (id !== undefined) {
-            GetServer(id).then((s) => setServ(s)).catch((reason) => console.error(reason))
+            GetServer(id).then((s) => {setServ(s)}).catch((reason) => console.error(reason))
         }
     }, [id]);
 
     useEffect(() => {
-        if (serv.id == -1) {
-
-        } else {
+        if (serv.id >= 0) {
             SaveServer(serv).catch((reason) => console.error(reason))
         }
-
-
     }, [serv]);
+    //endregion
 
     function onServerStartButtonClicked() {
-        StartServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)})
+        StartServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)}).then(() => setTimeout(function () {
+            refreshServerStatus()
+        }, 200))
+
     }
 
     function onServerStopButtonClicked() {
-        ForceStopServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)})
+        ForceStopServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)}).then(() => setServerStatus(false))
     }
 
+    function refreshServerStatus() {
+        GetServerStatus(serv.id).catch((reason) => {console.error("serverstatus: " + reason); addAlert(reason, "danger")}).then((s) => {
+            if (typeof s === "boolean") {
+                setServerStatus(s)
+            }
+        })
+
+    }
 
     if (id !== undefined) {
         return (
@@ -73,8 +84,8 @@ export const Server = ({id, className}: Props) => {
 
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
-                                <Button color={'success'} variant="solid" onClick={onServerStartButtonClicked}>Start</Button>
-                                <Button color={'danger'} variant="solid" onClick={onServerStopButtonClicked}>Stop</Button>
+                                <Button color={'success'} variant="solid" disabled={serverStatus} onClick={onServerStartButtonClicked}>Start</Button>
+                                <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={onServerStopButtonClicked}>Force stop</Button>
                             </ButtonGroup>
                         </div>
                     </div>

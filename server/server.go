@@ -2,7 +2,9 @@ package server
 
 import (
 	"fmt"
+	"github.com/keybase/go-ps"
 	"os/exec"
+
 	"path"
 	"strconv"
 )
@@ -61,14 +63,18 @@ func (s *Server) Start() error {
 		return fmt.Errorf("error starting server: failed updating server configuration: %v", err)
 	}
 
-	if s.Command != nil {
-		return fmt.Errorf("error starting server: server is already started")
-	}
-
-	s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), s.CreateArguments())
-	err = s.Command.Start()
-	if err != nil {
-		return fmt.Errorf("error starting server: %v", err)
+	if s.IsServerRunning() {
+		return fmt.Errorf("error starting server: server is already running")
+	} else {
+		s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), s.CreateArguments())
+		err = s.Command.Start()
+		if err != nil {
+			return fmt.Errorf("error starting server: %v", err)
+		}
+		go func() {
+			_ = s.Command.Wait()
+			/*runtime.EventsEmit(context.Background(), "onServerExit", s.Id)*/
+		}()
 	}
 
 	return nil
@@ -78,21 +84,61 @@ func (s *Server) Start() error {
 func (s *Server) ForceStop() error {
 
 	if s.Command == nil {
-		return fmt.Errorf("error stopping server: s.Command is nil")
+		return fmt.Errorf("error stopping server: server is not running")
 	}
+	if s.Command.Process == nil {
+		return fmt.Errorf("error stopping server: server is not running")
+	}
+
+	if !s.IsServerRunning() {
+		return fmt.Errorf("error stopping server: server is not running")
+	}
+
 	err := s.Command.Process.Kill()
 	if err != nil {
 		return fmt.Errorf("error stopping server: %v", err)
 	}
 
-	s.Command = nil
-
 	return nil
+}
+
+// GetServerStatus returns the status of the server.
+func (s *Server) IsServerRunning() bool {
+
+	if s.Command == nil {
+		return false
+	}
+
+	if s.Command.Process == nil {
+		return false
+	}
+
+	// Retrieve a list of all processes.
+	processList, err := ps.Processes()
+	if err != nil {
+		return false
+	}
+
+	// Iterate through the list of processes and check if the specified PID exists.
+	processFound := false
+	for _, process := range processList {
+		if process.Pid() == s.Command.Process.Pid {
+			processFound = true
+			break
+		}
+	}
+
+	if processFound {
+		return true
+	} else {
+		return false
+	}
 }
 
 func (s *Server) CreateArguments() string {
 	basePrompt := s.ServerMap + "?listen"
 	basePrompt += "?MultiHome=" + s.IpAddress
+	basePrompt += "?SessionName=" + s.ServerName
 	basePrompt += "?Port=" + strconv.Itoa(s.ServerPort)
 	basePrompt += "?QueryPort=" + strconv.Itoa(s.QueryPort)
 	basePrompt += "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort=" + strconv.Itoa(s.RCONPort)
