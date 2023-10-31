@@ -1,4 +1,17 @@
-import {Button, ButtonGroup, Card, Input, Tab, TabList, Tabs} from "@mui/joy";
+import {
+    Button,
+    ButtonGroup,
+    Card, DialogActions,
+    DialogContent,
+    DialogTitle,
+    Divider,
+    Input,
+    Modal,
+    ModalDialog,
+    Tab,
+    TabList,
+    Tabs
+} from "@mui/joy";
 import {Settings} from "./server/Settings";
 import {General} from "./server/General";
 import {useEffect, useState} from "react";
@@ -13,6 +26,7 @@ import {
 import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";
 import {EventsOff, EventsOn} from "../../wailsjs/runtime";
+import {IconAlertCircleFilled} from "@tabler/icons-react";
 
 
 type Props = {
@@ -32,6 +46,7 @@ export const Server = ({id, className}: Props) => {
     const [serv, setServ] = useState<server.Server>(defaultServer)
     const [isInstalled, setIsInstalled] = useState(false)
     const [serverStatus, setServerStatus] = useState(false)
+    const [forceStopModalOpen, setForceStopModalOpen] = useState(false)
     const {addAlert} = useAlert()
 
     //region useEffect land :)
@@ -67,7 +82,7 @@ export const Server = ({id, className}: Props) => {
 
     }
 
-    function onServerStopButtonClicked() {
+    function onServerForceStopButtonClicked() {
         ForceStopServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)}).then(() => setServerStatus(false))
     }
 
@@ -91,8 +106,29 @@ export const Server = ({id, className}: Props) => {
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
                                 <Button color={'success'} variant="solid" disabled={serverStatus} onClick={onServerStartButtonClicked}>Start</Button>
-                                <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={onServerStopButtonClicked}>Force stop</Button>
+                                <Button color={'danger'} variant="solid" disabled={/*!serverStatus*/ true} onClick={onServerStartButtonClicked}>Stop</Button>
+                                <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={() => setForceStopModalOpen(true)}>Force stop</Button>
                             </ButtonGroup>
+                            <Modal open={forceStopModalOpen} onClose={() => setForceStopModalOpen(false)}>
+                                <ModalDialog variant="outlined" role="alertdialog">
+                                    <DialogTitle>
+                                        <IconAlertCircleFilled/>
+                                        Confirmation
+                                    </DialogTitle>
+                                    <Divider />
+                                    <DialogContent>
+                                        Are you sure you want to forcefully stop the server?
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button variant="solid" color="danger" onClick={() => {setForceStopModalOpen(false); onServerForceStopButtonClicked()}}>
+                                            Force stop
+                                        </Button>
+                                        <Button variant="plain" color="neutral" onClick={() => setForceStopModalOpen(false)}>
+                                            Cancel
+                                        </Button>
+                                    </DialogActions>
+                                </ModalDialog>
+                            </Modal>
                         </div>
                     </div>
                     <TabList className={'w-full'}>
