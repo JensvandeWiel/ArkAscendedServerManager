@@ -22,6 +22,11 @@ jobs:
       - name: Set direct proxy
         run: go env -w GOPROXY=direct
       - run: go install github.com/wailsapp/wails/cmd/wails@latest
+      - name: Get Tag Name
+        id: extract_tag_name
+        run: echo "Tag name is ${GITHUB_REF/refs\/tags\//}"
+      - name: Update wails.json
+        run: node build/updateConfig.js ${{ steps.extract_tag_name.outputs.stdout }} false 
       - uses: dAppServer/wails-build-action@v2.2
         with:
           build-name: ${{ matrix.build.name }}
