@@ -3,6 +3,7 @@ package installer
 import (
 	"context"
 	"fmt"
+	"github.com/JensvandeWiel/ArkAscendedServerManager/config"
 	"github.com/jensvandewiel/gosteamcmd"
 	"github.com/jensvandewiel/gosteamcmd/console"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -12,11 +13,14 @@ import (
 )
 
 type InstallerController struct {
-	ctx context.Context
+	ctx    context.Context
+	config *config.ConfigController
 }
 
-func NewInstallerController() *InstallerController {
-	return &InstallerController{}
+func NewInstallerController(c *config.ConfigController) *InstallerController {
+	return &InstallerController{
+		config: c,
+	}
 }
 
 func (c *InstallerController) Startup(ctx context.Context) {
@@ -34,13 +38,17 @@ Events:
 // Install installs the server and returns true is successful and error and false if failed
 func (c *InstallerController) Install(installPath string) error {
 
+	//get steamcmd path
+	c.config.GetConfig()
+	steamCMDPath := c.config.Config.SteamCMDPath
+
 	prompts := []*gosteamcmd.Prompt{
 		gosteamcmd.ForceInstallDir(installPath),
 		gosteamcmd.Login("", "", ""),
 		gosteamcmd.AppUpdate(2430930, "", true),
 	}
 
-	cmd := gosteamcmd.New(io.Discard, prompts, "")
+	cmd := gosteamcmd.New(io.Discard, prompts, steamCMDPath)
 
 	cmd.Console.Parser.OnInformationReceived = func(action console.Action, progress float64, currentWritten, total uint64) {
 		actionString := ""
