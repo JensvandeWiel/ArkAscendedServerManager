@@ -19,6 +19,9 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+//go:embed wails.json
+var WailsConfigFile []byte
+
 const (
 	logFilePath = "main.log"
 )
@@ -33,7 +36,7 @@ func main() {
 
 	l := logger.New(file)
 
-	helpers.CheckForUpdates()
+	helpers.CheckForUpdates(WailsConfigFile)
 
 	// Create an instance of the app structure
 	app := NewApp()
