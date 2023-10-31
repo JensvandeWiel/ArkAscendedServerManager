@@ -1,5 +1,5 @@
 const fs = require('fs');
-const fileName = './wails.json';
+const fileName = '../wails.json';
 const file = require(fileName);
     
 console.log("changing version to " + process.argv[2] + ", isNightly to " + process.argv[3] + " and environment to prod")
