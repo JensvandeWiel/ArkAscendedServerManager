@@ -117,7 +117,7 @@ export const Server = ({id, className}: Props) => {
                                     </DialogTitle>
                                     <Divider />
                                     <DialogContent>
-                                        Are you sure you want to forcefully stop the server?
+                                        Are you sure you want to forcefully stop the server? No save action will be performed!
                                     </DialogContent>
                                     <DialogActions>
                                         <Button variant="solid" color="danger" onClick={() => {setForceStopModalOpen(false); onServerForceStopButtonClicked()}}>
