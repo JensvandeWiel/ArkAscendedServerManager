@@ -74,9 +74,11 @@ func (c *ServerController) GetServerWithError(id int, addToMap bool) (*Server, e
 		}
 
 		runtime.EventsEmit(c.ctx, "gotServer", s.Id)
+		s.ctx = c.ctx
 		return &s, nil
 	} else {
 		runtime.EventsEmit(c.ctx, "gotServer", server.Id)
+		server.ctx = c.ctx
 		return server, nil
 	}
 }
@@ -107,6 +109,7 @@ func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, *Serve
 	}
 
 	runtime.EventsEmit(c.ctx, "serverCreated", NewServer.Id)
+	NewServer.ctx = c.ctx
 
 	return id, &NewServer, nil
 }
@@ -269,6 +272,7 @@ func (c *ServerController) SaveServer(server Server) error {
 	}
 
 	server.Command = oldServ.Command
+	server.ctx = c.ctx
 
 	err = c.SaveServerWithError(&server)
 	if err != nil {
@@ -386,19 +390,31 @@ func (c *ServerController) ForceStopServer(id int) error {
 
 	server, exists := c.Servers[id]
 	if !exists {
-		err := fmt.Errorf("error starting server " + strconv.Itoa(id) + ": server does not exist in map")
+		err := fmt.Errorf("error stopping server " + strconv.Itoa(id) + ": server does not exist in map")
 		runtime.LogError(c.ctx, err.Error())
 		return err
 	}
 
 	err := server.ForceStop()
 	if err != nil {
-		err := fmt.Errorf("error starting server " + strconv.Itoa(id) + ": " + err.Error())
+		err := fmt.Errorf("error stopping server " + strconv.Itoa(id) + ": " + err.Error())
 		runtime.LogError(c.ctx, err.Error())
 		return err
 	}
 
 	return nil
+}
+
+func (c *ServerController) GetServerStatus(id int) (bool, error) {
+	server, exists := c.Servers[id]
+	if !exists {
+		err := fmt.Errorf("error getting server status " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, err.Error())
+		return false, err
+	}
+
+	status := server.IsServerRunning()
+	return status, nil
 }
 
 //endregion
