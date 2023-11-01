@@ -74,6 +74,7 @@ func (s *Server) Start() error {
 		if err != nil {
 			return fmt.Errorf("error starting server: %v", err)
 		}
+		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
 		go func() {
 			_ = s.Command.Wait()
 
