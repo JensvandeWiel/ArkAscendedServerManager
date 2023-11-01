@@ -1,8 +1,6 @@
 import { Button, Input, TabPanel } from "@mui/joy";
 import React, { useEffect, useRef, useState } from "react";
 import { server } from "../../../wailsjs/go/models";
-import { useAlert } from "../../components/AlertProvider";
-import { IconArrowRight, IconChevronRight, IconCurrencyDollar } from "@tabler/icons-react";
 import { SendRconCommand } from "../../../wailsjs/go/helpers/HelpersController";
 
 type Props = {
@@ -12,7 +10,6 @@ type Props = {
 };
 
 export function Console({ setServ, serv, serverStatus }: Props) {
-    const { addAlert } = useAlert();
     const [input, setInput] = useState("");
     const [messages, setMessages] = useState<JSX.Element[]>([]); // Use JSX.Element for styling
 
