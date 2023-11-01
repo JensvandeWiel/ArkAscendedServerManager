@@ -145,7 +145,7 @@ export const Server = ({id, className}: Props) => {
                         </div>
                     </div>
                     <TabList className={'w-full'}>
-                        <Tab variant={'plain'} indicatorInset color="neutral">Console</Tab>
+                        <Tab variant="plain" indicatorInset color="neutral">Console</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">General</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Administration</Tab>
                     </TabList>
