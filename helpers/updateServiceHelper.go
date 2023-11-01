@@ -9,6 +9,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/hashicorp/go-version"
 	"github.com/inconshreveable/go-update"
 	"github.com/sqweek/dialog"
 )
@@ -65,7 +66,7 @@ func CheckForUpdates(WailsConfigFile []byte) {
 		println("Skipping update check")
 		return
 	}
-	
+
 	resBody, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Printf("server: could not read request body: %s\n", err)
@@ -85,7 +86,20 @@ func CheckForUpdates(WailsConfigFile []byte) {
 		release.TagName = nameArr[len(nameArr)-1]
 	}
 
-	if release.TagName <= cf.Version {
+	installedVersion, err := version.NewVersion(cf.Version)
+	if err != nil {
+		fmt.Printf("Error: Could not parse installed version: %s\n", err)
+		println("Skipping update check")
+		return
+	}
+	latestVersion, err := version.NewVersion(release.TagName)
+	if err != nil {
+		fmt.Printf("Error: Could not parse latest version: %s\n", err)
+		println("Skipping update check")
+		return
+	}
+
+	if installedVersion.GreaterThanOrEqual(latestVersion) {
 		fmt.Printf("Already on atest release: %s\n", release.Name)
 		return
 	}
