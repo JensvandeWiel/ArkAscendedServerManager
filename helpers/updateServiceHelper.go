@@ -8,10 +8,12 @@ import (
 	"os"
 	"slices"
 	"strings"
+	"syscall"
 
 	"github.com/hashicorp/go-version"
 	"github.com/inconshreveable/go-update"
 	"github.com/sqweek/dialog"
+	"golang.org/x/sys/windows"
 )
 
 type Asset struct {
@@ -125,6 +127,11 @@ func CheckForUpdates(WailsConfigFile []byte) {
 }
 
 func DownladAndInstallUpdate(source string) {
+	if !IsAdmin() {
+		RunMeElevated()
+		return
+	}
+
 	println("Installing new release...")
 	res, err := http.Get(source)
 
@@ -144,4 +151,30 @@ func DownladAndInstallUpdate(source string) {
 	println("Successfully installed new release!")
 	dialog.Message("%s", "Successfully installed new release!").Title("Update installed!").Info()
 	os.Exit(0)
+}
+
+func RunMeElevated() {
+	verb := "runas"
+	exe, _ := os.Executable()
+	cwd, _ := os.Getwd()
+	args := strings.Join(os.Args[1:], " ")
+
+	verbPtr, _ := syscall.UTF16PtrFromString(verb)
+	exePtr, _ := syscall.UTF16PtrFromString(exe)
+	cwdPtr, _ := syscall.UTF16PtrFromString(cwd)
+	argPtr, _ := syscall.UTF16PtrFromString(args)
+
+	var showCmd int32 = 1 //SW_NORMAL
+
+	err := windows.ShellExecute(0, verbPtr, exePtr, argPtr, cwdPtr, showCmd)
+	if err != nil {
+		fmt.Println(err)
+	}
+	os.Exit(0)
+}
+
+func IsAdmin() bool {
+	elevated := windows.GetCurrentProcessToken().IsElevated()
+	fmt.Printf("admin %v\n", elevated)
+	return elevated
 }
