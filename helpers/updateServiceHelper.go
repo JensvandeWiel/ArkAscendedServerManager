@@ -46,6 +46,7 @@ func CheckForUpdates(WailsConfigFile []byte) {
 	}
 
 	if cf.Environment == "dev" {
+		println("Environment is in dev mode")
 		println("Skipping update check")
 		return
 	}
