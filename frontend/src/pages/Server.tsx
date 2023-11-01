@@ -4,13 +4,13 @@ import {
     Card, DialogActions,
     DialogContent,
     DialogTitle,
-    Divider, IconButton,
+    Divider,
     Input,
     Modal,
     ModalDialog,
     Tab,
     TabList,
-    Tabs, Tooltip
+    Tabs
 } from "@mui/joy";
 import {Settings} from "./server/Settings";
 import {General} from "./server/General";
@@ -25,8 +25,8 @@ import {
 } from "../../wailsjs/go/server/ServerController";
 import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";
-import {BrowserOpenURL, EventsOff, EventsOn} from "../../wailsjs/runtime";
-import {IconAlertCircleFilled, IconExternalLink} from "@tabler/icons-react";
+import {EventsOff, EventsOn} from "../../wailsjs/runtime";
+import {IconAlertCircleFilled} from "@tabler/icons-react";
 
 
 type Props = {
@@ -100,12 +100,7 @@ export const Server = ({id, className}: Props) => {
             <Card className={className}>
                 {isInstalled? (<Tabs size="sm" className={'flex h-full w-full overflow-y-auto'}>
                     <div className={'h-16 flex w-full'}>
-                        <div className="flex items-center">
-                            <Input value={serv?.serverAlias} onChange={(e) => setServ((p) => ({ ...p, serverAlias: e.target.value }))}/>
-                            <Tooltip title={"Open server install directory"}>
-                                <IconButton className="text-lg font-bold ml-2" onClick={() => BrowserOpenURL("file:///" + serv.serverPath)}><IconExternalLink/></IconButton>
-                            </Tooltip>
-                        </div>
+                        <p className={'text-lg font-bold ml-8'}>{}<Input value={serv?.serverAlias} onChange={(e) => setServ((p) => ({ ...p, serverAlias: e.target.value }))}/></p>
 
 
                         <div className={'ml-auto my-auto mr-8'}>
