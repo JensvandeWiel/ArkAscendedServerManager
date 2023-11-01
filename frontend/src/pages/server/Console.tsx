@@ -51,9 +51,9 @@ export function Console({ setServ, serv, serverStatus }: Props) {
                                 <span>{message.text}<br /></span>
                             ) : (
                                 <span>
-                  <span style={{ color: "blue" }}>[{message.sender}]</span>{" "}
+                                    <span style={{ color: "blue" }}>[{message.sender}]</span>{" "}
                                     <span style={{ color: "green" }}>$</span> {message.text}<br />
-                </span>
+                                </span>
                             )}
                         </div>
                     ))}
