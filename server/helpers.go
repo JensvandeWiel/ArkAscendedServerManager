@@ -109,6 +109,12 @@ func CheckIfServerCorrect(server Server) error {
 		}
 	}
 
+	if server.ServerMap == "" {
+		return fmt.Errorf("server.serverMap is empty")
+	} else if server.ServerMap != "TheIsland_WP" {
+		return fmt.Errorf("server.serverMap has invalid value: %v", server.ServerMap)
+	}
+
 	return nil
 }
 
