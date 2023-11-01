@@ -12,7 +12,7 @@ import {
     TabList,
     Tabs, Tooltip
 } from "@mui/joy";
-import {Settings} from "./server/Settings";
+import {Administration} from "./server/Administration";
 import {General} from "./server/General";
 import {useEffect, useState} from "react";
 import {server} from "../../wailsjs/go/models";
@@ -27,6 +27,7 @@ import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";
 import {BrowserOpenURL, EventsOff, EventsOn} from "../../wailsjs/runtime";
 import {IconAlertCircleFilled, IconExternalLink} from "@tabler/icons-react";
+import {Console} from "./server/Console";
 
 
 type Props = {
@@ -73,6 +74,13 @@ export const Server = ({id, className}: Props) => {
         EventsOn("onServerExit", () => setServerStatus(false))
         return () => EventsOff("onServerExit")
     }, []);
+
+    useEffect(() => {
+        if (serv.id >= 0) {
+            refreshServerStatus()
+        }
+    }, [serv]);
+
     //endregion
 
     function onServerStartButtonClicked() {
@@ -137,14 +145,13 @@ export const Server = ({id, className}: Props) => {
                         </div>
                     </div>
                     <TabList className={'w-full'}>
+                        <Tab variant="plain" indicatorInset color="neutral">Console</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">General</Tab>
-                        <Tab variant="plain" indicatorInset color="neutral">Settings</Tab>
-                        <Tab variant="plain" indicatorInset color="neutral">Mods</Tab>
-                        <Tab variant="plain" indicatorInset color="neutral">Plugins</Tab>
-                        <Tab variant="plain" indicatorInset color="neutral">Modifiers</Tab>
+                        <Tab variant="plain" indicatorInset color="neutral">Administration</Tab>
                     </TabList>
+                    <Console serv={serv} setServ={setServ} serverStatus={serverStatus}/>
                     <General serv={serv} setServ={setServ}/>
-                    <Settings/>
+                    <Administration/>
                 </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}
             </Card>
         );

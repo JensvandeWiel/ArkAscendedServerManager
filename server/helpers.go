@@ -84,7 +84,9 @@ func CheckIfServerCorrect(server Server) error {
 		return fmt.Errorf("Checks failed: Server.AdminPassword is too short.")
 	}
 
-	if server.IpAddress != "0.0.0.0" {
+	if server.IpAddress == "" {
+		return fmt.Errorf("Check failed: Ip address is empty")
+	} else {
 		interfaces, err := helpers.GetNetworkInterfaces()
 
 		if err != nil {
@@ -107,6 +109,12 @@ func CheckIfServerCorrect(server Server) error {
 		if err := CheckServerPorts(&server); err != nil {
 			return fmt.Errorf("Check failed: ports failed to parse: %v", err)
 		}
+	}
+
+	if server.ServerMap == "" {
+		return fmt.Errorf("server.serverMap is empty")
+	} else if server.ServerMap != "TheIsland_WP" {
+		return fmt.Errorf("server.serverMap has invalid value: %v", server.ServerMap)
 	}
 
 	return nil
