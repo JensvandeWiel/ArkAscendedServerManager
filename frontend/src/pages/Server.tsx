@@ -12,7 +12,7 @@ import {
     TabList,
     Tabs, Tooltip
 } from "@mui/joy";
-import {Settings} from "./server/Settings";
+import {Administration} from "./server/Administration";
 import {General} from "./server/General";
 import {useEffect, useState} from "react";
 import {server} from "../../wailsjs/go/models";
