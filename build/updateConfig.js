@@ -4,7 +4,7 @@ const file = require(fileName);
     
 console.log("changing version to " + process.argv[2] + ", isNightly to " + process.argv[3] + " and environment to prod")
 
-file.version = process.argv[2];
+file.version = process.argv[2].replace("v", "");
 file.info.version = process.argv[2];
 file.isNightly = process.argv[3] === 'true';
 file.environment = "prod"
