@@ -80,7 +80,7 @@ export function General({serv, setServ}: Props) {
                 <Divider className={'mx-2'}/>
                 <FormLabel>IP Address:</FormLabel>
                 <Select
-                        value={serv.ipAddress?? '0.0.0.0'}
+                        value={serv.ipAddress}
                         onChange={(e, value) => {
                             const newValue = value;
                             setServ(
@@ -93,7 +93,7 @@ export function General({serv, setServ}: Props) {
                             )
                         }}
                 >
-                    <Option value={"0.0.0.0"}>0.0.0.0 - All</Option>
+                    {/*<Option value={"0.0.0.0"}>0.0.0.0 - All</Option>*/}
                     {interfaceElements}
                 </Select>
                 <FormLabel>Ports: </FormLabel>

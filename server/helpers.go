@@ -84,7 +84,9 @@ func CheckIfServerCorrect(server Server) error {
 		return fmt.Errorf("Checks failed: Server.AdminPassword is too short.")
 	}
 
-	if server.IpAddress != "0.0.0.0" {
+	if server.IpAddress == "" {
+		return fmt.Errorf("Check failed: Ip address is empty")
+	} else {
 		interfaces, err := helpers.GetNetworkInterfaces()
 
 		if err != nil {

@@ -74,6 +74,13 @@ export const Server = ({id, className}: Props) => {
         EventsOn("onServerExit", () => setServerStatus(false))
         return () => EventsOff("onServerExit")
     }, []);
+
+    useEffect(() => {
+        if (serv.id >= 0) {
+            refreshServerStatus()
+        }
+    }, [serv]);
+
     //endregion
 
     function onServerStartButtonClicked() {
