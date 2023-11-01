@@ -64,49 +64,49 @@ func CheckForUpdates(WailsConfigFile []byte) {
 		fmt.Printf("Error: Could not get latest release info: %s\n", err)
 		println("Skipping update check")
 		return
-	} else {
-		resBody, err := io.ReadAll(res.Body)
-		if err != nil {
-			fmt.Printf("server: could not read request body: %s\n", err)
-			println("Skipping update check")
-			return
-		}
+	}
+	
+	resBody, err := io.ReadAll(res.Body)
+	if err != nil {
+		fmt.Printf("server: could not read request body: %s\n", err)
+		println("Skipping update check")
+		return
+	}
 
-		err = json.Unmarshal(resBody, &release)
-		if err != nil {
-			fmt.Printf("Error: Could not parse release info: %s\n", err)
-			println("Skipping update check")
-			return
-		}
+	err = json.Unmarshal(resBody, &release)
+	if err != nil {
+		fmt.Printf("Error: Could not parse release info: %s\n", err)
+		println("Skipping update check")
+		return
+	}
 
-		if cf.IsNightly {
-			nameArr := strings.Split(release.Name, " ")
-			release.TagName = nameArr[len(nameArr)-1]
-		}
+	if cf.IsNightly {
+		nameArr := strings.Split(release.Name, " ")
+		release.TagName = nameArr[len(nameArr)-1]
+	}
 
-		if release.TagName <= cf.Version {
-			fmt.Printf("Already on atest release: %s\n", release.Name)
-			return
-		}
+	if release.TagName <= cf.Version {
+		fmt.Printf("Already on atest release: %s\n", release.Name)
+		return
+	}
 
-		if len(release.Assets) == 0 {
-			println("No release files exist for " + release.Name)
-			return
-		}
+	if len(release.Assets) == 0 {
+		println("No release files exist for " + release.Name)
+		return
+	}
 
-		fileName := cf.Info.ProductName + ".exe"
-		asset := release.Assets[slices.IndexFunc(release.Assets, func(c Asset) bool { return c.Name == fileName })]
-		if asset == (Asset{}) {
-			println("Could not find download url for " + release.Name)
-			return
-		}
+	fileName := cf.Info.ProductName + ".exe"
+	asset := release.Assets[slices.IndexFunc(release.Assets, func(c Asset) bool { return c.Name == fileName })]
+	if asset == (Asset{}) {
+		println("Could not find download url for " + release.Name)
+		return
+	}
 
-		fmt.Printf("Found newer release: %s\n", release.Name)
-		installNewRelease := dialog.Message("%s", "Do you want to install it?\n"+release.Name).Title("New update available!").YesNo()
+	fmt.Printf("Found newer release: %s\n", release.Name)
+	installNewRelease := dialog.Message("%s", "Do you want to install it?\n"+release.Name).Title("New update available!").YesNo()
 
-		if installNewRelease {
-			DownladAndInstallUpdate(asset.DownloadUrl)
-		}
+	if installNewRelease {
+		DownladAndInstallUpdate(asset.DownloadUrl)
 	}
 }
 
