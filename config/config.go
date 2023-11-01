@@ -13,7 +13,6 @@ import (
 // region Config struct
 
 type Config struct {
-	SteamCMDPath string `json:"steamCMDPath"`
 }
 
 // endregion
@@ -22,7 +21,7 @@ type Config struct {
 type ConfigController struct {
 	ctx           context.Context
 	configFileDir string
-	Config        *Config
+	Config        Config
 }
 
 // NewConfigController creates a new ConfigController application struct
@@ -44,10 +43,6 @@ func NewConfigController() *ConfigController {
 func (c *ConfigController) Startup(ctx context.Context) {
 	c.ctx = ctx
 
-	//get and set config
-	c.GetConfig()
-	c.SaveConfig()
-
 }
 
 func (c *ConfigController) GetConfig() bool {
@@ -62,14 +57,12 @@ func (c *ConfigController) GetConfig() bool {
 	}
 
 	// Check if the config file exists
-	_, err := os.Stat(path.Join(c.configFileDir))
+	_, err := os.Stat(path.Join(c.configFileDir, "config.json"))
 	if err != nil {
 		if os.IsNotExist(err) {
 			runtime.LogDebug(c.ctx, "Config file does not exist, returning new configuration")
 			//TODO set new config
-			c.Config = &Config{}
-			//save so that the file exists
-			c.SaveConfig()
+			c.Config = Config{}
 			return true
 		}
 		runtime.LogError(c.ctx, "Error reading config file: "+err.Error())
@@ -77,7 +70,7 @@ func (c *ConfigController) GetConfig() bool {
 	}
 
 	//It exists so read the file
-	cf, err := os.ReadFile(path.Join(c.configFileDir))
+	cf, err := os.ReadFile(path.Join(c.configFileDir, "config.json"))
 	if err != nil {
 		runtime.LogError(c.ctx, "Error reading config file: "+err.Error())
 		return false
@@ -91,7 +84,7 @@ func (c *ConfigController) GetConfig() bool {
 		return false
 	}
 
-	c.Config = &conf
+	c.Config = conf
 	return true
 }
 
