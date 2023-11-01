@@ -28,7 +28,6 @@ import {useAlert} from "../components/AlertProvider";
 import {BrowserOpenURL, EventsOff, EventsOn} from "../../wailsjs/runtime";
 import {IconAlertCircleFilled, IconExternalLink} from "@tabler/icons-react";
 import {Console} from "./server/Console";
-import {Administration} from "./server/Administration";
 
 
 type Props = {
@@ -143,7 +142,7 @@ export const Server = ({id, className}: Props) => {
                         <Tab variant="plain" indicatorInset color="neutral">General</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Administration</Tab>
                     </TabList>
-                    <Console serv={serv} setServ={setServ}/>
+                    <Console serv={serv} setServ={setServ} serverStatus={serverStatus}/>
                     <General serv={serv} setServ={setServ}/>
                     <Administration/>
                 </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}

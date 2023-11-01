@@ -8,34 +8,16 @@ import {EventsOn} from "../../../wailsjs/runtime";
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
     serv: server.Server;
+    serverStatus: boolean;
 
 }
 
-export function Console({setServ, serv}:Props) {
+export function Console({setServ, serv, serverStatus}:Props) {
 
-    const [serverStarted, setServerStarted] = useState(false)
     const {addAlert} = useAlert()
 
-    // useEffect for checking if the server is running
-    useEffect(() => {
-        GetServerStatus(serv.id).then((status) => {setServerStarted(status)}).catch((err) => {console.error(err); addAlert(err, "danger")})
-    }, []);
 
-    // Register server status events
-    useEffect(() => {
-        EventsOn("onServerStart", (id: number) => {
-            if (id === serv.id) {
-                setServerStarted(true)
-            }
-        })
-        EventsOn("onServerExit", (id: number) => {
-            if (id === serv.id) {
-                setServerStarted(false)
-            }
-        })
-    }, []);
-
-    if (serverStarted) {
+    if (serverStatus) {
         return (
             <TabPanel value={0}>
                 server started
