@@ -24,7 +24,7 @@ jobs:
         run: go env -w GOPROXY=direct
       - run: go install github.com/wailsapp/wails/cmd/wails@latest
       - name: Update wails.json
-        run: node build/updateConfig.js 99999999 false 
+        run: node build/updateConfig.js 999.999.999 false 
       - uses: dAppServer/wails-build-action@v2.2
         with:
           build-name: ${{ matrix.build.name }}
