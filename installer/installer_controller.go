@@ -43,12 +43,13 @@ func (c *InstallerController) Install(installPath string) error {
 	steamCMDPath := c.config.Config.SteamCMDPath
 
 	prompts := []*gosteamcmd.Prompt{
-		gosteamcmd.ForceInstallDir("\"" + installPath + "\""),
+		gosteamcmd.ForceInstallDir(installPath),
 		gosteamcmd.Login("", "", ""),
 		gosteamcmd.AppUpdate(2430930, "", true),
 	}
 
 	cmd := gosteamcmd.New(io.Discard, prompts, steamCMDPath)
+
 	cmd.Console.Parser.OnInformationReceived = func(action console.Action, progress float64, currentWritten, total uint64) {
 		actionString := ""
 
