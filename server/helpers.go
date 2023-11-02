@@ -73,10 +73,12 @@ func CheckIfServerCorrect(server Server) error {
 		return fmt.Errorf("Checks failed: Server.ServerName is empty")
 	}
 
+	//serverpassword can be empty
 	if server.ServerPassword == "" {
 		//return fmt.Errorf("Checks failed: Server.ServerPassword is empty, this must be set")
 	}
 
+	// adminpassword must not be empty, because we need it for stopping the server and rcon
 	if server.AdminPassword == "" {
 		return fmt.Errorf("Checks failed: Server.AdminPassword is empty, you should set an admin password")
 	}
