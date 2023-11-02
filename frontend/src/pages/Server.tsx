@@ -118,10 +118,6 @@ export const Server = ({id, className}: Props) => {
             .then((resp) => {
                 //send quit command
                 SendRconCommand("doexit", serv.ipAddress, serv.rconPort, serv.adminPassword)
-                    .then((resp) => {
-                        //send quit command
-
-                    })
                     .catch((err) => addAlert("error sending exit command: " + err, "danger"));
             })
             .catch((err) => addAlert("error sending save command: " + err, "danger"));
