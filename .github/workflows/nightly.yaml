@@ -45,7 +45,7 @@ jobs:
         uses: andelf/nightly-release@main
         with:
          tag_name: nightly
-         name: 'Desktop App Nightly Release ${{ github.run_number }}'
+         name: 'Desktop App Nightly Release ${{ steps.date.outputs.date }}.${{ github.run_number }}'
          prerelease: true
          body: 'This is a nightly release of the AASM. Its unstable compared to the official releases, use it with caution!'
          files: |
