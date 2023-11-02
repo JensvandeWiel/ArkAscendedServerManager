@@ -3,6 +3,7 @@ package installer
 import (
 	_ "embed"
 	"fmt"
+	"github.com/adrg/xdg"
 	"os"
 	"path"
 )
@@ -12,12 +13,12 @@ var steamExe []byte
 
 func (c *InstallerController) setupSteamCMD() error {
 
-	exePath, err := os.Executable()
+	localPath, err := xdg.ConfigFile("ArkAscendedServerManager")
 	if err != nil {
-		return fmt.Errorf("failed to get executable directory: %v", err)
+		return fmt.Errorf("failed to get steamcmd path: %v", err)
 	}
 
-	steamExePath := path.Join(path.Dir(exePath), "steamcmd", "steamcmd.exe")
+	steamExePath := path.Join(localPath, "steamcmd", "steamcmd.exe")
 
 	if _, err := os.Stat(path.Join(steamExePath)); os.IsNotExist(err) {
 		//steamcmd is not installed
@@ -33,13 +34,13 @@ func (c *InstallerController) setupSteamCMD() error {
 		}
 
 		c.config.GetConfig()
-		c.config.Config.SteamCMDPath = path.Join(path.Dir(exePath), "steamcmd", "steamcmd.exe")
+		c.config.Config.SteamCMDPath = path.Join(steamExePath)
 		c.config.SaveConfig()
 
 	} else {
 		//steamCMD is installed so set config to the steamCMD path
 		c.config.GetConfig()
-		c.config.Config.SteamCMDPath = path.Join(path.Dir(exePath), "steamcmd", "steamcmd.exe")
+		c.config.Config.SteamCMDPath = path.Join(steamExePath)
 		c.config.SaveConfig()
 	}
 
