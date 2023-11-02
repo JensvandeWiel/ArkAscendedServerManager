@@ -42,7 +42,7 @@ func main() {
 	app := NewApp()
 	c := config.NewConfigController()
 	s := server.NewServerController()
-	i := installer.NewInstallerController()
+	i := installer.NewInstallerController(c)
 	h := helpers.NewHelpersController()
 
 	// Create application with options

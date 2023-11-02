@@ -3,6 +3,7 @@ package installer
 import (
 	"context"
 	"fmt"
+	"github.com/JensvandeWiel/ArkAscendedServerManager/config"
 	"github.com/jensvandewiel/gosteamcmd"
 	"github.com/jensvandewiel/gosteamcmd/console"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -12,11 +13,14 @@ import (
 )
 
 type InstallerController struct {
-	ctx context.Context
+	ctx    context.Context
+	config *config.ConfigController
 }
 
-func NewInstallerController() *InstallerController {
-	return &InstallerController{}
+func NewInstallerController(c *config.ConfigController) *InstallerController {
+	return &InstallerController{
+		config: c,
+	}
 }
 
 func (c *InstallerController) Startup(ctx context.Context) {
@@ -31,17 +35,30 @@ Events:
 
 */
 
-// Install installs the server and returns true is successful and error and false if failed
-func (c *InstallerController) Install(installPath string) error {
+// InstallUpdateVerify installs/updates/verifies the server and returns true is successful and error and false if failed
+func (c *InstallerController) InstallUpdateVerify(installPath string) error {
+
+	//get steamcmd path
+	c.config.GetConfig()
+	steamCMDPath := c.config.Config.SteamCMDPath
+	// if steamCMDPath is not set then get the bundled steamcmd
+	if steamCMDPath == "" {
+		err := c.setupSteamCMD()
+		if err != nil {
+			return fmt.Errorf("Failed to prepare SteamCMD: " + err.Error())
+		}
+	}
+
+	c.config.GetConfig()
+	steamCMDPath = c.config.Config.SteamCMDPath
 
 	prompts := []*gosteamcmd.Prompt{
-		gosteamcmd.ForceInstallDir(installPath),
+		gosteamcmd.ForceInstallDir("\"" + installPath + "\""),
 		gosteamcmd.Login("", "", ""),
 		gosteamcmd.AppUpdate(2430930, "", true),
 	}
 
-	cmd := gosteamcmd.New(io.Discard, prompts, "")
-
+	cmd := gosteamcmd.New(io.Discard, prompts, steamCMDPath)
 	cmd.Console.Parser.OnInformationReceived = func(action console.Action, progress float64, currentWritten, total uint64) {
 		actionString := ""
 
@@ -80,7 +97,7 @@ func (c *InstallerController) Install(installPath string) error {
 
 	}
 
-	if i != 0 {
+	if i != 0 && i != 7 {
 		return fmt.Errorf("failed to install: returned non 0 return code: " + strconv.Itoa(int(i)))
 	}
 	return nil
