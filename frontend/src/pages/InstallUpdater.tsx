@@ -13,7 +13,7 @@ import {
 } from "@mui/joy";
 import {OpenDirectoryDialog} from "../../wailsjs/go/helpers/HelpersController";
 import {IconDownload} from "@tabler/icons-react";
-import {Install} from "../../wailsjs/go/installer/InstallerController";
+import {InstallUpdateVerify} from "../../wailsjs/go/installer/InstallerController";
 import {EventsOn} from "../../wailsjs/runtime";
 import {useAlert} from "../components/AlertProvider";
 
@@ -40,13 +40,11 @@ export function InstallUpdater({setServ, serv, onInstalled}: Props) {
             return
         }
         setInstallerModalOpen(true)
-        Install(serv.serverPath).catch((err) => {
+        InstallUpdateVerify(serv.serverPath).catch((err) => {
             setAction("failed installing: " + err.message);
             setInstallerModalOpen(false);
             console.error(err);
             addAlert("Installer failed: " + err, "danger")
-
-
         })
     }
 

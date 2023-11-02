@@ -35,12 +35,22 @@ Events:
 
 */
 
-// Install installs the server and returns true is successful and error and false if failed
-func (c *InstallerController) Install(installPath string) error {
+// InstallUpdateVerify installs/updates/verifies the server and returns true is successful and error and false if failed
+func (c *InstallerController) InstallUpdateVerify(installPath string) error {
 
 	//get steamcmd path
 	c.config.GetConfig()
 	steamCMDPath := c.config.Config.SteamCMDPath
+	// if steamCMDPath is not set then get the bundled steamcmd
+	if steamCMDPath == "" {
+		err := c.setupSteamCMD()
+		if err != nil {
+			return fmt.Errorf("Failed to prepare SteamCMD: " + err.Error())
+		}
+	}
+
+	c.config.GetConfig()
+	steamCMDPath = c.config.Config.SteamCMDPath
 
 	prompts := []*gosteamcmd.Prompt{
 		gosteamcmd.ForceInstallDir("\"" + installPath + "\""),
