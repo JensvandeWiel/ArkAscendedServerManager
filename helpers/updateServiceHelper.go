@@ -58,9 +58,9 @@ func CheckForUpdates(WailsConfigFile []byte) {
 
 	var res *http.Response
 	if cf.IsNightly {
-		res, err = http.Get("https://api.github.com/repos/ItsMePepijn/ArkAscendedServerManager/releases/tags/nightly")
+		res, err = http.Get("https://api.github.com/repos/JensvandeWiel/ArkAscendedServerManager/releases/tags/nightly")
 	} else {
-		res, err = http.Get("https://api.github.com/repos/ItsMePepijn/ArkAscendedServerManager/releases/latest")
+		res, err = http.Get("https://api.github.com/repos/JensvandeWiel/ArkAscendedServerManager/releases/latest")
 	}
 
 	if err != nil {
