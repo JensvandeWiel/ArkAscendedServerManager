@@ -7,9 +7,10 @@ type Props = {
     value: string | ReadonlyArray<string> | number | undefined;
     children?: any
     className?: string | undefined
+    disabled?: boolean
 }
 
-export function PasswordInput({onChange, value, children, className}: Props) {
+export function PasswordInput({onChange, value, children, className, disabled}: Props) {
     const [textVisible, setTextVisible] = useState(false)
     return (
         <Input type={textVisible? 'text' : 'password'}
@@ -17,6 +18,7 @@ export function PasswordInput({onChange, value, children, className}: Props) {
                value={value}
                onChange={onChange}
                className={className}
+               disabled={disabled}
         >{children}</Input>
     );
 }

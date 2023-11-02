@@ -73,41 +73,42 @@ func CheckIfServerCorrect(server Server) error {
 		return fmt.Errorf("Checks failed: Server.ServerName is empty")
 	}
 
-	if server.ServerPassword != "" && len(server.ServerPassword) < 8 {
-		return fmt.Errorf("Checks failed: Server.ServerPassword is too short")
+	//serverpassword can be empty
+	if server.ServerPassword == "" {
+		//return fmt.Errorf("Checks failed: Server.ServerPassword is empty, this must be set")
 	}
 
+	// adminpassword must not be empty, because we need it for stopping the server and rcon
 	if server.AdminPassword == "" {
-		return fmt.Errorf("Checks failed: Server.AdminPassword is empty you should set an admin password")
-	}
-	if len(server.AdminPassword) < 8 {
-		return fmt.Errorf("Checks failed: Server.AdminPassword is too short.")
+		return fmt.Errorf("Checks failed: Server.AdminPassword is empty, you should set an admin password")
 	}
 
 	if server.IpAddress == "" {
-		return fmt.Errorf("Check failed: Ip address is empty")
+		return fmt.Errorf("Checks failed: Server.IpAddress is empty.")
 	} else {
-		interfaces, err := helpers.GetNetworkInterfaces()
+		if server.IpAddress != "0.0.0.0" {
+			interfaces, err := helpers.GetNetworkInterfaces()
 
-		if err != nil {
-			return fmt.Errorf("Check failed: Failed to get Network Interfaces: %v", err)
-		}
-
-		serverIp := net.ParseIP(server.IpAddress)
-
-		found := false
-		for _, iface := range interfaces {
-			if iface.IP.Equal(serverIp) {
-				found = true
-				break
+			if err != nil {
+				return fmt.Errorf("Check failed: Failed to get Network Interfaces: %v", err)
 			}
-		}
-		if !found {
-			return fmt.Errorf("Check failed: Ip address not found in system interfaces: %v", server.IpAddress)
-		}
 
-		if err := CheckServerPorts(&server); err != nil {
-			return fmt.Errorf("Check failed: ports failed to parse: %v", err)
+			serverIp := net.ParseIP(server.IpAddress)
+
+			found := false
+			for _, iface := range interfaces {
+				if iface.IP.Equal(serverIp) {
+					found = true
+					break
+				}
+			}
+			if !found {
+				return fmt.Errorf("Check failed: Ip address not found in system interfaces: %v", server.IpAddress)
+			}
+
+			if err := CheckServerPorts(&server); err != nil {
+				return fmt.Errorf("Check failed: ports failed to parse: %v", err)
+			}
 		}
 	}
 

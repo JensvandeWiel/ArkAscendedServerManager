@@ -59,7 +59,7 @@ export function General({serv, setServ}: Props) {
                 <div className={'space-x-4 w-full flex'}>
                     <div className={'inline-block'}>
                         <FormLabel>Server Password:</FormLabel>
-                        <PasswordInput value={serv?.serverPassword} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value }))} ></PasswordInput>
+                        <PasswordInput value={serv?.serverPassword} disabled={true} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value }))} ></PasswordInput>
                     </div>
                     <div className={'inline-block'}>
                         <FormLabel>Admin Password:</FormLabel>
@@ -67,7 +67,7 @@ export function General({serv, setServ}: Props) {
                     </div>
                     <div className={'inline-block'}>
                         <FormLabel>Spectator Password:</FormLabel>
-                        <PasswordInput value={serv?.spectatorPassword} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value }))} ></PasswordInput>
+                        <PasswordInput value={serv?.spectatorPassword} disabled={true} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value }))} ></PasswordInput>
                     </div>
                 </div>
             </Card>
@@ -80,7 +80,7 @@ export function General({serv, setServ}: Props) {
                 <Divider className={'mx-2'}/>
                 <FormLabel>IP Address:</FormLabel>
                 <Select
-                        value={serv.ipAddress}
+                        value={serv.ipAddress?? "0.0.0.0"}
                         onChange={(e, value) => {
                             const newValue = value;
                             setServ(
@@ -93,7 +93,7 @@ export function General({serv, setServ}: Props) {
                             )
                         }}
                 >
-                    {/*<Option value={"0.0.0.0"}>0.0.0.0 - All</Option>*/}
+                    <Option value={"0.0.0.0"}>0.0.0.0 - All</Option>
                     {interfaceElements}
                 </Select>
                 <FormLabel>Ports: </FormLabel>
