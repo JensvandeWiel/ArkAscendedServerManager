@@ -33,7 +33,6 @@ export function UpdaterModal({onCompleted, open, onClose}: Props) {
     return (
         <Modal open={open} onClose={onClose} >
             <ModalDialog>
-                <ModalClose/>
                 <Typography level="title-md">
                     Updating server...
                 </Typography>
