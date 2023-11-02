@@ -30,6 +30,7 @@ import {IconAlertCircleFilled, IconExternalLink} from "@tabler/icons-react";
 import {Console} from "./server/Console";
 import {UpdaterModal} from "./UpdaterModal";
 import {InstallUpdateVerify} from "../../wailsjs/go/installer/InstallerController";
+import {SendRconCommand} from "../../wailsjs/go/helpers/HelpersController";
 
 
 type Props = {
@@ -111,6 +112,21 @@ export const Server = ({id, className}: Props) => {
         }, 200))
     }
 
+    function onServerStopButtonClicked() {
+        addAlert("Stopping server...", "neutral")
+        SendRconCommand("saveworld", serv.ipAddress, serv.rconPort, serv.adminPassword)
+            .then((resp) => {
+                //send quit command
+                SendRconCommand("doexit", serv.ipAddress, serv.rconPort, serv.adminPassword)
+                    .then((resp) => {
+                        //send quit command
+
+                    })
+                    .catch((err) => addAlert("error sending exit command: " + err, "danger"));
+            })
+            .catch((err) => addAlert("error sending save command: " + err, "danger"));
+    }
+
     function onServerForceStopButtonClicked() {
         ForceStopServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)}).then(() => setServerStatus(false))
     }
@@ -140,7 +156,7 @@ export const Server = ({id, className}: Props) => {
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
                                 <Button color={'success'} variant="solid" disabled={serverStatus} onClick={onServerStartButtonClicked}>Start</Button>
-                                <Button color={'danger'} variant="solid" disabled={/*!serverStatus*/ true} onClick={onServerStartButtonClicked}>Stop</Button>
+                                <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={onServerStopButtonClicked}>Stop</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={() => setForceStopModalOpen(true)}>Force stop</Button>
                             </ButtonGroup>
                             <UpdaterModal open={updaterModalOpen} onClose={() => setUpdaterModalOpen(false)}></UpdaterModal>
