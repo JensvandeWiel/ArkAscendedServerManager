@@ -35,8 +35,8 @@ Events:
 
 */
 
-// Install installs the server and returns true is successful and error and false if failed
-func (c *InstallerController) Install(installPath string) error {
+// InstallUpdateVerify installs/updates/verifies the server and returns true is successful and error and false if failed
+func (c *InstallerController) InstallUpdateVerify(installPath string) error {
 
 	//get steamcmd path
 	c.config.GetConfig()

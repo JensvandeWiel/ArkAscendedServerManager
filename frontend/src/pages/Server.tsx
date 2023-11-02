@@ -28,6 +28,8 @@ import {useAlert} from "../components/AlertProvider";
 import {BrowserOpenURL, EventsOff, EventsOn} from "../../wailsjs/runtime";
 import {IconAlertCircleFilled, IconExternalLink} from "@tabler/icons-react";
 import {Console} from "./server/Console";
+import {UpdaterModal} from "./UpdaterModal";
+import {InstallUpdateVerify} from "../../wailsjs/go/installer/InstallerController";
 
 
 type Props = {
@@ -48,6 +50,7 @@ export const Server = ({id, className}: Props) => {
     const [isInstalled, setIsInstalled] = useState(false)
     const [serverStatus, setServerStatus] = useState(false)
     const [forceStopModalOpen, setForceStopModalOpen] = useState(false)
+    const [updaterModalOpen, setUpdaterModalOpen] = useState(false)
     const {addAlert} = useAlert()
 
     //region useEffect land :)
@@ -84,10 +87,28 @@ export const Server = ({id, className}: Props) => {
     //endregion
 
     function onServerStartButtonClicked() {
+
+        if (serv.serverPath == "") {
+            addAlert("Server Path must be set to a path", "warning")
+            return
+        }
+
+        setUpdaterModalOpen(true)
+        InstallUpdateVerify(serv.serverPath).catch((err) => {
+            addAlert("failed installing: " + err.message, "danger");
+            setUpdaterModalOpen(false);
+            console.error(err);
+        }).then(() => {
+            setUpdaterModalOpen(false);
+            startServer()
+        })
+
+    }
+
+    function startServer() {
         StartServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)}).then(() => setTimeout(function () {
             refreshServerStatus()
         }, 200))
-
     }
 
     function onServerForceStopButtonClicked() {
@@ -122,6 +143,7 @@ export const Server = ({id, className}: Props) => {
                                 <Button color={'danger'} variant="solid" disabled={/*!serverStatus*/ true} onClick={onServerStartButtonClicked}>Stop</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={() => setForceStopModalOpen(true)}>Force stop</Button>
                             </ButtonGroup>
+                            <UpdaterModal open={updaterModalOpen} onClose={() => setUpdaterModalOpen(false)}></UpdaterModal>
                             <Modal open={forceStopModalOpen} onClose={() => setForceStopModalOpen(false)}>
                                 <ModalDialog variant="outlined" role="alertdialog">
                                     <DialogTitle>
