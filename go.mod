@@ -4,14 +4,19 @@ go 1.18
 
 require (
 	github.com/adrg/xdg v0.4.0
+	github.com/hashicorp/go-version v1.6.0
+	github.com/inconshreveable/go-update v0.0.0-20160112193335-8152e7eb6ccf
 	github.com/gorcon/rcon v1.3.4
 	github.com/jensvandewiel/gosteamcmd v0.1.2
 	github.com/keybase/go-ps v0.0.0-20190827175125-91aafc93ba19
 	github.com/sethvargo/go-password v0.2.0
+	github.com/sqweek/dialog v0.0.0-20220809060634-e981b270ebbf
 	github.com/wailsapp/wails/v2 v2.6.0
+	golang.org/x/sys v0.13.0
 )
 
 require (
+	github.com/TheTitanrain/w32 v0.0.0-20180517000239-4f5cfb03fabf // indirect
 	github.com/UserExistsError/conpty v0.1.1 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
@@ -36,7 +41,6 @@ require (
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 )
 

@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"embed"
+	"os"
+
 	"github.com/JensvandeWiel/ArkAscendedServerManager/config"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/installer"
@@ -12,11 +14,13 @@ import (
 	wailsLogger "github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
-	"os"
 )
 
 //go:embed all:frontend/dist
 var assets embed.FS
+
+//go:embed wails.json
+var WailsConfigFile []byte
 
 const (
 	logFilePath = "main.log"
@@ -31,6 +35,8 @@ func main() {
 	defer file.Close()
 
 	l := logger.New(file)
+
+	helpers.CheckForUpdates(WailsConfigFile)
 
 	// Create an instance of the app structure
 	app := NewApp()
