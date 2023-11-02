@@ -1,7 +1,8 @@
-import { Button, Input, TabPanel } from "@mui/joy";
+import {Button, IconButton, Input, TabPanel, Tooltip} from "@mui/joy";
 import React, { useEffect, useRef, useState } from "react";
 import { server } from "../../../wailsjs/go/models";
 import { SendRconCommand } from "../../../wailsjs/go/helpers/HelpersController";
+import {IconEraser, IconSend} from "@tabler/icons-react";
 
 type Message = {
     text: string;
@@ -37,6 +38,16 @@ export function Console({ setServ, serv, serverStatus }: Props) {
         }
     }, [messages]);
 
+    useEffect(() => {
+        if (!serverStatus) {
+            setMessages([])
+        }
+    }, [serverStatus]);
+
+    useEffect(() => {
+        setMessages([])
+    }, [serv.id]);
+
     if (serverStatus) {
         return (
             <TabPanel value={0}>
@@ -64,17 +75,31 @@ export function Console({ setServ, serv, serverStatus }: Props) {
                     onChange={(e) => setInput(e.target.value)}
                     startDecorator={<span className={"text-green-400"}>$</span>}
                     endDecorator={
-                        <Button
-                            color={"neutral"}
-                            onClick={(e) => {
-                                writeToConsole(input);
-                                setInput("");
-                                doRconCommand(input);
-                            }}
-                            className={"m-1"}
-                        >
-                            Send
-                        </Button>
+                        <span>
+                            <Tooltip title={"send message"}>
+                                <IconButton
+                                    color={"neutral"}
+                                    onClick={(e) => {
+                                        writeToConsole(input);
+                                        setInput("");
+                                        doRconCommand(input);
+                                    }}
+                                    className={"m-1"}
+                                >
+                            <IconSend/>
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title={"clear input"}>
+                                <IconButton
+                                    color={"neutral"}
+                                    onClick={(e) => {
+                                        setMessages([])
+                                    }}
+                                    className={"m-1"}>
+                                    <IconEraser/>
+                                </IconButton>
+                            </Tooltip>
+                        </span>
                     }
                     onKeyPress={(e) => {
                         if (e.key === "Enter") {
