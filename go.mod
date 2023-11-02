@@ -4,9 +4,9 @@ go 1.18
 
 require (
 	github.com/adrg/xdg v0.4.0
+	github.com/gorcon/rcon v1.3.4
 	github.com/hashicorp/go-version v1.6.0
 	github.com/inconshreveable/go-update v0.0.0-20160112193335-8152e7eb6ccf
-	github.com/gorcon/rcon v1.3.4
 	github.com/jensvandewiel/gosteamcmd v0.1.2
 	github.com/keybase/go-ps v0.0.0-20190827175125-91aafc93ba19
 	github.com/sethvargo/go-password v0.2.0

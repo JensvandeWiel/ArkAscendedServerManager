@@ -155,7 +155,7 @@ export const Server = ({id, className}: Props) => {
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={onServerStopButtonClicked}>Stop</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={() => setForceStopModalOpen(true)}>Force stop</Button>
                             </ButtonGroup>
-                            <UpdaterModal open={updaterModalOpen} onClose={() => {setUpdaterModalOpen(false);}}></UpdaterModal>
+                            <UpdaterModal open={updaterModalOpen}  onCompleted={() => setUpdaterModalOpen(false)}></UpdaterModal>
                             <Modal open={forceStopModalOpen} onClose={() => setForceStopModalOpen(false)}>
                                 <ModalDialog variant="outlined" role="alertdialog">
                                     <DialogTitle>
