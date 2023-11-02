@@ -22,8 +22,11 @@ jobs:
       - name: Set direct proxy
         run: go env -w GOPROXY=direct
       - run: go install github.com/wailsapp/wails/cmd/wails@latest
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y.%m.%d')"
       - name: Update wails.json
-        run: node build/updateConfig.js ${{ github.run_number }} true 
+        run: node build/updateConfig.js ${{ steps.date.outputs.date }}.${{ github.run_number }} true 
       - uses: dAppServer/wails-build-action@v2.2
         with:
           build-name: ${{ matrix.build.name }}
