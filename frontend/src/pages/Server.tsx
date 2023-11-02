@@ -70,7 +70,7 @@ export const Server = ({id, className}: Props) => {
 
     useEffect(() => {
         if (serv.id >= 0) {
-            SaveServer(serv).catch((reason) => console.error(reason))
+            SaveServer(serv).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
         }
     }, [serv]);
 
