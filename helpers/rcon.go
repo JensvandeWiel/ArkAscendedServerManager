@@ -7,6 +7,10 @@ import (
 )
 
 func (c *HelpersController) SendRconCommand(command string, ip string, port int, password string) (string, error) {
+	if ip == "0.0.0.0" {
+		ip = "127.0.0.1"
+	}
+
 	conn, err := rcon.Dial(ip+":"+strconv.Itoa(port), password)
 	if err != nil {
 		return "", fmt.Errorf("failed connectting to rcon server: %v", err)
