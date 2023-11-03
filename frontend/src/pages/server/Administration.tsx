@@ -1,6 +1,6 @@
 import {
     Button,
-    Card, DialogActions,
+    Card, Checkbox, DialogActions,
     DialogContent,
     DialogTitle,
     Divider,
@@ -48,7 +48,7 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
 
 
     return (
-        <TabPanel value={2} className={''}>
+        <TabPanel value={2} className={'space-y-8'}>
             <Card variant="soft"  className={''}>
                 <Typography level="title-md">
                     Server Administration
@@ -124,6 +124,18 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                             </ModalDialog>
                         </Modal>
                         <Button color='danger' onClick={() => setDeleteEverythingModalOpen(true)}>Delete Everything</Button>
+                    </div>
+                </div>
+            </Card>
+            <Card variant="soft"  className={''}>
+                <Typography level="title-md">
+                    Server startup
+                </Typography>
+                <Divider className={'mx-2'}/>
+
+                <div className={'space-x-4 w-full flex'}>
+                    <div className={'inline-block'}>
+                        <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart} onChange={(e) => setServ((p) => ({ ...p, disableUpdateOnStart: e.target.checked }))} />
                     </div>
                 </div>
             </Card>

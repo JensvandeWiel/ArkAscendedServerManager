@@ -94,15 +94,19 @@ export const Server = ({id, className}: Props) => {
             return
         }
 
-        setUpdaterModalOpen(true)
-        InstallUpdateVerify(serv.serverPath).catch((err) => {
-            addAlert("failed installing: " + err.message, "danger");
-            setUpdaterModalOpen(false);
-            console.error(err);
-        }).then(() => {
-            setUpdaterModalOpen(false);
+        if (serv.disableUpdateOnStart) {
             startServer()
-        })
+        } else {
+            setUpdaterModalOpen(true)
+            InstallUpdateVerify(serv.serverPath).catch((err) => {
+                addAlert("failed installing: " + err.message, "danger");
+                setUpdaterModalOpen(false);
+                console.error(err);
+            }).then(() => {
+                setUpdaterModalOpen(false);
+                startServer()
+            })
+        }
 
     }
 
