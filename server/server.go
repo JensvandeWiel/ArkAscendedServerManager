@@ -20,6 +20,10 @@ type Server struct {
 	Command *exec.Cmd `json:"-"`
 	ctx     context.Context
 
+	//PREFERENCES
+
+	DisableUpdateOnStart bool `json:"disableUpdateOnStart"`
+
 	//CONFIGURATION VARIABLES
 
 	// Id is the id of the server
