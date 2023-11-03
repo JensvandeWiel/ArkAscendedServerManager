@@ -19,3 +19,5 @@ Steamcmd is not yet packaged with the app, if you want to create a server with A
  7. :tada: You can run your server!
 ### Contributing
 Ask one of **the core contributors** in the [discord server](https://discord.gg/pBfmFuK2Wa)  to give you contributor role, then you can ask what to do. Or you can just make a pull request with some code you've written. 
+### :warning: Watch out :warning:
+This project is still only in very early alpha, so there are still many features to come!
