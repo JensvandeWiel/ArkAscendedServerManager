@@ -1,7 +1,7 @@
 # Ark Ascended Server Manager
 ##### A multi server manager for the game: ARK: Survival Ascended
-<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/7cbc93de-64a8-4b3a-8bfc-4da871bb255f" width="600" ></img>
-<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/bc82cb23-02a8-495c-99d5-0ca84ef663a2" width="600" ></img>
+<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/63e303e8-f2a8-4cdc-9c2c-4eb68050b051" width="600" ></img>
+<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/2d7a2314-9b87-45b4-9469-f018c4fedb0d" width="600" ></img>
 ### Why
 For ARK: SE there only existed a closed source with relic like code🧓. When they made the announcement that they won't make a new version/update their software for ARK: Ascended we stepped in to fill the void, our goal is to make this software easy to use and cross platform (when we get linux binaries for the servers).
 ### How to use
