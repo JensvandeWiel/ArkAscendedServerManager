@@ -47,7 +47,7 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
 
 
     return (
-        <TabPanel value={2} className={'space-y-8'}>
+        <TabPanel value={3} className={'space-y-8'}>
             <Card variant="soft"  className={''}>
                 <Typography level="title-md">
                     Server Administration

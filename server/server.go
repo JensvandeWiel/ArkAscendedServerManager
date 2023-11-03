@@ -29,6 +29,8 @@ type Server struct {
 	ExtraDashArgs              string `json:"extraDashArgs"`
 	ExtraQuestionmarkArguments string `json:"extraQuestionmarkArguments"`
 
+	Mods string `json:"mods"`
+
 	// Id is the id of the server
 	Id int `json:"id"`
 
@@ -159,6 +161,9 @@ func (s *Server) CreateArguments() string {
 	//TODO move AdminPassword to ini
 	basePrompt += "?ServerAdminPassword=" + s.AdminPassword + "?"
 
+	if s.Mods != "" {
+		basePrompt += " -mods=" + s.Mods
+	}
 	basePrompt += " " + s.ExtraDashArgs
 
 	return basePrompt
