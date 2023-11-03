@@ -1,7 +1,7 @@
 import {
     Button,
     ButtonGroup,
-    Card, DialogActions,
+    Card, Checkbox, DialogActions,
     DialogContent,
     DialogTitle,
     Divider, IconButton,
@@ -94,15 +94,19 @@ export const Server = ({id, className}: Props) => {
             return
         }
 
-        setUpdaterModalOpen(true)
-        InstallUpdateVerify(serv.serverPath).catch((err) => {
-            addAlert("failed installing: " + err.message, "danger");
-            setUpdaterModalOpen(false);
-            console.error(err);
-        }).then(() => {
-            setUpdaterModalOpen(false);
+        if (serv.disableUpdateOnStart) {
             startServer()
-        })
+        } else {
+            setUpdaterModalOpen(true)
+            InstallUpdateVerify(serv.serverPath).catch((err) => {
+                addAlert("failed installing: " + err.message, "danger");
+                setUpdaterModalOpen(false);
+                console.error(err);
+            }).then(() => {
+                setUpdaterModalOpen(false);
+                startServer()
+            })
+        }
 
     }
 
@@ -155,6 +159,7 @@ export const Server = ({id, className}: Props) => {
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={onServerStopButtonClicked}>Stop</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={() => setForceStopModalOpen(true)}>Force stop</Button>
                             </ButtonGroup>
+
                             <UpdaterModal open={updaterModalOpen}  onCompleted={() => setUpdaterModalOpen(false)}></UpdaterModal>
                             <Modal open={forceStopModalOpen} onClose={() => setForceStopModalOpen(false)}>
                                 <ModalDialog variant="outlined" role="alertdialog">
@@ -185,7 +190,7 @@ export const Server = ({id, className}: Props) => {
                     </TabList>
                     <Console serv={serv} setServ={setServ} serverStatus={serverStatus}/>
                     <General serv={serv} setServ={setServ}/>
-                    <Administration/>
+                    <Administration serv={serv} setServ={setServ} onServerFilesDeleted={() => CheckServerInstalled(serv.id).then((val) => setIsInstalled(val)).catch((reason) => console.error(reason))}/>
                 </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}
             </Card>
         );

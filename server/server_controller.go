@@ -238,6 +238,37 @@ func (c *ServerController) GetAllServersFromDir() (map[int]*Server, error) {
 	return c.Servers, nil
 }
 
+// DeleteServerFilesWithError deletes the server files from the server with the given id. If it fails it returns an error which is catch-able
+func (c *ServerController) DeleteServerFilesWithError(id int) error {
+	server, err := c.GetServerWithError(id, false)
+	if err != nil {
+		return fmt.Errorf("Failed to get server: " + strconv.Itoa(id) + " error: " + err.Error())
+	}
+	serverPath := server.ServerPath
+
+	err = os.RemoveAll(serverPath)
+	if err != nil {
+		return fmt.Errorf("Failed to delete server " + strconv.Itoa(id) + " files: " + serverPath + " error: " + err.Error())
+	}
+
+	return nil
+}
+
+// DeleteProfileWithError deletes the profile with the given id. If it fails it returns an error which is catch-able
+func (c *ServerController) DeleteProfileWithError(id int) error {
+
+	serverDir := path.Join(c.serverDir, strconv.Itoa(id))
+
+	err := os.RemoveAll(serverDir)
+	if err != nil {
+		return fmt.Errorf("Failed to delete server " + strconv.Itoa(id) + " profile error: " + err.Error())
+	}
+
+	delete(c.Servers, id)
+
+	return nil
+}
+
 //region Boilerplate functions
 
 // GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
@@ -303,6 +334,30 @@ func (c *ServerController) CreateServer(saveToConfig bool) (Server, error) {
 		return Server{}, newErr
 	}
 	return *server, nil
+
+}
+
+// DeleteServerFiles deletes the server files from the server with the given id. If it fails it returns an error which is catch-able
+func (c *ServerController) DeleteServerFiles(id int) error {
+	err := c.DeleteServerFilesWithError(id)
+	if err != nil {
+		newErr := fmt.Errorf("Failed deleting server: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+	return nil
+
+}
+
+// DeleteProfile deletes the profile with the given id. If it fails it returns an error which is catch-able
+func (c *ServerController) DeleteProfile(id int) error {
+	err := c.DeleteProfileWithError(id)
+	if err != nil {
+		newErr := fmt.Errorf("Failed deleting profile: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+	return nil
 
 }
 
