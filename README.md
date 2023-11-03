@@ -1,7 +1,7 @@
 # Ark Ascended Server Manager
 ##### A multi server manager for the game: ARK: Survival Ascended
-<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/85284773/689f1028-1e27-422d-bfff-9e9604ff043b" width="600" ></img>
-<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/85284773/561453ef-26ca-40ed-984c-4ab47b5c7dc7" width="600" ></img>
+<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/7cbc93de-64a8-4b3a-8bfc-4da871bb255f" width="600" ></img>
+<img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/bc82cb23-02a8-495c-99d5-0ca84ef663a2" width="600" ></img>
 ### Why
 For ARK: SE there only existed a closed source with relic like code🧓. When they made the announcement that they won't make a new version/update their software for ARK: Ascended we stepped in to fill the void, our goal is to make this software easy to use and cross platform (when we get linux binaries for the servers).
 ### How to use
@@ -19,5 +19,3 @@ Steamcmd is not yet packaged with the app, if you want to create a server with A
  7. :tada: You can run your server!
 ### Contributing
 Ask one of **the core contributors** in the [discord server](https://discord.gg/pBfmFuK2Wa)  to give you contributor role, then you can ask what to do. Or you can just make a pull request with some code you've written. 
-### :warning: Watch out :warning:
-We have not officialy released anything yet, the alpha release is planned but not yet released! This codebase is very young and might be unstable.
