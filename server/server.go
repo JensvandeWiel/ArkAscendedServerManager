@@ -6,7 +6,6 @@ import (
 	"github.com/keybase/go-ps"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
-
 	"path"
 	"strconv"
 )
@@ -86,20 +85,21 @@ func (s *Server) Start() error {
 		}
 		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
 		go func() {
-			err := s.Command.Wait()
+			_ = s.Command.Wait()
 
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
 
-			//restart server on crash
+			/*//restart server on crash
 			if err != nil && s.RestartOnServerQuit {
 				code := s.Command.ProcessState.ExitCode()
+				time.Sleep(2 * time.Second)
 				if code != 0 {
 					err := s.Start()
 					if err != nil {
 						runtime.EventsEmit(s.ctx, "onRestartServerFailed", err)
 					}
 				}
-			}
+			}*/
 
 		}()
 	}
