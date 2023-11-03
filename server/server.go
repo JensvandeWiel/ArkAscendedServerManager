@@ -6,7 +6,6 @@ import (
 	"github.com/keybase/go-ps"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
-
 	"path"
 	"strconv"
 )
@@ -23,8 +22,14 @@ type Server struct {
 	//PREFERENCES
 
 	DisableUpdateOnStart bool `json:"disableUpdateOnStart"`
+	RestartOnServerQuit  bool `json:"restartOnServerQuit"`
 
 	//CONFIGURATION VARIABLES
+
+	ExtraDashArgs              string `json:"extraDashArgs"`
+	ExtraQuestionmarkArguments string `json:"extraQuestionmarkArguments"`
+
+	Mods string `json:"mods"`
 
 	// Id is the id of the server
 	Id int `json:"id"`
@@ -83,6 +88,19 @@ func (s *Server) Start() error {
 			_ = s.Command.Wait()
 
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
+
+			/*//restart server on crash
+			if err != nil && s.RestartOnServerQuit {
+				code := s.Command.ProcessState.ExitCode()
+				time.Sleep(2 * time.Second)
+				if code != 0 {
+					err := s.Start()
+					if err != nil {
+						runtime.EventsEmit(s.ctx, "onRestartServerFailed", err)
+					}
+				}
+			}*/
+
 		}()
 	}
 
@@ -152,7 +170,14 @@ func (s *Server) CreateArguments() string {
 	basePrompt += "?QueryPort=" + strconv.Itoa(s.QueryPort)
 	basePrompt += "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort=" + strconv.Itoa(s.RCONPort)
 	basePrompt += "?MaxPlayers=" + strconv.Itoa(s.MaxPlayers)
-	basePrompt += "?ServerAdminPassword=" + s.AdminPassword
+	basePrompt += s.ExtraQuestionmarkArguments
+	//TODO move AdminPassword to ini
+	basePrompt += "?ServerAdminPassword=" + s.AdminPassword + "?"
+
+	if s.Mods != "" {
+		basePrompt += " -mods=" + s.Mods
+	}
+	basePrompt += " " + s.ExtraDashArgs
 
 	return basePrompt
 }
