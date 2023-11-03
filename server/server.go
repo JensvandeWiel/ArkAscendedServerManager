@@ -26,6 +26,9 @@ type Server struct {
 
 	//CONFIGURATION VARIABLES
 
+	ExtraDashArgs              string `json:"extraDashArgs"`
+	ExtraQuestionmarkArguments string `json:"extraQuestionmarkArguments"`
+
 	// Id is the id of the server
 	Id int `json:"id"`
 
@@ -152,7 +155,11 @@ func (s *Server) CreateArguments() string {
 	basePrompt += "?QueryPort=" + strconv.Itoa(s.QueryPort)
 	basePrompt += "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort=" + strconv.Itoa(s.RCONPort)
 	basePrompt += "?MaxPlayers=" + strconv.Itoa(s.MaxPlayers)
-	basePrompt += "?ServerAdminPassword=" + s.AdminPassword
+	basePrompt += s.ExtraQuestionmarkArguments
+	//TODO move AdminPassword to ini
+	basePrompt += "?ServerAdminPassword=" + s.AdminPassword + "?"
+
+	basePrompt += " " + s.ExtraDashArgs
 
 	return basePrompt
 }

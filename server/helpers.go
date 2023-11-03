@@ -45,6 +45,9 @@ func generateNewDefaultServer(id int) Server {
 
 		DisableUpdateOnStart: false,
 
+		ExtraQuestionmarkArguments: "",
+		ExtraDashArgs:              "",
+
 		ServerAlias: "Server " + strconv.Itoa(id),
 
 		ServerName: "A server managed by ArkAscendedServerManager",

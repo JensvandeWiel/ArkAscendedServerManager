@@ -46,7 +46,6 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
 
 
 
-
     return (
         <TabPanel value={2} className={'space-y-8'}>
             <Card variant="soft"  className={''}>
@@ -136,6 +135,10 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                 <div className={'space-x-4 w-full flex'}>
                     <div className={'inline-block'}>
                         <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart} onChange={(e) => setServ((p) => ({ ...p, disableUpdateOnStart: e.target.checked }))} />
+                        <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick -ForceAllowCaveFlyers)</FormLabel>
+                        <Input value={serv?.extraDashArgs} onChange={(e) => setServ((p) => ({ ...p, extraDashArgs: e.target.value }))}></Input>
+                        <FormLabel>Custom server "questionmark" arguments (only use args like: ?PreventSpawnAnimations=true?PreventTribeAlliances=true)</FormLabel>
+                        <Input value={serv?.extraQuestionmarkArguments} onChange={(e) => setServ((p) => ({ ...p, extraQuestionmarkArguments: e.target.value }))}></Input>
                     </div>
                 </div>
             </Card>
