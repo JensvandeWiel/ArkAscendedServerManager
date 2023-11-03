@@ -44,6 +44,7 @@ func generateNewDefaultServer(id int) Server {
 		Id: id,
 
 		DisableUpdateOnStart: false,
+		RestartOnServerQuit:  true,
 
 		ExtraQuestionmarkArguments: "",
 		ExtraDashArgs:              "",

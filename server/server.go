@@ -23,6 +23,7 @@ type Server struct {
 	//PREFERENCES
 
 	DisableUpdateOnStart bool `json:"disableUpdateOnStart"`
+	RestartOnServerQuit  bool `json:"restartOnServerQuit"`
 
 	//CONFIGURATION VARIABLES
 
@@ -85,9 +86,21 @@ func (s *Server) Start() error {
 		}
 		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
 		go func() {
-			_ = s.Command.Wait()
+			err := s.Command.Wait()
 
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
+
+			//restart server on crash
+			if err != nil && s.RestartOnServerQuit {
+				code := s.Command.ProcessState.ExitCode()
+				if code != 0 {
+					err := s.Start()
+					if err != nil {
+						runtime.EventsEmit(s.ctx, "onRestartServerFailed", err)
+					}
+				}
+			}
+
 		}()
 	}
 
