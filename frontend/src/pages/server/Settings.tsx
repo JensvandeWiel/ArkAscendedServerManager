@@ -31,7 +31,7 @@ export function Settings({setServ, serv}: Props) {
 
                 <div className={'space-x-4 w-full flex'}>
                     <div className={'inline-block'}>
-                        <FormLabel>Mods (e.g.: modid1,modid2,modid3)</FormLabel>
+                        <FormLabel>Mods (e.g.: modid1,modid2,modid3) (for now you need to set "ACTIVEMODS" to ini manually)</FormLabel>
                         <Input className={"w-[60vw]"} value={serv?.mods} onChange={(e) => setServ((p) => ({ ...p, mods: e.target.value }))}></Input>
                         <FormLabel>Player limit</FormLabel>
                         <Input className={"w-3/12"} value={serv?.maxPlayers} type={"number"} onChange={(e) => {
