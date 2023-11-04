@@ -33,6 +33,11 @@ export function Settings({setServ, serv}: Props) {
                     <div className={'inline-block'}>
                         <FormLabel>Mods (e.g.: modid1,modid2,modid3)</FormLabel>
                         <Input className={"w-[60vw]"} value={serv?.mods} onChange={(e) => setServ((p) => ({ ...p, mods: e.target.value }))}></Input>
+                        <FormLabel>Player limit</FormLabel>
+                        <Input className={"w-3/12"} value={serv?.maxPlayers} type={"number"} onChange={(e) => {
+                            if (parseInt(e.target.value) > 0) {
+                                setServ((p) => ({...p, maxPlayers: parseInt(e.target.value)}))
+                            }}}></Input>
                     </div>
                 </div>
             </Card>
