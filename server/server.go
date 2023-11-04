@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path"
 	"strconv"
+	"strings"
 )
 
 // Server contains the server "stuff"
@@ -78,7 +79,12 @@ func (s *Server) Start() error {
 	if s.IsServerRunning() {
 		return fmt.Errorf("error starting server: server is already running")
 	} else {
-		s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), s.CreateArguments())
+
+		qargs, dargs := s.CreateArguments()
+
+		args := append([]string{qargs}, dargs...)
+
+		s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
 		err = s.Command.Start()
 		if err != nil {
 			return fmt.Errorf("error starting server: %v", err)
@@ -162,7 +168,8 @@ func (s *Server) IsServerRunning() bool {
 	}
 }
 
-func (s *Server) CreateArguments() string {
+// returns questionamrk arguments for the server and dash arguments for the server
+func (s *Server) CreateArguments() (string, []string) {
 	basePrompt := s.ServerMap + "?listen"
 	basePrompt += "?MultiHome=" + s.IpAddress
 	basePrompt += "?SessionName=" + s.ServerName
@@ -174,10 +181,17 @@ func (s *Server) CreateArguments() string {
 	//TODO move AdminPassword to ini
 	basePrompt += "?ServerAdminPassword=" + s.AdminPassword + "?"
 
-	if s.Mods != "" {
-		basePrompt += " -mods=" + s.Mods
-	}
-	basePrompt += " " + s.ExtraDashArgs
+	var dashArgs []string = []string{}
 
-	return basePrompt
+	if s.Mods != "" {
+		dashArgs = append(dashArgs, "-mods="+s.Mods)
+	}
+
+	extraArgs := strings.Split(s.ExtraDashArgs, " ")
+
+	for _, arg := range extraArgs {
+		dashArgs = append(dashArgs, arg)
+	}
+
+	return basePrompt, dashArgs
 }
