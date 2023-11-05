@@ -25,7 +25,7 @@ export function Settings({setServ, serv}: Props) {
         <TabPanel value={2} className={'space-y-8'}>
             <Card variant="soft"  className={''}>
                 <Typography level="title-md">
-                    Mods
+                    General Server Settings
                 </Typography>
                 <Divider className={'mx-2'}/>
 
