@@ -20,6 +20,7 @@ bower_components
 build/Release
 build/bin
 build/installer/tmp
+build/installer/wails_tools.nsh
 wailsjs/
 package.json.md5
 node_modules/
