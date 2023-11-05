@@ -188,4 +188,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 !installer/steamcmd.exe
+!build/windows/installer/VC_redist.x64.exe
+!build/windows/installer/VC_redist.x86.exe
 steamcmd
