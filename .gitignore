@@ -21,8 +21,7 @@ build/Release
 build/bin
 build/windows/installer/tmp
 build/windows/installer/wails_tools.nsh
-!build/windows/installer/VC_redist.x64.exe
-!build/windows/installer/VC_redist.x86.exe
+
 wailsjs/
 package.json.md5
 node_modules/
@@ -190,4 +189,6 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 !installer/steamcmd.exe
+!build/windows/installer/VC_redist.x64.exe
+!build/windows/installer/VC_redist.x86.exe
 steamcmd
