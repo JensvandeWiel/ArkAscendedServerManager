@@ -179,7 +179,7 @@ func (s *Server) CreateArguments() (string, []string) {
 	basePrompt += "?MaxPlayers=" + strconv.Itoa(s.MaxPlayers)
 	basePrompt += s.ExtraQuestionmarkArguments
 	//TODO move AdminPassword to ini
-	basePrompt += "?ServerAdminPassword=" + s.AdminPassword + "?"
+	basePrompt += "?ServerAdminPassword=" + s.AdminPassword
 
 	var dashArgs []string = []string{}
 
