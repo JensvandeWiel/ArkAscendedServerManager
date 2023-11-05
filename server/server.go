@@ -80,9 +80,7 @@ func (s *Server) Start() error {
 		return fmt.Errorf("error starting server: server is already running")
 	} else {
 
-		qargs, dargs := s.CreateArguments()
-
-		args := append([]string{qargs}, dargs...)
+		args := s.CreateArguments()
 
 		s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
 		err = s.Command.Start()
@@ -169,29 +167,37 @@ func (s *Server) IsServerRunning() bool {
 }
 
 // returns questionamrk arguments for the server and dash arguments for the server
-func (s *Server) CreateArguments() (string, []string) {
-	basePrompt := s.ServerMap + "?listen"
-	basePrompt += "?MultiHome=" + s.IpAddress
-	basePrompt += "?SessionName=" + s.ServerName
-	basePrompt += "?Port=" + strconv.Itoa(s.ServerPort)
-	basePrompt += "?QueryPort=" + strconv.Itoa(s.QueryPort)
-	basePrompt += "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort=" + strconv.Itoa(s.RCONPort)
-	basePrompt += "?MaxPlayers=" + strconv.Itoa(s.MaxPlayers)
-	basePrompt += s.ExtraQuestionmarkArguments
-	//TODO move AdminPassword to ini
-	basePrompt += "?ServerAdminPassword=" + s.AdminPassword + "?"
+func (s *Server) CreateArguments() []string {
+	var args []string = []string{}
 
-	var dashArgs []string = []string{}
+	args = append(args, s.ServerMap+"?listen")
+	args = append(args, "?MultiHome="+s.IpAddress)
+	args = append(args, "?SessionName="+s.ServerName)
+	args = append(args, "?Port="+strconv.Itoa(s.ServerPort))
+	args = append(args, "?QueryPort="+strconv.Itoa(s.QueryPort))
+	args = append(args, "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort="+strconv.Itoa(s.RCONPort))
+	args = append(args, "?MaxPlayers="+strconv.Itoa(s.MaxPlayers))
+	if s.ServerPassword != "" {
+		args = append(args, "?ServerPassword="+s.ServerPassword)
+	}
+	if s.SpectatorPassword != "" {
+		args = append(args, "?SpectatorPassword="+s.SpectatorPassword)
+	}
+
+	args = append(args, s.ExtraQuestionmarkArguments)
+
+	//TODO move AdminPassword to ini
+	args = append(args, "?ServerAdminPassword="+s.AdminPassword)
 
 	if s.Mods != "" {
-		dashArgs = append(dashArgs, "-mods="+s.Mods)
+		args = append(args, "-mods="+s.Mods)
 	}
 
 	extraArgs := strings.Split(s.ExtraDashArgs, " ")
 
 	for _, arg := range extraArgs {
-		dashArgs = append(dashArgs, arg)
+		args = append(args, arg)
 	}
 
-	return basePrompt, dashArgs
+	return args
 }

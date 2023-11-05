@@ -19,7 +19,8 @@ bower_components
 .lock-wscript
 build/Release
 build/bin
-build/installer
+build/windows/installer/tmp
+build/windows/installer/wails_tools.nsh
 wailsjs/
 package.json.md5
 node_modules/
