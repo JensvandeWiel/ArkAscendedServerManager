@@ -84,12 +84,12 @@ Section
 
     # Install C++ Redistributable x86
     SetOutPath $TEMP
-    File ".\VC_redist.x86.exe" ; Adjust the path
+    File ".\VC_redist.x86.exe"
 
     ExecWait '"$TEMP\VC_redist.x86.exe" /install /quiet /norestart'
     # Install C++ Redistributable x64
     SetOutPath $TEMP
-    File ".\VC_redist.x64.exe" ; Adjust the path
+    File ".\VC_redist.x64.exe"
 
     ExecWait '"$TEMP\VC_redist.x64.exe" /install /quiet /norestart'
 
