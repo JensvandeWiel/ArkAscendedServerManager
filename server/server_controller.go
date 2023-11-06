@@ -494,10 +494,10 @@ func (c *ServerController) CheckServerInstalled(id int) (bool, error) {
 
 //endregion
 
-func (c *ServerController) GetServerCommandWrapper(id int) string {
+func (c *ServerController) GetServerStartupCommand(id int) string {
 	server, err := c.GetServerWithError(id, false)
 	if err != nil {
-		return "error getting server command: " + err.Error()
+		runtime.LogError(c.ctx, err.Error())
 	}
-	return server.GetServerCommand().String()
+	return server.CreateServerCmd().String()
 }

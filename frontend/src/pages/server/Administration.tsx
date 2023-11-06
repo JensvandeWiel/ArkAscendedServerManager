@@ -15,7 +15,7 @@ import {DeleteProfile, DeleteServerFiles, GetServerWithError} from "../../../wai
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
 import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
-import {GetServerCommandWrapper} from "../../../wailsjs/go/server/ServerController";
+import {GetServerStartupCommand} from "../../../wailsjs/go/server/ServerController";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -153,15 +153,13 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                                 </Modal>
                                 <Button color='neutral' onClick={() => {
                                     setShowServerCommandModalOpen(true)
-                                    GetServerWithError(serv.id, false).then(() => {
-                                        return GetServerCommandWrapper(serv.id)
+                                        return GetServerStartupCommand(serv.id)
                                             .then((cmd: string) => {
                                             setServerCommand(cmd)
                                             }).catch((err) => {
-                                            console.error(err);
-                                            addAlert(err, "danger");
-                                        });
-                                    }).catch((err: string) => {
+                                                console.error(err);
+                                                addAlert(err, "danger");
+                                            }).catch((err: string) => {
                                         console.error(err);
                                         addAlert(err, "danger");
                                     });

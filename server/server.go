@@ -79,7 +79,7 @@ func (s *Server) Start() error {
 	if s.IsServerRunning() {
 		return fmt.Errorf("error starting server: server is already running")
 	} else {
-		s.Command = s.GetServerCommand()
+		s.Command = s.CreateServerCmd()
 		err = s.Command.Start()
 		if err != nil {
 			return fmt.Errorf("error starting server: %v", err)
@@ -108,8 +108,8 @@ func (s *Server) Start() error {
 	return nil
 }
 
-// GetServerCommand returns the command to start the server
-func (s *Server) GetServerCommand() *exec.Cmd {
+// CreateServerCmd returns the command to start the server
+func (s *Server) CreateServerCmd() *exec.Cmd {
 	args := s.CreateArguments()
 	return exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
 }
