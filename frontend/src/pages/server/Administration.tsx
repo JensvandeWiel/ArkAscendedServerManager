@@ -10,13 +10,11 @@ import {
     TabPanel,
     Typography
 } from "@mui/joy";
-import {PasswordInput} from "../../components/PasswordInput";
 import React, {useState} from "react";
 import {DeleteProfile, DeleteServerFiles, GetServerWithError} from "../../../wailsjs/go/server/ServerController";
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
 import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
-import {GetServer} from "../../../wailsjs/go/server/ServerController";
 import {GetServerCommandWrapper} from "../../../wailsjs/go/server/ServerController";
 
 type Props = {
@@ -155,13 +153,14 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                                 </Modal>
                                 <Button color='neutral' onClick={() => {
                                     setShowServerCommandModalOpen(true)
-                                    GetServerWithError(serv.id).then((server) => {
-                                        return GetServerCommandWrapper(serv.id).catch((err) => {
+                                    GetServerWithError(serv.id, false).then(() => {
+                                        return GetServerCommandWrapper(serv.id)
+                                            .then((cmd: string) => {
+                                            setServerCommand(cmd)
+                                            }).catch((err) => {
                                             console.error(err);
                                             addAlert(err, "danger");
                                         });
-                                    }).then((cmd: string) => {
-                                        setServerCommand(cmd);
                                     }).catch((err: string) => {
                                         console.error(err);
                                         addAlert(err, "danger");
