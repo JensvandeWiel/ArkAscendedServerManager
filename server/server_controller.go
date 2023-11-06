@@ -493,3 +493,11 @@ func (c *ServerController) CheckServerInstalled(id int) (bool, error) {
 }
 
 //endregion
+
+func (c *ServerController) GetServerCommandWrapper(id int) string {
+	server, err := c.GetServerWithError(id, false)
+	if err != nil {
+		return "error getting server command: " + err.Error()
+	}
+	return server.GetServerCommand().String()
+}

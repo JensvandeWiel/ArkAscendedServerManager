@@ -15,7 +15,9 @@ import React, {useState} from "react";
 import {DeleteProfile, DeleteServerFiles} from "../../../wailsjs/go/server/ServerController";
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
-import {IconAlertCircleFilled} from "@tabler/icons-react";
+import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
+import {GetServer} from "../../../wailsjs/go/server/ServerController";
+import {GetServerCommandWrapper} from "../../../wailsjs/go/server/ServerController";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -29,6 +31,8 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
     const [deleteServerFilesModalOpen, setDeleteServerFilesModalOpen] = useState(false)
     const [deleteProfileModalOpen, setDeleteProfileModalOpen] = useState(false)
     const [deleteEverythingModalOpen, setDeleteEverythingModalOpen] = useState(false)
+    const [showServerCommandModalOpen, setShowServerCommandModalOpen] = useState(false)
+    const [serverCommand, setServerCommand] = useState("");
 
     const {addAlert} = useAlert();
 
@@ -43,8 +47,6 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
     function onDeleteEverythingButtonClicked() {
         DeleteServerFiles(serv.id).then(() => DeleteProfile(serv.id)).then(() => {addAlert("Deleted everything", "success"); location.reload()}).catch((err) => {console.error(err); addAlert(err, "danger")})
     }
-
-
 
     return (
         <TabPanel value={3} className={'space-y-8'}>
@@ -127,9 +129,45 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                 </div>
             </Card>
             <Card variant="soft"  className={''}>
-                <Typography level="title-md">
-                    Server startup
-                </Typography>
+                <div className={'space-x-4 w-full flex justify-between'}>
+                    <Typography level="title-md">
+                        Server startup
+                    </Typography>
+                    <Typography level="title-md">
+                        <div className={'space-x-4 w-full flex'}>
+                            <div className={'inline-block'}>
+                                <Modal open={showServerCommandModalOpen} onClose={() => setShowServerCommandModalOpen(false)}>
+                                    <ModalDialog variant="outlined" role="dialog">
+                                        <DialogTitle>
+                                            <IconInfoCircle/>
+                                            Server startup command
+                                        </DialogTitle>
+                                        <Divider />
+                                        <DialogContent>
+                                            {serverCommand}
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button variant="solid" color="neutral" onClick={() => setShowServerCommandModalOpen(false)}>
+                                                Close
+                                            </Button>
+                                        </DialogActions>
+                                    </ModalDialog>
+                                </Modal>
+                                <Button color='neutral' onClick={() => {
+                                    setShowServerCommandModalOpen(true)
+                                    GetServer(serv.id).then((server) => {
+                                        return GetServerCommandWrapper(serv.id);
+                                    }).then((cmd: string) => {
+                                        setServerCommand(cmd);
+                                    }).catch((err: string) => {
+                                        console.error(err);
+                                        addAlert(err, "danger");
+                                    });
+                                }}>Show startup command</Button>
+                            </div>
+                        </div>
+                    </Typography>
+                </div>
                 <Divider className={'mx-2'}/>
 
                 <div className={'space-x-4 w-full flex'}>
