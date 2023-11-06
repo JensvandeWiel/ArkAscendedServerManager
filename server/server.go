@@ -170,9 +170,8 @@ func (s *Server) IsServerRunning() bool {
 func (s *Server) CreateArguments() []string {
 	var args []string = []string{}
 
-	args = append(args, s.ServerMap+"?listen")
+	args = append(args, s.ServerMap+"?listen"+"?SessionName="+s.ServerName)
 	args = append(args, "?MultiHome="+s.IpAddress)
-	args = append(args, "?SessionName="+s.ServerName)
 	args = append(args, "?Port="+strconv.Itoa(s.ServerPort))
 	args = append(args, "?QueryPort="+strconv.Itoa(s.QueryPort))
 	args = append(args, "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort="+strconv.Itoa(s.RCONPort))
@@ -192,6 +191,7 @@ func (s *Server) CreateArguments() []string {
 	if s.Mods != "" {
 		args = append(args, "-mods="+s.Mods)
 	}
+	args = append(args, "-WinLiveMaxPlayers="+strconv.Itoa(s.MaxPlayers))
 
 	extraArgs := strings.Split(s.ExtraDashArgs, " ")
 
