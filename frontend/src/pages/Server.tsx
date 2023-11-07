@@ -21,7 +21,8 @@ import {
     ForceStopServer,
     GetServer, GetServerStatus,
     SaveServer,
-    StartServer
+    StartServer,
+    SetServerStatus
 } from "../../wailsjs/go/server/ServerController";
 import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";
@@ -121,6 +122,7 @@ export const Server = ({id, className}: Props) => {
         addAlert("Stopping server...", "neutral")
         SendRconCommand("saveworld", serv.ipAddress, serv.rconPort, serv.adminPassword)
             .then((resp) => {
+                SetServerStatus(serv.id, false)
                 //send quit command
                 SendRconCommand("doexit", serv.ipAddress, serv.rconPort, serv.adminPassword)
                     .catch((err) => addAlert("error sending exit command: " + err, "danger"));

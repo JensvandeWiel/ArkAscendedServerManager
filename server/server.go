@@ -3,12 +3,14 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/keybase/go-ps"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
 	"path"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/keybase/go-ps"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // Server contains the server "stuff"
@@ -17,9 +19,9 @@ type GameUserSettings struct {
 }
 
 type Server struct {
-	Command *exec.Cmd `json:"-"`
-	ctx     context.Context
-
+	Command   *exec.Cmd `json:"-"`
+	ctx       context.Context
+	IsRunning bool `json:"-"`
 	//PREFERENCES
 
 	DisableUpdateOnStart bool `json:"disableUpdateOnStart"`
@@ -60,6 +62,10 @@ type Server struct {
 	MaxPlayers int    `json:"maxPlayers"`
 }
 
+func (s *Server) SetStatus(status bool) {
+	s.IsRunning = status
+}
+
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
 func (s *Server) UpdateConfig() error {
 
@@ -88,22 +94,23 @@ func (s *Server) Start() error {
 			return fmt.Errorf("error starting server: %v", err)
 		}
 		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
+		s.SetStatus(true)
 		go func() {
 			_ = s.Command.Wait()
 
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
 
-			/*//restart server on crash
+			//restart server on crash
 			if err != nil && s.RestartOnServerQuit {
 				code := s.Command.ProcessState.ExitCode()
 				time.Sleep(2 * time.Second)
-				if code != 0 {
+				if code != 0 && s.IsRunning {
 					err := s.Start()
 					if err != nil {
 						runtime.EventsEmit(s.ctx, "onRestartServerFailed", err)
 					}
 				}
-			}*/
+			}
 
 		}()
 	}
@@ -125,6 +132,7 @@ func (s *Server) ForceStop() error {
 		return fmt.Errorf("error stopping server: server is not running")
 	}
 
+	s.SetStatus(false)
 	err := s.Command.Process.Kill()
 	if err != nil {
 		return fmt.Errorf("error stopping server: %v", err)

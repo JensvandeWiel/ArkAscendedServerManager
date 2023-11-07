@@ -15,11 +15,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/adrg/xdg"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
 	"path"
 	"strconv"
+
+	"github.com/adrg/xdg"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 const (
@@ -490,6 +491,19 @@ func (c *ServerController) CheckServerInstalled(id int) (bool, error) {
 	}
 
 	return true, nil
+}
+
+func (c *ServerController) SetServerStatus(id int, status bool) error {
+	server, exists := c.Servers[id]
+	if !exists {
+		err := fmt.Errorf("error setting server status " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	server.SetStatus(status)
+
+	return nil
 }
 
 //endregion
