@@ -11,7 +11,7 @@ import {
     Typography
 } from "@mui/joy";
 import React, {useState} from "react";
-import {DeleteProfile, DeleteServerFiles, GetServerWithError} from "../../../wailsjs/go/server/ServerController";
+import {DeleteProfile, DeleteServerFiles} from "../../../wailsjs/go/server/ServerController";
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
 import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
@@ -153,16 +153,13 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                                 </Modal>
                                 <Button color='neutral' onClick={() => {
                                     setShowServerCommandModalOpen(true)
-                                        return GetServerStartupCommand(serv.id)
-                                            .then((cmd: string) => {
-                                            setServerCommand(cmd)
-                                            }).catch((err) => {
-                                                console.error(err);
-                                                addAlert(err, "danger");
-                                            }).catch((err: string) => {
+                                    return GetServerStartupCommand(serv.id)
+                                        .then((cmd: string) => {
+                                        setServerCommand(cmd)
+                                    }).catch((err) => {
                                         console.error(err);
                                         addAlert(err, "danger");
-                                    });
+                                    })
                                 }}>Show startup command</Button>
                             </div>
                         </div>
