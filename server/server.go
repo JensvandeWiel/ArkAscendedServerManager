@@ -79,10 +79,7 @@ func (s *Server) Start() error {
 	if s.IsServerRunning() {
 		return fmt.Errorf("error starting server: server is already running")
 	} else {
-
-		args := s.CreateArguments()
-
-		s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
+		s.Command = s.CreateServerCmd()
 		err = s.Command.Start()
 		if err != nil {
 			return fmt.Errorf("error starting server: %v", err)
@@ -109,6 +106,12 @@ func (s *Server) Start() error {
 	}
 
 	return nil
+}
+
+// CreateServerCmd returns the command to start the server
+func (s *Server) CreateServerCmd() *exec.Cmd {
+	args := s.CreateArguments()
+	return exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
 }
 
 // ForceStop forces the server to stop "quitting/killing the process"

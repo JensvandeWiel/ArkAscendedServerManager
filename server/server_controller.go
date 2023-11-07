@@ -493,3 +493,13 @@ func (c *ServerController) CheckServerInstalled(id int) (bool, error) {
 }
 
 //endregion
+
+func (c *ServerController) GetServerStartupCommand(id int) (string, error) {
+	server, err := c.GetServerWithError(id, false)
+	if err != nil {
+		err := fmt.Errorf("error getting server startup command " + strconv.Itoa(id) + ": server does not exist")
+		runtime.LogError(c.ctx, err.Error())
+		return "error getting server startup command " + strconv.Itoa(id) + ": server does not exist", err
+	}
+	return server.CreateServerCmd().String(), nil
+}
