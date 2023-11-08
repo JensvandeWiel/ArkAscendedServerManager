@@ -22,6 +22,9 @@ var assets embed.FS
 //go:embed wails.json
 var WailsConfigFile []byte
 
+//go:embed KEY
+var KEY string
+
 const (
 	logFilePath = "main.log"
 )
