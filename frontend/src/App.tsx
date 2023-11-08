@@ -161,8 +161,10 @@ function App() {
                         </IconButton>
                         <Modal open={infoModalOpen} onClose={() => setInfoModalOpen(false)}>
                             <ModalDialog>
-                                <AspectRatio minHeight="120px" maxHeight="200px">
+                                <ModalClose/>
+                                <AspectRatio minHeight="120px" sx={{margin: 2}} maxHeight="200px">
                                     <img
+
                                         src={banner}
                                         loading="lazy"
                                         alt=""
@@ -177,7 +179,7 @@ function App() {
                                         Version: {appVersion}
                                     </Typography>
                                     <div style={{height: 200}}></div>
-                                    <Button sx={{margin: 1}} onClick={() => BrowserOpenURL("https://github.com/JensvandeWiel/ArkAscendedServerManager")}>Github</Button>
+                                    <Button sx={{margin: 1}} onClick={() => BrowserOpenURL("https://github.com/JensvandeWiel/ArkAscendedServerManager")}>GitHub</Button>
                                     <Button sx={{margin: 1}} onClick={() => BrowserOpenURL("https://discord.gg/RmesnZ8FWf")}>Discord</Button>
                                     <Button sx={{margin: 1}} onClick={() => BrowserOpenURL("https://github.com/sponsors/JensvandeWiel")}>Sponsor me</Button>
 
