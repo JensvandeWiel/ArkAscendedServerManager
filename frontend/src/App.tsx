@@ -179,9 +179,9 @@ function App() {
                                         Version: {appVersion}
                                     </Typography>
                                     <div style={{height: 200}}></div>
-                                    <Button sx={{margin: 1}} onClick={() => BrowserOpenURL("https://github.com/JensvandeWiel/ArkAscendedServerManager")}>GitHub</Button>
-                                    <Button sx={{margin: 1}} onClick={() => BrowserOpenURL("https://discord.gg/RmesnZ8FWf")}>Discord</Button>
-                                    <Button sx={{margin: 1}} onClick={() => BrowserOpenURL("https://github.com/sponsors/JensvandeWiel")}>Sponsor me</Button>
+                                    <Button color={"neutral"} sx={{margin: 1}} onClick={() => BrowserOpenURL("https://github.com/JensvandeWiel/ArkAscendedServerManager")}>GitHub</Button>
+                                    <Button color={"neutral"} sx={{margin: 1}} onClick={() => BrowserOpenURL("https://discord.gg/RmesnZ8FWf")}>Discord</Button>
+                                    <Button color={"neutral"} sx={{margin: 1}} onClick={() => BrowserOpenURL("https://github.com/sponsors/JensvandeWiel")}>Sponsor me</Button>
 
 
                                 </div>
