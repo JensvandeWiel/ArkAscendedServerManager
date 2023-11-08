@@ -62,7 +62,7 @@ func main() {
 			c.Startup(ctx)
 			s.Startup(ctx)
 			i.Startup(ctx)
-			h.Startup(ctx)
+			h.Startup(ctx, WailsConfigFile)
 		},
 		Logger:   l,
 		LogLevel: wailsLogger.TRACE,
