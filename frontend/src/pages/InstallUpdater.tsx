@@ -12,10 +12,11 @@ import {
     Typography
 } from "@mui/joy";
 import {OpenDirectoryDialog} from "../../wailsjs/go/helpers/HelpersController";
-import {IconDownload} from "@tabler/icons-react";
+import {IconDownload, IconTrash} from "@tabler/icons-react";
 import {InstallUpdateVerify} from "../../wailsjs/go/installer/InstallerController";
 import {EventsOn} from "../../wailsjs/runtime";
 import {useAlert} from "../components/AlertProvider";
+import {DeleteProfile} from "../../wailsjs/go/server/ServerController";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -48,14 +49,15 @@ export function InstallUpdater({setServ, serv, onInstalled}: Props) {
         })
     }
 
+    function onCancelButtonClicked() {
+        DeleteProfile(serv.id).then(() => {addAlert("Deleted profile", "success"); setTimeout(() => {location.reload()}, 500) }).catch((err) => {console.error(err); addAlert(err, "danger")})
+    }
+
     useEffect(() => {
         EventsOn("installingUpdateAction", (data) => {setAction(data);})
         EventsOn("installingUpdateProgress", (data) => {setProgress(data);})
         EventsOn("appInstalled", (i) => {setIsCompleted(true);  setAction("Done"); setProgress(100)})
     }, []);
-
-
-
 
 
     return (
@@ -87,11 +89,10 @@ export function InstallUpdater({setServ, serv, onInstalled}: Props) {
                 <Divider className={'mx-2'}/>
                 <FormLabel>Server Path</FormLabel>
                 <Input className={'w-1/3'} value={serv.serverPath} required onClick={onServerPathClicked} ></Input>
-                <div className={"text-center"}>
-                    <Button endDecorator={<IconDownload/>} onClick={onStartInstallButtonClicked}>Install server</Button>
+                <div className={"text-center pt-5"}>
+                    <Button endDecorator={<IconDownload/>} onClick={onStartInstallButtonClicked} className={"mx-5"}>Install server</Button>
+                    <Button endDecorator={<IconTrash/>} onClick={onCancelButtonClicked} className={"mx-5"} color={"danger"}>Delete profile</Button>
                 </div>
-
-
             </Card>
         </div>
     );
