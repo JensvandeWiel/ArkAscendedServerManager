@@ -203,6 +203,30 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 
 //endregion
 
+// SaveServer saves the server with the given id, and returns bool if successful
+func (c *ServerController) SaveServerGus(id int, gus GameUserSettings) error {
+
+	//TODO Make sure oldserv members get passed over to new instance since frontend will change all members even Command (which should not be updated by the frontend)
+
+	server, err := c.GetServerWithError(id, true)
+	if err != nil {
+		newErr := fmt.Errorf("Error saving server: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	server.GameUserSettings = gus
+	server.ctx = c.ctx
+
+	err = c.SaveServerWithError(server)
+	if err != nil {
+		newErr := fmt.Errorf("Error saving server: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+	return nil
+}
+
 //endregion
 
 //region Server starting & stopping

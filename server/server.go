@@ -13,9 +13,6 @@ import (
 
 // Server contains the server "stuff"
 
-type GameUserSettings struct {
-}
-
 type Server struct {
 	Command *exec.Cmd `json:"-"`
 	ctx     context.Context
@@ -56,6 +53,11 @@ type Server struct {
 	RCONPort   int    `json:"rconPort"`
 
 	//Server configuration
+
+	//INI
+	GameUserSettings GameUserSettings `json:"gameUserSettings"`
+	Game             Game             `json:"game"`
+
 	ServerMap  string `json:"serverMap"`
 	MaxPlayers int    `json:"maxPlayers"`
 }
