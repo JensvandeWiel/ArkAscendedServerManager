@@ -147,7 +147,7 @@ export const Server = ({id, className}: Props) => {
                 {isInstalled? (<Tabs size="sm" className={'flex h-full w-full overflow-y-auto'}>
                     <div className={'h-16 flex w-full'}>
                         <div className="flex items-center">
-                            <Input value={serv?.serverAlias} onChange={(e) => setServ((p) => ({ ...p, serverAlias: e.target.value }))}/>
+                            <Input value={serv?.serverAlias} onChange={(e) => setServ((p) => ({ ...p, serverAlias: e.target.value, convertValues: p.convertValues }))}/>
                             <Tooltip title={"Open server install directory"}>
                                 <IconButton className="text-lg font-bold ml-2" onClick={() => BrowserOpenURL("file:///" + serv.serverPath)}><IconExternalLink/></IconButton>
                             </Tooltip>
