@@ -230,7 +230,7 @@ func (s *Server) CreateArguments() []string {
 	var args []string = []string{}
 
 	args = append(args, s.ServerMap+"?listen")
-	//args = append(args, "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort="+strconv.Itoa(s.RCONPort))
+	args = append(args, "?Port="+strconv.Itoa(s.ServerPort))
 
 	/*if s.ServerPassword != "" {
 		args = append(args, "?ServerPassword="+s.ServerPassword)
