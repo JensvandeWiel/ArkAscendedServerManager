@@ -52,6 +52,8 @@ export const Server = ({id, className}: Props) => {
     const [isInstalled, setIsInstalled] = useState(false)
     const [serverStatus, setServerStatus] = useState(false)
     const [forceStopModalOpen, setForceStopModalOpen] = useState(false)
+    const [startModalOpen, setStartModalOpen] = useState(false)
+
     const [updaterModalOpen, setUpdaterModalOpen] = useState(false)
     const {addAlert} = useAlert()
 
@@ -156,7 +158,7 @@ export const Server = ({id, className}: Props) => {
 
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
-                                <Button color={'success'} variant="solid" disabled={serverStatus} onClick={onServerStartButtonClicked}>Start</Button>
+                                <Button color={'success'} variant="solid" disabled={serverStatus} onClick={() => setStartModalOpen(true)}>Start</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={onServerStopButtonClicked}>Stop</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={() => setForceStopModalOpen(true)}>Force stop</Button>
                             </ButtonGroup>
@@ -179,6 +181,31 @@ export const Server = ({id, className}: Props) => {
                                         <Button variant="plain" color="neutral" onClick={() => setForceStopModalOpen(false)}>
                                             Cancel
                                         </Button>
+                                    </DialogActions>
+                                </ModalDialog>
+                            </Modal>
+                            <Modal open={startModalOpen} onClose={() => setStartModalOpen(false)}>
+                                <ModalDialog variant="outlined" role="alertdialog">
+                                    <DialogTitle>
+                                        <IconAlertCircleFilled/>
+                                        Confirmation
+                                    </DialogTitle>
+                                    <Divider />
+                                    <DialogContent>
+                                        Are you sure you want to start the server? This action will overwrite ini files in the server directory!<br/>
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button variant="solid" color="success" onClick={() => {setStartModalOpen(false); onServerStartButtonClicked()}}>
+                                            Start
+                                        </Button>
+
+                                        <Button color="primary" onClick={() => setStartModalOpen(false)}>
+                                            Cancel
+                                        </Button>
+                                        <Button variant="plain" color="neutral" onClick={() => BrowserOpenURL("https://github.com/JensvandeWiel/ArkAscendedServerManager/wiki/Custom-Configuration")}>
+                                            More Info
+                                        </Button>
+
                                     </DialogActions>
                                 </ModalDialog>
                             </Modal>
