@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/go-ini/ini"
+	"os"
 	"path/filepath"
 )
 
@@ -409,6 +410,22 @@ func generateNewDefaultGameUserSettings() GameUserSettings {
 func (s *Server) SaveGameUserSettingsIni() error {
 
 	ini.PrettyFormat = false
+
+	filePath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini")
+
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+
+		file, err := os.Create(filePath)
+		if err != nil {
+
+			return err
+		}
+		defer file.Close()
+
+	} else if err != nil {
+
+		return err
+	}
 
 	gusIni := ini.Empty()
 

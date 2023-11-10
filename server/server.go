@@ -69,6 +69,7 @@ func (s *Server) UpdateConfig() error {
 	s.GameUserSettings.ServerSettings.RCONEnabled = true
 	s.GameUserSettings.ServerSettings.RCONPort = s.RCONPort
 	s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
+	s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
 
 	s.GameUserSettings.SessionSettings.MultiHome = s.IpAddress
 	s.GameUserSettings.SessionSettings.Port = s.ServerPort
@@ -197,6 +198,8 @@ func (s *Server) CreateArguments() []string {
 	var args []string = []string{}
 
 	args = append(args, s.ServerMap+"?listen")
+	//args = append(args, "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort="+strconv.Itoa(s.RCONPort))
+
 	/*if s.ServerPassword != "" {
 		args = append(args, "?ServerPassword="+s.ServerPassword)
 	}
@@ -209,6 +212,8 @@ func (s *Server) CreateArguments() []string {
 	if s.Mods != "" {
 		args = append(args, "-mods="+s.Mods)
 	}
+	//args = append(args, "?ServerAdminPassword="+s.AdminPassword)
+
 	args = append(args, "-WinLiveMaxPlayers="+strconv.Itoa(s.MaxPlayers))
 
 	extraArgs := strings.Split(s.ExtraDashArgs, " ")

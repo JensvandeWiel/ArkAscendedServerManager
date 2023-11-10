@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/go-ini/ini"
+	"os"
 	"path/filepath"
 )
 
@@ -259,9 +260,25 @@ func (s *Server) SaveGameIni() error {
 
 	ini.PrettyFormat = false
 
+	filePath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini")
+
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+
+		file, err := os.Create(filePath)
+		if err != nil {
+
+			return err
+		}
+		defer file.Close()
+
+	} else if err != nil {
+
+		return err
+	}
+
 	gIni := ini.Empty()
 
-	gIni, err := ini.Load(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	gIni, err := ini.Load(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
 	if err != nil {
 		return err
 	}

@@ -30,7 +30,7 @@ func generateNewDefaultServer(id int) Server {
 		serverPassword = ""
 	}*/
 
-	adminPassword, err := password.Generate(18, 6, 6, false, false)
+	adminPassword, err := password.Generate(18, 9, 0, false, false)
 	if err != nil {
 		adminPassword = "default"
 	}
