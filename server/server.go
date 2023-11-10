@@ -81,47 +81,14 @@ func (s *Server) UpdateConfig() error {
 		return err
 	}
 
-	if s.UseIniConfig {
-		err = s.SaveGameIni()
-		if err != nil {
-			return err
-		}
+	err = s.SaveGameIni()
+	if err != nil {
+		return err
+	}
 
-		err = s.SaveGameUserSettingsIni()
-		if err != nil {
-			return err
-		}
-		s.GameUserSettings.ServerSettings.RCONEnabled = true
-		s.RCONPort = s.GameUserSettings.ServerSettings.RCONPort
-		s.AdminPassword = s.GameUserSettings.ServerSettings.ServerAdminPassword
-		s.IpAddress = s.GameUserSettings.SessionSettings.MultiHome
-		s.ServerPort = s.GameUserSettings.SessionSettings.Port
-		s.QueryPort = s.GameUserSettings.SessionSettings.QueryPort
-		s.ServerName = s.GameUserSettings.SessionSettings.SessionName
-		s.GameUserSettings.MultiHome.MultiHome = true
-		s.MaxPlayers = s.GameUserSettings.ScriptEngineGameSession.MaxPlayers
-		runtime.EventsEmit(s.ctx, "reloadServers")
-
-	} else {
-		err = s.SaveGameIni()
-		if err != nil {
-			return err
-		}
-
-		err = s.SaveGameUserSettingsIni()
-		if err != nil {
-			return err
-		}
-		s.GameUserSettings.ServerSettings.RCONEnabled = true
-		s.GameUserSettings.ServerSettings.RCONPort = s.RCONPort
-		s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
-
-		s.GameUserSettings.SessionSettings.MultiHome = s.IpAddress
-		s.GameUserSettings.SessionSettings.Port = s.ServerPort
-		s.GameUserSettings.SessionSettings.QueryPort = s.QueryPort
-		s.GameUserSettings.SessionSettings.SessionName = s.ServerName
-		s.GameUserSettings.MultiHome.MultiHome = true
-		s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
+	err = s.SaveGameUserSettingsIni()
+	if err != nil {
+		return err
 	}
 
 	return nil

@@ -70,11 +70,22 @@ func (c *ServerController) CreateServerWithError(saveToConfig bool) (int, *Serve
 
 // SaveServerWithError saves the server, and returns an error if it fails
 func (c *ServerController) SaveServerWithError(server *Server) error {
+
+	server.GameUserSettings.ServerSettings.RCONEnabled = true
+	server.GameUserSettings.ServerSettings.RCONPort = server.RCONPort
+	server.GameUserSettings.ServerSettings.ServerAdminPassword = server.AdminPassword
+
+	server.GameUserSettings.SessionSettings.MultiHome = server.IpAddress
+	server.GameUserSettings.SessionSettings.Port = server.ServerPort
+	server.GameUserSettings.SessionSettings.QueryPort = server.QueryPort
+	server.GameUserSettings.SessionSettings.SessionName = server.ServerName
+	server.GameUserSettings.MultiHome.MultiHome = true
+	server.GameUserSettings.ScriptEngineGameSession.MaxPlayers = server.MaxPlayers
+
 	// Check if server is correct.
 	if err := CheckIfServerCorrect(*server); err != nil {
 		return fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
-
 	c.Servers[server.Id] = server
 	serverDir := path.Join(c.serverDir, strconv.Itoa(server.Id))
 
