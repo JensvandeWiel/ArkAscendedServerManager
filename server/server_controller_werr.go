@@ -94,6 +94,11 @@ func (c *ServerController) SaveServerWithError(server *Server) error {
 		}
 	}
 
+	err = CopyAndMakeOld(path.Join(serverDir, configFileName))
+	if err != nil {
+		return err
+	}
+
 	err = os.WriteFile(path.Join(serverDir, configFileName), serverFile, 0644)
 	if err != nil {
 		return fmt.Errorf("Error writing config file: " + err.Error())
