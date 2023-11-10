@@ -189,7 +189,7 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                 <div className={'space-x-4 w-full flex'}>
                     <div className={'inline-block'}>
                         <Tooltip title={"Loads server config form ini first instead of json"}>
-                            <Checkbox label="Use ini config" checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({ ...p, useIniConfig: e.target.checked, convertValues: p.convertValues }))} />
+                            <Checkbox label="Use ini config (only reloads on server start) (not recommended)" checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({ ...p, useIniConfig: e.target.checked, convertValues: p.convertValues }))} />
 
                         </Tooltip>
                     </div>
