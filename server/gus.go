@@ -52,7 +52,7 @@ type ServerSettings struct {
 	DontAlwaysNotifyPlayerJoined          bool    `json:"dontAlwaysNotifyPlayerJoined" ini:"DontAlwaysNotifyPlayerJoined"`
 	EnableExtraStructurePreventionVolumes bool    `json:"enableExtraStructurePreventionVolumes" ini:"EnableExtraStructurePreventionVolumes"`
 	EnablePvPGamma                        bool    `json:"enablePvPGamma" ini:"EnablePvPGamma"`
-	//ExtinctionEventTimeInterval                int32   `json:"extinctionEventTimeInterval" ini:"ExtinctionEventTimeInterval"`           //TODO: Usage unknown in asa
+	//ExtinctionEventTimeInterval                int   `json:"extinctionEventTimeInterval" ini:"ExtinctionEventTimeInterval"`           //TODO: Usage unknown in asa
 	FastDecayUnsnappedCoreStructures           bool    `json:"fastDecayUnsnappedCoreStructures" ini:"FastDecayUnsnappedCoreStructures"` //TODO: Usage unknown in asa
 	ForceAllStructureLocking                   bool    `json:"forceAllStructureLocking" ini:"ForceAllStructureLocking"`
 	GlobalVoiceChat                            bool    `json:"globalVoiceChat" ini:"globalVoiceChat"` //TODO if it actually starts with a non capital letter
@@ -61,18 +61,18 @@ type ServerSettings struct {
 	IgnoreLimitMaxStructuresInRangeTypeFlag    bool    `json:"ignoreLimitMaxStructuresInRangeTypeFlag" ini:"IgnoreLimitMaxStructuresInRangeTypeFlag"` //TODO: Usage unknown in asa
 	ItemStackSizeMultiplier                    float32 `json:"itemStackSizeMultiplier" ini:"ItemStackSizeMultiplier"`
 	KickIdlePlayersPeriod                      float32 `json:"kickIdlePlayersPeriod" ini:"KickIdlePlayersPeriod"`
-	MaxGateFrameOnSaddles                      int32   `json:"maxGateFrameOnSaddles" ini:"MaxGateFrameOnSaddles"`     //TODO: Usage unknown in asa
-	MaxHexagonsPerCharacter                    int32   `json:"maxHexagonsPerCharacter" ini:"MaxHexagonsPerCharacter"` //TODO: Usage unknown in asa
-	MaxPersonalTamedDinos                      int32   `json:"maxPersonalTamedDinos" ini:"MaxPersonalTamedDinos"`
-	MaxPlatformSaddleStructureLimit            int32   `json:"maxPlatformSaddleStructureLimit" ini:"MaxPlatformSaddleStructureLimit"`
+	MaxGateFrameOnSaddles                      int     `json:"maxGateFrameOnSaddles" ini:"MaxGateFrameOnSaddles"`     //TODO: Usage unknown in asa
+	MaxHexagonsPerCharacter                    int     `json:"maxHexagonsPerCharacter" ini:"MaxHexagonsPerCharacter"` //TODO: Usage unknown in asa
+	MaxPersonalTamedDinos                      int     `json:"maxPersonalTamedDinos" ini:"MaxPersonalTamedDinos"`
+	MaxPlatformSaddleStructureLimit            int     `json:"maxPlatformSaddleStructureLimit" ini:"MaxPlatformSaddleStructureLimit"`
 	MaxTamedDinos                              float32 `json:"maxTamedDinos" ini:"MaxTamedDinos"`
-	MaxTributeCharacters                       int32   `json:"maxTributeCharacters" ini:"MaxTributeCharacters"` //TODO: Usage unknown in asa
-	MaxTributeDinos                            int32   `json:"maxTributeDinos" ini:"MaxTributeDinos"`
-	MaxTributeItems                            int32   `json:"maxTributeItems" ini:"MaxTributeItems"`
+	MaxTributeCharacters                       int     `json:"maxTributeCharacters" ini:"MaxTributeCharacters"` //TODO: Usage unknown in asa
+	MaxTributeDinos                            int     `json:"maxTributeDinos" ini:"MaxTributeDinos"`
+	MaxTributeItems                            int     `json:"maxTributeItems" ini:"MaxTributeItems"`
 	NightTimeSpeedScale                        float32 `json:"nightTimeSpeedScale" ini:"NightTimeSpeedScale"`
 	NonPermanentDiseases                       bool    `json:"nonPermanentDiseases" ini:"NonPermanentDiseases"`
-	NPCNetworkStasisRangeScalePlayerCountStart int32   `json:"npcNetworkStasisRangeScalePlayerCountStart" ini:"NPCNetworkStasisRangeScalePlayerCountStart"` //TODO: Usage unknown in asa
-	NPCNetworkStasisRangeScalePlayerCountEnd   int32   `json:"npcNetworkStasisRangeScalePlayerCountEnd" ini:"NPCNetworkStasisRangeScalePlayerCountEnd"`     //TODO: Usage unknown in asa
+	NPCNetworkStasisRangeScalePlayerCountStart int     `json:"npcNetworkStasisRangeScalePlayerCountStart" ini:"NPCNetworkStasisRangeScalePlayerCountStart"` //TODO: Usage unknown in asa
+	NPCNetworkStasisRangeScalePlayerCountEnd   int     `json:"npcNetworkStasisRangeScalePlayerCountEnd" ini:"NPCNetworkStasisRangeScalePlayerCountEnd"`     //TODO: Usage unknown in asa
 	NPCNetworkStasisRangeScalePercentEnd       float32 `json:"npcNetworkStasisRangeScalePercentEnd" ini:"NPCNetworkStasisRangeScalePercentEnd"`             //TODO: Usage unknown in asa
 	OnlyAutoDestroyCoreStructures              bool    `json:"onlyAutoDestroyCoreStructures" ini:"OnlyAutoDestroyCoreStructures"`                           //TODO: Usage unknown in asa
 	OnlyDecayUnsnappedCoreStructures           bool    `json:"onlyDecayUnsnappedCoreStructures" ini:"OnlyDecayUnsnappedCoreStructures"`                     //TODO: Usage unknown in asa
@@ -80,7 +80,7 @@ type ServerSettings struct {
 	OverrideStructurePlatformPrevention        bool    `json:"overrideStructurePlatformPrevention" ini:"OverrideStructurePlatformPrevention"`
 	OxygenSwimSpeedStatMultiplier              float32 `json:"oxygenSwimSpeedStatMultiplier" ini:"OxygenSwimSpeedStatMultiplier"`
 	PerPlatformMaxStructuresMultiplier         float32 `json:"perPlatformMaxStructuresMultiplier" ini:"PerPlatformMaxStructuresMultiplier"`
-	PersonalTamedDinosSaddleStructureCost      int32   `json:"personalTamedDinosSaddleStructureCost" ini:"PersonalTamedDinosSaddleStructureCost"` //TODO: Usage unknown in asa
+	PersonalTamedDinosSaddleStructureCost      int     `json:"personalTamedDinosSaddleStructureCost" ini:"PersonalTamedDinosSaddleStructureCost"` //TODO: Usage unknown in asa
 	PlatformSaddleBuildAreaBoundsMultiplier    float32 `json:"platformSaddleBuildAreaBoundsMultiplier" ini:"PlatformSaddleBuildAreaBoundsMultiplier"`
 	PlayerCharacterFoodDrainMultiplier         float32 `json:"playerCharacterFoodDrainMultiplier" ini:"PlayerCharacterFoodDrainMultiplier"`
 	PlayerCharacterHealthRecoveryMultiplier    float32 `json:"playerCharacterHealthRecoveryMultiplier" ini:"PlayerCharacterHealthRecoveryMultiplier"`
@@ -103,7 +103,7 @@ type ServerSettings struct {
 	RaidDinoCharacterFoodDrainMultiplier       float32 `json:"raidDinoCharacterFoodDrainMultiplier" ini:"RaidDinoCharacterFoodDrainMultiplier"`
 	RandomSupplyCratePoints                    bool    `json:"randomSupplyCratePoints" ini:"RandomSupplyCratePoints"`
 	RCONEnabled                                bool    `json:"rconEnabled" ini:"RCONEnabled"`
-	RCONPort                                   int32   `json:"rconPort" ini:"RCONPort"`
+	RCONPort                                   int     `json:"rconPort" ini:"RCONPort"`
 	RCONServerGameLogBuffer                    float32 `json:"rconServerGameLogBuffer" ini:"RCONServerGameLogBuffer"`
 	ResourcesRespawnPeriodMultiplier           float32 `json:"resourcesRespawnPeriodMultiplier" ini:"ResourcesRespawnPeriodMultiplier"`
 	ServerAdminPassword                        string  `json:"serverAdminPassword" ini:"ServerAdminPassword"`
@@ -124,7 +124,7 @@ type ServerSettings struct {
 	TamedDinoDamageMultiplier                float32 `json:"tamedDinoDamageMultiplier" ini:"TamedDinoDamageMultiplier"` //TODO: Usage unknown in asa
 	TamedDinoResistanceMultiplier            float32 `json:"tamedDinoResistanceMultiplier" ini:"TamedDinoResistanceMultiplier"`
 	TamingSpeedMultiplier                    float32 `json:"tamingSpeedMultiplier" ini:"TamingSpeedMultiplier"`
-	TheMaxStructuresInRange                  int32   `json:"theMaxStructuresInRange" ini:"TheMaxStructuresInRange"`
+	TheMaxStructuresInRange                  int     `json:"theMaxStructuresInRange" ini:"TheMaxStructuresInRange"`
 	TribeLogDestroyedEnemyStructures         bool    `json:"tribeLogDestroyedEnemyStructures" ini:"TribeLogDestroyedEnemyStructures"`
 	TribeNameChangeCooldown                  float32 `json:"tribeNameChangeCooldown" ini:"TribeNameChangeCooldown"`
 	UseFjordurTraversalBuff                  bool    `json:"useFjordurTraversalBuff" ini:"UseFjordurTraversalBuff"` //TODO: Usage unknown in asa
@@ -140,12 +140,12 @@ type ServerSettings struct {
 	PreventUploadDinos                bool    `json:"preventUploadDinos" ini:"PreventUploadDinos"` //TODO: Usage unknown in asa
 	PreventUploadItems                bool    `json:"preventUploadItems" ini:"PreventUploadItems"`
 	PreventUploadSurvivors            bool    `json:"preventUploadSurvivors" ini:"PreventUploadSurvivors"`
-	TributeCharacterExpirationSeconds int32   `json:"tributeCharacterExpirationSeconds" ini:"TributeCharacterExpirationSeconds"` //TODO: Usage unknown in asa
-	TributeDinoExpirationSeconds      int32   `json:"tributeDinoExpirationSeconds" ini:"TributeDinoExpirationSeconds"`
-	TributeItemExpirationSeconds      int32   `json:"tributeItemExpirationSeconds" ini:"TributeItemExpirationSeconds"`
+	TributeCharacterExpirationSeconds int     `json:"tributeCharacterExpirationSeconds" ini:"TributeCharacterExpirationSeconds"` //TODO: Usage unknown in asa
+	TributeDinoExpirationSeconds      int     `json:"tributeDinoExpirationSeconds" ini:"TributeDinoExpirationSeconds"`
+	TributeItemExpirationSeconds      int     `json:"tributeItemExpirationSeconds" ini:"TributeItemExpirationSeconds"`
 	// Cryo sickness and cryopod nerf
 	//CryopodNerfDamageMult float32 `json:"cryopodNerfDamageMult" ini:"CryopodNerfDamageMult"` //TODO: Usage unknown in asa
-	//CryopodNerfDuration int32 `json:"cryopodNerfDuration" ini:"CryopodNerfDuration"` //TODO: Usage unknown in asa
+	//CryopodNerfDuration int `json:"cryopodNerfDuration" ini:"CryopodNerfDuration"` //TODO: Usage unknown in asa
 	//CryopodNerfIncomingDamageMultPercent float32 `json:"cryopodNerfIncomingDamageMultPercent" ini:"CryopodNerfIncomingDamageMultPercent"` //TODO: Usage unknown in asa
 	//EnableCryopodNerf bool `json:"enableCryopodNerf" ini:"EnableCryopodNerf"`
 	EnableCryoSicknessPVE bool `json:"enableCryoSicknessPVE" ini:"EnableCryoSicknessPVE"`
@@ -157,16 +157,16 @@ type ServerSettings struct {
 	BFilterTribeNames     bool   `json:"bFilterTribeNames" ini:"bFilterTribeNames"`
 	//Undocumented
 	//AllowedCheatersURL              string  `json:"allowedCheatersURL" ini:"AllowedCheatersURL"`
-	ChatLogFileSplitIntervalSeconds int32   `json:"chatLogFileSplitIntervalSeconds" ini:"ChatLogFileSplitIntervalSeconds"`
-	ChatLogFlushIntervalSeconds     int32   `json:"chatLogFlushIntervalSeconds" ini:"ChatLogFlushIntervalSeconds"`
-	ChatLogMaxAgeInDays             int32   `json:"chatLogMaxAgeInDays" ini:"ChatLogMaxAgeInDays"`
+	ChatLogFileSplitIntervalSeconds int     `json:"chatLogFileSplitIntervalSeconds" ini:"ChatLogFileSplitIntervalSeconds"`
+	ChatLogFlushIntervalSeconds     int     `json:"chatLogFlushIntervalSeconds" ini:"ChatLogFlushIntervalSeconds"`
+	ChatLogMaxAgeInDays             int     `json:"chatLogMaxAgeInDays" ini:"ChatLogMaxAgeInDays"`
 	DontRestoreBackup               bool    `json:"dontRestoreBackup" ini:"DontRestoreBackup"`
 	EnableAFKKickPlayerCountPercent float32 `json:"enableAFKKickPlayerCountPercent" ini:"EnableAFKKickPlayerCountPercent"`
 	EnableMeshBitingProtection      bool    `json:"enableMeshBitingProtection" ini:"EnableMeshBitingProtection"`
 	FreezeReaperPregnancy           bool    `json:"freezeReaperPregnancy" ini:"FreezeReaperPregnancy"`
 	LogChatMessages                 bool    `json:"logChatMessages" ini:"LogChatMessages"`
-	MaxStructuresInSmallRadius      int32   `json:"maxStructuresInSmallRadius" ini:"MaxStructuresInSmallRadius"`
-	MaxStructuresToProcess          int32   `json:"maxStructuresToProcess" ini:"MaxStructuresToProcess"`
+	MaxStructuresInSmallRadius      int     `json:"maxStructuresInSmallRadius" ini:"MaxStructuresInSmallRadius"`
+	MaxStructuresToProcess          int     `json:"maxStructuresToProcess" ini:"MaxStructuresToProcess"`
 	PreventOutOfTribePinCodeUse     bool    `json:"preventOutOfTribePinCodeUse" ini:"PreventOutOfTribePinCodeUse"`
 	RadiusStructuresInSmallRadius   float32 `json:"radiusStructuresInSmallRadius" ini:"RadiusStructuresInSmallRadius"`
 	ServerEnableMeshChecking        bool    `json:"serverEnableMeshChecking" ini:"ServerEnableMeshChecking"`
@@ -178,8 +178,8 @@ type ServerSettings struct {
 
 type SessionSettings struct {
 	MultiHome   string `json:"multiHome" ini:"MultiHome"`
-	Port        int32  `json:"port" ini:"Port"`
-	QueryPort   int32  `json:"queryPort" ini:"QueryPort"`
+	Port        int    `json:"port" ini:"Port"`
+	QueryPort   int    `json:"queryPort" ini:"QueryPort"`
 	SessionName string `json:"sessionName" ini:"SessionName"`
 }
 
@@ -190,18 +190,18 @@ type MultiHome struct {
 type Ragnarok struct {
 	AllowMultipleTamedUnicorns bool    `json:"allowMultipleTamedUnicorns" ini:"AllowMultipleTamedUnicorns"`
 	EnableVolcano              bool    `json:"enableVolcano" ini:"EnableVolcano"`
-	UnicornSpawnInterval       int32   `json:"unicornSpawnInterval" ini:"UnicornSpawnInterval"`
+	UnicornSpawnInterval       int     `json:"unicornSpawnInterval" ini:"UnicornSpawnInterval"`
 	VolcanoIntensity           float32 `json:"volcanoIntensity" ini:"VolcanoIntensity"`
-	VolcanoInterval            int32   `json:"volcanoInterval" ini:"VolcanoInterval"`
+	VolcanoInterval            int     `json:"volcanoInterval" ini:"VolcanoInterval"`
 }
 
 type MessageOfTheDay struct {
-	Duration int32  `json:"duration" ini:"Duration"`
+	Duration int    `json:"duration" ini:"Duration"`
 	Message  string `json:"message" ini:"Message"`
 }
 
 type ScriptEngineGameSession struct {
-	MaxPlayers int32 `json:"maxPlayers" ini:"MaxPlayers"`
+	MaxPlayers int `json:"maxPlayers" ini:"MaxPlayers"`
 }
 
 type GameUserSettings struct {

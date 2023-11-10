@@ -55,7 +55,7 @@ type ScriptShootergameShootergamemode struct {
 	CropGrowthSpeedMultiplier           float32 `json:"cropGrowthSpeedMultiplier" ini:"CropGrowthSpeedMultiplier"`
 	CustomRecipeEffectivenessMultiplier float32 `json:"customRecipeEffectivenessMultiplier" ini:"CustomRecipeEffectivenessMultiplier"`
 	CustomRecipeSkillMultiplier         float32 `json:"customRecipeSkillMultiplier" ini:"CustomRecipeSkillMultiplier"`
-	DestroyTamesOverLevelClamp          int32   `json:"destroyTamesOverLevelClamp" ini:"DestroyTamesOverLevelClamp"`
+	DestroyTamesOverLevelClamp          int     `json:"destroyTamesOverLevelClamp" ini:"DestroyTamesOverLevelClamp"`
 	//DinoClassDamageMultipliers https://ark.wiki.gg/wiki/Server_configuration#DinoClassDamageMultipliers
 	//DinoClassResistanceMultipliers https://ark.wiki.gg/wiki/Server_configuration#DinoClassResistanceMultipliers
 	DinoHarvestingDamageMultiplier float64 `json:"dinoHarvestingDamageMultiplier" ini:"DinoHarvestingDamageMultiplier"`
@@ -64,7 +64,7 @@ type ScriptShootergameShootergamemode struct {
 	EggHatchSpeedMultiplier    float32 `json:"eggHatchSpeedMultiplier" ini:"EggHatchSpeedMultiplier"`
 	//EngramEntryAutoUnlocks https://ark.wiki.gg/wiki/Server_configuration#EngramEntryAutoUnlocks
 	//ExcludeItemIndices https://ark.wiki.gg/wiki/Item_IDs
-	FastDecayInterval                               int32   `json:"fastDecayInterval" ini:"FastDecayInterval"`
+	FastDecayInterval                               int     `json:"fastDecayInterval" ini:"FastDecayInterval"`
 	FishingLootQualityMultiplier                    float32 `json:"fishingLootQualityMultiplier" ini:"FishingLootQualityMultiplier"`
 	FuelConsumptionIntervalMultiplier               float32 `json:"fuelConsumptionIntervalMultiplier" ini:"FuelConsumptionIntervalMultiplier"`
 	GenericXPMultiplier                             float32 `json:"genericXPMultiplier" ini:"GenericXPMultiplier"`
@@ -82,18 +82,18 @@ type ScriptShootergameShootergamemode struct {
 	KillXPMultiplier         float32 `json:"killXPMultiplier" ini:"KillXPMultiplier"`
 	LayEggIntervalMultiplier float32 `json:"layEggIntervalMultiplier" ini:"LayEggIntervalMultiplier"`
 	// LevelExperienceRampOverrides https://ark.wiki.gg/wiki/Server_configuration#Players_and_dinos_levels_override
-	LimitNonPlayerDroppedItemsCount int32   `json:"limitNonPlayerDroppedItemsCount" ini:"LimitNonPlayerDroppedItemsCount"`
-	LimitNonPlayerDroppedItemsRange int32   `json:"limitNonPlayerDroppedItemsRange" ini:"LimitNonPlayerDroppedItemsRange"`
+	LimitNonPlayerDroppedItemsCount int     `json:"limitNonPlayerDroppedItemsCount" ini:"LimitNonPlayerDroppedItemsCount"`
+	LimitNonPlayerDroppedItemsRange int     `json:"limitNonPlayerDroppedItemsRange" ini:"LimitNonPlayerDroppedItemsRange"`
 	MatingIntervalMultiplier        float32 `json:"matingIntervalMultiplier" ini:"MatingIntervalMultiplier"`
 	MatingSpeedMultiplier           float32 `json:"matingSpeedMultiplier" ini:"MatingSpeedMultiplier"`
-	MaxAlliancesPerTribe            int32
+	MaxAlliancesPerTribe            int
 	MaxFallSpeedMultiplier          float32 `json:"maxFallSpeedMultiplier" ini:"MaxFallSpeedMultiplier"`
-	MaxNumberOfPlayersInTribe       int32   `json:"maxNumberOfPlayersInTribe" ini:"MaxNumberOfPlayersInTribe"`
-	MaxTribeLogs                    int32   `json:"maxTribeLogs" ini:"MaxTribeLogs"`
-	//MaxTribesPerAlliance            int32   `json:"maxTribesPerAlliance" ini:"MaxTribesPerAlliance"` // TODO: Add this in save function
+	MaxNumberOfPlayersInTribe       int     `json:"maxNumberOfPlayersInTribe" ini:"MaxNumberOfPlayersInTribe"`
+	MaxTribeLogs                    int     `json:"maxTribeLogs" ini:"MaxTribeLogs"`
+	//MaxTribesPerAlliance            int   `json:"maxTribesPerAlliance" ini:"MaxTribesPerAlliance"` // TODO: Add this in save function
 	//NPCReplacements https://ark.wiki.gg/wiki/Server_configuration#NPCReplacements // TODO: Add this in save function
-	//OverrideMaxExperiencePointsDino   int32 `json:"overrideMaxExperiencePointsDino" ini:"OverrideMaxExperiencePointsDino"`// TODO: Add this in save function
-	//OverrideMaxExperiencePointsPlayer int32 `json:"overrideMaxExperiencePointsPlayer" ini:"OverrideMaxExperiencePointsPlayer"`// TODO: Add this in save function
+	//OverrideMaxExperiencePointsDino   int `json:"overrideMaxExperiencePointsDino" ini:"OverrideMaxExperiencePointsDino"`// TODO: Add this in save function
+	//OverrideMaxExperiencePointsPlayer int `json:"overrideMaxExperiencePointsPlayer" ini:"OverrideMaxExperiencePointsPlayer"`// TODO: Add this in save function
 	//OverrideEngramEntries https://ark.wiki.gg/wiki/Server_configuration#OverrideEngramEntries_and_OverrideNamedEngramEntries // TODO: Add this in save function
 	//OverrideNamedEngramEntries https://ark.wiki.gg/wiki/Server_configuration#OverrideEngramEntries_and_OverrideNamedEngramEntries // TODO: Add this in save function
 	//OverridePlayerLevelEngramPoints
@@ -112,7 +112,7 @@ type ScriptShootergameShootergamemode struct {
 	ResourceNoReplenishRadiusPlayers      float32 `json:"resourceNoReplenishRadiusPlayers" ini:"ResourceNoReplenishRadiusPlayers"`
 	ResourceNoReplenishRadiusStructures   float32 `json:"resourceNoReplenishRadiusStructures" ini:"ResourceNoReplenishRadiusStructures"`
 	SpecialXPMultiplier                   float32 `json:"specialXPMultiplier" ini:"SpecialXPMultiplier"`
-	StructureDamageRepairCooldown         int32   `json:"structureDamageRepairCooldown" ini:"StructureDamageRepairCooldown"`
+	StructureDamageRepairCooldown         int     `json:"structureDamageRepairCooldown" ini:"StructureDamageRepairCooldown"`
 	SupplyCrateLootQualityMultiplier      float32 `json:"supplyCrateLootQualityMultiplier" ini:"SupplyCrate"`
 	TamedDinoCharacterFoodDrainMultiplier float32 `json:"tamedDinoCharacterFoodDrainMultiplier" ini:"TamedDinoCharacterFoodDrainMultiplier"`
 	//TamedDinoClassDamageMultipliers https://ark.wiki.gg/wiki/Server_configuration#DinoClassDamageMultipliers
@@ -124,7 +124,7 @@ type ScriptShootergameShootergamemode struct {
 	WildDinoTorporDrainMultiplier        float32 `json:"WildDinoTorporDrainMultiplier" ini:"WildDinoTorporDrainMultiplier"`
 	BHardLimitTurretsInRange             bool    `json:"bHardLimitTurretsInRange" ini:"bHardLimitTurretsInRange"`
 	BLimitTurretsInRange                 bool    `json:"bLimitTurretsInRange" ini:"bLimitTurretsInRange"`
-	LimitTurretsNum                      int32   `json:"limitTurretsNum" ini:"LimitTurretsNum"`
+	LimitTurretsNum                      int     `json:"limitTurretsNum" ini:"LimitTurretsNum"`
 	LimitTurretsRange                    float32 `json:"limitTurretsRange" ini:"LimitTurretsRange"`
 
 	AdjustableMutagenSpawnDelayMultiplier  float32 `json:"adjustableMutagenSpawnDelayMultiplier" ini:"AdjustableMutagenSpawnDelayMultiplier"`
