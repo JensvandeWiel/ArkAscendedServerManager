@@ -190,8 +190,19 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                     <div className={'inline-block'}>
                         <Tooltip title={"Loads server config form ini first instead of json"}>
                             <Checkbox label="Use ini config (only reloads on server start) (not recommended)" checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({ ...p, useIniConfig: e.target.checked, convertValues: p.convertValues }))} />
-
                         </Tooltip>
+                        <br/>
+                        <Tooltip title={"Enables discord webhook messages"}>
+                            <Checkbox label="Discord webhook messages" checked={serv?.discordWebHookEnabled} onChange={(e) => setServ((p) => ({ ...p, discordWebHookEnabled: e.target.checked, convertValues: p.convertValues }))} />
+                        </Tooltip>
+                        <Tooltip title={"The url from the webhook (if not set it will fail)"}>
+                            <span>
+                                <FormLabel>Discord webhook url</FormLabel>
+                            <Input value={serv?.discordWebHook} onChange={(e) => setServ((p) => ({ ...p, discordWebHook: e.target.value, convertValues: p.convertValues }))}></Input>
+                            </span>
+                        </Tooltip>
+
+
                     </div>
                 </div>
             </Card>
