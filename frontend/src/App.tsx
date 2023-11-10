@@ -74,6 +74,11 @@ function App() {
 
     }, []);
 
+    useEffect(() => {
+        EventsOn("reloadServers", getServers)
+        return () => EventsOff("reloadServers")
+    }, []);
+
     //events
     useEffect(() => {
         EventsOn("serverSaved", getServers)

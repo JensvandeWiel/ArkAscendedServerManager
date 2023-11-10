@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/go-ini/ini"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
 	"path/filepath"
 )
@@ -283,9 +284,18 @@ func (s *Server) SaveGameIni() error {
 		return err
 	}
 
-	err = gIni.ReflectFrom(&s.Game)
-	if err != nil {
-		return err
+	if s.UseIniConfig {
+		err = gIni.MapTo(&s.Game)
+		if err != nil {
+			return err
+		}
+
+		runtime.EventsEmit(s.ctx, "reloadServers")
+	} else {
+		err = gIni.ReflectFrom(&s.Game)
+		if err != nil {
+			return err
+		}
 	}
 
 	err = gIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))

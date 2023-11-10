@@ -7,7 +7,7 @@ import {
     FormLabel,
     Input, Modal,
     ModalDialog,
-    TabPanel,
+    TabPanel, Tooltip,
     Typography
 } from "@mui/joy";
 import React, {useState} from "react";
@@ -151,6 +151,7 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                                         </DialogActions>
                                     </ModalDialog>
                                 </Modal>
+
                                 <Button color='neutral' onClick={() => {
                                     setShowServerCommandModalOpen(true)
                                     return GetServerStartupCommand(serv.id)
@@ -179,6 +180,22 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                     </div>
                 </div>
             </Card>
+            <Card variant="soft"  className={''}>
+                <Typography level="title-md">
+                    Extra Settings
+                </Typography>
+                <Divider className={'mx-2'}/>
+
+                <div className={'space-x-4 w-full flex'}>
+                    <div className={'inline-block'}>
+                        <Tooltip title={"Loads server config form ini first instead of json"}>
+                            <Checkbox label="Use ini config" checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({ ...p, useIniConfig: e.target.checked, convertValues: p.convertValues }))} />
+
+                        </Tooltip>
+                    </div>
+                </div>
+            </Card>
+
         </TabPanel>
     );
 }

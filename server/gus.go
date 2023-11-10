@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/go-ini/ini"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
 	"path/filepath"
 )
@@ -434,9 +435,17 @@ func (s *Server) SaveGameUserSettingsIni() error {
 		return err
 	}
 
-	err = gusIni.ReflectFrom(&s.GameUserSettings)
-	if err != nil {
-		return err
+	if s.UseIniConfig {
+		err = gusIni.MapTo(&s.GameUserSettings)
+		if err != nil {
+			return err
+		}
+		runtime.EventsEmit(s.ctx, "reloadServers")
+	} else {
+		err = gusIni.ReflectFrom(&s.GameUserSettings)
+		if err != nil {
+			return err
+		}
 	}
 
 	if s.ServerPassword != "" {

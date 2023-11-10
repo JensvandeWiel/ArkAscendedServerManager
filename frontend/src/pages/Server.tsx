@@ -88,6 +88,15 @@ export const Server = ({id, className}: Props) => {
         }
     }, [serv]);
 
+    useEffect(() => {
+        EventsOn("reloadServers", () => {
+            if (id !== undefined) {
+                GetServer(id).then((s) => {setServ(s)}).catch((reason) => console.error(reason))
+            }
+        })
+        return () => EventsOff("reloadServers")
+    }, []);
+
     //endregion
 
     function onServerStartButtonClicked() {
@@ -158,7 +167,7 @@ export const Server = ({id, className}: Props) => {
 
                         <div className={'ml-auto my-auto mr-8'}>
                             <ButtonGroup aria-label="outlined primary button group">
-                                <Button color={'success'} variant="solid" disabled={serverStatus} onClick={() => setStartModalOpen(true)}>Start</Button>
+                                <Button color={'success'} variant="solid" disabled={serverStatus} onClick={() => {serv?.useIniConfig? startServer() : setStartModalOpen(true)}}>Start</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={onServerStopButtonClicked}>Stop</Button>
                                 <Button color={'danger'} variant="solid" disabled={!serverStatus} onClick={() => setForceStopModalOpen(true)}>Force stop</Button>
                             </ButtonGroup>
