@@ -5,7 +5,9 @@ import (
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/sethvargo/go-password/password"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"io"
 	"net"
+	"os"
 	"strconv"
 )
 
@@ -158,6 +160,29 @@ func CheckServerPorts(server *Server) error {
 		portCount[port] = 1
 	}
 
+	return nil
+}
+
+func CopyAndMakeOld(path string) error {
+	// Open the source file
+	originalFile, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer originalFile.Close()
+
+	// Create the destination file
+	newFile, err := os.Create(path + ".old")
+	if err != nil {
+		return err
+	}
+	defer newFile.Close()
+
+	// Copy the contents of the source file to the destination file
+	_, err = io.Copy(newFile, originalFile)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

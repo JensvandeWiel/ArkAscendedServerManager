@@ -7,6 +7,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
 	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
@@ -78,7 +79,16 @@ func (s *Server) UpdateConfig() error {
 	s.GameUserSettings.MultiHome.MultiHome = true
 	s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
 
-	err := s.SaveGameIni()
+	err := CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini"))
+	if err != nil {
+		return err
+	}
+	err = CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini"))
+	if err != nil {
+		return err
+	}
+
+	err = s.SaveGameIni()
 	if err != nil {
 		return err
 	}
