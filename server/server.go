@@ -196,23 +196,15 @@ func (s *Server) IsServerRunning() bool {
 func (s *Server) CreateArguments() []string {
 	var args []string = []string{}
 
-	args = append(args, s.ServerMap+"?listen"+"?SessionName="+s.ServerName)
-	args = append(args, "?MultiHome="+s.IpAddress)
-	args = append(args, "?Port="+strconv.Itoa(s.ServerPort))
-	args = append(args, "?QueryPort="+strconv.Itoa(s.QueryPort))
-	args = append(args, "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort="+strconv.Itoa(s.RCONPort))
-	args = append(args, "?MaxPlayers="+strconv.Itoa(s.MaxPlayers))
-	if s.ServerPassword != "" {
+	args = append(args, s.ServerMap+"?listen")
+	/*if s.ServerPassword != "" {
 		args = append(args, "?ServerPassword="+s.ServerPassword)
 	}
 	if s.SpectatorPassword != "" {
 		args = append(args, "?SpectatorPassword="+s.SpectatorPassword)
-	}
+	}*/
 
 	args = append(args, s.ExtraQuestionmarkArguments)
-
-	//TODO move AdminPassword to ini
-	args = append(args, "?ServerAdminPassword="+s.AdminPassword)
 
 	if s.Mods != "" {
 		args = append(args, "-mods="+s.Mods)

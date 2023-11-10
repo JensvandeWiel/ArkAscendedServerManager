@@ -111,25 +111,23 @@ type ServerSettings struct {
 	ServerCrosshair                            bool    `json:"serverCrosshair" ini:"ServerCrosshair"`
 	ServerForceNoHUD                           bool    `json:"serverForceNoHUD" ini:"ServerForceNoHUD"`
 	ServerHardcore                             bool    `json:"serverHardcore" ini:"ServerHardcore"`
-	//ServerPassword                             string  `json:"serverPassword" ini:"ServerPassword"` //todo add in pre start function
-	ServerPVE              bool `json:"serverPVE" ini:"serverPVE"`
-	ShowFloatingDamageText bool `json:"showFloatingDamageText" ini:"ShowFloatingDamageText"`
-	ShowMapPlayerLocation  bool `json:"showMapPlayerLocation" ini:"ShowMapPlayerLocation"`
-	//SpectatorPassword                        string  `json:"spectatorPassword" ini:"SpectatorPassword"` //todo add in pre start function
-	StructureDamageMultiplier                float32 `json:"structureDamageMultiplier" ini:"StructureDamageMultiplier"`
-	StructurePickupHoldDuration              float32 `json:"structurePickupHoldDuration" ini:"StructurePickupHoldDuration"`
-	StructurePickupTimeAfterPlacement        float32 `json:"structurePickupTimeAfterPlacement" ini:"StructurePickupTimeAfterPlacement"`
-	StructurePreventResourceRadiusMultiplier float32 `json:"structurePreventResourceRadiusMultiplier" ini:"StructurePreventResourceRadiusMultiplier"`
-	StructureResistanceMultiplier            float32 `json:"structureResistanceMultiplier" ini:"StructureResistanceMultiplier"`
-	TamedDinoDamageMultiplier                float32 `json:"tamedDinoDamageMultiplier" ini:"TamedDinoDamageMultiplier"` //TODO: Usage unknown in asa
-	TamedDinoResistanceMultiplier            float32 `json:"tamedDinoResistanceMultiplier" ini:"TamedDinoResistanceMultiplier"`
-	TamingSpeedMultiplier                    float32 `json:"tamingSpeedMultiplier" ini:"TamingSpeedMultiplier"`
-	TheMaxStructuresInRange                  int     `json:"theMaxStructuresInRange" ini:"TheMaxStructuresInRange"`
-	TribeLogDestroyedEnemyStructures         bool    `json:"tribeLogDestroyedEnemyStructures" ini:"TribeLogDestroyedEnemyStructures"`
-	TribeNameChangeCooldown                  float32 `json:"tribeNameChangeCooldown" ini:"TribeNameChangeCooldown"`
-	UseFjordurTraversalBuff                  bool    `json:"useFjordurTraversalBuff" ini:"UseFjordurTraversalBuff"` //TODO: Usage unknown in asa
-	UseOptimizedHarvestingHealth             bool    `json:"useOptimizedHarvestingHealth" ini:"UseOptimizedHarvestingHealth"`
-	XPMultiplier                             float32 `json:"xPMultiplier" ini:"XPMultiplier"`
+	ServerPVE                                  bool    `json:"serverPVE" ini:"serverPVE"`
+	ShowFloatingDamageText                     bool    `json:"showFloatingDamageText" ini:"ShowFloatingDamageText"`
+	ShowMapPlayerLocation                      bool    `json:"showMapPlayerLocation" ini:"ShowMapPlayerLocation"`
+	StructureDamageMultiplier                  float32 `json:"structureDamageMultiplier" ini:"StructureDamageMultiplier"`
+	StructurePickupHoldDuration                float32 `json:"structurePickupHoldDuration" ini:"StructurePickupHoldDuration"`
+	StructurePickupTimeAfterPlacement          float32 `json:"structurePickupTimeAfterPlacement" ini:"StructurePickupTimeAfterPlacement"`
+	StructurePreventResourceRadiusMultiplier   float32 `json:"structurePreventResourceRadiusMultiplier" ini:"StructurePreventResourceRadiusMultiplier"`
+	StructureResistanceMultiplier              float32 `json:"structureResistanceMultiplier" ini:"StructureResistanceMultiplier"`
+	TamedDinoDamageMultiplier                  float32 `json:"tamedDinoDamageMultiplier" ini:"TamedDinoDamageMultiplier"` //TODO: Usage unknown in asa
+	TamedDinoResistanceMultiplier              float32 `json:"tamedDinoResistanceMultiplier" ini:"TamedDinoResistanceMultiplier"`
+	TamingSpeedMultiplier                      float32 `json:"tamingSpeedMultiplier" ini:"TamingSpeedMultiplier"`
+	TheMaxStructuresInRange                    int     `json:"theMaxStructuresInRange" ini:"TheMaxStructuresInRange"`
+	TribeLogDestroyedEnemyStructures           bool    `json:"tribeLogDestroyedEnemyStructures" ini:"TribeLogDestroyedEnemyStructures"`
+	TribeNameChangeCooldown                    float32 `json:"tribeNameChangeCooldown" ini:"TribeNameChangeCooldown"`
+	UseFjordurTraversalBuff                    bool    `json:"useFjordurTraversalBuff" ini:"UseFjordurTraversalBuff"` //TODO: Usage unknown in asa
+	UseOptimizedHarvestingHealth               bool    `json:"useOptimizedHarvestingHealth" ini:"UseOptimizedHarvestingHealth"`
+	XPMultiplier                               float32 `json:"xPMultiplier" ini:"XPMultiplier"`
 	//CrossARK Transfers
 	CrossARKAllowForeignDinoDownloads bool    `json:"crossARKAllowForeignDinoDownloads" ini:"CrossARKAllowForeignDinoDownloads"` //TODO: Usage unknown in asa
 	MinimumDinoReuploadInterval       float32 `json:"minimumDinoReuploadInterval" ini:"MinimumDinoReuploadInterval"`             //TODO: Usage unknown in asa
@@ -210,7 +208,7 @@ type GameUserSettings struct {
 
 	SessionSettings SessionSettings `json:"sessionSettings" ini:"SessionSettings"`
 
-	MultiHome               MultiHome               `json:"multiHome" ini:"MultiHome"` //TODO: Check if its "MultiHome" or "/MultiHome" https://ark.wiki.gg/wiki/Server_configuration#[MultiHome]
+	MultiHome               MultiHome               `json:"multiHome" ini:"MultiHome" ini:"/MultiHome"` //TODO: Check if its "MultiHome" or "/MultiHome" https://ark.wiki.gg/wiki/Server_configuration#[MultiHome]
 	ScriptEngineGameSession ScriptEngineGameSession `json:"scriptEngineGameSession" ini:"/Script/Engine.GameSession"`
 
 	Ragnarok Ragnarok `json:"ragnarok" ini:"Ragnarok"`
@@ -423,6 +421,15 @@ func (s *Server) SaveGameUserSettingsIni() error {
 	if err != nil {
 		return err
 	}
+
+	if s.ServerPassword != "" {
+		gusIni.Section("ServerSettings").Key("ServerPassword").SetValue(s.ServerPassword)
+	}
+	if s.SpectatorPassword != "" {
+		gusIni.Section("ServerSettings").Key("SpectatorPassword").SetValue(s.SpectatorPassword)
+	}
+
+	gusIni.Section("ServerSettings").Key("AdminPassword").SetValue(s.AdminPassword)
 
 	err = gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
 	if err != nil {
