@@ -164,6 +164,11 @@ func CheckServerPorts(server *Server) error {
 }
 
 func CopyAndMakeOld(path string) error {
+	println("bob")
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		// File does not exist, return nil
+		return nil
+	}
 	// Open the source file
 	originalFile, err := os.Open(path)
 	if err != nil {
