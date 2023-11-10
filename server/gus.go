@@ -1,53 +1,58 @@
 package server
 
+import (
+	"github.com/go-ini/ini"
+	"path/filepath"
+)
+
 type ServerSettings struct {
 	ActiveMods string `json:"activeMods" ini:"ActiveMods"`
 	//ActiveMapMod                 string `json:"activeMapMod" ini:"ActiveMapMod"` TODO IMPLEMENT IN GENERATION FUNC
-	AdminLogging                               bool    `json:"adminLogging" ini:"AdminLogging"`
-	AllowAnyoneBabyImprintCuddle               bool    `json:"allowAnyoneBabyImprintCuddle" ini:"AllowAnyoneBabyImprintCuddle"`
-	AllowCaveBuildingPvE                       bool    `json:"allowCaveBuildingPvE" ini:"AllowCaveBuildingPvE"`
-	AllowCaveBuildingPvP                       bool    `json:"allowCaveBuildingPvP" ini:"AllowCaveBuildingPvP"`                           //TODO: Usage unknown in asa
-	AllowCrateSpawnsOnTopOfStructures          bool    `json:"allowCrateSpawnsOnTopOfStructures" ini:"AllowCrateSpawnsOnTopOfStructures"` //TODO: Usage unknown in asa
-	AllowFlyerCarryPvE                         bool    `json:"allowFlyerCarryPvE" ini:"AllowFlyerCarryPvE"`
-	AllowFlyingStaminaRecovery                 bool    `json:"allowFlyingStaminaRecovery" ini:"AllowFlyingStaminaRecovery"` //TODO: Usage unknown in asa
-	AllowHideDamageSourceFromLogs              bool    `json:"allowHideDamageSourceFromLogs" ini:"AllowHideDamageSourceFromLogs"`
-	AllowHitMarkers                            bool    `json:"allowHitMarkers" ini:"AllowHitMarkers"`
-	AllowIntegratedSPlusStructures             bool    `json:"allowIntegratedSPlusStructures" ini:"AllowIntegratedSPlusStructures"` //TODO: Usage unknown in asa
-	AllowMultipleAttachedC4                    bool    `json:"allowMultipleAttachedC4" ini:"AllowMultipleAttachedC4"`
-	AllowRaidDinoFeeding                       bool    `json:"allowRaidDinoFeeding" ini:"AllowRaidDinoFeeding"`
-	AllowSharedConnections                     bool    `json:"allowSharedConnections" ini:"AllowSharedConnections"`           //TODO: Usage unknown in asa
-	AllowTekSuitPowersInGenesis                bool    `json:"allowTekSuitPowersInGenesis" ini:"AllowTekSuitPowersInGenesis"` //TODO: Usage unknown in asa
-	AllowThirdPersonPlayer                     bool    `json:"allowThirdPersonPlayer" ini:"AllowThirdPersonPlayer"`
-	AlwaysAllowStructurePickup                 bool    `json:"alwaysAllowStructurePickup" ini:"AlwaysAllowStructurePickup"`
-	AlwaysNotifyPlayerLeft                     bool    `json:"alwaysNotifyPlayerLeft" ini:"AlwaysNotifyPlayerLeft"`                         //TODO: Usage unknown in asa
-	AutoDestroyDecayedDinos                    bool    `json:"autoDestroyDecayedDinos" ini:"AutoDestroyDecayedDinos"`                       //TODO: Usage unknown in asa
-	AutoDestroyOldStructuresMultiplier         float32 `json:"autoDestroyOldStructuresMultiplier" ini:"AutoDestroyOldStructuresMultiplier"` //TODO: Usage unknown in asa
-	AutoSavePeriodMinutes                      float32 `json:"autoSavePeriodMinutes" ini:"AutoSavePeriodMinutes"`
-	BanListUrl                                 string  `json:"banListUrl" ini:"BanListUrl"`                         //TODO: Usage unknown in asa
-	BForceCanRideFliers                        bool    `json:"bForceCanRideFliers" ini:"bForceCanRideFliers"`       //TODO: Usage unknown in asa
-	ClampItemSpoilingTimes                     bool    `json:"clampItemSpoilingTimes" ini:"ClampItemSpoilingTimes"` //TODO: Usage unknown in asa
-	ClampItemStats                             bool    `json:"clampItemStats" ini:"ClampItemStats"`                 //TODO: Usage unknown in asa
-	ClampResourceHarvestDamage                 bool    `json:"clampResourceHarvestDamage" ini:"ClampResourceHarvestDamage"`
-	CustomDynamicConfigUrl                     bool    `json:"customDynamicConfigUrl" ini:"CustomDynamicConfigUrl"`
-	CustomLiveTuningUrl                        bool    `json:"customLiveTuningUrl" ini:"CustomLiveTuningUrl"` //TODO Usage unknown in asa
-	DayCycleSpeedScale                         float32 `json:"dayCycleSpeedScale" ini:"DayCycleSpeedScale"`
-	DayTimeSpeedScale                          float32 `json:"dayTimeSpeedScale" ini:"DayTimeSpeedScale"`
-	DifficultyOffset                           float32 `json:"difficultyOffset" ini:"DifficultyOffset"`
-	DinoCharacterFoodDrainMultiplier           float32 `json:"dinoCharacterFoodDrainMultiplier" ini:"DinoCharacterFoodDrainMultiplier"`
-	DinoCharacterHealthRecoveryMultiplier      float32 `json:"dinoCharacterHealthRecoveryMultiplier" ini:"DinoCharacterHealthRecoveryMultiplier"`
-	DinoCharacterStaminaDrainMultiplier        float32 `json:"dinoCharacterStaminaDrainMultiplier" ini:"DinoCharacterStaminaDrainMultiplier"`
-	DinoCountMultiplier                        float32 `json:"dinoCountMultiplier" ini:"DinoCountMultiplier"` //TODO: Usage unknown in asa
-	DinoDamageMultiplier                       float32 `json:"dinoDamageMultiplier" ini:"DinoDamageMultiplier"`
-	DinoResistanceMultiplier                   float32 `json:"dinoResistanceMultiplier" ini:"DinoResistanceMultiplier"`
-	DisableDinoDecayPvE                        bool    `json:"disableDinoDecayPvE" ini:"DisableDinoDecayPvE"`
-	DisableImprintDinoBuff                     bool    `json:"disableImprintDinoBuff" ini:"DisableImprintDinoBuff"`
-	DisablePvEGamma                            bool    `json:"disablePvEGamma" ini:"DisablePvEGamma"`
-	DisableStructureDecayPvE                   bool    `json:"disableStructureDecayPvE" ini:"DisableStructureDecayPvE"`
-	DisableWeatherFog                          bool    `json:"disableWeatherFog" ini:"DisableWeatherFog"`
-	DontAlwaysNotifyPlayerJoined               bool    `json:"dontAlwaysNotifyPlayerJoined" ini:"DontAlwaysNotifyPlayerJoined"`
-	EnableExtraStructurePreventionVolumes      bool    `json:"enableExtraStructurePreventionVolumes" ini:"EnableExtraStructurePreventionVolumes"`
-	EnablePvPGamma                             bool    `json:"enablePvPGamma" ini:"EnablePvPGamma"`
-	ExtinctionEventTimeInterval                int32   `json:"extinctionEventTimeInterval" ini:"ExtinctionEventTimeInterval"`           //TODO: Usage unknown in asa
+	AdminLogging                       bool    `json:"adminLogging" ini:"AdminLogging"`
+	AllowAnyoneBabyImprintCuddle       bool    `json:"allowAnyoneBabyImprintCuddle" ini:"AllowAnyoneBabyImprintCuddle"`
+	AllowCaveBuildingPvE               bool    `json:"allowCaveBuildingPvE" ini:"AllowCaveBuildingPvE"`
+	AllowCaveBuildingPvP               bool    `json:"allowCaveBuildingPvP" ini:"AllowCaveBuildingPvP"`                           //TODO: Usage unknown in asa
+	AllowCrateSpawnsOnTopOfStructures  bool    `json:"allowCrateSpawnsOnTopOfStructures" ini:"AllowCrateSpawnsOnTopOfStructures"` //TODO: Usage unknown in asa
+	AllowFlyerCarryPvE                 bool    `json:"allowFlyerCarryPvE" ini:"AllowFlyerCarryPvE"`
+	AllowFlyingStaminaRecovery         bool    `json:"allowFlyingStaminaRecovery" ini:"AllowFlyingStaminaRecovery"` //TODO: Usage unknown in asa
+	AllowHideDamageSourceFromLogs      bool    `json:"allowHideDamageSourceFromLogs" ini:"AllowHideDamageSourceFromLogs"`
+	AllowHitMarkers                    bool    `json:"allowHitMarkers" ini:"AllowHitMarkers"`
+	AllowIntegratedSPlusStructures     bool    `json:"allowIntegratedSPlusStructures" ini:"AllowIntegratedSPlusStructures"` //TODO: Usage unknown in asa
+	AllowMultipleAttachedC4            bool    `json:"allowMultipleAttachedC4" ini:"AllowMultipleAttachedC4"`
+	AllowRaidDinoFeeding               bool    `json:"allowRaidDinoFeeding" ini:"AllowRaidDinoFeeding"`
+	AllowSharedConnections             bool    `json:"allowSharedConnections" ini:"AllowSharedConnections"`           //TODO: Usage unknown in asa
+	AllowTekSuitPowersInGenesis        bool    `json:"allowTekSuitPowersInGenesis" ini:"AllowTekSuitPowersInGenesis"` //TODO: Usage unknown in asa
+	AllowThirdPersonPlayer             bool    `json:"allowThirdPersonPlayer" ini:"AllowThirdPersonPlayer"`
+	AlwaysAllowStructurePickup         bool    `json:"alwaysAllowStructurePickup" ini:"AlwaysAllowStructurePickup"`
+	AlwaysNotifyPlayerLeft             bool    `json:"alwaysNotifyPlayerLeft" ini:"AlwaysNotifyPlayerLeft"`                         //TODO: Usage unknown in asa
+	AutoDestroyDecayedDinos            bool    `json:"autoDestroyDecayedDinos" ini:"AutoDestroyDecayedDinos"`                       //TODO: Usage unknown in asa
+	AutoDestroyOldStructuresMultiplier float32 `json:"autoDestroyOldStructuresMultiplier" ini:"AutoDestroyOldStructuresMultiplier"` //TODO: Usage unknown in asa
+	AutoSavePeriodMinutes              float32 `json:"autoSavePeriodMinutes" ini:"AutoSavePeriodMinutes"`
+	BanListURL                         string  `json:"banListUrl" ini:"BanListURL"` //TODO: Usage unknown in asa
+	//BForceCanRideFliers                        bool    `json:"bForceCanRideFliers" ini:"bForceCanRideFliers"`       //TODO: Usage unknown in asa
+	ClampItemSpoilingTimes     bool `json:"clampItemSpoilingTimes" ini:"ClampItemSpoilingTimes"` //TODO: Usage unknown in asa
+	ClampItemStats             bool `json:"clampItemStats" ini:"ClampItemStats"`                 //TODO: Usage unknown in asa
+	ClampResourceHarvestDamage bool `json:"clampResourceHarvestDamage" ini:"ClampResourceHarvestDamage"`
+	//CustomDynamicConfigUrl                     bool    `json:"customDynamicConfigUrl" ini:"CustomDynamicConfigUrl"`
+	//CustomLiveTuningUrl                        bool    `json:"customLiveTuningUrl" ini:"CustomLiveTuningUrl"` //TODO Usage unknown in asa
+	DayCycleSpeedScale                    float32 `json:"dayCycleSpeedScale" ini:"DayCycleSpeedScale"`
+	DayTimeSpeedScale                     float32 `json:"dayTimeSpeedScale" ini:"DayTimeSpeedScale"`
+	DifficultyOffset                      float32 `json:"difficultyOffset" ini:"DifficultyOffset"`
+	DinoCharacterFoodDrainMultiplier      float32 `json:"dinoCharacterFoodDrainMultiplier" ini:"DinoCharacterFoodDrainMultiplier"`
+	DinoCharacterHealthRecoveryMultiplier float32 `json:"dinoCharacterHealthRecoveryMultiplier" ini:"DinoCharacterHealthRecoveryMultiplier"`
+	DinoCharacterStaminaDrainMultiplier   float32 `json:"dinoCharacterStaminaDrainMultiplier" ini:"DinoCharacterStaminaDrainMultiplier"`
+	DinoCountMultiplier                   float32 `json:"dinoCountMultiplier" ini:"DinoCountMultiplier"` //TODO: Usage unknown in asa
+	DinoDamageMultiplier                  float32 `json:"dinoDamageMultiplier" ini:"DinoDamageMultiplier"`
+	DinoResistanceMultiplier              float32 `json:"dinoResistanceMultiplier" ini:"DinoResistanceMultiplier"`
+	DisableDinoDecayPvE                   bool    `json:"disableDinoDecayPvE" ini:"DisableDinoDecayPvE"`
+	DisableImprintDinoBuff                bool    `json:"disableImprintDinoBuff" ini:"DisableImprintDinoBuff"`
+	DisablePvEGamma                       bool    `json:"disablePvEGamma" ini:"DisablePvEGamma"`
+	DisableStructureDecayPvE              bool    `json:"disableStructureDecayPvE" ini:"DisableStructureDecayPvE"`
+	DisableWeatherFog                     bool    `json:"disableWeatherFog" ini:"DisableWeatherFog"`
+	DontAlwaysNotifyPlayerJoined          bool    `json:"dontAlwaysNotifyPlayerJoined" ini:"DontAlwaysNotifyPlayerJoined"`
+	EnableExtraStructurePreventionVolumes bool    `json:"enableExtraStructurePreventionVolumes" ini:"EnableExtraStructurePreventionVolumes"`
+	EnablePvPGamma                        bool    `json:"enablePvPGamma" ini:"EnablePvPGamma"`
+	//ExtinctionEventTimeInterval                int32   `json:"extinctionEventTimeInterval" ini:"ExtinctionEventTimeInterval"`           //TODO: Usage unknown in asa
 	FastDecayUnsnappedCoreStructures           bool    `json:"fastDecayUnsnappedCoreStructures" ini:"FastDecayUnsnappedCoreStructures"` //TODO: Usage unknown in asa
 	ForceAllStructureLocking                   bool    `json:"forceAllStructureLocking" ini:"ForceAllStructureLocking"`
 	GlobalVoiceChat                            bool    `json:"globalVoiceChat" ini:"globalVoiceChat"` //TODO if it actually starts with a non capital letter
@@ -93,7 +98,7 @@ type ServerSettings struct {
 	PvEAllowStructuresAtSupplyDrops            bool    `json:"pveAllowStructuresAtSupplyDrops" ini:"PvEAllowStructuresAtSupplyDrops"`
 	PvEDinoDecayPeriodMultiplier               float32 `json:"pveDinoDecayPeriodMultiplier" ini:"PvEDinoDecayPeriodMultiplier"`
 	PvEStructureDecayPeriodMultiplier          float32 `json:"pveStructureDecayPeriodMultiplier" ini:"PvEStructureDecayPeriodMultiplier"`
-	PvPDinoDecay                               float32 `json:"pvpDinoDecay" ini:"PvPDinoDecay"`
+	PvPDinoDecay                               bool    `json:"pvpDinoDecay" ini:"PvPDinoDecay"`
 	PvPStructureDecay                          bool    `json:"pvpStructureDecay" ini:"PvPStructureDecay"` //TODO: Usage unknown in asa
 	RaidDinoCharacterFoodDrainMultiplier       float32 `json:"raidDinoCharacterFoodDrainMultiplier" ini:"RaidDinoCharacterFoodDrainMultiplier"`
 	RandomSupplyCratePoints                    bool    `json:"randomSupplyCratePoints" ini:"RandomSupplyCratePoints"`
@@ -106,25 +111,25 @@ type ServerSettings struct {
 	ServerCrosshair                            bool    `json:"serverCrosshair" ini:"ServerCrosshair"`
 	ServerForceNoHUD                           bool    `json:"serverForceNoHUD" ini:"ServerForceNoHUD"`
 	ServerHardcore                             bool    `json:"serverHardcore" ini:"ServerHardcore"`
-	ServerPassword                             string  `json:"serverPassword" ini:"ServerPassword"`
-	ServerPVE                                  bool    `json:"serverPVE" ini:"serverPVE"`
-	ShowFloatingDamageText                     bool    `json:"showFloatingDamageText" ini:"ShowFloatingDamageText"`
-	ShowMapPlayerLocation                      bool    `json:"showMapPlayerLocation" ini:"ShowMapPlayerLocation"`
-	SpectatorPassword                          string  `json:"spectatorPassword" ini:"SpectatorPassword"`
-	StructureDamageMultiplier                  float32 `json:"structureDamageMultiplier" ini:"StructureDamageMultiplier"`
-	StructurePickupHoldDuration                float32 `json:"structurePickupHoldDuration" ini:"StructurePickupHoldDuration"`
-	StructurePickupTimeAfterPlacement          float32 `json:"structurePickupTimeAfterPlacement" ini:"StructurePickupTimeAfterPlacement"`
-	StructurePreventResourceRadiusMultiplier   float32 `json:"structurePreventResourceRadiusMultiplier" ini:"StructurePreventResourceRadiusMultiplier"`
-	StructureResistanceMultiplier              float32 `json:"structureResistanceMultiplier" ini:"StructureResistanceMultiplier"`
-	TamedDinoDamageMultiplier                  float32 `json:"tamedDinoDamageMultiplier" ini:"TamedDinoDamageMultiplier"` //TODO: Usage unknown in asa
-	TamedDinoResistanceMultiplier              float32 `json:"tamedDinoResistanceMultiplier" ini:"TamedDinoResistanceMultiplier"`
-	TamingSpeedMultiplier                      float32 `json:"tamingSpeedMultiplier" ini:"TamingSpeedMultiplier"`
-	TheMaxStructuresInRange                    int32   `json:"theMaxStructuresInRange" ini:"TheMaxStructuresInRange"`
-	TribeLogDestroyedEnemyStructures           bool    `json:"tribeLogDestroyedEnemyStructures" ini:"TribeLogDestroyedEnemyStructures"`
-	TribeNameChangeCooldown                    float32 `json:"tribeNameChangeCooldown" ini:"TribeNameChangeCooldown"`
-	UseFjordurTraversalBuff                    bool    `json:"useFjordurTraversalBuff" ini:"UseFjordurTraversalBuff"` //TODO: Usage unknown in asa
-	UseOptimizedHarvestingHealth               bool    `json:"useOptimizedHarvestingHealth" ini:"UseOptimizedHarvestingHealth"`
-	XPMultiplier                               float32 `json:"xPMultiplier" ini:"XPMultiplier"`
+	//ServerPassword                             string  `json:"serverPassword" ini:"ServerPassword"` //todo add in pre start function
+	ServerPVE              bool `json:"serverPVE" ini:"serverPVE"`
+	ShowFloatingDamageText bool `json:"showFloatingDamageText" ini:"ShowFloatingDamageText"`
+	ShowMapPlayerLocation  bool `json:"showMapPlayerLocation" ini:"ShowMapPlayerLocation"`
+	//SpectatorPassword                        string  `json:"spectatorPassword" ini:"SpectatorPassword"` //todo add in pre start function
+	StructureDamageMultiplier                float32 `json:"structureDamageMultiplier" ini:"StructureDamageMultiplier"`
+	StructurePickupHoldDuration              float32 `json:"structurePickupHoldDuration" ini:"StructurePickupHoldDuration"`
+	StructurePickupTimeAfterPlacement        float32 `json:"structurePickupTimeAfterPlacement" ini:"StructurePickupTimeAfterPlacement"`
+	StructurePreventResourceRadiusMultiplier float32 `json:"structurePreventResourceRadiusMultiplier" ini:"StructurePreventResourceRadiusMultiplier"`
+	StructureResistanceMultiplier            float32 `json:"structureResistanceMultiplier" ini:"StructureResistanceMultiplier"`
+	TamedDinoDamageMultiplier                float32 `json:"tamedDinoDamageMultiplier" ini:"TamedDinoDamageMultiplier"` //TODO: Usage unknown in asa
+	TamedDinoResistanceMultiplier            float32 `json:"tamedDinoResistanceMultiplier" ini:"TamedDinoResistanceMultiplier"`
+	TamingSpeedMultiplier                    float32 `json:"tamingSpeedMultiplier" ini:"TamingSpeedMultiplier"`
+	TheMaxStructuresInRange                  int32   `json:"theMaxStructuresInRange" ini:"TheMaxStructuresInRange"`
+	TribeLogDestroyedEnemyStructures         bool    `json:"tribeLogDestroyedEnemyStructures" ini:"TribeLogDestroyedEnemyStructures"`
+	TribeNameChangeCooldown                  float32 `json:"tribeNameChangeCooldown" ini:"TribeNameChangeCooldown"`
+	UseFjordurTraversalBuff                  bool    `json:"useFjordurTraversalBuff" ini:"UseFjordurTraversalBuff"` //TODO: Usage unknown in asa
+	UseOptimizedHarvestingHealth             bool    `json:"useOptimizedHarvestingHealth" ini:"UseOptimizedHarvestingHealth"`
+	XPMultiplier                             float32 `json:"xPMultiplier" ini:"XPMultiplier"`
 	//CrossARK Transfers
 	CrossARKAllowForeignDinoDownloads bool    `json:"crossARKAllowForeignDinoDownloads" ini:"CrossARKAllowForeignDinoDownloads"` //TODO: Usage unknown in asa
 	MinimumDinoReuploadInterval       float32 `json:"minimumDinoReuploadInterval" ini:"MinimumDinoReuploadInterval"`             //TODO: Usage unknown in asa
@@ -151,7 +156,7 @@ type ServerSettings struct {
 	BFilterChat           bool   `json:"bFilterChat" ini:"bFilterChat"`
 	BFilterTribeNames     bool   `json:"bFilterTribeNames" ini:"bFilterTribeNames"`
 	//Undocumented
-	AllowedCheatersURL              string  `json:"allowedCheatersURL" ini:"AllowedCheatersURL"`
+	//AllowedCheatersURL              string  `json:"allowedCheatersURL" ini:"AllowedCheatersURL"`
 	ChatLogFileSplitIntervalSeconds int32   `json:"chatLogFileSplitIntervalSeconds" ini:"ChatLogFileSplitIntervalSeconds"`
 	ChatLogFlushIntervalSeconds     int32   `json:"chatLogFlushIntervalSeconds" ini:"ChatLogFlushIntervalSeconds"`
 	ChatLogMaxAgeInDays             int32   `json:"chatLogMaxAgeInDays" ini:"ChatLogMaxAgeInDays"`
@@ -213,29 +218,216 @@ type GameUserSettings struct {
 	MessageOfTheDay MessageOfTheDay
 }
 
-// TODO implement default values
 func generateNewDefaultGameUserSettings() GameUserSettings {
 	return GameUserSettings{
 		ServerSettings: ServerSettings{
-			ActiveMods:                        "",
-			AdminLogging:                      false,
-			AllowAnyoneBabyImprintCuddle:      false,
-			AllowCaveBuildingPvE:              false,
-			AllowCaveBuildingPvP:              false,
-			AllowCrateSpawnsOnTopOfStructures: false,
-			AllowFlyerCarryPvE:                false,
-			AllowFlyingStaminaRecovery:        false,
-			AllowHideDamageSourceFromLogs:     true,
-			AllowHitMarkers:                   true,
-			AllowIntegratedSPlusStructures:    true,
-			AllowMultipleAttachedC4:           false,
-			AllowRaidDinoFeeding:              false,
-			AllowSharedConnections:            false,
-			AllowTekSuitPowersInGenesis:       false,
-			AllowThirdPersonPlayer:            true,
-			AlwaysAllowStructurePickup:        false,
-			AlwaysNotifyPlayerLeft:            false,
+			ActiveMods:                                 "",
+			AdminLogging:                               false,
+			AllowAnyoneBabyImprintCuddle:               false,
+			AllowCaveBuildingPvE:                       false,
+			AllowCaveBuildingPvP:                       false,
+			AllowCrateSpawnsOnTopOfStructures:          false,
+			AllowFlyerCarryPvE:                         false,
+			AllowFlyingStaminaRecovery:                 false,
+			AllowHideDamageSourceFromLogs:              true,
+			AllowHitMarkers:                            true,
+			AllowIntegratedSPlusStructures:             true,
+			AllowMultipleAttachedC4:                    false,
+			AllowRaidDinoFeeding:                       false,
+			AllowSharedConnections:                     false,
+			AllowTekSuitPowersInGenesis:                false,
+			AllowThirdPersonPlayer:                     true,
+			AlwaysAllowStructurePickup:                 false,
+			AlwaysNotifyPlayerLeft:                     false,
+			AutoDestroyDecayedDinos:                    false,
+			AutoDestroyOldStructuresMultiplier:         0.0,
+			AutoSavePeriodMinutes:                      15.0,
+			BanListURL:                                 "http://arkdedicated.com/banlist.txt",
+			ClampItemSpoilingTimes:                     false,
+			ClampItemStats:                             false,
+			ClampResourceHarvestDamage:                 false,
+			DayCycleSpeedScale:                         1.0,
+			DayTimeSpeedScale:                          1.0,
+			DifficultyOffset:                           1.0,
+			DinoCharacterFoodDrainMultiplier:           1.0,
+			DinoCharacterHealthRecoveryMultiplier:      1.0,
+			DinoCharacterStaminaDrainMultiplier:        1.0,
+			DinoCountMultiplier:                        1.0,
+			DinoDamageMultiplier:                       1.0,
+			DinoResistanceMultiplier:                   1.0,
+			DisableDinoDecayPvE:                        false,
+			DisableImprintDinoBuff:                     false,
+			DisablePvEGamma:                            false,
+			DisableStructureDecayPvE:                   false,
+			DisableWeatherFog:                          false,
+			DontAlwaysNotifyPlayerJoined:               false,
+			EnableExtraStructurePreventionVolumes:      false,
+			EnablePvPGamma:                             false,
+			FastDecayUnsnappedCoreStructures:           false,
+			ForceAllStructureLocking:                   false,
+			GlobalVoiceChat:                            false,
+			HarvestAmountMultiplier:                    1.0,
+			HarvestHealthMultiplier:                    1.0,
+			IgnoreLimitMaxStructuresInRangeTypeFlag:    false,
+			ItemStackSizeMultiplier:                    1.0,
+			KickIdlePlayersPeriod:                      3600.0,
+			MaxGateFrameOnSaddles:                      0,
+			MaxHexagonsPerCharacter:                    2000000000,
+			MaxPersonalTamedDinos:                      0,
+			MaxPlatformSaddleStructureLimit:            75,
+			MaxTamedDinos:                              5000.0,
+			MaxTributeCharacters:                       10,
+			MaxTributeDinos:                            20,
+			MaxTributeItems:                            50,
+			NightTimeSpeedScale:                        1.0,
+			NonPermanentDiseases:                       false,
+			NPCNetworkStasisRangeScalePlayerCountStart: 0,
+			NPCNetworkStasisRangeScalePlayerCountEnd:   0,
+			NPCNetworkStasisRangeScalePercentEnd:       0.55000001,
+			OnlyAutoDestroyCoreStructures:              false,
+			OnlyDecayUnsnappedCoreStructures:           false,
+			OverrideOfficialDifficulty:                 0.0,
+			OverrideStructurePlatformPrevention:        false,
+			OxygenSwimSpeedStatMultiplier:              1.0,
+			PerPlatformMaxStructuresMultiplier:         1.0,
+			PersonalTamedDinosSaddleStructureCost:      0,
+			PlatformSaddleBuildAreaBoundsMultiplier:    1.0,
+			PlayerCharacterFoodDrainMultiplier:         1.0,
+			PlayerCharacterHealthRecoveryMultiplier:    1.0,
+			PlayerCharacterStaminaDrainMultiplier:      1.0,
+			PlayerCharacterWaterDrainMultiplier:        1.0,
+			PlayerDamageMultiplier:                     1.0,
+			PlayerResistanceMultiplier:                 1.0,
+			PreventDiseases:                            false,
+			PreventMateBoost:                           false,
+			PreventOfflinePvP:                          false,
+			PreventOfflinePvPInterval:                  0.0,
+			PreventSpawnAnimations:                     false,
+			PreventTribeAlliances:                      false,
+			ProximityChat:                              false,
+			PvEAllowStructuresAtSupplyDrops:            false,
+			PvEDinoDecayPeriodMultiplier:               1.0,
+			PvEStructureDecayPeriodMultiplier:          1.0,
+			PvPDinoDecay:                               false,
+			PvPStructureDecay:                          false,
+			RaidDinoCharacterFoodDrainMultiplier:       1.0,
+			RandomSupplyCratePoints:                    false,
+			RCONEnabled:                                true,
+			RCONPort:                                   27015, //TODO set value correct on server save
+			RCONServerGameLogBuffer:                    600.0,
+			ResourcesRespawnPeriodMultiplier:           1.0,
+			ServerAdminPassword:                        "bob", //TODO set value correct on server save
+			ServerAutoForceRespawnWildDinosInterval:    0.0,
+			ServerCrosshair:                            true,
+			ServerForceNoHUD:                           false,
+			ServerHardcore:                             false,
+			//ServerPassword:                             "", //Make sure this is set correctly
+			ServerPVE:                                false,
+			ShowFloatingDamageText:                   false,
+			ShowMapPlayerLocation:                    true,
+			StructureDamageMultiplier:                1.0,
+			StructurePickupHoldDuration:              0.5,
+			StructurePickupTimeAfterPlacement:        30.0,
+			StructurePreventResourceRadiusMultiplier: 1.0,
+			StructureResistanceMultiplier:            1.0,
+			TamedDinoDamageMultiplier:                1.0,
+			TamedDinoResistanceMultiplier:            1.0,
+			TamingSpeedMultiplier:                    1.0,
+			TheMaxStructuresInRange:                  10500,
+			TribeLogDestroyedEnemyStructures:         false,
+			TribeNameChangeCooldown:                  15.0,
+			UseFjordurTraversalBuff:                  false,
+			UseOptimizedHarvestingHealth:             false,
+			XPMultiplier:                             1.0,
+
+			CrossARKAllowForeignDinoDownloads: false,
+			MinimumDinoReuploadInterval:       0.0,
+			NoTributeDownloads:                false,
+			PreventDownloadDinos:              false,
+			PreventDownloadItems:              false,
+			PreventDownloadSurvivors:          false,
+			PreventUploadDinos:                false,
+			PreventUploadItems:                false,
+			PreventUploadSurvivors:            false,
+			TributeCharacterExpirationSeconds: 0,
+			TributeDinoExpirationSeconds:      86400,
+			TributeItemExpirationSeconds:      86400,
+			BadWordListURL:                    "http://arkdedicated.com/badwords.txt",
+			BadWordWhiteListURL:               "http://arkdedicated.com/goodwords.txt",
+			BFilterCharacterNames:             false,
+			BFilterChat:                       false,
+			BFilterTribeNames:                 false,
+			ChatLogFileSplitIntervalSeconds:   86400,
+			ChatLogFlushIntervalSeconds:       86400,
+			ChatLogMaxAgeInDays:               5,
+			DontRestoreBackup:                 false,
+			EnableAFKKickPlayerCountPercent:   0.0,
+			EnableMeshBitingProtection:        true,
+			FreezeReaperPregnancy:             false,
+			LogChatMessages:                   false,
+			MaxStructuresInSmallRadius:        0,
+			MaxStructuresToProcess:            0,
+			PreventOutOfTribePinCodeUse:       false,
+			RadiusStructuresInSmallRadius:     0.0,
+			ServerEnableMeshChecking:          true,
+			TribeMergeAllowed:                 true,
+			TribeMergeCooldown:                0.0,
+			UpdateAllowedCheatersInterval:     600.0,
+			UseExclusiveList:                  false,
+		},
+
+		SessionSettings: SessionSettings{
+			MultiHome:   "0.0.0.0", //TODO set value correct on server save
+			Port:        7777,      //TODO set value correct on server save
+			QueryPort:   28015,     //TODO set value correct on server save
+			SessionName: "Ark Ascended server managed by AASM",
+		},
+
+		MultiHome: MultiHome{
+			MultiHome: true, //TODO set value correct on server save
+		},
+
+		ScriptEngineGameSession: ScriptEngineGameSession{
+			MaxPlayers: 70, //TODO set value correct on server save
+		},
+
+		Ragnarok: Ragnarok{
+			AllowMultipleTamedUnicorns: false,
+			EnableVolcano:              true,
+			UnicornSpawnInterval:       24,
+			VolcanoIntensity:           1,
+			VolcanoInterval:            0,
+		},
+
+		MessageOfTheDay: MessageOfTheDay{
+			Duration: 20,
+			Message:  "",
 		},
 	}
 
+}
+
+// SaveGameUserSettingsIni saves the game user settings to the ini file in the server directory
+func (s *Server) SaveGameUserSettingsIni() error {
+
+	ini.PrettyFormat = false
+
+	gusIni := ini.Empty()
+
+	gusIni, err := ini.Load(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	if err != nil {
+		return err
+	}
+
+	err = gusIni.ReflectFrom(&s.GameUserSettings)
+	if err != nil {
+		return err
+	}
+
+	err = gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

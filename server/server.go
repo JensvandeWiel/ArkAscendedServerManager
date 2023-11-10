@@ -65,6 +65,15 @@ type Server struct {
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
 func (s *Server) UpdateConfig() error {
 
+	err := s.SaveGameIni()
+	if err != nil {
+		return err
+	}
+
+	err = s.SaveGameUserSettingsIni()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 

@@ -1,5 +1,10 @@
 package server
 
+import (
+	"github.com/go-ini/ini"
+	"path/filepath"
+)
+
 type ScriptShootergameShootergamemode struct {
 	AutoPvEStartTimeSeconds                     float32 `json:"autoPvEStartTimeSeconds" ini:"AutoPvEStartTimeSeconds"`
 	AutoPvEStopTimeSeconds                      float32 `json:"autoPvEStopTimeSeconds" ini:"AutoPvEStopTimeSeconds"`
@@ -85,12 +90,12 @@ type ScriptShootergameShootergamemode struct {
 	MaxFallSpeedMultiplier          float32 `json:"maxFallSpeedMultiplier" ini:"MaxFallSpeedMultiplier"`
 	MaxNumberOfPlayersInTribe       int32   `json:"maxNumberOfPlayersInTribe" ini:"MaxNumberOfPlayersInTribe"`
 	MaxTribeLogs                    int32   `json:"maxTribeLogs" ini:"MaxTribeLogs"`
-	MaxTribesPerAlliance            int32   `json:"maxTribesPerAlliance" ini:"MaxTribesPerAlliance"`
-	//NPCReplacements https://ark.wiki.gg/wiki/Server_configuration#NPCReplacements
-	OverrideMaxExperiencePointsDino   int32 `json:"overrideMaxExperiencePointsDino" ini:"OverrideMaxExperiencePointsDino"`
-	OverrideMaxExperiencePointsPlayer int32 `json:"overrideMaxExperiencePointsPlayer" ini:"OverrideMaxExperiencePointsPlayer"`
-	//OverrideEngramEntries https://ark.wiki.gg/wiki/Server_configuration#OverrideEngramEntries_and_OverrideNamedEngramEntries
-	//OverrideNamedEngramEntries https://ark.wiki.gg/wiki/Server_configuration#OverrideEngramEntries_and_OverrideNamedEngramEntries
+	//MaxTribesPerAlliance            int32   `json:"maxTribesPerAlliance" ini:"MaxTribesPerAlliance"` // TODO: Add this in save function
+	//NPCReplacements https://ark.wiki.gg/wiki/Server_configuration#NPCReplacements // TODO: Add this in save function
+	//OverrideMaxExperiencePointsDino   int32 `json:"overrideMaxExperiencePointsDino" ini:"OverrideMaxExperiencePointsDino"`// TODO: Add this in save function
+	//OverrideMaxExperiencePointsPlayer int32 `json:"overrideMaxExperiencePointsPlayer" ini:"OverrideMaxExperiencePointsPlayer"`// TODO: Add this in save function
+	//OverrideEngramEntries https://ark.wiki.gg/wiki/Server_configuration#OverrideEngramEntries_and_OverrideNamedEngramEntries // TODO: Add this in save function
+	//OverrideNamedEngramEntries https://ark.wiki.gg/wiki/Server_configuration#OverrideEngramEntries_and_OverrideNamedEngramEntries // TODO: Add this in save function
 	//OverridePlayerLevelEngramPoints
 	PassiveTameIntervalMultiplier float32 `json:"passiveTameIntervalMultiplier" ini:"PassiveTameIntervalMultiplier"`
 	//PerLevelStatsMultiplier_Player[<integer>] https://ark.wiki.gg/wiki/Server_configuration#PerLevelStatsMultiplier
@@ -141,8 +146,135 @@ type Game struct {
 	ScriptShootergameShootergamemode ScriptShootergameShootergamemode `json:"ScriptShootergameShootergamemode" ini:"/script/shootergame.shootergamemode"`
 }
 
-// TODO implement default values
 func generateNewDefaultGame() Game {
-	return Game{}
+	return Game{
+		ScriptShootergameShootergamemode: ScriptShootergameShootergamemode{
+			AutoPvEStartTimeSeconds:                         0.0,
+			AutoPvEStopTimeSeconds:                          0.0,
+			BabyCuddleGracePeriodMultiplier:                 1.0,
+			BabyCuddleIntervalMultiplier:                    1.0,
+			BabyCuddleLoseImprintQualitySpeedMultiplier:     1.0,
+			BabyFoodConsumptionSpeedMultiplier:              1.0,
+			BabyImprintAmountMultiplier:                     1.0,
+			BabyImprintingStatScaleMultiplier:               1.0,
+			BabyMatureSpeedMultiplier:                       1.0,
+			BAllowUnclaimDinos:                              true,
+			BAllowCustomRecipes:                             true,
+			BAllowFlyerSpeedLeveling:                        false,
+			BAllowPlatformSaddleMultiFloors:                 false,
+			BAllowUnlimitedRespecs:                          false,
+			BaseTemperatureMultiplier:                       1.0,
+			BAutoPvETimer:                                   false,
+			BAutoPvEUseSystemTime:                           false,
+			BAutoUnlockAllEngrams:                           false,
+			BDisableDinoBreeding:                            false,
+			BDisableDinoRiding:                              false,
+			BDisableDinoTaming:                              false,
+			BDisableFriendlyFire:                            false,
+			BDisableLootCrates:                              false,
+			BDisableStructurePlacementCollision:             false,
+			BFlyerPlatformAllowUnalignedDinoBasing:          false,
+			BIgnoreStructuresPreventionVolumes:              false,
+			BIncreasePvPRespawnInterval:                     true,
+			BOnlyAllowSpecifiedEngrams:                      false,
+			BPassiveDefensesDamageRiderlessDinos:            false,
+			BPvEAllowTribeWar:                               true,
+			BPvEAllowTribeWarCancel:                         false,
+			BPvEDisableFriendlyFire:                         false,
+			BShowCreativeMode:                               false,
+			BUseCorpseLocator:                               true,
+			BUseDinoLevelUpAnimations:                       true,
+			BUseSingleplayerSettings:                        false,
+			BUseTameLimitForStructuresOnly:                  false,
+			CraftingSkillBonusMultiplier:                    1.0,
+			CraftXPMultiplier:                               1.0,
+			CropDecaySpeedMultiplier:                        1.0,
+			CropGrowthSpeedMultiplier:                       1.0,
+			CustomRecipeEffectivenessMultiplier:             1.0,
+			CustomRecipeSkillMultiplier:                     1.0,
+			DestroyTamesOverLevelClamp:                      450,
+			DinoHarvestingDamageMultiplier:                  3.2,
+			DinoTurretDamageMultiplier:                      1.0,
+			EggHatchSpeedMultiplier:                         1.0,
+			FastDecayInterval:                               43200,
+			FishingLootQualityMultiplier:                    1.0,
+			FuelConsumptionIntervalMultiplier:               1.0,
+			GenericXPMultiplier:                             1.0,
+			GlobalCorpseDecompositionTimeMultiplier:         1.0,
+			GlobalItemDecompositionTimeMultiplier:           1.0,
+			GlobalPoweredBatteryDurabilityDecreasePerSecond: 3.0,
+			GlobalSpoilingTimeMultiplier:                    1.0,
+			HairGrowthSpeedMultiplier:                       1.0,
+			HarvestXPMultiplier:                             1.0,
+			IncreasePvPRespawnIntervalBaseAmount:            60.0,
+			IncreasePvPRespawnIntervalCheckPeriod:           300.0,
+			IncreasePvPRespawnIntervalMultiplier:            2.0,
+			KillXPMultiplier:                                1.0,
+			LayEggIntervalMultiplier:                        1.0,
+			LimitNonPlayerDroppedItemsCount:                 0,
+			LimitNonPlayerDroppedItemsRange:                 0,
+			MatingIntervalMultiplier:                        1.0,
+			MatingSpeedMultiplier:                           1.0,
+			MaxFallSpeedMultiplier:                          1.0,
+			MaxNumberOfPlayersInTribe:                       0,
+			MaxTribeLogs:                                    400,
+			PassiveTameIntervalMultiplier:                   1.0,
+			PlayerHarvestingDamageMultiplier:                1.0,
+			PoopIntervalMultiplier:                          1.0,
+			PreventOfflinePvPConnectionInvincibleInterval:   5.0,
+			PvPZoneStructureDamageMultiplier:                6.0,
+			ResourceNoReplenishRadiusPlayers:                1.0,
+			ResourceNoReplenishRadiusStructures:             1.0,
+			SpecialXPMultiplier:                             1.0,
+			StructureDamageRepairCooldown:                   180,
+			SupplyCrateLootQualityMultiplier:                1.0,
+			TamedDinoCharacterFoodDrainMultiplier:           1.0,
+			TamedDinoTorporDrainMultiplier:                  1.0,
+			TribeSlotReuseCooldown:                          0.0,
+			UseCorpseLifeSpanMultiplier:                     1.0,
+			WildDinoCharacterFoodDrainMultiplier:            1.0,
+			WildDinoTorporDrainMultiplier:                   1.0,
+			BHardLimitTurretsInRange:                        false,
+			BLimitTurretsInRange:                            true,
+			LimitTurretsNum:                                 100,
+			LimitTurretsRange:                               10000,
+			AdjustableMutagenSpawnDelayMultiplier:           1.0,
+			BaseHexagonRewardMultiplier:                     1.0,
+			BDisableHexagonStore:                            false,
+			BDisableDefaultMapItemSets:                      false,
+			BDisableGenesisMissions:                         false,
+			BDisableWorldBuffs:                              false,
+			BEnableWorldBuffScaling:                         false,
+			BGenesisUseStructuresPreventionVolumes:          false,
+			BHexStoreAllowOnlyEngramTradeOption:             false,
+			HexagonCostMultiplier:                           1.0,
+			WorldBuffScalingEfficacy:                        1.0,
+		},
+	}
 
+}
+
+// SaveGameIni saves the game to the ini file in the server directory
+func (s *Server) SaveGameIni() error {
+
+	ini.PrettyFormat = false
+
+	gIni := ini.Empty()
+
+	gIni, err := ini.Load(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	if err != nil {
+		return err
+	}
+
+	err = gIni.ReflectFrom(&s.Game)
+	if err != nil {
+		return err
+	}
+
+	err = gIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
