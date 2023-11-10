@@ -7,14 +7,12 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
 	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 )
 
 // Server contains the server "stuff"
-
-type GameUserSettings struct {
-}
 
 type Server struct {
 	Command *exec.Cmd `json:"-"`
@@ -24,6 +22,7 @@ type Server struct {
 
 	DisableUpdateOnStart bool `json:"disableUpdateOnStart"`
 	RestartOnServerQuit  bool `json:"restartOnServerQuit"`
+	UseIniConfig         bool `json:"useIniConfig"`
 
 	//CONFIGURATION VARIABLES
 
@@ -56,12 +55,69 @@ type Server struct {
 	RCONPort   int    `json:"rconPort"`
 
 	//Server configuration
+
+	//INI
+	GameUserSettings GameUserSettings `json:"gameUserSettings"`
+	Game             Game             `json:"game"`
+
 	ServerMap  string `json:"serverMap"`
 	MaxPlayers int    `json:"maxPlayers"`
 }
 
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
 func (s *Server) UpdateConfig() error {
+
+	err := CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini"))
+	if err != nil {
+		return err
+	}
+	err = CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini"))
+	if err != nil {
+		return err
+	}
+
+	if s.UseIniConfig {
+		err = s.SaveGameIni()
+		if err != nil {
+			return err
+		}
+
+		err = s.SaveGameUserSettingsIni()
+		if err != nil {
+			return err
+		}
+		s.GameUserSettings.ServerSettings.RCONEnabled = true
+		s.RCONPort = s.GameUserSettings.ServerSettings.RCONPort
+		s.AdminPassword = s.GameUserSettings.ServerSettings.ServerAdminPassword
+		s.IpAddress = s.GameUserSettings.SessionSettings.MultiHome
+		s.ServerPort = s.GameUserSettings.SessionSettings.Port
+		s.QueryPort = s.GameUserSettings.SessionSettings.QueryPort
+		s.ServerName = s.GameUserSettings.SessionSettings.SessionName
+		s.GameUserSettings.MultiHome.MultiHome = true
+		s.MaxPlayers = s.GameUserSettings.ScriptEngineGameSession.MaxPlayers
+		runtime.EventsEmit(s.ctx, "reloadServers")
+
+	} else {
+		err = s.SaveGameIni()
+		if err != nil {
+			return err
+		}
+
+		err = s.SaveGameUserSettingsIni()
+		if err != nil {
+			return err
+		}
+		s.GameUserSettings.ServerSettings.RCONEnabled = true
+		s.GameUserSettings.ServerSettings.RCONPort = s.RCONPort
+		s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
+
+		s.GameUserSettings.SessionSettings.MultiHome = s.IpAddress
+		s.GameUserSettings.SessionSettings.Port = s.ServerPort
+		s.GameUserSettings.SessionSettings.QueryPort = s.QueryPort
+		s.GameUserSettings.SessionSettings.SessionName = s.ServerName
+		s.GameUserSettings.MultiHome.MultiHome = true
+		s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
+	}
 
 	return nil
 }
@@ -173,27 +229,23 @@ func (s *Server) IsServerRunning() bool {
 func (s *Server) CreateArguments() []string {
 	var args []string = []string{}
 
-	args = append(args, s.ServerMap+"?listen"+"?SessionName="+s.ServerName)
-	args = append(args, "?MultiHome="+s.IpAddress)
+	args = append(args, s.ServerMap+"?listen")
 	args = append(args, "?Port="+strconv.Itoa(s.ServerPort))
-	args = append(args, "?QueryPort="+strconv.Itoa(s.QueryPort))
-	args = append(args, "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort="+strconv.Itoa(s.RCONPort))
-	args = append(args, "?MaxPlayers="+strconv.Itoa(s.MaxPlayers))
-	if s.ServerPassword != "" {
+
+	/*if s.ServerPassword != "" {
 		args = append(args, "?ServerPassword="+s.ServerPassword)
 	}
 	if s.SpectatorPassword != "" {
 		args = append(args, "?SpectatorPassword="+s.SpectatorPassword)
-	}
+	}*/
 
 	args = append(args, s.ExtraQuestionmarkArguments)
-
-	//TODO move AdminPassword to ini
-	args = append(args, "?ServerAdminPassword="+s.AdminPassword)
 
 	if s.Mods != "" {
 		args = append(args, "-mods="+s.Mods)
 	}
+	//args = append(args, "?ServerAdminPassword="+s.AdminPassword)
+
 	args = append(args, "-WinLiveMaxPlayers="+strconv.Itoa(s.MaxPlayers))
 
 	extraArgs := strings.Split(s.ExtraDashArgs, " ")

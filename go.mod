@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/adrg/xdg v0.4.0
+	github.com/go-ini/ini v1.67.0
 	github.com/gorcon/rcon v1.3.4
 	github.com/hashicorp/go-version v1.6.0
 	github.com/inconshreveable/go-update v0.0.0-20160112193335-8152e7eb6ccf
