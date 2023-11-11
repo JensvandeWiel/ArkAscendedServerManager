@@ -5,27 +5,28 @@ import (
 	"fmt"
 	"os/exec"
 	"path"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
-
 	"github.com/keybase/go-ps"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // Server contains the server "stuff"
 
-type GameUserSettings struct {
-}
-
 type Server struct {
 	Command   *exec.Cmd `json:"-"`
 	ctx       context.Context
 	IsRunning bool `json:"-"`
+
 	//PREFERENCES
 
-	DisableUpdateOnStart bool `json:"disableUpdateOnStart"`
-	RestartOnServerQuit  bool `json:"restartOnServerQuit"`
+	DisableUpdateOnStart  bool   `json:"disableUpdateOnStart"`
+	RestartOnServerQuit   bool   `json:"restartOnServerQuit"`
+	UseIniConfig          bool   `json:"useIniConfig"`
+	DiscordWebHook        string `json:"discordWebHook"`
+	DiscordWebHookEnabled bool   `json:"discordWebHookEnabled"`
 
 	//CONFIGURATION VARIABLES
 
@@ -58,6 +59,11 @@ type Server struct {
 	RCONPort   int    `json:"rconPort"`
 
 	//Server configuration
+
+	//INI
+	GameUserSettings GameUserSettings `json:"gameUserSettings"`
+	Game             Game             `json:"game"`
+
 	ServerMap  string `json:"serverMap"`
 	MaxPlayers int    `json:"maxPlayers"`
 }
@@ -68,6 +74,25 @@ func (s *Server) SetStatus(status bool) {
 
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
 func (s *Server) UpdateConfig() error {
+
+	err := CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini"))
+	if err != nil {
+		return err
+	}
+	err = CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini"))
+	if err != nil {
+		return err
+	}
+
+	err = s.SaveGameIni()
+	if err != nil {
+		return err
+	}
+
+	err = s.SaveGameUserSettingsIni()
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
@@ -89,20 +114,32 @@ func (s *Server) Start() error {
 	if s.IsServerRunning() {
 		return fmt.Errorf("error starting server: server is already running")
 	} else {
-
-		args := s.CreateArguments()
-
-		s.Command = exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
+		s.Command = s.CreateServerCmd()
 		err = s.Command.Start()
 		if err != nil {
 			return fmt.Errorf("error starting server: %v", err)
 		}
 		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
+
 		s.SetStatus(true)
+    
+		if s.DiscordWebHookEnabled {
+			err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Server has started", s.DiscordWebHook)
+			if err != nil {
+				runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+			}
+		}
 		go func() {
 			_ = s.Command.Wait()
 
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
+
+			if s.DiscordWebHookEnabled {
+				err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Server has stopped", s.DiscordWebHook)
+				if err != nil {
+					runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+				}
+			}
 		}()
 	}
 
@@ -121,6 +158,11 @@ func (s *Server) HandleCrash() {
 			}
 		}
 	}
+
+// CreateServerCmd returns the command to start the server
+func (s *Server) CreateServerCmd() *exec.Cmd {
+	args := s.CreateArguments()
+	return exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
 }
 
 // ForceStop forces the server to stop "quitting/killing the process"
@@ -141,6 +183,34 @@ func (s *Server) ForceStop() error {
 	err := s.Command.Process.Kill()
 	if err != nil {
 		return fmt.Errorf("error stopping server: %v", err)
+	}
+
+	if s.DiscordWebHookEnabled {
+		err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Initiated force stop", s.DiscordWebHook)
+		if err != nil {
+			runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+		}
+	}
+
+	return nil
+}
+
+func (s *Server) Stop() error {
+
+	if s.DiscordWebHookEnabled {
+		err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Initiated stop", s.DiscordWebHook)
+		if err != nil {
+			runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+		}
+	}
+
+	_, err := s.helpers.SendRconCommand("saveworld", s.IpAddress, s.RCONPort, s.AdminPassword)
+	if err != nil {
+		return err
+	}
+	_, err = s.helpers.SendRconCommand("doexit", s.IpAddress, s.RCONPort, s.AdminPassword)
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -184,27 +254,23 @@ func (s *Server) CreateArguments() []string {
 	var args []string = []string{}
 
 	args = append(args, s.ServerMap+"?listen")
-	args = append(args, "?MultiHome="+s.IpAddress)
-	args = append(args, "?SessionName="+s.ServerName)
 	args = append(args, "?Port="+strconv.Itoa(s.ServerPort))
-	args = append(args, "?QueryPort="+strconv.Itoa(s.QueryPort))
-	args = append(args, "?RCONEnabled=true?RCONServerGameLogBuffer=600?RCONPort="+strconv.Itoa(s.RCONPort))
-	args = append(args, "?MaxPlayers="+strconv.Itoa(s.MaxPlayers))
-	if s.ServerPassword != "" {
+
+	/*if s.ServerPassword != "" {
 		args = append(args, "?ServerPassword="+s.ServerPassword)
 	}
 	if s.SpectatorPassword != "" {
 		args = append(args, "?SpectatorPassword="+s.SpectatorPassword)
-	}
+	}*/
 
 	args = append(args, s.ExtraQuestionmarkArguments)
-
-	//TODO move AdminPassword to ini
-	args = append(args, "?ServerAdminPassword="+s.AdminPassword)
 
 	if s.Mods != "" {
 		args = append(args, "-mods="+s.Mods)
 	}
+	//args = append(args, "?ServerAdminPassword="+s.AdminPassword)
+
+	args = append(args, "-WinLiveMaxPlayers="+strconv.Itoa(s.MaxPlayers))
 
 	extraArgs := strings.Split(s.ExtraDashArgs, " ")
 

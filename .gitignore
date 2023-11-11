@@ -191,3 +191,4 @@ fabric.properties
 !build/windows/installer/VC_redist.x64.exe
 !build/windows/installer/VC_redist.x86.exe
 steamcmd
+KEY

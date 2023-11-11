@@ -22,6 +22,9 @@ var assets embed.FS
 //go:embed wails.json
 var WailsConfigFile []byte
 
+//go:embed KEY
+var KEY string
+
 const (
 	logFilePath = "main.log"
 )
@@ -40,10 +43,10 @@ func main() {
 
 	// Create an instance of the app structure
 	app := NewApp()
-	c := config.NewConfigController()
-	s := server.NewServerController()
-	i := installer.NewInstallerController(c)
 	h := helpers.NewHelpersController()
+	c := config.NewConfigController()
+	s := server.NewServerController(h)
+	i := installer.NewInstallerController(c)
 
 	// Create application with options
 	err = wails.Run(&options.App{
@@ -56,19 +59,19 @@ func main() {
 		BackgroundColour: &options.RGBA{R: 255, G: 255, B: 255, A: 1},
 		OnStartup: func(ctx context.Context) {
 			app.startup(ctx)
+			h.Startup(ctx, WailsConfigFile)
 			c.Startup(ctx)
 			s.Startup(ctx)
 			i.Startup(ctx)
-			h.Startup(ctx)
 		},
 		Logger:   l,
 		LogLevel: wailsLogger.TRACE,
 		Bind: []interface{}{
 			app,
+			h,
 			c,
 			s,
 			i,
-			h,
 		},
 	})
 

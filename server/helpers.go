@@ -3,9 +3,12 @@ package server
 import (
 	"fmt"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
+	"github.com/go-ini/ini"
 	"github.com/sethvargo/go-password/password"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"io"
 	"net"
+	"os"
 	"strconv"
 )
 
@@ -30,7 +33,7 @@ func generateNewDefaultServer(id int) Server {
 		serverPassword = ""
 	}*/
 
-	adminPassword, err := password.Generate(18, 6, 6, false, false)
+	adminPassword, err := password.Generate(18, 9, 0, false, false)
 	if err != nil {
 		adminPassword = "default"
 	}
@@ -64,6 +67,9 @@ func generateNewDefaultServer(id int) Server {
 		PeerPort:   7778,
 		QueryPort:  27015,
 		RCONPort:   28015,
+
+		GameUserSettings: generateNewDefaultGameUserSettings(),
+		Game:             generateNewDefaultGame(),
 
 		ServerMap:  "TheIsland_WP",
 		MaxPlayers: 70,
@@ -158,6 +164,33 @@ func CheckServerPorts(server *Server) error {
 	return nil
 }
 
+func CopyAndMakeOld(path string) error {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		// File does not exist, return nil
+		return nil
+	}
+	// Open the source file
+	originalFile, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer originalFile.Close()
+
+	// Create the destination file
+	newFile, err := os.Create(path + ".old")
+	if err != nil {
+		return err
+	}
+	defer newFile.Close()
+
+	// Copy the contents of the source file to the destination file
+	_, err = io.Copy(newFile, originalFile)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 //endregion
 
 //region Global and Frontend Helpers
@@ -185,3 +218,8 @@ func (c *ServerController) GetServerDir() string {
 }
 
 //endregion
+
+var iniOpts = ini.LoadOptions{
+	AllowShadows:               true,
+	AllowDuplicateShadowValues: true,
+}

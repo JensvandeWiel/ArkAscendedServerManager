@@ -7,15 +7,15 @@ import {
     FormLabel,
     Input, Modal,
     ModalDialog,
-    TabPanel,
+    TabPanel, Tooltip,
     Typography
 } from "@mui/joy";
-import {PasswordInput} from "../../components/PasswordInput";
 import React, {useState} from "react";
 import {DeleteProfile, DeleteServerFiles} from "../../../wailsjs/go/server/ServerController";
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
-import {IconAlertCircleFilled} from "@tabler/icons-react";
+import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
+import {GetServerStartupCommand} from "../../../wailsjs/go/server/ServerController";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -29,6 +29,8 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
     const [deleteServerFilesModalOpen, setDeleteServerFilesModalOpen] = useState(false)
     const [deleteProfileModalOpen, setDeleteProfileModalOpen] = useState(false)
     const [deleteEverythingModalOpen, setDeleteEverythingModalOpen] = useState(false)
+    const [showServerCommandModalOpen, setShowServerCommandModalOpen] = useState(false)
+    const [serverCommand, setServerCommand] = useState("");
 
     const {addAlert} = useAlert();
 
@@ -43,8 +45,6 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
     function onDeleteEverythingButtonClicked() {
         DeleteServerFiles(serv.id).then(() => DeleteProfile(serv.id)).then(() => {addAlert("Deleted everything", "success"); location.reload()}).catch((err) => {console.error(err); addAlert(err, "danger")})
     }
-
-
 
     return (
         <TabPanel value={3} className={'space-y-8'}>
@@ -127,25 +127,86 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                 </div>
             </Card>
             <Card variant="soft"  className={''}>
+                <div className={'space-x-4 w-full flex justify-between'}>
+                    <Typography level="title-md">
+                        Server startup
+                    </Typography>
+                    <Typography level="title-md">
+                        <div className={'space-x-4 w-full flex'}>
+                            <div className={'inline-block'}>
+                                <Modal open={showServerCommandModalOpen} onClose={() => setShowServerCommandModalOpen(false)}>
+                                    <ModalDialog variant="outlined" role="dialog">
+                                        <DialogTitle>
+                                            <IconInfoCircle/>
+                                            Server startup command
+                                        </DialogTitle>
+                                        <Divider />
+                                        <DialogContent>
+                                            {serverCommand}
+                                        </DialogContent>
+                                        <DialogActions>
+                                            <Button variant="solid" color="neutral" onClick={() => setShowServerCommandModalOpen(false)}>
+                                                Close
+                                            </Button>
+                                        </DialogActions>
+                                    </ModalDialog>
+                                </Modal>
+
+                                <Button color='neutral' onClick={() => {
+                                    setShowServerCommandModalOpen(true)
+                                    return GetServerStartupCommand(serv.id)
+                                        .then((cmd: string) => {
+                                        setServerCommand(cmd)
+                                    }).catch((err) => {
+                                        console.error(err);
+                                        addAlert(err, "danger");
+                                    })
+                                }}>Show startup command</Button>
+                            </div>
+                        </div>
+                    </Typography>
+                </div>
+                <Divider className={'mx-2'}/>
+
+                <div className={'space-x-4 w-full flex'}>
+                    <div className={'inline-block'}>
+                        <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart} onChange={(e) => setServ((p) => ({ ...p, disableUpdateOnStart: e.target.checked, convertValues: p.convertValues }))} /><br/>
+                        <Checkbox label="Restart server on crash" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked }))} />
+
+                        <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick -ForceAllowCaveFlyers)</FormLabel>
+                        <Input value={serv?.extraDashArgs} onChange={(e) => setServ((p) => ({ ...p, extraDashArgs: e.target.value, convertValues: p.convertValues }))}></Input>
+                        <FormLabel>Custom server "questionmark" arguments (only use args like: ?PreventSpawnAnimations=true?PreventTribeAlliances=true)</FormLabel>
+                        <Input value={serv?.extraQuestionmarkArguments} onChange={(e) => setServ((p) => ({ ...p, extraQuestionmarkArguments: e.target.value, convertValues: p.convertValues }))}></Input>
+                    </div>
+                </div>
+            </Card>
+            <Card variant="soft"  className={''}>
                 <Typography level="title-md">
-                    Server startup
+                    Extra Settings
                 </Typography>
                 <Divider className={'mx-2'}/>
 
                 <div className={'space-x-4 w-full flex'}>
                     <div className={'inline-block'}>
-                        <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart} onChange={(e) => setServ((p) => ({ ...p, disableUpdateOnStart: e.target.checked }))} /><br/>
-                        <Checkbox label="Restart server on crash" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked }))} />
+                        <Tooltip title={"Loads server config form ini first instead of json"}>
+                            <Checkbox label="Use ini config (only reloads on server start) (not recommended)" checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({ ...p, useIniConfig: e.target.checked, convertValues: p.convertValues }))} />
+                        </Tooltip>
+                        <br/>
+                        <Tooltip title={"Enables discord webhook messages"}>
+                            <Checkbox label="Discord webhook messages" checked={serv?.discordWebHookEnabled} onChange={(e) => setServ((p) => ({ ...p, discordWebHookEnabled: e.target.checked, convertValues: p.convertValues }))} />
+                        </Tooltip>
+                        <Tooltip title={"The url from the webhook (if not set it will fail)"}>
+                            <span>
+                                <FormLabel>Discord webhook url</FormLabel>
+                            <Input value={serv?.discordWebHook} onChange={(e) => setServ((p) => ({ ...p, discordWebHook: e.target.value, convertValues: p.convertValues }))}></Input>
+                            </span>
+                        </Tooltip>
 
-                        <p/>                    
 
-                        <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick -ForceAllowCaveFlyers)</FormLabel>
-                        <Input value={serv?.extraDashArgs} onChange={(e) => setServ((p) => ({ ...p, extraDashArgs: e.target.value }))}></Input>
-                        <FormLabel>Custom server "questionmark" arguments (only use args like: ?PreventSpawnAnimations=true?PreventTribeAlliances=true)</FormLabel>
-                        <Input value={serv?.extraQuestionmarkArguments} onChange={(e) => setServ((p) => ({ ...p, extraQuestionmarkArguments: e.target.value }))}></Input>
                     </div>
                 </div>
             </Card>
+
         </TabPanel>
     );
 }
