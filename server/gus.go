@@ -3,7 +3,6 @@ package server
 import (
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-
 	"os"
 	"path/filepath"
 )
