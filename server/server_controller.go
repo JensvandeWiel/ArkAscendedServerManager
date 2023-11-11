@@ -506,4 +506,17 @@ func (c *ServerController) SetServerStatus(id int, status bool) error {
 	return nil
 }
 
+func (c *ServerController) HandleServerCrash(id int) error {
+	server, exists := c.Servers[id]
+	if !exists {
+		err := fmt.Errorf("error handling server crash " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	server.HandleCrash()
+
+	return nil
+}
+
 //endregion

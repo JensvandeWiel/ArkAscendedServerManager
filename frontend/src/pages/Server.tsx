@@ -22,7 +22,8 @@ import {
     GetServer, GetServerStatus,
     SaveServer,
     StartServer,
-    SetServerStatus
+    SetServerStatus,
+    HandleServerCrash
 } from "../../wailsjs/go/server/ServerController";
 import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";
@@ -77,8 +78,16 @@ export const Server = ({id, className}: Props) => {
     }, [serv]);
 
     useEffect(() => {
-        EventsOn("onServerExit", () => setServerStatus(false))
+        EventsOn("onServerExit", () => {
+            setServerStatus(false)
+            HandleServerCrash(serv.id)
+        })
         return () => EventsOff("onServerExit")
+    }, []);
+
+    useEffect(() => {
+        EventsOn("onServerStart", () => setServerStatus(true))
+        return () => EventsOff("onServerStart")
     }, []);
 
     useEffect(() => {
@@ -121,10 +130,10 @@ export const Server = ({id, className}: Props) => {
     function onServerStopButtonClicked() {
         addAlert("Stopping server...", "neutral")
         SendRconCommand("saveworld", serv.ipAddress, serv.rconPort, serv.adminPassword)
-            .then((resp) => {
-                SetServerStatus(serv.id, false)
+            .then(() => {
                 //send quit command
                 SendRconCommand("doexit", serv.ipAddress, serv.rconPort, serv.adminPassword)
+                    .then(() => SetServerStatus(serv.id, false))
                     .catch((err) => addAlert("error sending exit command: " + err, "danger"));
             })
             .catch((err) => addAlert("error sending save command: " + err, "danger"));

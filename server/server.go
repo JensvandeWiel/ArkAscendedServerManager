@@ -72,6 +72,10 @@ func (s *Server) UpdateConfig() error {
 	return nil
 }
 
+func (s *Server) GetRestartOnServerQuit() bool {
+	return s.RestartOnServerQuit
+}
+
 //TODO Add configuration parsing/loading/saving for server specific files
 //TODO Add startup arguments parsing
 
@@ -99,23 +103,24 @@ func (s *Server) Start() error {
 			_ = s.Command.Wait()
 
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
-
-			//restart server on crash
-			if err != nil && s.RestartOnServerQuit {
-				code := s.Command.ProcessState.ExitCode()
-				time.Sleep(2 * time.Second)
-				if code != 0 && s.IsRunning {
-					err := s.Start()
-					if err != nil {
-						runtime.EventsEmit(s.ctx, "onRestartServerFailed", err)
-					}
-				}
-			}
-
 		}()
 	}
 
 	return nil
+}
+
+func (s *Server) HandleCrash() {
+	if s.GetRestartOnServerQuit() {
+		// 3221225786 is the exit code for an intended exit (i hope)
+		if s.IsRunning {
+			runtime.LogError(s.ctx, fmt.Sprintf("Server %v crashed, attempting to restart...", s.Id))
+			time.Sleep(2 * time.Second)
+			err := s.Start()
+			if err != nil {
+				runtime.EventsEmit(s.ctx, "onRestartServerFailed", err)
+			}
+		}
+	}
 }
 
 // ForceStop forces the server to stop "quitting/killing the process"
