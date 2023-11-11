@@ -277,9 +277,7 @@ func (s *Server) SaveGameIni() error {
 		return err
 	}
 
-	gIni := ini.Empty()
-
-	gIni, err := ini.Load(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
+	gIni, err := ini.LoadSources(iniOpts, filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
 	if err != nil {
 		return err
 	}

@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
+	"github.com/go-ini/ini"
 	"github.com/sethvargo/go-password/password"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"io"
@@ -217,3 +218,8 @@ func (c *ServerController) GetServerDir() string {
 }
 
 //endregion
+
+var iniOpts = ini.LoadOptions{
+	AllowShadows:               true,
+	AllowDuplicateShadowValues: true,
+}
