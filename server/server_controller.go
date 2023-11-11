@@ -15,6 +15,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/adrg/xdg"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
@@ -30,13 +31,14 @@ const (
 type ServerController struct {
 	ctx       context.Context
 	Servers   map[int]*Server
+	helpers   *helpers.HelpersController
 	serverDir string
 }
 
 //region Struct Initialization and Creation
 
 // NewServerController creates a new ServerController application struct
-func NewServerController() *ServerController {
+func NewServerController(hc *helpers.HelpersController) *ServerController {
 	return &ServerController{
 		Servers: make(map[int]*Server),
 	}
@@ -261,6 +263,25 @@ func (c *ServerController) ForceStopServer(id int) error {
 	}
 
 	err := server.ForceStop()
+	if err != nil {
+		err := fmt.Errorf("error stopping server " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	return nil
+}
+
+func (c *ServerController) StopServer(id int) error {
+
+	server, exists := c.Servers[id]
+	if !exists {
+		err := fmt.Errorf("error stopping server " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, err.Error())
+		return err
+	}
+
+	err := server.Stop()
 	if err != nil {
 		err := fmt.Errorf("error stopping server " + strconv.Itoa(id) + ": " + err.Error())
 		runtime.LogError(c.ctx, err.Error())

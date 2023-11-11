@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/keybase/go-ps"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
@@ -10,6 +11,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // Server contains the server "stuff"
@@ -17,12 +19,15 @@ import (
 type Server struct {
 	Command *exec.Cmd `json:"-"`
 	ctx     context.Context
+	helpers *helpers.HelpersController
 
 	//PREFERENCES
 
-	DisableUpdateOnStart bool `json:"disableUpdateOnStart"`
-	RestartOnServerQuit  bool `json:"restartOnServerQuit"`
-	UseIniConfig         bool `json:"useIniConfig"`
+	DisableUpdateOnStart  bool   `json:"disableUpdateOnStart"`
+	RestartOnServerQuit   bool   `json:"restartOnServerQuit"`
+	UseIniConfig          bool   `json:"useIniConfig"`
+	DiscordWebHook        string `json:"discordWebHook"`
+	DiscordWebHookEnabled bool   `json:"discordWebHookEnabled"`
 
 	//CONFIGURATION VARIABLES
 
@@ -76,47 +81,14 @@ func (s *Server) UpdateConfig() error {
 		return err
 	}
 
-	if s.UseIniConfig {
-		err = s.SaveGameIni()
-		if err != nil {
-			return err
-		}
+	err = s.SaveGameIni()
+	if err != nil {
+		return err
+	}
 
-		err = s.SaveGameUserSettingsIni()
-		if err != nil {
-			return err
-		}
-		s.GameUserSettings.ServerSettings.RCONEnabled = true
-		s.RCONPort = s.GameUserSettings.ServerSettings.RCONPort
-		s.AdminPassword = s.GameUserSettings.ServerSettings.ServerAdminPassword
-		s.IpAddress = s.GameUserSettings.SessionSettings.MultiHome
-		s.ServerPort = s.GameUserSettings.SessionSettings.Port
-		s.QueryPort = s.GameUserSettings.SessionSettings.QueryPort
-		s.ServerName = s.GameUserSettings.SessionSettings.SessionName
-		s.GameUserSettings.MultiHome.MultiHome = true
-		s.MaxPlayers = s.GameUserSettings.ScriptEngineGameSession.MaxPlayers
-		runtime.EventsEmit(s.ctx, "reloadServers")
-
-	} else {
-		err = s.SaveGameIni()
-		if err != nil {
-			return err
-		}
-
-		err = s.SaveGameUserSettingsIni()
-		if err != nil {
-			return err
-		}
-		s.GameUserSettings.ServerSettings.RCONEnabled = true
-		s.GameUserSettings.ServerSettings.RCONPort = s.RCONPort
-		s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
-
-		s.GameUserSettings.SessionSettings.MultiHome = s.IpAddress
-		s.GameUserSettings.SessionSettings.Port = s.ServerPort
-		s.GameUserSettings.SessionSettings.QueryPort = s.QueryPort
-		s.GameUserSettings.SessionSettings.SessionName = s.ServerName
-		s.GameUserSettings.MultiHome.MultiHome = true
-		s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
+	err = s.SaveGameUserSettingsIni()
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -141,10 +113,22 @@ func (s *Server) Start() error {
 			return fmt.Errorf("error starting server: %v", err)
 		}
 		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
+		if s.DiscordWebHookEnabled {
+			err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Server has started", s.DiscordWebHook)
+			if err != nil {
+				runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+			}
+		}
 		go func() {
 			_ = s.Command.Wait()
 
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
+			if s.DiscordWebHookEnabled {
+				err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Server has stopped", s.DiscordWebHook)
+				if err != nil {
+					runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+				}
+			}
 
 			/*//restart server on crash
 			if err != nil && s.RestartOnServerQuit {
@@ -187,6 +171,34 @@ func (s *Server) ForceStop() error {
 	err := s.Command.Process.Kill()
 	if err != nil {
 		return fmt.Errorf("error stopping server: %v", err)
+	}
+
+	if s.DiscordWebHookEnabled {
+		err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Initiated force stop", s.DiscordWebHook)
+		if err != nil {
+			runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+		}
+	}
+
+	return nil
+}
+
+func (s *Server) Stop() error {
+
+	if s.DiscordWebHookEnabled {
+		err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Initiated stop", s.DiscordWebHook)
+		if err != nil {
+			runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
+		}
+	}
+
+	_, err := s.helpers.SendRconCommand("saveworld", s.IpAddress, s.RCONPort, s.AdminPassword)
+	if err != nil {
+		return err
+	}
+	_, err = s.helpers.SendRconCommand("doexit", s.IpAddress, s.RCONPort, s.AdminPassword)
+	if err != nil {
+		return err
 	}
 
 	return nil
