@@ -277,19 +277,21 @@ func (s *Server) SaveGameIni() error {
 		if err != nil {
 			return err
 		}
+	}
 
-		runtime.EventsEmit(s.ctx, "reloadServers")
-	} else {
-		err = gIni.ReflectFrom(&s.Game)
-		if err != nil {
-			return err
-		}
+	//modify ini file here
+
+	err = gIni.ReflectFrom(&s.Game)
+	if err != nil {
+		return err
 	}
 
 	err = gIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
 	if err != nil {
 		return err
 	}
+
+	runtime.EventsEmit(s.ctx, "reloadServers")
 
 	return nil
 }

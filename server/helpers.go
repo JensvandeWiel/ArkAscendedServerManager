@@ -13,7 +13,11 @@ import (
 	"strconv"
 )
 
-// region Local Helpers
+var iniOpts = ini.LoadOptions{
+	AllowShadows:               true,
+	AllowDuplicateShadowValues: true,
+}
+
 // findHighestKey returns the highest key in a map with int as key
 func findHighestKey(m map[int]*Server) int {
 	var highestKey int = -1
@@ -190,10 +194,6 @@ func CopyAndMakeOld(path string) error {
 	return nil
 }
 
-//endregion
-
-//region Global and Frontend Helpers
-
 func (c *ServerController) GetNetworkInterfacesIp() map[string]string {
 
 	i, err := helpers.GetNetworkInterfaces()
@@ -214,13 +214,6 @@ func (c *ServerController) GetNetworkInterfacesIp() map[string]string {
 // GetServerDir returns the server directory
 func (c *ServerController) GetServerDir() string {
 	return c.serverDir
-}
-
-//endregion
-
-var iniOpts = ini.LoadOptions{
-	AllowShadows:               true,
-	AllowDuplicateShadowValues: true,
 }
 
 func ensureFilePath(filePath string) error {
