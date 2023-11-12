@@ -48,14 +48,14 @@ type Server struct {
 	//Server Name and Passwords
 	ServerName string `json:"serverName"`
 
-	ServerPassword    string `json:"serverPassword"` //TODO: Implement in startup/config
+	ServerPassword    string `json:"serverPassword"`
 	AdminPassword     string `json:"adminPassword"`
-	SpectatorPassword string `json:"spectatorPassword"` //TODO: Implement in startup/config
+	SpectatorPassword string `json:"spectatorPassword"`
 
 	//Server Networking
 	IpAddress  string `json:"ipAddress"`
 	ServerPort int    `json:"serverPort"`
-	PeerPort   int    `json:"peerPort"` //TODO: Implement in startup/config
+	PeerPort   int    `json:"peerPort"` //TODO: find out if used
 	QueryPort  int    `json:"queryPort"`
 	RCONPort   int    `json:"rconPort"`
 
@@ -129,19 +129,6 @@ func (s *Server) Start() error {
 					runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
 				}
 			}
-
-			/*//restart server on crash
-			if err != nil && s.RestartOnServerQuit {
-				code := s.Command.ProcessState.ExitCode()
-				time.Sleep(2 * time.Second)
-				if code != 0 {
-					err := s.Start()
-					if err != nil {
-						runtime.EventsEmit(s.ctx, "onRestartServerFailed", err)
-					}
-				}
-			}*/
-
 		}()
 	}
 

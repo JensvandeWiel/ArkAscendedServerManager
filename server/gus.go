@@ -429,11 +429,6 @@ func (s *Server) SaveGameUserSettingsIni() error {
 			return err
 		}
 
-		/*err := gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
-		if err != nil {
-			return err
-		}*/
-
 	}
 
 	s.GameUserSettings.ServerSettings.RCONEnabled = true

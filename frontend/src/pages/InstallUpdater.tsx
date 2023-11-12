@@ -56,7 +56,7 @@ export function InstallUpdater({setServ, serv, onInstalled}: Props) {
     useEffect(() => {
         EventsOn("installingUpdateAction", (data) => {setAction(data);})
         EventsOn("installingUpdateProgress", (data) => {setProgress(data);})
-        EventsOn("appInstalled", (i) => {setIsCompleted(true);  setAction("Done"); setProgress(100)})
+        EventsOn("appInstalled", () => {setIsCompleted(true);  setAction("Done"); setProgress(100)})
     }, []);
 
 

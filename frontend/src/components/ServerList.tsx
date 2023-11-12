@@ -1,6 +1,6 @@
 import { Button, Card, List, ListItem, ListItemButton } from "@mui/joy";
 import { server } from "../../wailsjs/go/models";
-import { LogError } from "../../wailsjs/runtime/runtime";
+import { LogError } from "../../wailsjs/runtime";
 import { IconPlus } from "@tabler/icons-react";
 
 enum ServerListType {

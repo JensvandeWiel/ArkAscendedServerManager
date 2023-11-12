@@ -11,11 +11,10 @@ import {
     Typography
 } from "@mui/joy";
 import React, {useState} from "react";
-import {DeleteProfile, DeleteServerFiles} from "../../../wailsjs/go/server/ServerController";
+import {DeleteProfile, DeleteServerFiles, GetServerStartupCommand} from "../../../wailsjs/go/server/ServerController";
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
 import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
-import {GetServerStartupCommand} from "../../../wailsjs/go/server/ServerController";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -24,13 +23,11 @@ type Props = {
 
 }
 
-export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
+function ServerAdministrationCard({setServ, serv, onServerFilesDeleted}: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server, onServerFilesDeleted: () => void}) {
 
     const [deleteServerFilesModalOpen, setDeleteServerFilesModalOpen] = useState(false)
     const [deleteProfileModalOpen, setDeleteProfileModalOpen] = useState(false)
     const [deleteEverythingModalOpen, setDeleteEverythingModalOpen] = useState(false)
-    const [showServerCommandModalOpen, setShowServerCommandModalOpen] = useState(false)
-    const [serverCommand, setServerCommand] = useState("");
 
     const {addAlert} = useAlert();
 
@@ -46,167 +43,221 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
         DeleteServerFiles(serv.id).then(() => DeleteProfile(serv.id)).then(() => {addAlert("Deleted everything", "success"); location.reload()}).catch((err) => {console.error(err); addAlert(err, "danger")})
     }
 
+
+
+    return <Card variant="soft" className={""}>
+        <Typography level="title-md">
+            Server Administration
+        </Typography>
+        <Divider className={"mx-2"}/>
+
+        <div className={"space-x-4 w-full flex"}>
+            <div className={"inline-block"}>
+                <Modal open={deleteServerFilesModalOpen} onClose={() => setDeleteServerFilesModalOpen(false)}>
+                    <ModalDialog variant="outlined" role="alertdialog">
+                        <DialogTitle>
+                            <IconAlertCircleFilled/>
+                            Confirmation
+                        </DialogTitle>
+                        <Divider/>
+                        <DialogContent>
+                            Are you sure you want to delete the server files? You cannot reverse this action!
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="solid" color="danger" onClick={() => onDeleteServerFilesButtonClicked()}>
+                                Delete Server Files
+                            </Button>
+                            <Button variant="plain" color="neutral" onClick={() => setDeleteServerFilesModalOpen(false)}>
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </ModalDialog>
+                </Modal>
+                <Button color="danger" onClick={() => setDeleteServerFilesModalOpen(true)}>Delete server files</Button>
+            </div>
+            <div className={"inline-block"}>
+                <Modal open={deleteProfileModalOpen} onClose={() => setDeleteProfileModalOpen(false)}>
+                    <ModalDialog variant="outlined" role="alertdialog">
+                        <DialogTitle>
+                            <IconAlertCircleFilled/>
+                            Confirmation
+                        </DialogTitle>
+                        <Divider/>
+                        <DialogContent>
+                            Are you sure you want to delete the profile? You cannot reverse this action!
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="solid" color="danger" onClick={() => onDeleteProfileButtonClicked()}>
+                                Delete Profile
+                            </Button>
+                            <Button variant="plain" color="neutral" onClick={() => setDeleteProfileModalOpen(false)}>
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </ModalDialog>
+                </Modal>
+                <Button color="danger" onClick={() => setDeleteProfileModalOpen(true)}>Delete profile</Button>
+            </div>
+            <div className={"inline-block"}>
+                <Modal open={deleteEverythingModalOpen} onClose={() => setDeleteEverythingModalOpen(false)}>
+                    <ModalDialog variant="outlined" role="alertdialog">
+                        <DialogTitle>
+                            <IconAlertCircleFilled/>
+                            Confirmation
+                        </DialogTitle>
+                        <Divider/>
+                        <DialogContent>
+                            Are you sure you want to delete everything? You cannot reverse this action!
+                        </DialogContent>
+                        <DialogActions>
+                            <Button variant="solid" color="danger" onClick={() => onDeleteEverythingButtonClicked()}>
+                                Delete Everything
+                            </Button>
+                            <Button variant="plain" color="neutral" onClick={() => setDeleteEverythingModalOpen(false)}>
+                                Cancel
+                            </Button>
+                        </DialogActions>
+                    </ModalDialog>
+                </Modal>
+                <Button color="danger" onClick={() => setDeleteEverythingModalOpen(true)}>Delete Everything</Button>
+            </div>
+        </div>
+    </Card>;
+}
+function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+
+    const [showServerCommandModalOpen, setShowServerCommandModalOpen] = useState(false)
+    const [serverCommand, setServerCommand] = useState("");
+
+    const {addAlert} = useAlert();
+
     return (
-        <TabPanel value={3} className={'space-y-8'}>
-            <Card variant="soft"  className={''}>
+        <Card variant="soft" className={''}>
+            <div className={'space-x-4 w-full flex justify-between'}>
                 <Typography level="title-md">
-                    Server Administration
+                    Server startup
                 </Typography>
-                <Divider className={'mx-2'}/>
+                <Typography level="title-md">
+                    <div className={'space-x-4 w-full flex'}>
+                        <div className={'inline-block'}>
+                            <Modal open={showServerCommandModalOpen}
+                                   onClose={() => setShowServerCommandModalOpen(false)}>
+                                <ModalDialog variant="outlined" role="dialog">
+                                    <DialogTitle>
+                                        <IconInfoCircle/>
+                                        Server startup command
+                                    </DialogTitle>
+                                    <Divider/>
+                                    <DialogContent>
+                                        {serverCommand}
+                                    </DialogContent>
+                                    <DialogActions>
+                                        <Button variant="solid" color="neutral"
+                                                onClick={() => setShowServerCommandModalOpen(false)}>
+                                            Close
+                                        </Button>
+                                    </DialogActions>
+                                </ModalDialog>
+                            </Modal>
 
-                <div className={'space-x-4 w-full flex'}>
-                    <div className={'inline-block'}>
-                        <Modal open={deleteServerFilesModalOpen} onClose={() => setDeleteServerFilesModalOpen(false)}>
-                            <ModalDialog variant="outlined" role="alertdialog">
-                                <DialogTitle>
-                                    <IconAlertCircleFilled/>
-                                    Confirmation
-                                </DialogTitle>
-                                <Divider />
-                                <DialogContent>
-                                    Are you sure you want to delete the server files? You cannot reverse this action!
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button variant="solid" color="danger" onClick={() => {setDeleteServerFilesModalOpen(false); onDeleteServerFilesButtonClicked()}}>
-                                        Delete Server Files
-                                    </Button>
-                                    <Button variant="plain" color="neutral" onClick={() => setDeleteServerFilesModalOpen(false)}>
-                                        Cancel
-                                    </Button>
-                                </DialogActions>
-                            </ModalDialog>
-                        </Modal>
-                        <Button color='danger' onClick={() => setDeleteServerFilesModalOpen(true)}>Delete server files</Button>
-                    </div>
-                    <div className={'inline-block'}>
-                        <Modal open={deleteProfileModalOpen} onClose={() => setDeleteProfileModalOpen(false)}>
-                            <ModalDialog variant="outlined" role="alertdialog">
-                                <DialogTitle>
-                                    <IconAlertCircleFilled/>
-                                    Confirmation
-                                </DialogTitle>
-                                <Divider />
-                                <DialogContent>
-                                    Are you sure you want to delete the profile? You cannot reverse this action!
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button variant="solid" color="danger" onClick={() => {setDeleteProfileModalOpen(false); onDeleteProfileButtonClicked()}}>
-                                        Delete Profile
-                                    </Button>
-                                    <Button variant="plain" color="neutral" onClick={() => setDeleteProfileModalOpen(false)}>
-                                        Cancel
-                                    </Button>
-                                </DialogActions>
-                            </ModalDialog>
-                        </Modal>
-                        <Button color='danger' onClick={() => setDeleteProfileModalOpen(true)}>Delete profile</Button>
-                    </div>
-                    <div className={'inline-block'}>
-                        <Modal open={deleteEverythingModalOpen} onClose={() => setDeleteEverythingModalOpen(false)}>
-                            <ModalDialog variant="outlined" role="alertdialog">
-                                <DialogTitle>
-                                    <IconAlertCircleFilled/>
-                                    Confirmation
-                                </DialogTitle>
-                                <Divider />
-                                <DialogContent>
-                                    Are you sure you want to delete everything? You cannot reverse this action!
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button variant="solid" color="danger" onClick={() => {setDeleteEverythingModalOpen(false); onDeleteEverythingButtonClicked()}}>
-                                        Delete Everything
-                                    </Button>
-                                    <Button variant="plain" color="neutral" onClick={() => setDeleteEverythingModalOpen(false)}>
-                                        Cancel
-                                    </Button>
-                                </DialogActions>
-                            </ModalDialog>
-                        </Modal>
-                        <Button color='danger' onClick={() => setDeleteEverythingModalOpen(true)}>Delete Everything</Button>
-                    </div>
-                </div>
-            </Card>
-            <Card variant="soft"  className={''}>
-                <div className={'space-x-4 w-full flex justify-between'}>
-                    <Typography level="title-md">
-                        Server startup
-                    </Typography>
-                    <Typography level="title-md">
-                        <div className={'space-x-4 w-full flex'}>
-                            <div className={'inline-block'}>
-                                <Modal open={showServerCommandModalOpen} onClose={() => setShowServerCommandModalOpen(false)}>
-                                    <ModalDialog variant="outlined" role="dialog">
-                                        <DialogTitle>
-                                            <IconInfoCircle/>
-                                            Server startup command
-                                        </DialogTitle>
-                                        <Divider />
-                                        <DialogContent>
-                                            {serverCommand}
-                                        </DialogContent>
-                                        <DialogActions>
-                                            <Button variant="solid" color="neutral" onClick={() => setShowServerCommandModalOpen(false)}>
-                                                Close
-                                            </Button>
-                                        </DialogActions>
-                                    </ModalDialog>
-                                </Modal>
-
-                                <Button color='neutral' onClick={() => {
-                                    setShowServerCommandModalOpen(true)
-                                    return GetServerStartupCommand(serv.id)
-                                        .then((cmd: string) => {
+                            <Button color='neutral' onClick={() => {
+                                setShowServerCommandModalOpen(true)
+                                return GetServerStartupCommand(serv.id)
+                                    .then((cmd: string) => {
                                         setServerCommand(cmd)
                                     }).catch((err) => {
                                         console.error(err);
                                         addAlert(err, "danger");
                                     })
-                                }}>Show startup command</Button>
-                            </div>
+                            }}>Show startup command</Button>
                         </div>
-                    </Typography>
-                </div>
-                <Divider className={'mx-2'}/>
-
-                <div className={'space-x-4 w-full flex'}>
-                    <div className={'inline-block'}>
-                        <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart} onChange={(e) => setServ((p) => ({ ...p, disableUpdateOnStart: e.target.checked, convertValues: p.convertValues }))} /><br/>
-                        {/*<Checkbox label="Restart server on server quit" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked }))} />*/}
-
-                        <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick -ForceAllowCaveFlyers)</FormLabel>
-                        <Input value={serv?.extraDashArgs} onChange={(e) => setServ((p) => ({ ...p, extraDashArgs: e.target.value, convertValues: p.convertValues }))}></Input>
-                        <FormLabel>Custom server "questionmark" arguments (only use args like: ?PreventSpawnAnimations=true?PreventTribeAlliances=true)</FormLabel>
-                        <Input value={serv?.extraQuestionmarkArguments} onChange={(e) => setServ((p) => ({ ...p, extraQuestionmarkArguments: e.target.value, convertValues: p.convertValues }))}></Input>
                     </div>
-                </div>
-            </Card>
-            <Card variant="soft"  className={''}>
-                <Typography level="title-md">
-                    Extra Settings
                 </Typography>
-                <Divider className={'mx-2'}/>
+            </div>
+            <Divider className={'mx-2'}/>
 
-                <div className={'space-x-4 w-full flex'}>
-                    <div className={'inline-block'}>
-                        <Tooltip title={"Loads server config form ini first instead of json"}>
-                            <Checkbox label="Use ini config (only reloads on server start) (not recommended)" checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({ ...p, useIniConfig: e.target.checked, convertValues: p.convertValues }))} />
-                        </Tooltip>
-                        <br/>
-                        <Tooltip title={"Enables discord webhook messages"}>
-                            <Checkbox label="Discord webhook messages" checked={serv?.discordWebHookEnabled} onChange={(e) => setServ((p) => ({ ...p, discordWebHookEnabled: e.target.checked, convertValues: p.convertValues }))} />
-                        </Tooltip>
-                        <Tooltip title={"The url from the webhook (if not set it will fail)"}>
+            <div className={'space-x-4 w-full flex'}>
+                <div className={'inline-block'}>
+                    <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart}
+                              onChange={(e) => setServ((p) => ({
+                                  ...p,
+                                  disableUpdateOnStart: e.target.checked,
+                                  convertValues: p.convertValues
+                              }))}/><br/>
+                    {/*<Checkbox label="Restart server on server quit" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked }))} />*/}
+
+                    <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick
+                        -ForceAllowCaveFlyers)</FormLabel>
+                    <Input value={serv?.extraDashArgs} onChange={(e) => setServ((p) => ({
+                        ...p,
+                        extraDashArgs: e.target.value,
+                        convertValues: p.convertValues
+                    }))}></Input>
+                    <FormLabel>Custom server "questionmark" arguments (only use args like:
+                        ?PreventSpawnAnimations=true?PreventTribeAlliances=true)</FormLabel>
+                    <Input value={serv?.extraQuestionmarkArguments} onChange={(e) => setServ((p) => ({
+                        ...p,
+                        extraQuestionmarkArguments: e.target.value,
+                        convertValues: p.convertValues
+                    }))}></Input>
+                </div>
+            </div>
+        </Card>
+    )
+}
+function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    return (
+        <Card variant="soft" className={''}>
+            <Typography level="title-md">
+                Extra Settings
+            </Typography>
+            <Divider className={'mx-2'}/>
+
+            <div className={'space-x-4 w-full flex'}>
+                <div className={'inline-block'}>
+                    <Tooltip title={"Loads server config form ini first instead of json"}>
+                        <Checkbox label="Use ini config (only reloads on server start) (not recommended)"
+                                  checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({
+                            ...p,
+                            useIniConfig: e.target.checked,
+                            convertValues: p.convertValues
+                        }))}/>
+                    </Tooltip>
+                    <br/>
+                    <Tooltip title={"Enables discord webhook messages"}>
+                        <Checkbox label="Discord webhook messages" checked={serv?.discordWebHookEnabled}
+                                  onChange={(e) => setServ((p) => ({
+                                      ...p,
+                                      discordWebHookEnabled: e.target.checked,
+                                      convertValues: p.convertValues
+                                  }))}/>
+                    </Tooltip>
+                    <Tooltip title={"The url from the webhook (if not set it will fail)"}>
                             <span>
                                 <FormLabel>Discord webhook url</FormLabel>
-                            <Input value={serv?.discordWebHook} onChange={(e) => setServ((p) => ({ ...p, discordWebHook: e.target.value, convertValues: p.convertValues }))}></Input>
+                            <Input value={serv?.discordWebHook} onChange={(e) => setServ((p) => ({
+                                ...p,
+                                discordWebHook: e.target.value,
+                                convertValues: p.convertValues
+                            }))}></Input>
                             </span>
-                        </Tooltip>
+                    </Tooltip>
 
 
-                    </div>
                 </div>
-            </Card>
+            </div>
+        </Card>
+    )
+}
 
+export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
+
+
+    return (
+        <TabPanel value={3} className={'space-y-8'}>
+            <ServerAdministrationCard serv={serv} setServ={setServ} onServerFilesDeleted={onServerFilesDeleted}/>
+            <ServerStartupCard serv={serv} setServ={setServ} />
+            <ExtraSettingsCard setServ={setServ} serv={serv}/>
         </TabPanel>
     );
 }
