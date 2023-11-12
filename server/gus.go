@@ -3,8 +3,6 @@ package server
 import (
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-
-	"os"
 	"path/filepath"
 )
 
@@ -415,17 +413,8 @@ func (s *Server) SaveGameUserSettingsIni() error {
 
 	filePath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini")
 
-	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-
-		file, err := os.Create(filePath)
-		if err != nil {
-
-			return err
-		}
-		defer file.Close()
-
-	} else if err != nil {
-
+	err := ensureFilePath(filePath)
+	if err != nil {
 		return err
 	}
 
@@ -440,94 +429,27 @@ func (s *Server) SaveGameUserSettingsIni() error {
 			return err
 		}
 
-		{
-			s.GameUserSettings.ServerSettings.RCONEnabled = true
-
-			if s.GameUserSettings.ServerSettings.RCONPort == 0 {
-				/*s.RCONPort = 28015
-				s.GameUserSettings.ServerSettings.RCONPort = 28015*/
-				s.GameUserSettings.ServerSettings.RCONPort = s.RCONPort
-			} else {
-				s.RCONPort = s.GameUserSettings.ServerSettings.RCONPort
-			}
-
-			if s.GameUserSettings.ServerSettings.ServerAdminPassword == "" {
-				/*ps, err := password.Generate(18, 9, 0, false, false)
-				if err != nil {
-					return err
-				}
-				s.AdminPassword = ps
-				s.GameUserSettings.ServerSettings.ServerAdminPassword = ps*/
-				s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
-			} else {
-				s.AdminPassword = s.GameUserSettings.ServerSettings.ServerAdminPassword
-			}
-
-			if s.GameUserSettings.SessionSettings.MultiHome == "" {
-				/*s.IpAddress = "0.0.0.0"
-				s.GameUserSettings.SessionSettings.MultiHome = "0.0.0.0"*/
-				s.GameUserSettings.SessionSettings.MultiHome = s.IpAddress
-			} else {
-				s.IpAddress = s.GameUserSettings.SessionSettings.MultiHome
-			}
-
-			if s.GameUserSettings.SessionSettings.Port == 0 {
-				/*s.ServerPort = 7777
-				s.GameUserSettings.SessionSettings.Port = 7777*/
-				s.GameUserSettings.SessionSettings.Port = s.ServerPort
-			} else {
-				s.ServerPort = s.GameUserSettings.SessionSettings.Port
-			}
-
-			if s.GameUserSettings.SessionSettings.QueryPort == 0 {
-				/*s.QueryPort = 27015
-				s.GameUserSettings.SessionSettings.QueryPort = 27015*/
-				s.GameUserSettings.SessionSettings.QueryPort = s.QueryPort
-			} else {
-				s.QueryPort = s.GameUserSettings.SessionSettings.QueryPort
-			}
-
-			if s.GameUserSettings.SessionSettings.SessionName == "" {
-				/*s.ServerName = "A server managed by ArkAscendedServerManager"
-				s.GameUserSettings.SessionSettings.SessionName = "A server managed by ArkAscendedServerManager"*/
-				s.GameUserSettings.SessionSettings.SessionName = s.ServerName
-			} else {
-				s.ServerName = s.GameUserSettings.SessionSettings.SessionName
-			}
-
-			s.GameUserSettings.MultiHome.MultiHome = true
-
-			if s.GameUserSettings.ScriptEngineGameSession.MaxPlayers == 0 {
-				/*s.MaxPlayers = 70
-				s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = 70*/
-				s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
-			} else {
-				s.MaxPlayers = s.GameUserSettings.ScriptEngineGameSession.MaxPlayers
-			}
-		}
-
-		err := gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+		/*err := gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
 		if err != nil {
 			return err
-		}
+		}*/
 
-		runtime.EventsEmit(s.ctx, "reloadServers")
-	} else {
+	}
 
-		err = gusIni.ReflectFrom(&s.GameUserSettings)
-		s.GameUserSettings.ServerSettings.RCONEnabled = true
-		s.GameUserSettings.ServerSettings.RCONPort = s.RCONPort
-		s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
+	s.GameUserSettings.ServerSettings.RCONEnabled = true
+	s.GameUserSettings.ServerSettings.RCONPort = s.RCONPort
+	s.GameUserSettings.ServerSettings.ServerAdminPassword = s.AdminPassword
 
-		s.GameUserSettings.SessionSettings.MultiHome = s.IpAddress
-		s.GameUserSettings.SessionSettings.Port = s.ServerPort
-		s.GameUserSettings.SessionSettings.QueryPort = s.QueryPort
-		s.GameUserSettings.SessionSettings.SessionName = s.ServerName
-		s.GameUserSettings.MultiHome.MultiHome = true
-		s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
-		if err != nil {
-			return err
-		}
+	s.GameUserSettings.SessionSettings.MultiHome = s.IpAddress
+	s.GameUserSettings.SessionSettings.Port = s.ServerPort
+	s.GameUserSettings.SessionSettings.QueryPort = s.QueryPort
+	s.GameUserSettings.SessionSettings.SessionName = s.ServerName
+	s.GameUserSettings.MultiHome.MultiHome = true
+	s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
+
+	err = gusIni.ReflectFrom(&s.GameUserSettings)
+	if err != nil {
+		return err
 	}
 
 	if s.ServerPassword != "" {
@@ -543,6 +465,8 @@ func (s *Server) SaveGameUserSettingsIni() error {
 	if err != nil {
 		return err
 	}
+
+	runtime.EventsEmit(s.ctx, "reloadServers")
 
 	return nil
 }
