@@ -19,6 +19,7 @@ import (
 	"path"
 	"strconv"
 
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/adrg/xdg"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -347,6 +348,7 @@ func (c *ServerController) HandleServerCrash(id int) error {
 	server.HandleCrash()
 
 	return nil
+}
 
 func (c *ServerController) GetServerStartupCommand(id int) (string, error) {
 	server, err := c.GetServerWithError(id, false)

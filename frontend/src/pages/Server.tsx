@@ -23,8 +23,8 @@ import {
     SaveServer,
     StartServer,
     SetServerStatus,
-    HandleServerCrash
-    StartServer, StopServer
+    HandleServerCrash,
+    StopServer
 } from "../../wailsjs/go/server/ServerController";
 import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";

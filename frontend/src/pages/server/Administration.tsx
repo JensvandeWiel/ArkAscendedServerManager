@@ -171,7 +171,7 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
                 <div className={'space-x-4 w-full flex'}>
                     <div className={'inline-block'}>
                         <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart} onChange={(e) => setServ((p) => ({ ...p, disableUpdateOnStart: e.target.checked, convertValues: p.convertValues }))} /><br/>
-                        <Checkbox label="Restart server on crash" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked }))} />
+                        <Checkbox label="Restart server on crash" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked, convertValues: p.convertValues }))} />
 
                         <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick -ForceAllowCaveFlyers)</FormLabel>
                         <Input value={serv?.extraDashArgs} onChange={(e) => setServ((p) => ({ ...p, extraDashArgs: e.target.value, convertValues: p.convertValues }))}></Input>

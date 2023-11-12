@@ -9,6 +9,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/keybase/go-ps"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
@@ -19,6 +21,7 @@ type Server struct {
 	Command   *exec.Cmd `json:"-"`
 	ctx       context.Context
 	IsRunning bool `json:"-"`
+	helpers   *helpers.HelpersController
 
 	//PREFERENCES
 
@@ -122,7 +125,7 @@ func (s *Server) Start() error {
 		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
 
 		s.SetStatus(true)
-    
+
 		if s.DiscordWebHookEnabled {
 			err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Server has started", s.DiscordWebHook)
 			if err != nil {
@@ -158,6 +161,7 @@ func (s *Server) HandleCrash() {
 			}
 		}
 	}
+}
 
 // CreateServerCmd returns the command to start the server
 func (s *Server) CreateServerCmd() *exec.Cmd {
