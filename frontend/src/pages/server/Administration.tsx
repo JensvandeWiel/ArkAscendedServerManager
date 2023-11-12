@@ -11,11 +11,10 @@ import {
     Typography
 } from "@mui/joy";
 import React, {useState} from "react";
-import {DeleteProfile, DeleteServerFiles} from "../../../wailsjs/go/server/ServerController";
+import {DeleteProfile, DeleteServerFiles, GetServerStartupCommand} from "../../../wailsjs/go/server/ServerController";
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
 import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
-import {GetServerStartupCommand} from "../../../wailsjs/go/server/ServerController";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>

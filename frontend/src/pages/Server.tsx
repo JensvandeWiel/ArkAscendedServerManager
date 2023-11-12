@@ -1,7 +1,7 @@
 import {
     Button,
     ButtonGroup,
-    Card, Checkbox, DialogActions,
+    Card, DialogActions,
     DialogContent,
     DialogTitle,
     Divider, IconButton,

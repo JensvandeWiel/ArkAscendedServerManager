@@ -20,7 +20,7 @@ type Props = {
 
 }
 
-function ServerNameAndPasswordsCard({ setServ, serv }: Props) {
+function ServerNameAndPasswordsCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
         <Card variant="soft"  className={''}>
             <Typography level="title-md">
@@ -47,7 +47,7 @@ function ServerNameAndPasswordsCard({ setServ, serv }: Props) {
         </Card>
     )
 }
-function NetworkingCard({ setServ, serv }: Props) {
+function NetworkingCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
 
     const defInter: {[p: string]: string} = {
         "none": ""
