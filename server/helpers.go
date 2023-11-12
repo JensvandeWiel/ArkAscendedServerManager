@@ -9,6 +9,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"path/filepath"
 	"strconv"
 )
 
@@ -129,8 +130,6 @@ func CheckIfServerCorrect(server Server) error {
 
 	if server.ServerMap == "" {
 		return fmt.Errorf("server.serverMap is empty")
-	} else if server.ServerMap != "TheIsland_WP" {
-		return fmt.Errorf("server.serverMap has invalid value: %v", server.ServerMap)
 	}
 
 	return nil
@@ -222,4 +221,34 @@ func (c *ServerController) GetServerDir() string {
 var iniOpts = ini.LoadOptions{
 	AllowShadows:               true,
 	AllowDuplicateShadowValues: true,
+}
+
+func ensureFilePath(filePath string) error {
+	// Check if the file already exists
+	if _, err := os.Stat(filePath); os.IsNotExist(err) {
+		// File does not exist, create it along with required directories
+
+		// Create any required directories
+		err := os.MkdirAll(filepath.Dir(filePath), os.ModePerm)
+		if err != nil {
+			return err
+		}
+
+		// Create the file
+		file, err := os.Create(filePath)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
+
+		// File created successfully
+		return nil
+
+	} else if err != nil {
+		// There was an error checking the file's existence
+		return err
+	}
+
+	// File already exists
+	return nil
 }
