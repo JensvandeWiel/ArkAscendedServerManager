@@ -3,7 +3,6 @@ package server
 import (
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-	"os"
 	"path/filepath"
 )
 
@@ -263,17 +262,8 @@ func (s *Server) SaveGameIni() error {
 
 	filePath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini")
 
-	if _, err := os.Stat(filePath); os.IsNotExist(err) {
-
-		file, err := os.Create(filePath)
-		if err != nil {
-
-			return err
-		}
-		defer file.Close()
-
-	} else if err != nil {
-
+	err := ensureFilePath(filePath)
+	if err != nil {
 		return err
 	}
 
