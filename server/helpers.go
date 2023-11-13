@@ -14,8 +14,7 @@ import (
 )
 
 var iniOpts = ini.LoadOptions{
-	AllowShadows:               true,
-	AllowDuplicateShadowValues: true,
+	AllowShadows: true,
 }
 
 // findHighestKey returns the highest key in a map with int as key
