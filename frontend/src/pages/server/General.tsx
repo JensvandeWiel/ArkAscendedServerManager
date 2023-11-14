@@ -99,6 +99,8 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                     <FormLabel>Duration:</FormLabel>
                     <Tooltip title={"Duration that the message is visible in seconds"}>
                         <Slider
+                            sliderStep={1}
+                            sliderMax={240}
                             value={serv?.gameUserSettings.messageOfTheDay.duration}
                             onChange={(v) => {
                                 if (v >= 0) {
