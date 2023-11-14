@@ -214,7 +214,7 @@ type GameUserSettings struct {
 
 	Ragnarok Ragnarok `json:"ragnarok" ini:"Ragnarok"`
 
-	MessageOfTheDay MessageOfTheDay
+	MessageOfTheDay MessageOfTheDay `json:"messageOfTheDay" ini:"MessageOfTheDay"`
 }
 
 func generateNewDefaultGameUserSettings() GameUserSettings {
