@@ -6,13 +6,14 @@ import {
     Select,
     TabPanel,
     Typography,
-    Option, Autocomplete, Slider, Textarea, Tooltip,
+    Option, Autocomplete, Textarea, Tooltip,
 } from "@mui/joy";
 
 import {server} from "../../../wailsjs/go/models";
 import React, {useEffect, useState} from "react";
 import {GetNetworkInterfacesIp} from "../../../wailsjs/go/server/ServerController";
 import {PasswordInput} from "../../components/PasswordInput";
+import {Slider} from "../../components/Slider";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -25,7 +26,7 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
         <Card variant="soft"  className={''}>
             <Typography level="title-md">
             Server Name and Passwords
-        </Typography>
+            </Typography>
             <Divider className={'mx-2'}/>
             <div className={'w-[100%] space-y-4'}>
                 <div className={''}>
@@ -62,13 +63,21 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
             <div className={'w-[100%] space-y-4'}>
                 <div className={''}>
                     <FormLabel>Auto Save interval:</FormLabel>
-                    <Slider valueLabelDisplay="auto" className={""} step={1} value={serv?.gameUserSettings.serverSettings.autoSavePeriodMinutes} onChange={(e, v) => {
-                        setServ((p) => {
-                            const newState = {...p, convertValues: p.convertValues};
-                            newState.gameUserSettings.serverSettings.autoSavePeriodMinutes = v as number;
-                            return newState;
-                        })
-                    }} ></Slider>
+                    <Tooltip title={"Duration that the message is visible in seconds"}>
+                        <Slider
+                            value={serv?.gameUserSettings.serverSettings.autoSavePeriodMinutes}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.gameUserSettings.serverSettings.autoSavePeriodMinutes = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
+                    </Tooltip>
+
                 </div>
             </div>
             <Typography level="title-md">
@@ -89,14 +98,32 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                 <div className={''}>
                     <FormLabel>Duration:</FormLabel>
                     <Tooltip title={"Duration that the message is visible in seconds"}>
-                        <Slider valueLabelDisplay="auto" className={"w-1/3"} max={240} step={1} value={serv?.gameUserSettings.messageOfTheDay.duration} onChange={(e, v) => {
-                            setServ((p) => {
-                                const newState = {...p, convertValues: p.convertValues};
-                                newState.gameUserSettings.messageOfTheDay.duration = v as number;
-                                return newState;
-                            })
-                        }} ></Slider>
+                        <Slider
+                            value={serv?.gameUserSettings.messageOfTheDay.duration}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.gameUserSettings.messageOfTheDay.duration = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
                     </Tooltip>
+
+                </div>
+            </div>
+            <Typography level="title-md">
+                Server Settings
+            </Typography>
+            <Divider className={'mx-2'}/>
+            <div className={'w-[100%] space-y-4'}>
+                <div className={''}>
+
+                </div>
+                <div className={''}>
+
                 </div>
             </div>
         </Card>
