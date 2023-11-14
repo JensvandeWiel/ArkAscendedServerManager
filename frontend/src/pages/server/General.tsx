@@ -122,7 +122,7 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
             <Divider className={'mx-2'}/>
             <div className={'w-[100%] space-y-4'}>
                 <div className={'flex space-x-2'}>
-                    <div className={"w-1/3"}>
+                    <div className={"flex-grow"}>
                         <FormLabel>Max Players:</FormLabel>
                         <Slider
                             className={""}
@@ -140,7 +140,7 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                             }}
                         />
                     </div>
-                    <div className={"w-1/3"}>
+                    <div className={"flex-grow"}>
                         <Tooltip title={"The duration before an idle player gets kicked in seconds"}>
                             <FormLabel> <Checkbox className={"mr-2"} checked={serv?.kickIdlePlayers} onChange={(e) => setServ((p) => ({ ...p, kickIdlePlayers: e.target.checked, convertValues: p.convertValues }))}/> Kick Idle Players Period:</FormLabel>
                         </Tooltip>
