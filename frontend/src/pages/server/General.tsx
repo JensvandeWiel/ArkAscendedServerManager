@@ -6,7 +6,7 @@ import {
     Select,
     TabPanel,
     Typography,
-    Option, Autocomplete, Textarea, Tooltip,
+    Option, Autocomplete, Textarea, Tooltip, Checkbox,
 } from "@mui/joy";
 
 import {server} from "../../../wailsjs/go/models";
@@ -121,10 +121,48 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
             </Typography>
             <Divider className={'mx-2'}/>
             <div className={'w-[100%] space-y-4'}>
-                <div className={''}>
+                <div className={'flex space-x-2'}>
+                    <div className={"w-1/3"}>
+                        <FormLabel>Max Players:</FormLabel>
+                        <Slider
+                            className={""}
+                            sliderStep={1}
+                            sliderMax={240}
+                            value={serv?.maxPlayers}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.maxPlayers = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
+                    </div>
+                    <div className={"w-1/3"}>
+                        <Tooltip title={"The duration before an idle player gets kicked in seconds"}>
+                            <FormLabel> <Checkbox className={"mr-2"} checked={serv?.kickIdlePlayers} onChange={(e) => setServ((p) => ({ ...p, kickIdlePlayers: e.target.checked, convertValues: p.convertValues }))}/> Kick Idle Players Period:</FormLabel>
+                        </Tooltip>
+                        <Slider
+                            className={""}
+                            disabled={!(serv?.kickIdlePlayers)}
+                            sliderStep={1}
+                            sliderMax={3600}
+                            value={serv?.gameUserSettings.serverSettings.kickIdlePlayersPeriod}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.gameUserSettings.serverSettings.kickIdlePlayersPeriod = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
 
-                </div>
-                <div className={''}>
+                    </div>
+
 
                 </div>
             </div>

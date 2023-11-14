@@ -8,20 +8,23 @@ type Props = {
     sliderMax?: number;
     sliderStep?: number;
     sliderMin?: number;
+    disabled?: boolean;
 
 }
 
-export function Slider({value, onChange, className, sliderMax, sliderStep, sliderMin}:Props) {
+export function Slider({value, onChange, className, sliderMax, sliderStep, sliderMin, disabled}:Props) {
     return (
-        <div className={"flex space-x-4" + className}>
-            <Sl valueLabelDisplay="auto" className={""} max={sliderMax} step={sliderStep} min={sliderMin} value={value} onChange={(e, v) => {
-                let val = v as number
-                onChange(val);
-            }} ></Sl>
-            <Input type={"number"} required className={"w-32"} value={value} onChange={(e) => {
-                let val = parseInt(e.target.value);
-                onChange(val);
-            }}></Input>
+        <div className={className}>
+            <div className={"flex space-x-4"}>
+                <Sl valueLabelDisplay="auto" className={""} max={sliderMax} step={sliderStep} disabled={disabled} min={sliderMin} value={value} onChange={(e, v) => {
+                    let val = v as number
+                    onChange(val);
+                }} ></Sl>
+                <Input type={"number"} required className={"w-32"} value={value} disabled={disabled} onChange={(e) => {
+                    let val = parseInt(e.target.value);
+                    onChange(val);
+                }}></Input>
+            </div>
         </div>
     );
 }
