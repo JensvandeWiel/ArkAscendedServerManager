@@ -162,8 +162,6 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         />
 
                     </div>
-
-
                 </div>
             </div>
         </Card>
