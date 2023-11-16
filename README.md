@@ -10,7 +10,7 @@ For now the only way is to use the [nightly](https://github.com/JensvandeWiel/Ar
 #### Setting steamcmd path for first use
 Steamcmd is not yet packaged with the app, if you want to create a server with AASM you can install steamcmd to your path on your computer (e.g.: with [scoop](https://scoop.sh/#/apps?q=steamcmd&id=aed594e2b74d756901130cc098dfb2f70679d8dc)) or you can follow the guide below.
 
- 1. Install the app using the installer found [here](https://github.com/JensvandeWiel/ArkAscendedServerManager/releases)
+ 1. Install the app using the installer found [here](https://github.com/JensvandeWiel/ArkAscendedServerManager/releases/latest/download/Ark-Ascended-Server-Manager-amd64-installer.exe)
  2. Run the app for the first time
  3. Click [windows key] + R and enter `%localappdata%\ArkAscendedServerManager`
  4. Open config.json
