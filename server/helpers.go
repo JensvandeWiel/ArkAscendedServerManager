@@ -2,15 +2,16 @@ package server
 
 import (
 	"fmt"
-	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/go-ini/ini"
-	"github.com/sethvargo/go-password/password"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"io"
 	"net"
 	"os"
 	"path/filepath"
 	"strconv"
+
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
+	"github.com/go-ini/ini"
+	"github.com/sethvargo/go-password/password"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 var iniOpts = ini.LoadOptions{
@@ -77,6 +78,8 @@ func generateNewDefaultServer(id int) Server {
 
 		ServerMap:  "TheIsland_WP",
 		MaxPlayers: 70,
+
+		StartWithApplication: false,
 	}
 }
 
