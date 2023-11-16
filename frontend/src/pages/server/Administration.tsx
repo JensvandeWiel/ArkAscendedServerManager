@@ -254,7 +254,7 @@ export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
 
 
     return (
-        <TabPanel value={3} className={'space-y-8'}>
+        <TabPanel value={4} className={'space-y-8'}>
             <ServerAdministrationCard serv={serv} setServ={setServ} onServerFilesDeleted={onServerFilesDeleted}/>
             <ServerStartupCard serv={serv} setServ={setServ} />
             <ExtraSettingsCard setServ={setServ} serv={serv}/>
