@@ -2,17 +2,18 @@ package helpers
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"slices"
+	"strconv"
 	"strings"
 	"syscall"
 
 	"github.com/hashicorp/go-version"
 	"github.com/inconshreveable/go-update"
 	"github.com/sqweek/dialog"
+	wailsLogger "github.com/wailsapp/wails/v2/pkg/logger"
 	"golang.org/x/sys/windows"
 )
 
@@ -40,21 +41,21 @@ type Env struct {
 var cf Env
 var release Release
 
-func CheckForUpdates(WailsConfigFile []byte) {
+func CheckForUpdates(logger wailsLogger.Logger, WailsConfigFile []byte) {
 	err := json.Unmarshal(WailsConfigFile, &cf)
 	if err != nil {
-		fmt.Printf("Error: Could not parse wails.json: %s\n", err)
-		println("Skipping update check")
+		logger.Error("Error: Could not parse wails.json " + err.Error())
+		logger.Error("Skipping update check")
 		return
 	}
 
 	if cf.Environment == "dev" {
-		println("Environment is in dev mode")
-		println("Skipping update check")
+		logger.Info("Environment is in dev mode")
+		logger.Info("Skipping update check")
 		return
 	}
 
-	println("Checking for updates...")
+	logger.Info("Checking for updates...")
 
 	var res *http.Response
 	if cf.IsNightly {
@@ -64,22 +65,22 @@ func CheckForUpdates(WailsConfigFile []byte) {
 	}
 
 	if err != nil {
-		fmt.Printf("Error: Could not get latest release info: %s\n", err)
-		println("Skipping update check")
+		logger.Error("Error: Could not get latest release info:" + err.Error())
+		logger.Error("Skipping update check")
 		return
 	}
 
 	resBody, err := io.ReadAll(res.Body)
 	if err != nil {
-		fmt.Printf("server: could not read request body: %s\n", err)
-		println("Skipping update check")
+		logger.Error("server: Could not read request body:" + err.Error())
+		logger.Error("Skipping update check")
 		return
 	}
 
 	err = json.Unmarshal(resBody, &release)
 	if err != nil {
-		fmt.Printf("Error: Could not parse release info: %s\n", err)
-		println("Skipping update check")
+		logger.Error("Error: Could not parse release info:" + err.Error())
+		logger.Error("Skipping update check")
 		return
 	}
 
@@ -90,53 +91,53 @@ func CheckForUpdates(WailsConfigFile []byte) {
 
 	installedVersion, err := version.NewVersion(cf.Version)
 	if err != nil {
-		fmt.Printf("Error: Could not parse installed version: %s\n", err)
-		println("Skipping update check")
+		logger.Error("Error: Could not parse installed version:" + err.Error())
+		logger.Error("Skipping update check")
 		return
 	}
 	latestVersion, err := version.NewVersion(release.TagName)
 	if err != nil {
-		fmt.Printf("Error: Could not parse latest version: %s\n", err)
-		println("Skipping update check")
+		logger.Error("Error: Could not parse latest version:" + err.Error())
+		logger.Error("Skipping update check")
 		return
 	}
 
 	if installedVersion.GreaterThanOrEqual(latestVersion) {
-		fmt.Printf("Already on atest release: %s\n", release.Name)
+		logger.Info("Already on a test release: " + release.Name)
 		return
 	}
 
 	if len(release.Assets) == 0 {
-		println("No release files exist for " + release.Name)
+		logger.Info("No release files exist for " + release.Name)
 		return
 	}
 
 	fileName := cf.Info.ProductName + ".exe"
 	asset := release.Assets[slices.IndexFunc(release.Assets, func(c Asset) bool { return c.Name == fileName })]
 	if asset == (Asset{}) {
-		println("Could not find download url for " + release.Name)
+		logger.Error("Could not find download url for " + release.Name)
 		return
 	}
 
-	fmt.Printf("Found newer release: %s\n", release.Name)
+	logger.Info("Found newer release: " + release.Name)
 	installNewRelease := dialog.Message("%s", "Do you want to install it?\n"+release.Name).Title("New update available!").YesNo()
 
 	if installNewRelease {
-		DownladAndInstallUpdate(asset.DownloadUrl)
+		DownladAndInstallUpdate(logger, asset.DownloadUrl)
 	}
 }
 
-func DownladAndInstallUpdate(source string) {
-	if !IsAdmin() {
-		RunMeElevated()
+func DownladAndInstallUpdate(logger wailsLogger.Logger, source string) {
+	if !IsAdmin(logger) {
+		RunMeElevated(logger)
 		return
 	}
 
-	println("Installing new release...")
+	logger.Info("Installing new release...")
 	res, err := http.Get(source)
 
 	if err != nil {
-		fmt.Printf("Error: Could not download release: %s\n", err)
+		logger.Error("Error: Could not download release: " + err.Error())
 		return
 	}
 
@@ -144,16 +145,16 @@ func DownladAndInstallUpdate(source string) {
 	err = update.Apply(res.Body, update.Options{})
 
 	if err != nil {
-		fmt.Printf("Error: Could not install release: %s\n", err)
+		logger.Error("Error: Could not install release: " + err.Error())
 		return
 	}
 
-	println("Successfully installed new release!")
+	logger.Info("Successfully installed new release!")
 	dialog.Message("%s", "Successfully installed new release!").Title("Update installed!").Info()
 	os.Exit(0)
 }
 
-func RunMeElevated() {
+func RunMeElevated(logger wailsLogger.Logger) {
 	verb := "runas"
 	exe, _ := os.Executable()
 	cwd, _ := os.Getwd()
@@ -168,13 +169,13 @@ func RunMeElevated() {
 
 	err := windows.ShellExecute(0, verbPtr, exePtr, argPtr, cwdPtr, showCmd)
 	if err != nil {
-		fmt.Println(err)
+		logger.Error(err.Error())
 	}
 	os.Exit(0)
 }
 
-func IsAdmin() bool {
+func IsAdmin(logger wailsLogger.Logger) bool {
 	elevated := windows.GetCurrentProcessToken().IsElevated()
-	fmt.Printf("admin %v\n", elevated)
+	logger.Info("admin " + strconv.FormatBool(elevated))
 	return elevated
 }
