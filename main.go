@@ -39,7 +39,7 @@ func main() {
 
 	l := logger.New(file)
 
-	helpers.CheckForUpdates(WailsConfigFile)
+	helpers.CheckForUpdates(l, WailsConfigFile)
 
 	// Create an instance of the app structure
 	app := NewApp()
@@ -76,6 +76,6 @@ func main() {
 	})
 
 	if err != nil {
-		println("Error:", err.Error())
+		l.Error("Error: " + err.Error())
 	}
 }

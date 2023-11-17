@@ -101,6 +101,8 @@ func generateNewDefaultServer(id int) Server {
 
 		ServerMap:  "TheIsland_WP",
 		MaxPlayers: 70,
+
+		StartWithApplication: false,
 	}
 }
 

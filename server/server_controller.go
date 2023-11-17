@@ -55,6 +55,25 @@ func (c *ServerController) Startup(ctx context.Context) {
 	}
 
 	c.serverDir = serverDir
+
+	c.StartServersWithApplication()
+}
+
+func (c *ServerController) StartServersWithApplication() {
+	servers, err := c.getAllServers()
+	if err != nil {
+		newErr := fmt.Errorf("Error getting all servers " + err.Error())
+		runtime.LogErrorf(c.ctx, newErr.Error())
+		return
+	}
+
+	for id := range servers {
+		server := c.Servers[id]
+		runtime.LogInfof(c.ctx, "StartWithApplication: %t", server.StartWithApplication)
+		if server.StartWithApplication {
+			c.StartServer(server.Id)
+		}
+	}
 }
 
 //endregion
