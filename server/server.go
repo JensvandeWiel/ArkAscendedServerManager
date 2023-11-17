@@ -67,6 +67,8 @@ type Server struct {
 
 	ServerMap  string `json:"serverMap"`
 	MaxPlayers int    `json:"maxPlayers"`
+
+	StartWithApplication bool `json:"startWithApplication"`
 }
 
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
@@ -96,6 +98,7 @@ func (s *Server) UpdateConfig() error {
 
 //TODO Add configuration parsing/loading/saving for server specific files
 //TODO Add startup arguments parsing
+//TODO Add check for running application (ensures no accidental duplicated servers, especially with addition of start with application)
 
 func (s *Server) Start() error {
 

@@ -185,6 +185,12 @@ function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
                                   convertValues: p.convertValues
                               }))}/><br/>
                     {/*<Checkbox label="Restart server on server quit" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked }))} />*/}
+                    <Checkbox label="Start server when application opens" checked={serv?.startWithApplication}
+                              onChange={(e) => setServ((p) => ({
+                                  ...p,
+                                  startWithApplication: e.target.checked,
+                                  convertValues: p.convertValues
+                                }))}/><br/>
 
                     <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick
                         -ForceAllowCaveFlyers)</FormLabel>
