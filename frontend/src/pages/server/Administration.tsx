@@ -124,6 +124,7 @@ function ServerAdministrationCard({setServ, serv, onServerFilesDeleted}: {setSer
         </div>
     </Card>;
 }
+
 function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
 
     const [showServerCommandModalOpen, setShowServerCommandModalOpen] = useState(false)
@@ -211,6 +212,38 @@ function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
         </Card>
     )
 }
+
+function AutoSaveSettingsCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    return (
+        <Card variant="soft"  className={''}>
+            <Typography level="title-md">
+                Auto-Save Settings
+            </Typography>
+            <Divider className={'mx-2'}/>
+
+            <div className={'space-x-4 w-full flex'}>
+                <div className={'inline-block'}>
+                    <Checkbox label="Enable Auto-Save" checked={serv?.autoSaveEnabled}
+                              onChange={(e) => setServ((p) => ({
+                                  ...p,
+                                  autoSaveEnabled: e.target.checked,
+                                  convertValues: p.convertValues
+                                }))}/><br/>
+
+                    <FormLabel>Auto-Save Interval (minutes)</FormLabel>
+                    <Input className={''} type={'number'} required value={serv?.autoSaveInterval} disabled={!serv?.autoSaveEnabled}
+                              onChange={(e) => setServ((p) => ({
+                                  ...p, 
+                                  autoSaveInterval: parseInt(e.target.value), 
+                                  convertValues: p.convertValues 
+                                }))}>
+                    </Input>
+                </div>
+            </div>
+        </Card>
+    )
+}
+
 function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
         <Card variant="soft" className={''}>
@@ -257,12 +290,11 @@ function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
 }
 
 export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
-
-
     return (
         <TabPanel value={4} className={'space-y-8'}>
             <ServerAdministrationCard serv={serv} setServ={setServ} onServerFilesDeleted={onServerFilesDeleted}/>
             <ServerStartupCard serv={serv} setServ={setServ} />
+            <AutoSaveSettingsCard setServ={setServ} serv={serv}/>
             <ExtraSettingsCard setServ={setServ} serv={serv}/>
         </TabPanel>
     );

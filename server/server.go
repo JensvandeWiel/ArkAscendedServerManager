@@ -3,15 +3,16 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/keybase/go-ps"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
 	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
+	"github.com/keybase/go-ps"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // Server contains the server "stuff"
@@ -70,6 +71,9 @@ type Server struct {
 	MaxPlayers int    `json:"maxPlayers"`
 
 	StartWithApplication bool `json:"startWithApplication"`
+
+	AutoSaveEnabled  bool `json:"autoSaveEnabled"`
+	AutoSaveInterval int  `json:"autoSaveInterval"`
 }
 
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
@@ -183,7 +187,7 @@ func (s *Server) Stop() error {
 		}
 	}
 
-	_, err := s.helpers.SendRconCommand("saveworld", s.IpAddress, s.RCONPort, s.AdminPassword)
+	err := s.SaveWorld()
 	if err != nil {
 		return err
 	}
@@ -261,4 +265,13 @@ func (s *Server) CreateArguments() []string {
 	}
 
 	return args
+}
+
+// save the world
+func (s *Server) SaveWorld() error {
+	_, err := s.helpers.SendRconCommand("saveworld", s.IpAddress, s.RCONPort, s.AdminPassword)
+	if err != nil {
+		return err
+	}
+	return nil
 }
