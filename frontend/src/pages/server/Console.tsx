@@ -31,6 +31,12 @@ export function Console({ setServ, serv, serverStatus }: Props) {
             .then((resp) => writeToConsole(resp, "server"))
             .catch((err) => writeToConsole("error sending command: " + err, "server"));
     };
+    
+    const writeAndDoRconCommand = (text: string) => {
+        writeToConsole(text);
+        doRconCommand(text);
+        setInput("");
+    }
 
     useEffect(() => {
         if (terminalRef.current) {
@@ -80,16 +86,14 @@ export function Console({ setServ, serv, serverStatus }: Props) {
                                 <IconButton
                                     color={"neutral"}
                                     onClick={(e) => {
-                                        writeToConsole(input);
-                                        setInput("");
-                                        doRconCommand(input);
+                                        writeAndDoRconCommand(input);
                                     }}
                                     className={"m-1"}
                                 >
                             <IconSend/>
                                 </IconButton>
                             </Tooltip>
-                            <Tooltip title={"clear input"}>
+                            <Tooltip title={"clear console"}>
                                 <IconButton
                                     color={"neutral"}
                                     onClick={(e) => {
@@ -103,12 +107,18 @@ export function Console({ setServ, serv, serverStatus }: Props) {
                     }
                     onKeyPress={(e) => {
                         if (e.key === "Enter") {
-                            writeToConsole(input, "user");
-                            doRconCommand(input);
-                            setInput("");
+                            writeAndDoRconCommand(input);
                         }
                     }}
                 ></Input>
+                <div className={'space-x-4 w-full flex'}>
+                    <div className={'inline-block'}>
+                        <Button color={'neutral'} variant="solid" disabled={!serverStatus} onClick={()=>writeAndDoRconCommand("destroywilddinos")}>Dino Wipe</Button>
+                    </div>
+                    <div className={'inline-block'}>
+                        <Button color={'neutral'} variant="solid" disabled={!serverStatus} onClick={()=>writeAndDoRconCommand("saveworld")}>Save World</Button>
+                    </div>
+                </div>
             </TabPanel>
         );
     } else {
