@@ -168,7 +168,7 @@ function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
                                         setServerCommand(cmd)
                                     }).catch((err) => {
                                         console.error(err);
-                                        addAlert(err, "danger");
+                                        addAlert(err, "danger")
                                     })
                             }}>Show startup command</Button>
                         </div>
@@ -214,6 +214,21 @@ function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
 }
 
 function AutoSaveSettingsCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    const {addAlert} = useAlert();
+    
+    const handleAutoSaveIntervalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newAutoSaveInterval = parseInt(e.target.value, 10);
+    
+        if (newAutoSaveInterval > 0) {
+            setServ((prev) => ({
+              ...prev,
+              autoSaveInterval: newAutoSaveInterval,
+              convertValues: prev.convertValues,
+            }));
+          } else {
+            addAlert("'Auto-Save Interval' must be greater than 0", "danger")
+          }
+      };
     return (
         <Card variant="soft"  className={''}>
             <Typography level="title-md">
