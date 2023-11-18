@@ -15,12 +15,14 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/adrg/xdg"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
 	"path"
 	"strconv"
+	"time"
+
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
+	"github.com/adrg/xdg"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 const (
@@ -29,10 +31,11 @@ const (
 
 // ServerController struct
 type ServerController struct {
-	ctx       context.Context
-	Servers   map[int]*Server
-	helpers   *helpers.HelpersController
-	serverDir string
+	ctx                context.Context
+	Servers            map[int]*Server
+	helpers            *helpers.HelpersController
+	autoSaveIterations int
+	serverDir          string
 }
 
 //region Struct Initialization and Creation
@@ -57,8 +60,12 @@ func (c *ServerController) Startup(ctx context.Context) {
 	c.serverDir = serverDir
 
 	c.StartServersWithApplication()
+	c.RunAutoSaveTimers()
 }
 
+// endregion
+
+// region Backend Functions
 func (c *ServerController) StartServersWithApplication() {
 	servers, err := c.getAllServers()
 	if err != nil {
@@ -69,9 +76,60 @@ func (c *ServerController) StartServersWithApplication() {
 
 	for id := range servers {
 		server := c.Servers[id]
-		runtime.LogInfof(c.ctx, "StartWithApplication: %t", server.StartWithApplication)
+		runtime.LogInfof(c.ctx, "Starting server %s automatically", server.ServerName)
 		if server.StartWithApplication {
 			c.StartServer(server.Id)
+		}
+	}
+}
+
+// start repeating timer that calls auto-save
+// having one timer that manages all servers is advantageous:
+// - catches conditions where a user enables auto-save after the timer has started
+// - catches interval changes made after the timer has started
+func (c *ServerController) RunAutoSaveTimers() {
+	c.autoSaveIterations = 0
+
+	autoSave := time.NewTicker(time.Minute)
+	for {
+		select {
+		case <-autoSave.C:
+			c.AutoSaveServers()
+		default:
+			continue
+		}
+	}
+}
+
+func (c *ServerController) AutoSaveServers() {
+	servers, err := c.getAllServers()
+	if err != nil {
+		newErr := fmt.Errorf("Error getting all servers " + err.Error())
+		runtime.LogErrorf(c.ctx, newErr.Error())
+		return
+	}
+
+	c.autoSaveIterations += 1
+	// seconds in a minute * hours in a day * days, increase days if more days are required
+	//									  d
+	if c.autoSaveIterations == (60 * 24 * 7) { // one week in seconds
+		// very early max int catch (definitely extendable in the future if necessary)
+		c.autoSaveIterations = 0
+	}
+
+	for id := range servers {
+		server := c.Servers[id]
+		if server.AutoSaveEnabled {
+			// if interval is multiple of iterations
+			if c.autoSaveIterations%server.AutoSaveInterval == 0 {
+				runtime.LogInfo(c.ctx, "Running autosave for "+server.ServerName)
+
+				err = server.SaveWorld()
+				if err != nil {
+					newErr := fmt.Errorf("Server auto-save created an error: " + err.Error())
+					runtime.LogErrorf(c.ctx, newErr.Error())
+				}
+			}
 		}
 	}
 }
