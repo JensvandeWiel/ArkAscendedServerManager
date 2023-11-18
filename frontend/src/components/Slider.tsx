@@ -20,7 +20,7 @@ export function Slider({value, onChange, className, sliderMax, sliderStep, slide
                     let val = v as number
                     onChange(val);
                 }} ></Sl>
-                <Input type={"number"} required className={"w-32"} value={value} disabled={disabled} onChange={(e) => {
+                <Input type={"number"} required className={"w-32"}  value={value} disabled={disabled} onChange={(e) => {
                     let val = parseInt(e.target.value);
                     onChange(val);
                 }}></Input>
