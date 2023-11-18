@@ -246,14 +246,13 @@ function AutoSaveSettingsCard({ setServ, serv }: {setServ: React.Dispatch<React.
                                 }))}/><br/>
 
                     <FormLabel>Auto-Save Interval (minutes)</FormLabel>
-                    <Input
-                        className={''}
-                        type={'number'}
-                        required
-                        value={serv?.autoSaveInterval}
-                        disabled={!serv?.autoSaveEnabled}
-                        onChange={handleAutoSaveIntervalChange}
-                        />
+                    <Input className={''} type={'number'} required value={serv?.autoSaveInterval} disabled={!serv?.autoSaveEnabled}
+                              onChange={(e) => setServ((p) => ({
+                                  ...p, 
+                                  autoSaveInterval: parseInt(e.target.value), 
+                                  convertValues: p.convertValues 
+                                }))}>
+                    </Input>
                 </div>
             </div>
         </Card>
