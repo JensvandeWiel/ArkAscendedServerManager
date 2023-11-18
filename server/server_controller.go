@@ -125,7 +125,6 @@ func (c *ServerController) AutoSaveServers() {
 				runtime.LogError(c.ctx, "Server auto-save interval set 0 or below")
 				continue
 			}
-
 			if c.autoSaveIterations%server.AutoSaveInterval == 0 {
 				runtime.LogInfo(c.ctx, "Running autosave for "+server.ServerName)
 

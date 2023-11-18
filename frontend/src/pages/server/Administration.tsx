@@ -214,7 +214,6 @@ function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
 }
 
 function AutoSaveSettingsCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
-    
     const {addAlert} = useAlert();
     
     const handleAutoSaveIntervalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -230,7 +229,6 @@ function AutoSaveSettingsCard({ setServ, serv }: {setServ: React.Dispatch<React.
             addAlert("'Auto-Save Interval' must be greater than 0", "danger")
           }
       };
-    
     return (
         <Card variant="soft"  className={''}>
             <Typography level="title-md">
