@@ -276,6 +276,10 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 		return Server{}, fmt.Errorf("Error unmarshalling server config file: " + err.Error())
 	}
 
+	if serv.AutoSaveInterval <= 0 {
+		serv.AutoSaveInterval = 15
+	}
+
 	// Check if server is correct.
 	if err := CheckIfServerCorrect(&serv); err != nil {
 		return Server{}, fmt.Errorf("Parsing server instance failed: " + err.Error())
@@ -324,6 +328,10 @@ func (c *ServerController) getServer(id int, addToMap bool) (*Server, error) {
 			return nil, fmt.Errorf("Error getting server instance: %s", err.Error())
 		}
 
+		if s.AutoSaveInterval <= 0 {
+			s.AutoSaveInterval = 15
+		}
+
 		if addToMap {
 			c.Servers[id] = &s
 		}
@@ -333,6 +341,9 @@ func (c *ServerController) getServer(id int, addToMap bool) (*Server, error) {
 		return &s, nil
 	} else {
 		runtime.EventsEmit(c.ctx, "gotServer", server.Id)
+		if server.AutoSaveInterval <= 0 {
+			server.AutoSaveInterval = 15
+		}
 		server.ctx = c.ctx
 		return server, nil
 	}

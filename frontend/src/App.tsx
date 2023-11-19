@@ -17,7 +17,7 @@ import {IconArrowLeft, IconExternalLink, IconHome, IconInfoCircle, IconPlus, Ico
 import {CreateServer, GetAllServers, GetAllServersFromDir, GetServerDir} from "../wailsjs/go/server/ServerController";
 import {server} from "../wailsjs/go/models";
 import {BrowserOpenURL, EventsOff, EventsOn, LogDebug} from "../wailsjs/runtime";
-import {AlertProvider} from "./components/AlertProvider";
+import {AlertProvider, useAlert} from "./components/AlertProvider";
 import banner from "./assets/AASM_V3_banner2.png"
 import {GetVersion} from "../wailsjs/go/helpers/HelpersController";
 
@@ -32,8 +32,7 @@ function App() {
     const [servers, setServers] = useState<{[key: number]: server.Server}|null>(null);
     const [infoModalOpen, setInfoModalOpen] = useState(false);
     const [appVersion, setAppVersion] = useState("");
-
-
+    const [earlyError, setEarlyError] = useState("")
 
 
     //This gets all the servers but if one server is changed manually it does not update it!
@@ -48,6 +47,7 @@ function App() {
                 }
             })
             .catch(error => {
+                setEarlyError(error)
                 console.error(error);
             });
     }
@@ -64,6 +64,7 @@ function App() {
                 }
             })
             .catch(error => {
+                setEarlyError(error)
                 console.error(error);
             });
     }
@@ -137,6 +138,9 @@ function App() {
                 <div className={'row-span-5 m-5'}>
                     <h2>You have no servers yet!</h2>
                     <Button onClick={() => handleCreateNewServerClicked()}><IconPlus/> Create new server</Button>
+                    <Alert className={"m-8"} color={"danger"}>
+                        {earlyError}
+                    </Alert>
                 </div>
             )
         }
