@@ -142,8 +142,7 @@ func CheckIfServerCorrect(server *Server) error {
 	}
 
 	if server.AutoSaveInterval <= 0 {
-		server.AutoSaveInterval = 15
-		fmt.Print("server.autoSaveInterval was set to a disallowed value - it has been defaulted back to 15 minutes")
+		return fmt.Errorf("server.AutoSaveInterval is negative or zero, it must be higher than zero")
 	}
 
 	return nil
