@@ -112,7 +112,7 @@ type ServerSettings struct {
 	ServerCrosshair                            bool    `json:"serverCrosshair" ini:"ServerCrosshair"`
 	ServerForceNoHUD                           bool    `json:"serverForceNoHUD" ini:"ServerForceNoHUD"`
 	ServerHardcore                             bool    `json:"serverHardcore" ini:"ServerHardcore"`
-	ServerPVE                                  bool    `json:"serverPVE" ini:"ServerPVE"`
+	ServerPVE                                  bool    `json:"serverPVE" ini:"serverPVE"`
 	ShowFloatingDamageText                     bool    `json:"showFloatingDamageText" ini:"ShowFloatingDamageText"`
 	ShowMapPlayerLocation                      bool    `json:"showMapPlayerLocation" ini:"ShowMapPlayerLocation"`
 	StructureDamageMultiplier                  float32 `json:"structureDamageMultiplier" ini:"StructureDamageMultiplier"`
