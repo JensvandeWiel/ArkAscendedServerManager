@@ -14,9 +14,9 @@ type Props = {
 }
 
 
-function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
-        <Card variant="soft"  className={''}>
+        <div>
             <Typography level="title-md">
                 General Multipliers
             </Typography>
@@ -402,8 +402,52 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                         }}
                     />
                 </div>
-
+                {/*<div className={'ml-4'}>
+                    <Tooltip enterDelay={500} title={"Higher value increases (from a percentage scale) max number of items place-able on saddles and rafts."}>
+                        <FormLabel>Per Platform Max Structures Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>*/}
+                <div className={'ml-4'}>
+                    <Tooltip enterDelay={500} title={"Specifies the scaling factor for structures decay times, e.g.: setting it at 2.0 will double all structure decay times, while setting at 0.5 will halve the timers. Note: despite the name, works in both PvP and PvE modes when structure decay is enabled."}>
+                        <FormLabel>PvE Structure Decay Period Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
             </div>
+        </div>
+    )
+}
+
+function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    return (
+        <div>
             <Typography level="title-md">
                 Dino Multipliers
             </Typography>
@@ -942,6 +986,13 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                     />
                 </div>
             </div>
+        </div>
+    )
+}
+
+function HarvestingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    return (
+        <div>
             <Typography level="title-md">
                 Harvesting Multipliers
             </Typography>
@@ -1024,6 +1075,13 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                     />
                 </div>
             </div>
+        </div>
+    )
+}
+
+function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    return (
+        <div>
             <Typography level="title-md">
                 Player Multipliers
             </Typography>
@@ -1259,6 +1317,13 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                 </div>
 
             </div>
+        </div>
+    )
+}
+
+function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    return (
+        <div>
             <Typography level="title-md">
                 Structure/building Multipliers
             </Typography>
@@ -1379,51 +1444,18 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                     />
                 </div>
             </div>
-            <Typography level="title-md">
-                PvE Specific Multipliers
-            </Typography>
-            <Divider className={'mx-2'}/>
-            <div className={'space-x-4 w-full'}>
-                {/*<div className={'ml-4'}>
-                    <Tooltip enterDelay={500} title={"Higher value increases (from a percentage scale) max number of items place-able on saddles and rafts."}>
-                        <FormLabel>Per Platform Max Structures Multiplier</FormLabel>
-                    </Tooltip>
-                    <Slider
-                        sliderStep={.1}
-                        sliderMax={25}
-                        value={serv?.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier}
-                        onChange={(v) => {
-                            if (v >= 0) {
-                                setServ((p) => {
-                                    const newState = {...p, convertValues: p.convertValues};
-                                    newState.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier = v;
-                                    return newState;
-                                })
-                            }
-                        }}
-                    />
-                </div>*/}
-                <div className={'ml-4'}>
-                    <Tooltip enterDelay={500} title={"Specifies the scaling factor for structures decay times, e.g.: setting it at 2.0 will double all structure decay times, while setting at 0.5 will halve the timers. Note: despite the name, works in both PvP and PvE modes when structure decay is enabled."}>
-                        <FormLabel>PvE Structure Decay Period Multiplier</FormLabel>
-                    </Tooltip>
-                    <Slider
-                        sliderStep={.1}
-                        sliderMax={25}
-                        value={serv?.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier}
-                        onChange={(v) => {
-                            if (v >= 0) {
-                                setServ((p) => {
-                                    const newState = {...p, convertValues: p.convertValues};
-                                    newState.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier = v;
-                                    return newState;
-                                })
-                            }
-                        }}
-                    />
-                </div>
+        </div>
+    )
+}
 
-            </div>
+function AllModifiersCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    return (
+        <Card variant="soft"  className={''}>
+            <GeneralMultipliers setServ={setServ} serv={serv}/>
+            <DinoMultipliers setServ={setServ} serv={serv}/>
+            <HarvestingMultipliers setServ={setServ} serv={serv}/>
+            <PlayerMultipliers setServ={setServ} serv={serv}/>
+            <StructureBuildingMultipliers setServ={setServ} serv={serv}/>
 
         </Card>
     )
@@ -1432,7 +1464,7 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
 export function Multipliers({setServ, serv}: Props) {
     return (
         <TabPanel value={3} className={'space-y-8'}>
-            <GeneralServerSettingsCard setServ={setServ} serv={serv}/>
+            <AllModifiersCard setServ={setServ} serv={serv}/>
         </TabPanel>
     );
 }
