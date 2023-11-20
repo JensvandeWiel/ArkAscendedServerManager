@@ -60,7 +60,7 @@ func (c *ServerController) Startup(ctx context.Context) {
 	c.serverDir = serverDir
 
 	c.StartServersWithApplication()
-	c.RunAutoSaveTimers()
+	c.RunAutoSaveTimer()
 }
 
 // endregion
@@ -87,18 +87,25 @@ func (c *ServerController) StartServersWithApplication() {
 // having one timer that manages all servers is advantageous:
 // - catches conditions where a user enables auto-save after the timer has started
 // - catches interval changes made after the timer has started
-func (c *ServerController) RunAutoSaveTimers() {
+func (c *ServerController) RunAutoSaveTimer() {
 	c.autoSaveIterations = 0
 
 	autoSave := time.NewTicker(time.Minute)
-	for {
-		select {
-		case <-autoSave.C:
-			c.AutoSaveServers()
-		default:
-			continue
+	done := make(chan bool)
+	go func() {
+		for {
+			select {
+			case <-done:
+				return
+			case <-autoSave.C:
+				c.AutoSaveServers()
+			}
 		}
-	}
+	}()
+
+	autoSave.Stop()
+	done <- true
+	runtime.LogInfof(c.ctx, "Auto-Save Stopped")
 }
 
 func (c *ServerController) AutoSaveServers() {
