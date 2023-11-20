@@ -121,6 +121,10 @@ func (c *ServerController) AutoSaveServers() {
 		server := c.Servers[id]
 		if server.AutoSaveEnabled {
 			// if interval is multiple of iterations
+			if server.AutoSaveInterval <= 0 {
+				runtime.LogError(c.ctx, "Server auto-save interval set 0 or below")
+				continue
+			}
 			if c.autoSaveIterations%server.AutoSaveInterval == 0 {
 				runtime.LogInfo(c.ctx, "Running autosave for "+server.ServerName)
 
@@ -273,7 +277,7 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 	}
 
 	// Check if server is correct.
-	if err := CheckIfServerCorrect(serv); err != nil {
+	if err := CheckIfServerCorrect(&serv); err != nil {
 		return Server{}, fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
 
@@ -368,7 +372,7 @@ func (c *ServerController) createServer(saveToConfig bool) (int, *Server, error)
 // saveServer saves the server, and returns an error if it fails
 func (c *ServerController) saveServer(server *Server) error {
 	// Check if server is correct.
-	if err := CheckIfServerCorrect(*server); err != nil {
+	if err := CheckIfServerCorrect(server); err != nil {
 		return fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
 	c.Servers[server.Id] = server

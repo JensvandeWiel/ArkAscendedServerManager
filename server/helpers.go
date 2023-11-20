@@ -103,10 +103,13 @@ func generateNewDefaultServer(id int) Server {
 		MaxPlayers: 70,
 
 		StartWithApplication: false,
+
+		AutoSaveEnabled:  true,
+		AutoSaveInterval: 15,
 	}
 }
 
-func CheckIfServerCorrect(server Server) error {
+func CheckIfServerCorrect(server *Server) error {
 	if server.Id < 0 {
 		return fmt.Errorf("Checks failed: Server.Id is negative")
 	}
@@ -151,7 +154,7 @@ func CheckIfServerCorrect(server Server) error {
 				return fmt.Errorf("Check failed: Ip address not found in system interfaces: %v", server.IpAddress)
 			}
 
-			if err := CheckServerPorts(&server); err != nil {
+			if err := CheckServerPorts(server); err != nil {
 				return fmt.Errorf("Check failed: ports failed to parse: %v", err)
 			}
 		}
@@ -159,6 +162,11 @@ func CheckIfServerCorrect(server Server) error {
 
 	if server.ServerMap == "" {
 		return fmt.Errorf("server.serverMap is empty")
+	}
+
+	if server.AutoSaveInterval <= 0 {
+		server.AutoSaveInterval = 15
+		fmt.Print("server.autoSaveInterval was set to a disallowed value - it has been defaulted back to 15 minutes")
 	}
 
 	return nil
