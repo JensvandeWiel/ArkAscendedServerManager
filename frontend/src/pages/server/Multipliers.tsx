@@ -16,7 +16,7 @@ type Props = {
 
 function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
-        <div>
+        <div className={"space-y-4"}>
             <Typography level="title-md">
                 General Multipliers
             </Typography>
@@ -447,7 +447,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
 
 function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
-        <div>
+        <div className={"space-y-4"}>
             <Typography level="title-md">
                 Dino Multipliers
             </Typography>
@@ -992,7 +992,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
 
 function HarvestingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
-        <div>
+        <div className={"space-y-4"}>
             <Typography level="title-md">
                 Harvesting Multipliers
             </Typography>
@@ -1081,7 +1081,7 @@ function HarvestingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React
 
 function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
-        <div>
+        <div className={"space-y-4"}>
             <Typography level="title-md">
                 Player Multipliers
             </Typography>
@@ -1323,7 +1323,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
 
 function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
-        <div>
+        <div className={"space-y-4"}>
             <Typography level="title-md">
                 Structure/building Multipliers
             </Typography>
