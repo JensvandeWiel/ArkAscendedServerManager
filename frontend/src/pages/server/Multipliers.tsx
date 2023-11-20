@@ -12,7 +12,7 @@ type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
     serv: server.Server;
 }
-//TODO Last value that was done is PlayerResistanceMultiplier, i'm adding them in order of https://ark.wiki.gg/wiki/Server_configuration
+
 
 function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
@@ -21,7 +21,6 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                 General Multipliers
             </Typography>
             <Divider className={'mx-2'}/>
-
             <div className={'space-x-4 w-full'}>
                 <div className={'ml-4'}>
                     <Tooltip title={"Allow increasing or decreasing global item stack size, this means all default stack sizes will be multiplied by the value given (excluding items that have a stack size of 1 by default)."}>
@@ -36,6 +35,25 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.itemStackSizeMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
+                <div className={''}>
+                    <Tooltip title={"Specifies the scaling factor for the experience received by players, tribes and dinosaurs for various actions. The default value 1 provides the same amounts of experience as in the single player experience (and official public servers). Higher values increase XP amounts awarded for various actions; lower values decrease it."}>
+                        <FormLabel>XP Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.xPMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.xPMultiplier = v;
                                     return newState;
                                 })
                             }
@@ -162,6 +180,82 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                         }}
                     />
                 </div>
+                <div>
+                    <Tooltip title={"Affects how quickly the food drains on such \"Raid Dinos\" (e.g.: Titanosaurus)\t"}>
+                        <FormLabel>Raid Dino Character Food Drain Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.raidDinoCharacterFoodDrainMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.raidDinoCharacterFoodDrainMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
+                <div>
+                    <Tooltip title={"Specifies the scaling factor for the damage tamed creatures deal with their attacks. The default value 1 provides normal damage. Higher values increase damage. Lower values decrease it."}>
+                        <FormLabel>Tamed Dino Damage Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.tamedDinoDamageMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.tamedDinoDamageMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
+                <div>
+                    <Tooltip title={"Specifies the scaling factor for the resistance to damage tamed creatures receive when attacked. The default value 1 provides normal damage. Higher values decrease resistance, increasing damage per attack. Lower values increase it, reducing damage per attack. A value of 0.5 results in a structure taking half damage while a value of 2.0 would result in a structure taking double normal damage."}>
+                        <FormLabel>Tamed Dino Resistance Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.tamedDinoResistanceMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.tamedDinoResistanceMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
+                <div>
+                    <Tooltip title={"Specifies the scaling factor for dinosaur taming speed. Higher values make taming faster.\t"}>
+                        <FormLabel>Taming Speed Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.tamingSpeedMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.tamingSpeedMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
             </div>
             <Typography level="title-md">
                 Harvesting Multipliers
@@ -200,6 +294,25 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.harvestHealthMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
+                <div className={''}>
+                    <Tooltip title={"Specifies the scaling factor for the re-spawn rate for resource nodes (trees, rocks, bushes, etc.). Lower values cause nodes to re-spawn more frequently.\t"}>
+                        <FormLabel>Resources Respawn Period Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.resourcesRespawnPeriodMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.resourcesRespawnPeriodMultiplier = v;
                                     return newState;
                                 })
                             }
@@ -390,7 +503,110 @@ function GeneralServerSettingsCard({ setServ, serv }: {setServ: React.Dispatch<R
                         }}
                     />
                 </div>
+                <div className={''}>
+                    <Tooltip title={"Specifies the scaling factor for the damage structures deal with their attacks (i.e., spiked walls). Higher values increase damage. Lower values decrease it.\t"}>
+                        <FormLabel>Structure Damage Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.structureDamageMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.structureDamageMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
+                <div className={''}>
+                    <Tooltip title={"Same as ResourceNoReplenishRadiusStructures in Game.ini. If both settings are set both multiplier will be applied. Can be useful when cannot change the Game.ini file as it works as a command line option too."}>
+                        <FormLabel>Structure Prevent Resource Radius Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.structurePreventResourceRadiusMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.structurePreventResourceRadiusMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                    <div className={''}>
+                        <Tooltip title={"Specifies the scaling factor for the resistance to damage structures receive when attacked. The default value 1 provides normal damage. Higher values decrease resistance, increasing damage per attack. Lower values increase it, reducing damage per attack. A value of 0.5 results in a structure taking half damage while a value of 2.0 would result in a structure taking double normal damage."}>
+                            <FormLabel>Structure Resistance Multiplier</FormLabel>
+                        </Tooltip>
+                        <Slider
+                            sliderStep={.1}
+                            sliderMax={25}
+                            value={serv?.gameUserSettings.serverSettings.structureResistanceMultiplier}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.gameUserSettings.serverSettings.structureResistanceMultiplier = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
+            <Typography level="title-md">
+                PvE Specific Multipliers
+            </Typography>
+            <Divider className={'mx-2'}/>
+            <div className={'space-x-4 w-full'}>
+                {/*<div className={'ml-4'}>
+                    <Tooltip title={"Higher value increases (from a percentage scale) max number of items place-able on saddles and rafts."}>
+                        <FormLabel>Per Platform Max Structures Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>*/}
+                <div className={'ml-4'}>
+                    <Tooltip title={"Specifies the scaling factor for structures decay times, e.g.: setting it at 2.0 will double all structure decay times, while setting at 0.5 will halve the timers. Note: despite the name, works in both PvP and PvE modes when structure decay is enabled."}>
+                        <FormLabel>PvE Structure Decay Period Multiplier</FormLabel>
+                    </Tooltip>
+                    <Slider
+                        sliderStep={.1}
+                        sliderMax={25}
+                        value={serv?.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier}
+                        onChange={(v) => {
+                            if (v >= 0) {
+                                setServ((p) => {
+                                    const newState = {...p, convertValues: p.convertValues};
+                                    newState.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier = v;
+                                    return newState;
+                                })
+                            }
+                        }}
+                    />
+                </div>
+
+            </div>
+
         </Card>
     )
 }
