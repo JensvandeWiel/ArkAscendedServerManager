@@ -118,7 +118,7 @@ export const ServerList = ({ serverListType, servers, setActiveServer, setDrawer
                                         <div className={'text-xl font-bold break-all'}>{server.serverAlias ? server.serverAlias : "Unnamed Server"}</div>
                                         <div className={'text-lg mb-2'}>{server.ipAddress}:{server.queryPort}</div>
                                         
-                                        <div>Players: {playerCount !== undefined ? playerCount : 'Loading...'}</div>
+                                        <div>Players: {playerCount !== undefined ? playerCount : 'Loading...'}/{server.maxPlayers}</div>
                                         <div>Status: {serverStatus !== undefined ? (serverStatus ? 'Running' : 'Stopped') : 'Loading...'}</div>
                                         </div>
                                     </Card>
