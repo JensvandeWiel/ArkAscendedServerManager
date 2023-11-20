@@ -122,7 +122,7 @@ type ScriptShootergameShootergamemode struct {
 	TribeSlotReuseCooldown               float32 `json:"tribeSlotReuseCooldown" ini:"TribeSlotReuseCooldown"`
 	UseCorpseLifeSpanMultiplier          float32 `json:"useCorpseLifeSpanMultiplier" ini:"UseCorpseLifeSpanMultiplier"`
 	WildDinoCharacterFoodDrainMultiplier float32 `json:"wildDinoCharacterFoodDrainMultiplier" ini:"WildDinoCharacterFoodDrainMultiplier"`
-	WildDinoTorporDrainMultiplier        float32 `json:"WildDinoTorporDrainMultiplier" ini:"WildDinoTorporDrainMultiplier"`
+	WildDinoTorporDrainMultiplier        float32 `json:"wildDinoTorporDrainMultiplier" ini:"WildDinoTorporDrainMultiplier"`
 	BHardLimitTurretsInRange             bool    `json:"bHardLimitTurretsInRange" ini:"bHardLimitTurretsInRange"`
 	BLimitTurretsInRange                 bool    `json:"bLimitTurretsInRange" ini:"bLimitTurretsInRange"`
 	LimitTurretsNum                      int     `json:"limitTurretsNum" ini:"LimitTurretsNum"`
