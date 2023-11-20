@@ -1448,7 +1448,7 @@ function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatc
     )
 }
 
-function AllModifiersCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+function AllMultipliersCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
         <Card variant="soft"  className={''}>
             <GeneralMultipliers setServ={setServ} serv={serv}/>
@@ -1464,7 +1464,7 @@ function AllModifiersCard({ setServ, serv }: {setServ: React.Dispatch<React.SetS
 export function Multipliers({setServ, serv}: Props) {
     return (
         <TabPanel value={3} className={'space-y-8'}>
-            <AllModifiersCard setServ={setServ} serv={serv}/>
+            <AllMultipliersCard setServ={setServ} serv={serv}/>
         </TabPanel>
     );
 }
