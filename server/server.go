@@ -71,9 +71,6 @@ type Server struct {
 	MaxPlayers int    `json:"maxPlayers"`
 
 	StartWithApplication bool `json:"startWithApplication"`
-
-	AutoSaveEnabled  bool `json:"autoSaveEnabled"`
-	AutoSaveInterval int  `json:"autoSaveInterval"`
 }
 
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
