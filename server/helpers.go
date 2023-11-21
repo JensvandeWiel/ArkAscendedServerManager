@@ -2,10 +2,6 @@ package server
 
 import (
 	"fmt"
-	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/go-ini/ini"
-	"github.com/sethvargo/go-password/password"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"io"
 	"io/ioutil"
 	"net"
@@ -13,6 +9,11 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
+	"github.com/go-ini/ini"
+	"github.com/sethvargo/go-password/password"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 var iniOpts = ini.LoadOptions{
@@ -103,9 +104,6 @@ func generateNewDefaultServer(id int) Server {
 		MaxPlayers: 70,
 
 		StartWithApplication: false,
-
-		AutoSaveEnabled:  true,
-		AutoSaveInterval: 15,
 	}
 }
 
@@ -162,10 +160,6 @@ func CheckIfServerCorrect(server *Server) error {
 
 	if server.ServerMap == "" {
 		return fmt.Errorf("server.serverMap is empty")
-	}
-
-	if server.AutoSaveInterval <= 0 {
-		return fmt.Errorf("server.AutoSaveInterval is negative or zero, it must be higher than zero")
 	}
 
 	return nil
