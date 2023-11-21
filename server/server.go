@@ -120,6 +120,7 @@ func (s *Server) Start() error {
 		if err != nil {
 			return fmt.Errorf("error starting server: %v", err)
 		}
+
 		runtime.EventsEmit(s.ctx, "onServerStart", s.Id)
 		if s.DiscordWebHookEnabled {
 			err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Server has started", s.DiscordWebHook)
@@ -274,4 +275,38 @@ func (s *Server) SaveWorld() error {
 		return err
 	}
 	return nil
+}
+
+func getPlayerCount(s Server) (int, error) {
+	players, err := s.helpers.SendRconCommand("listplayers", s.IpAddress, s.RCONPort, s.AdminPassword)
+	if err != nil {
+		return 0, err
+	}
+
+	if strings.HasPrefix(players, "No Players Connected") {
+		return 0, nil
+	}
+
+	// This returns the following format:
+	// 0. Username, ARK-Internal-ID
+	// So if more information is needed, it can be extracted
+	lines := strings.Split(players, "\n")
+	var nonEmptyLines []string
+	for _, line := range lines {
+		if strings.TrimSpace(line) != "" {
+			nonEmptyLines = append(nonEmptyLines, line)
+		}
+	}
+
+	return len(nonEmptyLines), nil
+}
+
+func (s *Server) GetServerPlayerCount() (int, error) {
+	playerCount, err := getPlayerCount(*s)
+
+	if err != nil {
+		return 0, err
+	}
+
+	return playerCount, nil
 }

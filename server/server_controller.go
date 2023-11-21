@@ -60,7 +60,6 @@ func (c *ServerController) Startup(ctx context.Context) {
 	c.serverDir = serverDir
 
 	c.StartServersWithApplication()
-	c.RunAutoSaveTimer()
 }
 
 // endregion
@@ -83,18 +82,20 @@ func (c *ServerController) StartServersWithApplication() {
 	}
 }
 
-// start repeating timer that calls auto-save
-// having one timer that manages all servers is advantageous:
-// - catches conditions where a user enables auto-save after the timer has started
-// - catches interval changes made after the timer has started
+// TODO Remove auto-save feature, it's built into ARK
 func (c *ServerController) RunAutoSaveTimer() {
 	c.autoSaveIterations = 0
 
 	autoSave := time.NewTicker(time.Minute)
 	done := make(chan bool)
+
+	runtime.LogInfof(c.ctx, "Server Auto-Save Started")
+
 	go func() {
 		for {
 			select {
+			case <-c.ctx.Done(): // Check if the context is canceled
+				return
 			case <-done:
 				return
 			case <-autoSave.C:
@@ -102,10 +103,6 @@ func (c *ServerController) RunAutoSaveTimer() {
 			}
 		}
 	}()
-
-	autoSave.Stop()
-	done <- true
-	runtime.LogInfof(c.ctx, "Auto-Save Stopped")
 }
 
 func (c *ServerController) AutoSaveServers() {
@@ -126,20 +123,21 @@ func (c *ServerController) AutoSaveServers() {
 
 	for id := range servers {
 		server := c.Servers[id]
-		if server.AutoSaveEnabled {
-			// if interval is multiple of iterations
-			if server.AutoSaveInterval <= 0 {
-				runtime.LogError(c.ctx, "Server auto-save interval set 0 or below")
-				continue
-			}
-			if c.autoSaveIterations%server.AutoSaveInterval == 0 {
-				runtime.LogInfo(c.ctx, "Running autosave for "+server.ServerName)
+		if !server.IsServerRunning() || !server.AutoSaveEnabled {
+			continue
+		}
 
-				err = server.SaveWorld()
-				if err != nil {
-					newErr := fmt.Errorf("Server auto-save created an error: " + err.Error())
-					runtime.LogErrorf(c.ctx, newErr.Error())
-				}
+		// if interval is multiple of iterations
+		if server.AutoSaveInterval <= 0 {
+			runtime.LogError(c.ctx, "Server auto-save interval set 0 or below")
+			continue
+		}
+		if c.autoSaveIterations%server.AutoSaveInterval == 0 {
+			runtime.LogInfo(c.ctx, "Running autosave for "+server.ServerName)
+			err = server.SaveWorld()
+			if err != nil {
+				newErr := fmt.Errorf("Server auto-save created an error: " + err.Error())
+				runtime.LogErrorf(c.ctx, newErr.Error())
 			}
 		}
 	}
@@ -201,6 +199,24 @@ func (c *ServerController) GetServer(id int) (Server, error) {
 		return *server, newErr
 	}
 	return *server, nil
+}
+
+// GetConnectedPlayerCount returns the number of connected players
+func (c *ServerController) GetConnectedPlayerCount(id int) (int, error) {
+	server, err := c.GetServer(id)
+	if err != nil {
+		newErr := fmt.Errorf("Failed getting server: " + strconv.Itoa(id) + " with: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return 0, newErr
+	}
+
+	resp, err := server.GetServerPlayerCount()
+	if err != nil {
+		// don't print the error, the server is probably just closed
+		return 0, err
+	}
+
+	return resp, nil
 }
 
 // CreateServer Creates a new server, returns it and adds it to the map. If it fails it returns an error which is catch-able in the Frontend.
