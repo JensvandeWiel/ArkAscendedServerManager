@@ -31,7 +31,8 @@ import {Console} from "./server/Console";
 import {UpdaterModal} from "./UpdaterModal";
 import {InstallUpdateVerify} from "../../wailsjs/go/installer/InstallerController";
 import {SendRconCommand} from "../../wailsjs/go/helpers/HelpersController";
-import {Settings} from "./server/Settings";
+import {Mods} from "./server/Mods";
+import {Multipliers} from "./server/Multipliers";
 
 
 type Props = {
@@ -217,12 +218,14 @@ export const Server = ({id, className}: Props) => {
                     <TabList className={'w-full'}>
                         <Tab variant="plain" indicatorInset color="neutral">Console</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">General Settings</Tab>
-                        <Tab variant="plain" indicatorInset color="neutral">Server Settings</Tab>
+                        <Tab variant="plain" indicatorInset color="neutral">Mods</Tab>
+                        <Tab variant="plain" indicatorInset color="neutral">Multipliers</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Administration</Tab>
                     </TabList>
                     <Console serv={serv} setServ={setServ} serverStatus={serverStatus}/>
                     <General serv={serv} setServ={setServ}/>
-                    <Settings setServ={setServ} serv={serv}></Settings>
+                    <Mods setServ={setServ} serv={serv}></Mods>
+                    <Multipliers setServ={setServ} serv={serv}/>
                     <Administration serv={serv} setServ={setServ} onServerFilesDeleted={() => CheckServerInstalled(serv.id).then((val) => setIsInstalled(val)).catch((reason) => console.error(reason))}/>
                 </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}
             </Card>

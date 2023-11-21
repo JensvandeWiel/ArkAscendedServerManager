@@ -214,7 +214,7 @@ type GameUserSettings struct {
 
 	Ragnarok Ragnarok `json:"ragnarok" ini:"Ragnarok"`
 
-	MessageOfTheDay MessageOfTheDay
+	MessageOfTheDay MessageOfTheDay `json:"messageOfTheDay" ini:"MessageOfTheDay"`
 }
 
 func generateNewDefaultGameUserSettings() GameUserSettings {
@@ -457,6 +457,11 @@ func (s *Server) SaveGameUserSettingsIni() error {
 	gusIni.Section("ServerSettings").Key("AdminPassword").SetValue(s.AdminPassword)
 
 	err = gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	if err != nil {
+		return err
+	}
+
+	err = replaceForwardSlashInFile(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
 	if err != nil {
 		return err
 	}

@@ -34,6 +34,7 @@ type Server struct {
 
 	ExtraDashArgs              string `json:"extraDashArgs"`
 	ExtraQuestionmarkArguments string `json:"extraQuestionmarkArguments"`
+	KickIdlePlayers            bool   `json:"kickIdlePlayers"`
 
 	Mods string `json:"mods"`
 
@@ -253,6 +254,9 @@ func (s *Server) CreateArguments() []string {
 	//args = append(args, "?ServerAdminPassword="+s.AdminPassword)
 
 	args = append(args, "-WinLiveMaxPlayers="+strconv.Itoa(s.MaxPlayers))
+	if s.KickIdlePlayers {
+		args = append(args, "-EnableIdlePlayerKick")
+	}
 
 	extraArgs := strings.Split(s.ExtraDashArgs, " ")
 

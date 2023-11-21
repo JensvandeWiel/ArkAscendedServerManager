@@ -2,20 +2,43 @@ package server
 
 import (
 	"fmt"
-	"io"
-	"net"
-	"os"
-	"path/filepath"
-	"strconv"
-
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/go-ini/ini"
 	"github.com/sethvargo/go-password/password"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"io"
+	"io/ioutil"
+	"net"
+	"os"
+	"path/filepath"
+	"strconv"
+	"strings"
 )
 
 var iniOpts = ini.LoadOptions{
 	AllowShadows: true,
+}
+
+func replaceForwardSlashInFile(filePath string) error {
+	// Read the content of the file
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		return fmt.Errorf("error reading file: %v", err)
+	}
+
+	// Convert content to string
+	contentString := string(content)
+
+	// Replace all occurrences of %2F with /
+	replacedString := strings.Replace(contentString, "/", "%2F", -1)
+
+	// Write the modified content back to the file
+	err = ioutil.WriteFile(filePath, []byte(replacedString), 0644)
+	if err != nil {
+		return fmt.Errorf("error writing to file: %v", err)
+	}
+
+	return nil
 }
 
 // findHighestKey returns the highest key in a map with int as key

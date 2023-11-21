@@ -6,13 +6,14 @@ import {
     Select,
     TabPanel,
     Typography,
-    Option,
+    Option, Autocomplete, Textarea, Tooltip, Checkbox,
 } from "@mui/joy";
 
 import {server} from "../../../wailsjs/go/models";
 import React, {useEffect, useState} from "react";
 import {GetNetworkInterfacesIp} from "../../../wailsjs/go/server/ServerController";
 import {PasswordInput} from "../../components/PasswordInput";
+import {Slider} from "../../components/Slider";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -20,28 +21,147 @@ type Props = {
 
 }
 
-function ServerNameAndPasswordsCard({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
     return (
         <Card variant="soft"  className={''}>
             <Typography level="title-md">
-                Server Name and Passwords
+            Server Name and Passwords
             </Typography>
             <Divider className={'mx-2'}/>
-
-            <FormLabel>Server Name:</FormLabel>
-            <Input className={'w-2/3'} required value={serv?.serverName} onChange={(e) => setServ((p) => ({ ...p, serverName: e.target.value, convertValues: p.convertValues }))}  ></Input>
-            <div className={'space-x-4 w-full flex'}>
-                <div className={'inline-block'}>
-                    <FormLabel>Server Password:</FormLabel>
-                    <PasswordInput value={serv?.serverPassword} disabled={true} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
+            <div className={'w-[100%] space-y-4'}>
+                <div className={''}>
+                    <FormLabel>Server Name:</FormLabel>
+                    <Input value={serv?.serverName} onChange={(e) => setServ((p) => ({ ...p, serverName: e.target.value, convertValues: p.convertValues }))} ></Input>
                 </div>
-                <div className={'inline-block'}>
+                <div className={''}>
+                    <FormLabel>Server Password:</FormLabel>
+                    <PasswordInput value={serv?.serverPassword} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
+                </div>
+                <div className={''}>
                     <FormLabel>Admin Password:</FormLabel>
                     <PasswordInput value={serv?.adminPassword} onChange={(e) => setServ((p) => ({ ...p, adminPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
                 </div>
-                <div className={'inline-block'}>
+                <div className={''}>
                     <FormLabel>Spectator Password:</FormLabel>
-                    <PasswordInput value={serv?.spectatorPassword} disabled={true} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
+                    <PasswordInput value={serv?.spectatorPassword} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
+                </div>
+            </div>
+            <Typography level="title-md">
+                Server Map
+            </Typography>
+            <Divider className={'mx-2'}/>
+            <div className={'w-[100%] space-y-4'}>
+                <div className={''}>
+                    <FormLabel>Map Name of Mod Map path:</FormLabel>
+                    <Autocomplete freeSolo disableClearable inputValue={serv?.serverMap} options={["TheIsland_WP"]} onChange={(e, v) => setServ((p) => ({ ...p, serverMap: v, convertValues: p.convertValues }))} ></Autocomplete>
+                </div>
+            </div>
+            <Typography level="title-md">
+                Auto Save
+            </Typography>
+            <Divider className={'mx-2'}/>
+            <div className={'w-[100%] space-y-4'}>
+                <div className={''}>
+                    <FormLabel>Auto Save interval:</FormLabel>
+                    <Tooltip title={"Duration that the message is visible in seconds"}>
+                        <Slider
+                            value={serv?.gameUserSettings.serverSettings.autoSavePeriodMinutes}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.gameUserSettings.serverSettings.autoSavePeriodMinutes = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
+                    </Tooltip>
+
+                </div>
+            </div>
+            <Typography level="title-md">
+                Message of the Day
+            </Typography>
+            <Divider className={'mx-2'}/>
+            <div className={'w-[100%] space-y-4'}>
+                <div className={''}>
+                    <FormLabel>Message</FormLabel>
+                    <Textarea minRows={5} value={serv?.gameUserSettings.messageOfTheDay.message} onChange={(e) => {
+                        setServ((p) => {
+                            const newState = {...p, convertValues: p.convertValues};
+                            newState.gameUserSettings.messageOfTheDay.message = e.target.value;
+                            return newState;
+                        })
+                    }}></Textarea>
+                </div>
+                <div className={''}>
+                    <FormLabel>Duration:</FormLabel>
+                    <Tooltip title={"Duration that the message is visible in seconds"}>
+                        <Slider
+                            sliderStep={1}
+                            sliderMax={240}
+                            value={serv?.gameUserSettings.messageOfTheDay.duration}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.gameUserSettings.messageOfTheDay.duration = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
+                    </Tooltip>
+
+                </div>
+            </div>
+            <Typography level="title-md">
+                Server Settings
+            </Typography>
+            <Divider className={'mx-2'}/>
+            <div className={'w-[100%] space-y-4'}>
+                <div className={'flex space-x-2'}>
+                    <div className={"flex-grow"}>
+                        <FormLabel>Max Players:</FormLabel>
+                        <Slider
+                            className={""}
+                            sliderStep={1}
+                            sliderMax={240}
+                            value={serv?.maxPlayers}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.maxPlayers = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
+                    </div>
+                    <div className={"flex-grow"}>
+                        <Tooltip title={"The duration before an idle player gets kicked in seconds"}>
+                            <FormLabel> <Checkbox className={"mr-2"} checked={serv?.kickIdlePlayers} onChange={(e) => setServ((p) => ({ ...p, kickIdlePlayers: e.target.checked, convertValues: p.convertValues }))}/> Kick Idle Players Period:</FormLabel>
+                        </Tooltip>
+                        <Slider
+                            className={""}
+                            disabled={!(serv?.kickIdlePlayers)}
+                            sliderStep={1}
+                            sliderMax={3600}
+                            value={serv?.gameUserSettings.serverSettings.kickIdlePlayersPeriod}
+                            onChange={(v) => {
+                                if (v >= 0) {
+                                    setServ((p) => {
+                                        const newState = {...p, convertValues: p.convertValues};
+                                        newState.gameUserSettings.serverSettings.kickIdlePlayersPeriod = v;
+                                        return newState;
+                                    })
+                                }
+                            }}
+                        />
+
+                    </div>
                 </div>
             </div>
         </Card>
@@ -120,7 +240,7 @@ function NetworkingCard({ setServ, serv }: {setServ: React.Dispatch<React.SetSta
 export function General({serv, setServ}: Props) {
     return (
         <TabPanel value={1} className={'space-y-8'}>
-            <ServerNameAndPasswordsCard setServ={setServ} serv={serv} />
+            <GeneralSettings setServ={setServ} serv={serv} />
             <NetworkingCard setServ={setServ} serv={serv} />
         </TabPanel>
     );
