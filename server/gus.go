@@ -461,10 +461,10 @@ func (s *Server) SaveGameUserSettingsIni() error {
 		return err
 	}
 
-	err = replaceForwardSlashInFile(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	/*err = replaceForwardSlashInFile(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
 	if err != nil {
 		return err
-	}
+	}*/
 
 	runtime.EventsEmit(s.ctx, "reloadServers")
 
