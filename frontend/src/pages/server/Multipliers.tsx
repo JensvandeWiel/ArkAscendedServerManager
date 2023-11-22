@@ -31,7 +31,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.itemStackSizeMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.itemStackSizeMultiplier = v;
@@ -50,7 +50,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.xPMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.xPMultiplier = v;
@@ -69,7 +69,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.baseTemperatureMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.baseTemperatureMultiplier = v;
@@ -88,7 +88,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.cropDecaySpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.cropDecaySpeedMultiplier = v;
@@ -107,7 +107,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.cropGrowthSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.cropGrowthSpeedMultiplier = v;
@@ -126,7 +126,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.customRecipeEffectivenessMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.customRecipeEffectivenessMultiplier = v;
@@ -145,7 +145,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.customRecipeEffectivenessMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.customRecipeEffectivenessMultiplier = v;
@@ -164,7 +164,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.customRecipeSkillMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.customRecipeSkillMultiplier = v;
@@ -183,7 +183,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.fishingLootQualityMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.fishingLootQualityMultiplier = v;
@@ -202,7 +202,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.fuelConsumptionIntervalMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.fuelConsumptionIntervalMultiplier = v;
@@ -221,7 +221,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.genericXPMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.genericXPMultiplier = v;
@@ -240,7 +240,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.globalCorpseDecompositionTimeMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.globalCorpseDecompositionTimeMultiplier = v;
@@ -259,7 +259,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.globalItemDecompositionTimeMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.globalItemDecompositionTimeMultiplier = v;
@@ -278,7 +278,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.globalSpoilingTimeMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.globalSpoilingTimeMultiplier = v;
@@ -297,7 +297,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.increasePvPRespawnIntervalMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.increasePvPRespawnIntervalMultiplier = v;
@@ -316,7 +316,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.killXPMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.killXPMultiplier = v;
@@ -335,7 +335,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.maxFallSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.maxFallSpeedMultiplier = v;
@@ -354,7 +354,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.specialXPMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.specialXPMultiplier = v;
@@ -373,7 +373,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.supplyCrateLootQualityMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.supplyCrateLootQualityMultiplier = v;
@@ -392,7 +392,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.useCorpseLifeSpanMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.useCorpseLifeSpanMultiplier = v;
@@ -411,7 +411,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier = v;
@@ -430,7 +430,7 @@ function GeneralMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Se
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.pveStructureDecayPeriodMultiplier = v;
@@ -462,7 +462,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.dinoCharacterFoodDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.dinoCharacterFoodDrainMultiplier = v;
@@ -481,7 +481,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.dinoCharacterHealthRecoveryMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.dinoCharacterFoodDrainMultiplier = v;
@@ -500,7 +500,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.dinoCharacterHealthRecoveryMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.dinoCharacterHealthRecoveryMultiplier = v;
@@ -519,7 +519,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.dinoCharacterStaminaDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.dinoCharacterStaminaDrainMultiplier = v;
@@ -538,7 +538,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.dinoCountMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.dinoCountMultiplier = v;
@@ -557,7 +557,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.dinoDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.dinoDamageMultiplier = v;
@@ -576,7 +576,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.raidDinoCharacterFoodDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.raidDinoCharacterFoodDrainMultiplier = v;
@@ -595,7 +595,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.tamedDinoDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.tamedDinoDamageMultiplier = v;
@@ -614,7 +614,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.tamedDinoResistanceMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.tamedDinoResistanceMultiplier = v;
@@ -633,7 +633,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.tamingSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.tamingSpeedMultiplier = v;
@@ -652,7 +652,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.babyCuddleGracePeriodMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.babyCuddleGracePeriodMultiplier = v;
@@ -671,7 +671,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.babyCuddleIntervalMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.babyCuddleIntervalMultiplier = v;
@@ -690,7 +690,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.babyCuddleLoseImprintQualitySpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.babyCuddleLoseImprintQualitySpeedMultiplier = v;
@@ -709,7 +709,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.babyFoodConsumptionSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.babyFoodConsumptionSpeedMultiplier = v;
@@ -728,7 +728,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.babyImprintAmountMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.babyImprintAmountMultiplier = v;
@@ -747,7 +747,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.babyImprintingStatScaleMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.babyImprintingStatScaleMultiplier = v;
@@ -766,7 +766,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.babyMatureSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.babyMatureSpeedMultiplier = v;
@@ -785,7 +785,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.dinoHarvestingDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.dinoHarvestingDamageMultiplier = v;
@@ -804,7 +804,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.dinoTurretDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.dinoTurretDamageMultiplier = v;
@@ -823,7 +823,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.eggHatchSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.eggHatchSpeedMultiplier = v;
@@ -842,7 +842,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.layEggIntervalMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.layEggIntervalMultiplier = v;
@@ -861,7 +861,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.matingIntervalMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.matingIntervalMultiplier = v;
@@ -880,7 +880,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.matingSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.matingSpeedMultiplier = v;
@@ -899,7 +899,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.passiveTameIntervalMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.passiveTameIntervalMultiplier = v;
@@ -918,7 +918,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.tamedDinoCharacterFoodDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.tamedDinoCharacterFoodDrainMultiplier = v;
@@ -937,7 +937,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.tamedDinoTorporDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.tamedDinoTorporDrainMultiplier = v;
@@ -956,7 +956,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.wildDinoCharacterFoodDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.wildDinoCharacterFoodDrainMultiplier = v;
@@ -975,7 +975,7 @@ function DinoMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.wildDinoTorporDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.wildDinoTorporDrainMultiplier = v;
@@ -1007,7 +1007,7 @@ function HarvestingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.harvestAmountMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.harvestAmountMultiplier = v;
@@ -1026,7 +1026,7 @@ function HarvestingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.harvestHealthMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.harvestHealthMultiplier = v;
@@ -1045,7 +1045,7 @@ function HarvestingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.resourcesRespawnPeriodMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.resourcesRespawnPeriodMultiplier = v;
@@ -1064,7 +1064,7 @@ function HarvestingMultipliers({ setServ, serv }: {setServ: React.Dispatch<React
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.harvestXPMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.harvestXPMultiplier = v;
@@ -1096,7 +1096,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.oxygenSwimSpeedStatMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.oxygenSwimSpeedStatMultiplier = v;
@@ -1115,7 +1115,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.playerCharacterFoodDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.playerCharacterFoodDrainMultiplier = v;
@@ -1134,7 +1134,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.playerCharacterHealthRecoveryMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.playerCharacterHealthRecoveryMultiplier = v;
@@ -1153,7 +1153,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.playerCharacterStaminaDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.playerCharacterStaminaDrainMultiplier = v;
@@ -1172,7 +1172,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.playerCharacterWaterDrainMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.playerCharacterWaterDrainMultiplier = v;
@@ -1191,7 +1191,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.playerDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.playerDamageMultiplier = v;
@@ -1210,7 +1210,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.playerResistanceMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.playerResistanceMultiplier = v;
@@ -1229,7 +1229,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.craftingSkillBonusMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.craftingSkillBonusMultiplier = v;
@@ -1248,7 +1248,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.craftXPMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.craftXPMultiplier = v;
@@ -1267,7 +1267,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.hairGrowthSpeedMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.hairGrowthSpeedMultiplier = v;
@@ -1286,7 +1286,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.playerHarvestingDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.playerHarvestingDamageMultiplier = v;
@@ -1305,7 +1305,7 @@ function PlayerMultipliers({ setServ, serv }: {setServ: React.Dispatch<React.Set
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.poopIntervalMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.poopIntervalMultiplier = v;
@@ -1338,7 +1338,7 @@ function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatc
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.perPlatformMaxStructuresMultiplier = v;
@@ -1357,7 +1357,7 @@ function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatc
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.platformSaddleBuildAreaBoundsMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.platformSaddleBuildAreaBoundsMultiplier = v;
@@ -1376,7 +1376,7 @@ function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatc
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.structureDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.structureDamageMultiplier = v;
@@ -1395,7 +1395,7 @@ function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatc
                         sliderMax={25}
                         value={serv?.gameUserSettings.serverSettings.structurePreventResourceRadiusMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.gameUserSettings.serverSettings.structurePreventResourceRadiusMultiplier = v;
@@ -1413,7 +1413,7 @@ function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatc
                             sliderMax={25}
                             value={serv?.gameUserSettings.serverSettings.structureResistanceMultiplier}
                             onChange={(v) => {
-                                if (v >= 0) {
+                                if (v >= 0.0000001) {
                                     setServ((p) => {
                                         const newState = {...p, convertValues: p.convertValues};
                                         newState.gameUserSettings.serverSettings.structureResistanceMultiplier = v;
@@ -1433,7 +1433,7 @@ function StructureBuildingMultipliers({ setServ, serv }: {setServ: React.Dispatc
                         sliderMax={25}
                         value={serv?.game.ScriptShootergameShootergamemode.pvPZoneStructureDamageMultiplier}
                         onChange={(v) => {
-                            if (v >= 0) {
+                            if (v >= 0.0000001) {
                                 setServ((p) => {
                                     const newState = {...p, convertValues: p.convertValues};
                                     newState.game.ScriptShootergameShootergamemode.pvPZoneStructureDamageMultiplier = v;
