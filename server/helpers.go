@@ -2,11 +2,14 @@ package server
 
 import (
 	"fmt"
+	"github.com/StackExchange/wmi"
 	"io"
 	"io/ioutil"
 	"net"
 	"os"
+	"os/exec"
 	"path/filepath"
+	runtime2 "runtime"
 	"strconv"
 	"strings"
 
@@ -269,5 +272,65 @@ func ensureFilePath(filePath string) error {
 	}
 
 	// File already exists
+	return nil
+}
+
+type Win32_Process struct {
+	ProcessID      uint32
+	ExecutablePath *string
+}
+
+func IsProcessRunningWithPath(processPath string) (bool, error) {
+	var processes []Win32_Process
+
+	// Use WMI to query processes
+	query := "SELECT ProcessID, ExecutablePath FROM Win32_Process"
+	err := wmi.QueryNamespace(query, &processes, `root\CIMv2`)
+	if err != nil {
+		return false, err
+	}
+
+	for _, process := range processes {
+		if process.ExecutablePath != nil && strings.EqualFold(filepath.Clean(filepath.FromSlash(*process.ExecutablePath)), filepath.Clean(filepath.FromSlash(processPath))) {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
+func GetProcessPid(processPath string) (uint32, error) {
+	var processes []Win32_Process
+
+	// Use WMI to query processes
+	query := "SELECT ProcessID, ExecutablePath FROM Win32_Process"
+	err := wmi.QueryNamespace(query, &processes, `root\CIMv2`)
+	if err != nil {
+		return 0, err
+	}
+
+	for _, process := range processes {
+		if process.ExecutablePath != nil && strings.EqualFold(filepath.Clean(filepath.FromSlash(*process.ExecutablePath)), filepath.Clean(filepath.FromSlash(processPath))) {
+			return process.ProcessID, nil
+		}
+	}
+
+	return 0, nil
+}
+
+func KillProcessUsingPid(pid uint32) error {
+	var cmd *exec.Cmd
+
+	switch runtime2.GOOS {
+	case "windows":
+		cmd = exec.Command("taskkill", "/F", "/PID", strconv.FormatUint(uint64(pid), 10))
+	default:
+		cmd = exec.Command("kill", "-9", strconv.FormatUint(uint64(pid), 10))
+	}
+
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("failed to kill process: %v", err)
+	}
+
 	return nil
 }

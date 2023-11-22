@@ -79,8 +79,34 @@ export const Server = ({id, className}: Props) => {
     }, [serv]);
 
     useEffect(() => {
-        EventsOn("onServerExit", () => setServerStatus(false))
+        EventsOn("onServerExit", (id) => {
+            if (id === serv.id) {
+                console.log("server stopped")
+                setServerStatus(false)
+            }
+        })
         return () => EventsOff("onServerExit")
+    }, []);
+    useEffect(() => {
+        EventsOn("onServerStart", (id) => {
+            if (id === serv.id) {
+                console.log("server started")
+                setServerStatus(true)
+            }
+        })
+        return () => EventsOff("onServerStart")
+    }, []);
+    useEffect(() => {
+        EventsOn("RestartServer", (id) => {
+            StartServer(id).catch((err) => {addAlert(err, "danger"); console.error(err)}).then(() => setTimeout(function () {
+                GetServerStatus(id).catch((reason) => {console.error("serverstatus: " + reason); addAlert(reason, "danger")}).then((s) => {
+                    if (typeof s === "boolean") {
+                        setServerStatus(s)
+                    }
+                })
+            }, 200))
+        })
+        return () => EventsOff("RestartServer")
     }, []);
 
     useEffect(() => {
@@ -125,13 +151,14 @@ export const Server = ({id, className}: Props) => {
 
     function startServer() {
         StartServer(serv.id).catch((err) => {addAlert(err, "danger"); console.error(err)}).then(() => setTimeout(function () {
-            refreshServerStatus()
+            setServerStatus(true)
+            //refreshServerStatus()
         }, 200))
     }
 
     function onServerStopButtonClicked() {
         addAlert("Stopping server...", "neutral")
-        StopServer(serv.id).then(() => addAlert("Stopped server", "success")).catch((err) => addAlert("error stopping server: " + err, "danger"));
+        StopServer(serv.id).then(() => {addAlert("Stopped server", "success"); setServerStatus(false)}).catch((err) => addAlert("error stopping server: " + err, "danger"));
     }
 
     function onServerForceStopButtonClicked() {

@@ -11,16 +11,16 @@ import (
 	"time"
 
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/keybase/go-ps"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // Server contains the server "stuff"
 
 type Server struct {
-	Command *exec.Cmd `json:"-"`
-	ctx     context.Context
-	helpers *helpers.HelpersController
+	Command    *exec.Cmd `json:"-"`
+	ctx        context.Context
+	helpers    *helpers.HelpersController
+	stopSignal chan bool
 
 	//PREFERENCES
 
@@ -127,13 +127,17 @@ func (s *Server) Start() error {
 		}
 		go func() {
 			_ = s.Command.Wait()
-
 			runtime.EventsEmit(s.ctx, "onServerExit", s.Id)
-			if s.DiscordWebHookEnabled {
-				err := helpers.SendToDiscord(time.Now().Format(time.RFC822)+" ("+s.ServerAlias+") Server has stopped", s.DiscordWebHook)
-				if err != nil {
-					runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
-				}
+
+			// Check if the server exited unexpectedly (not through Stop or ForceStop)
+			select {
+			case <-s.stopSignal:
+				// Server was intentionally stopped, do not restart
+				runtime.LogInfo(s.ctx, "Server was intentionally stopped. Not restarting.")
+			default:
+				// Restart the server
+				time.Sleep(2 * time.Second)
+				runtime.EventsEmit(s.ctx, "RestartServer", s.Id)
 			}
 		}()
 	}
@@ -156,14 +160,17 @@ func (s *Server) ForceStop() error {
 	if s.Command.Process == nil {
 		return fmt.Errorf("error stopping server: server is not running")
 	}
-
 	if !s.IsServerRunning() {
 		return fmt.Errorf("error stopping server: server is not running")
 	}
 
-	err := s.Command.Process.Kill()
-	if err != nil {
+	if pid, err := GetProcessPid(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe")); err != nil {
 		return fmt.Errorf("error stopping server: %v", err)
+	} else {
+		err := KillProcessUsingPid(pid)
+		if err != nil {
+			return fmt.Errorf("error killing process: %v", err)
+		}
 	}
 
 	if s.DiscordWebHookEnabled {
@@ -172,6 +179,8 @@ func (s *Server) ForceStop() error {
 			runtime.LogError(s.ctx, "Error sending message to discord: "+err.Error())
 		}
 	}
+
+	s.stopSignal <- true
 
 	return nil
 }
@@ -187,47 +196,33 @@ func (s *Server) Stop() error {
 
 	err := s.SaveWorld()
 	if err != nil {
-		return err
+		return fmt.Errorf("error sending save world command: %v", err)
 	}
 	_, err = s.helpers.SendRconCommand("doexit", s.IpAddress, s.RCONPort, s.AdminPassword)
 	if err != nil {
-		return err
+		return fmt.Errorf("error sending exit command: %v", err)
 	}
+
+	s.stopSignal <- true
 
 	return nil
 }
 
+//TODO BROKEN
+
 // GetServerStatus returns the status of the server.
 func (s *Server) IsServerRunning() bool {
 
-	if s.Command == nil {
+	//THIS CHECK IS ONLY HERE BECAUSE WE DO NOT OFFICIALY SUPPORT MANAGING SERVERS THAT ARE ALREADY STARTED (WILL BE POSSIBLE IN THE FUTURE)
+	if s.Command == nil || s.Command.Process == nil {
 		return false
 	}
 
-	if s.Command.Process == nil {
-		return false
-	}
-
-	// Retrieve a list of all processes.
-	processList, err := ps.Processes()
+	isRunning, err := IsProcessRunningWithPath(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"))
 	if err != nil {
 		return false
 	}
-
-	// Iterate through the list of processes and check if the specified PID exists.
-	processFound := false
-	for _, process := range processList {
-		if process.Pid() == s.Command.Process.Pid {
-			processFound = true
-			break
-		}
-	}
-
-	if processFound {
-		return true
-	} else {
-		return false
-	}
+	return isRunning
 }
 
 // returns questionamrk arguments for the server and dash arguments for the server

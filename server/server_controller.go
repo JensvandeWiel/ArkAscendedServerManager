@@ -108,17 +108,7 @@ func (c *ServerController) SaveServer(server Server) error {
 
 	//TODO Make sure oldserv members get passed over to new instance since frontend will change all members even Command (which should not be updated by the frontend)
 
-	oldServ, err := c.getServer(server.Id, true)
-	if err != nil {
-		newErr := fmt.Errorf("Error saving server: " + err.Error())
-		runtime.LogError(c.ctx, newErr.Error())
-		return newErr
-	}
-
-	server.Command = oldServ.Command
-	server.ctx = c.ctx
-
-	err = c.saveServer(&server)
+	err := c.saveServer(&server)
 	if err != nil {
 		newErr := fmt.Errorf("Error saving server: " + err.Error())
 		runtime.LogError(c.ctx, newErr.Error())
@@ -241,6 +231,8 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 		return Server{}, fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
 
+	serv.stopSignal = make(chan bool)
+
 	return serv, nil
 }
 
@@ -335,6 +327,16 @@ func (c *ServerController) saveServer(server *Server) error {
 	if err := CheckIfServerCorrect(server); err != nil {
 		return fmt.Errorf("Parsing server instance failed: " + err.Error())
 	}
+	oldServ, err := c.getServer(server.Id, true)
+	if err != nil {
+		newErr := fmt.Errorf("Error saving server: " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	server.Command = oldServ.Command
+	server.ctx = c.ctx
+	server.stopSignal = oldServ.stopSignal
 	c.Servers[server.Id] = server
 	serverDir := path.Join(c.serverDir, strconv.Itoa(server.Id))
 
