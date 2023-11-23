@@ -17,6 +17,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"path/filepath"
 	"strconv"
 
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
@@ -105,6 +106,25 @@ func (c *ServerController) ImportSettingsFromFile(serverId int, gusFilePath stri
 	server.UseIniConfig = false // once imported, don't have to use the ini config anymore
 
 	c.SaveServer(server)
+
+	return nil
+}
+
+func (c *ServerController) SaveGUSAndGame(serverId int) error {
+	server, err := c.GetServer(serverId)
+	if err != nil {
+		return err
+	}
+
+	err = server.SaveGameUserSettingsIni(filepath.Join(server.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"), false)
+	if err != nil {
+		return err
+	}
+
+	err = server.SaveGameIni(filepath.Join(server.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"), false)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }

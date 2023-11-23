@@ -1,9 +1,10 @@
-import { Button, Card, Divider, FormLabel, TabPanel, Tooltip, Input, Typography, Accordion, AccordionDetails, AccordionGroup, AccordionSummary } from '@mui/joy';
+import { Button, Card, Textarea, FormLabel, TabPanel, Tooltip, Input, Typography, Accordion, AccordionDetails, AccordionGroup, AccordionSummary } from '@mui/joy';
 import { server } from '../../../wailsjs/go/models';
 import { Slider } from '../../components/Slider';
 import React from 'react';
 import {
-    ImportSettingsFromFile
+    ImportSettingsFromFile,
+	SaveGUSAndGame
 } from "../../../wailsjs/go/server/ServerController";
 import {useAlert} from "../../components/AlertProvider";
 import {OpenFileDialog} from "../../../wailsjs/go/helpers/HelpersController";
@@ -1623,6 +1624,50 @@ function StructureBuildingMultipliers({ setServ, serv }: { setServ: React.Dispat
 	);
 }
 
+function AdditionalSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+
+	const {addAlert} = useAlert()
+
+	function onSave() {
+        try {
+            SaveGUSAndGame(serv.id)
+            addAlert("Additional Sections Added!", "success")
+        } catch (error) {
+            addAlert("Error: " + error, "warning")
+        }
+    }
+
+    return (
+		<div className={'space-y-4'}>
+			<div className={'space-x-4 w-full'}>
+				<div className={'ml-4'}>
+					<FormLabel>Extra GameUserSettings.ini Sections</FormLabel>
+					<Textarea minRows={5} value={serv?.additionalGUSSections} onChange={(e) => {
+                        setServ((p) => {
+                            const newState = {...p, convertValues: p.convertValues};
+                            newState.additionalGUSSections = e.target.value;
+                            return newState;
+                        })
+                    }}></Textarea>
+
+					<FormLabel>Extra Game.ini Sections</FormLabel>
+					<Textarea minRows={5} value={serv?.additionalGameSections} onChange={(e) => {
+                        setServ((p) => {
+                            const newState = {...p, convertValues: p.convertValues};
+                            newState.additionalGameSections = e.target.value;
+                            return newState;
+                        })
+                    }}></Textarea>
+
+					<div className={"text-center pt-5"}>
+                        <Button onClick={onSave} className={"mx-5"}>Save</Button>
+                    </div>	
+				</div>
+			</div>
+		</div>
+	);
+}
+
 function AllMultipliersCard({ setServ, serv }: { setServ: React.Dispatch<React.SetStateAction<server.Server>>; serv: server.Server }) {
 	return (
 		<>
@@ -1695,6 +1740,18 @@ function AllMultipliersCard({ setServ, serv }: { setServ: React.Dispatch<React.S
 						<AccordionDetails>
 							<br />{' '}
 							<StructureBuildingMultipliers
+								setServ={setServ}
+								serv={serv}
+							/>
+						</AccordionDetails>
+					</Accordion>
+					<Accordion>
+						<AccordionSummary>
+							<Typography level='title-md'>Additional Settings</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<br />{' '}
+							<AdditionalSettings
 								setServ={setServ}
 								serv={serv}
 							/>
