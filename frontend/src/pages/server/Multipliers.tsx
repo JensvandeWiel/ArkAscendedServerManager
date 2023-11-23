@@ -1,12 +1,56 @@
-import { Card, FormLabel, TabPanel, Tooltip, Typography, Accordion, AccordionDetails, AccordionGroup, AccordionSummary } from '@mui/joy';
+import { Button, Card, Divider, FormLabel, TabPanel, Tooltip, Input, Typography, Accordion, AccordionDetails, AccordionGroup, AccordionSummary } from '@mui/joy';
 import { server } from '../../../wailsjs/go/models';
 import { Slider } from '../../components/Slider';
 import React from 'react';
-
+import {
+    ImportSettingsFromFile
+} from "../../../wailsjs/go/server/ServerController";
+import {useAlert} from "../../components/AlertProvider";
+import {OpenFileDialog} from "../../../wailsjs/go/helpers/HelpersController";
 type Props = {
 	setServ: React.Dispatch<React.SetStateAction<server.Server>>;
 	serv: server.Server;
 };
+
+function ImportSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+
+    const {addAlert} = useAlert()
+
+    function handleGUSImport() {
+        OpenFileDialog().then((val) => setServ((p) => ({ ...p, refGUSPath: val, convertValues: p.convertValues })))
+    };
+
+    function handleGameImport() {
+        OpenFileDialog().then((val) => setServ((p) => ({ ...p, refGamePath: val, convertValues: p.convertValues })))
+    };
+
+    function onSettingsImported() {
+        try {
+            ImportSettingsFromFile(serv.id, serv.refGUSPath || '', serv.refGamePath || '')
+            addAlert("Setting Imported!", "success")
+        } catch (error) {
+            addAlert("Error: " + error, "warning")
+        }
+    }
+
+    return (
+        <div className={'space-y-4'}>
+			<div className={'space-x-4 w-full'}>
+				<div className={'ml-4'}>
+                    <FormLabel>GameUserSettings.ini Path</FormLabel>
+                    <Input className={'w-1/3'} value={serv.refGUSPath} onClick={handleGUSImport}/>
+
+                    <FormLabel>Game.ini Path</FormLabel>
+                    <Input className={'w-1/3'} value={serv.refGamePath} onClick={handleGameImport}/>
+
+                    <div className={"text-center pt-5"}>
+                        <Button onClick={onSettingsImported} className={"mx-5"}>Import Settings</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
 
 function GeneralMultipliers({ setServ, serv }: { setServ: React.Dispatch<React.SetStateAction<server.Server>>; serv: server.Server }) {
 	return (
@@ -1584,6 +1628,18 @@ function AllMultipliersCard({ setServ, serv }: { setServ: React.Dispatch<React.S
 		<>
 			<Card variant='soft'>
 				<AccordionGroup variant='soft'>
+                    <Accordion>
+						<AccordionSummary>
+							<Typography level='title-md'>Import Settings</Typography>
+						</AccordionSummary>
+						<AccordionDetails>
+							<br />{' '}
+							<ImportSettings
+								setServ={setServ}
+								serv={serv}
+							/>
+						</AccordionDetails>
+					</Accordion>
 					<Accordion>
 						<AccordionSummary>
 							<Typography level='title-md'>General Multipliers</Typography>
