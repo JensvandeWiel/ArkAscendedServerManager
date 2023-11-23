@@ -7,16 +7,21 @@ For ARK: SE there only existed a closed source with relic like code🧓. When th
 ### How to use
 For now the only way is to use the [nightly](https://github.com/JensvandeWiel/ArkAscendedServerManager/releases/tag/nightly) release, this is because we are not yet ready to release an alpha version. You can download the installer and install! **(nightly is unstable and does not have auto updating at this time!)**
 
-#### Setting steamcmd path for first use
-Steamcmd is not yet packaged with the app, if you want to create a server with AASM you can install steamcmd to your path on your computer (e.g.: with [scoop](https://scoop.sh/#/apps?q=steamcmd&id=aed594e2b74d756901130cc098dfb2f70679d8dc)) or you can follow the guide below.
-
- 1. Install the app using the installer found [here](https://github.com/JensvandeWiel/ArkAscendedServerManager/releases/latest/download/Ark-Ascended-Server-Manager-amd64-installer.exe)
+#### Setting up a server
+Setting up a server with Ark Ascended Server Manager is easy, follow these steps to get started:
+ 1. Install the latest version of the app found [here](https://github.com/JensvandeWiel/ArkAscendedServerManager/releases/latest/download/Ark-Ascended-Server-Manager-amd64-installer.exe)
  2. Run the app for the first time
- 3. Click [windows key] + R and enter `%localappdata%\ArkAscendedServerManager`
- 4. Open config.json
- 5. Edit the "steamCMDPath" to contain something like this: `"steamCMDPath": "C:\\steamcmd\\steamcmd.exe"` (**WATCH OUT** A backslash only works like `\\` this is because `\` on its own is a ecape char)
- 6. Start the app again and create a server.
- 7. :tada: You can run your server!
+ 3. Click the "Create new server" button
+ 4. Set your installation path
+ 5. Click install server and wait for the process to finish
+ 6. Once complete, click "Go back" and your server will be shown
+ 7. Change any required settings, notable mentions:
+    a. Server Name
+    b. Admin Password
+    c. Max Players
+    d. Ports (You should forward these ports)
+    e. Multipliers (contains the settings for GameUserSettings.ini and Game.ini), you can import existing settings under the "Import settings" header
+ 8. Click the green start button
 ### Contributing
 Check out the [Contributing Guide](https://github.com/JensvandeWiel/ArkAscendedServerManager/blob/main/CONTRIBUTING.md) to get started with contributing! Once your first contribution is merged you can head over to our [Discord Server](https://discord.gg/vcfNeZ3SDN) and ask for the 'Contributor' role :D
 ### :warning: Watch out :warning:
