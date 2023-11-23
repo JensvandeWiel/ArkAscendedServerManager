@@ -1,9 +1,10 @@
 package server
 
 import (
+	"path/filepath"
+
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-	"path/filepath"
 )
 
 type ScriptShootergameShootergamemode struct {
@@ -256,7 +257,7 @@ func generateNewDefaultGame() Game {
 }
 
 // SaveGameIni saves the game to the ini file in the server directory
-func (s *Server) SaveGameIni() error {
+func (s *Server) SaveGameIni(filePathToLoadFrom string, overrideUseIniConfig bool) error {
 
 	ini.PrettyFormat = false
 
@@ -267,12 +268,12 @@ func (s *Server) SaveGameIni() error {
 		return err
 	}
 
-	gIni, err := ini.LoadSources(iniOpts, filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
+	gIni, err := ini.LoadSources(iniOpts, filePathToLoadFrom)
 	if err != nil {
 		return err
 	}
 
-	if s.UseIniConfig {
+	if s.UseIniConfig || overrideUseIniConfig {
 		err = gIni.MapTo(&s.Game)
 		if err != nil {
 			return err

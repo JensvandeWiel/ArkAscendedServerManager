@@ -1,9 +1,10 @@
 package server
 
 import (
+	"path/filepath"
+
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-	"path/filepath"
 )
 
 type ServerSettings struct {
@@ -407,7 +408,7 @@ func generateNewDefaultGameUserSettings() GameUserSettings {
 }
 
 // SaveGameUserSettingsIni saves the game user settings to the ini file in the server directory
-func (s *Server) SaveGameUserSettingsIni() error {
+func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseIniConfig bool) error {
 
 	ini.PrettyFormat = false
 
@@ -418,17 +419,16 @@ func (s *Server) SaveGameUserSettingsIni() error {
 		return err
 	}
 
-	gusIni, err := ini.LoadSources(iniOpts, filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	gusIni, err := ini.LoadSources(iniOpts, filePathToLoadFrom)
 	if err != nil {
 		return err
 	}
 
-	if s.UseIniConfig {
+	if s.UseIniConfig || overrideUseIniConfig {
 		err = gusIni.MapTo(&s.GameUserSettings)
 		if err != nil {
 			return err
 		}
-
 	}
 
 	s.GameUserSettings.ServerSettings.RCONEnabled = true

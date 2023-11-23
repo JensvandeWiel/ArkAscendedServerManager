@@ -84,6 +84,31 @@ func (c *ServerController) StartServersWithApplication() {
 
 //region Frontend functions
 
+// TODO: Really need to add every single setting with accurate naming
+// Could also do with importing Game.ini, this is something I can do in a future PR
+func (c *ServerController) ImportSettingsFromFile(serverId int, gusFilePath string, gameFilePath string) error {
+	server, err := c.GetServer(serverId)
+	if err != nil {
+		return err
+	}
+
+	err = server.SaveGameUserSettingsIni(gusFilePath, true)
+	if err != nil {
+		return err
+	}
+
+	err = server.SaveGameIni(gameFilePath, true)
+	if err != nil {
+		return err
+	}
+
+	server.UseIniConfig = false // once imported, don't have to use the ini config anymore
+
+	c.SaveServer(server)
+
+	return nil
+}
+
 // GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
 func (c *ServerController) GetAllServers() (map[int]Server, error) {
 

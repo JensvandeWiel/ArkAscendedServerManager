@@ -66,6 +66,8 @@ type Server struct {
 	//INI
 	GameUserSettings GameUserSettings `json:"gameUserSettings"`
 	Game             Game             `json:"game"`
+	RefGUSPath       string           `json:"refGUSPath"`
+	RefGamePath      string           `json:"refGamePath"`
 
 	ServerMap  string `json:"serverMap"`
 	MaxPlayers int    `json:"maxPlayers"`
@@ -85,12 +87,12 @@ func (s *Server) UpdateConfig() error {
 		return err
 	}
 
-	err = s.SaveGameIni()
+	err = s.SaveGameIni(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"), false)
 	if err != nil {
 		return err
 	}
 
-	err = s.SaveGameUserSettingsIni()
+	err = s.SaveGameUserSettingsIni(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"), false)
 	if err != nil {
 		return err
 	}
