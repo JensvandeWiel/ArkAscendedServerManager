@@ -1,6 +1,7 @@
 package server
 
 import (
+	"os"
 	"path/filepath"
 
 	"github.com/go-ini/ini"
@@ -413,6 +414,16 @@ func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseI
 	ini.PrettyFormat = false
 
 	filePath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini")
+	// if exists, remove it, fixes any issues with saving additional settings that may have since been removed
+	if overrideUseIniConfig {
+		if _, err := os.Stat(filePath); err == nil {
+			// File exists, so remove it
+			err := os.Remove(filePath)
+			if err != nil {
+				return err
+			}
+		}
+	}
 
 	err := ensureFilePath(filePath)
 	if err != nil {
