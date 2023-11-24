@@ -2,6 +2,7 @@ package server
 
 import (
 	"path/filepath"
+	"slices"
 
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -456,7 +457,23 @@ func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseI
 
 	gusIni.Section("ServerSettings").Key("AdminPassword").SetValue(s.AdminPassword)
 
-	gusIni.Append([]byte(s.AdditionalGUSSections))
+	additionalGusIniSettings, err := ini.LoadSources(iniOpts, []byte(s.AdditionalGUSSections))
+	if err != nil {
+		return err
+	}
+
+	for _, section := range additionalGusIniSettings.Sections() {
+		if !slices.Contains(gusIni.SectionStrings(), section.Name()) {
+			gusIni.NewSection(section.Name())
+		}
+		for _, key := range section.Keys() {
+			gusIni.Section(section.Name()).NewKey(key.Name(), key.Value())
+		}
+	}
+
+	// There's a bug with the append function which causes ReflectFrom to fail, so above is the implementation of doing it manually
+	// https://github.com/go-ini/ini/issues/324
+	//gusIni.Append([]byte(s.AdditionalGUSSections))
 
 	err = gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
 	if err != nil {

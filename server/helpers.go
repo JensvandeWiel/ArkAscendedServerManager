@@ -2,7 +2,6 @@ package server
 
 import (
 	"fmt"
-	"github.com/StackExchange/wmi"
 	"io"
 	"io/ioutil"
 	"net"
@@ -13,6 +12,8 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/StackExchange/wmi"
+
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
 	"github.com/go-ini/ini"
 	"github.com/sethvargo/go-password/password"
@@ -20,7 +21,7 @@ import (
 )
 
 var iniOpts = ini.LoadOptions{
-	AllowShadows: true,
+	AllowShadows: false,
 }
 
 func replaceForwardSlashInFile(filePath string) error {
