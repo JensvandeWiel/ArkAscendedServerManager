@@ -2,6 +2,7 @@ package server
 
 import (
 	"path/filepath"
+	"slices"
 
 	"github.com/go-ini/ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
@@ -287,7 +288,22 @@ func (s *Server) SaveGameIni(filePathToLoadFrom string, overrideUseIniConfig boo
 		return err
 	}
 
-	gIni.Append([]byte(s.AdditionalGameSections))
+	additionalGameIniSettings, err := ini.LoadSources(iniOpts, []byte(s.AdditionalGameSections))
+	if err != nil {
+		return err
+	}
+
+	for _, section := range additionalGameIniSettings.Sections() {
+		if !slices.Contains(gIni.SectionStrings(), section.Name()) {
+			gIni.NewSection(section.Name())
+		}
+		for _, key := range section.Keys() {
+			gIni.Section(section.Name()).NewKey(key.Name(), key.Value())
+		}
+	}
+
+	// bug, see gus.go
+	//gIni.Append([]byte(s.AdditionalGameSections))
 
 	err = gIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
 	if err != nil {
