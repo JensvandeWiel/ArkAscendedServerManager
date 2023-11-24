@@ -456,6 +456,8 @@ func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseI
 
 	gusIni.Section("ServerSettings").Key("AdminPassword").SetValue(s.AdminPassword)
 
+	gusIni.Append([]byte(s.AdditionalGUSSections))
+
 	err = gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
 	if err != nil {
 		return err

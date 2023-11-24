@@ -64,10 +64,12 @@ type Server struct {
 	//Server configuration
 
 	//INI
-	GameUserSettings GameUserSettings `json:"gameUserSettings"`
-	Game             Game             `json:"game"`
-	RefGUSPath       string           `json:"refGUSPath"`
-	RefGamePath      string           `json:"refGamePath"`
+	GameUserSettings       GameUserSettings `json:"gameUserSettings"`
+	Game                   Game             `json:"game"`
+	AdditionalGUSSections  string           `json:"additionalGUSSections"`
+	AdditionalGameSections string           `json:"additionalGameSections"`
+	RefGUSPath             string           `json:"refGUSPath"`
+	RefGamePath            string           `json:"refGamePath"`
 
 	ServerMap  string `json:"serverMap"`
 	MaxPlayers int    `json:"maxPlayers"`
