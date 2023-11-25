@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"syscall"
 	"time"
 
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
@@ -29,6 +30,7 @@ type Server struct {
 	UseIniConfig          bool   `json:"useIniConfig"`
 	DiscordWebHook        string `json:"discordWebHook"`
 	DiscordWebHookEnabled bool   `json:"discordWebHookEnabled"`
+	UseAsaAPI             bool   `json:"useAsaAPI"`
 
 	//CONFIGURATION VARIABLES
 
@@ -106,9 +108,30 @@ func (s *Server) UpdateConfig() error {
 //TODO Add startup arguments parsing
 //TODO Add check for running application (ensures no accidental duplicated servers, especially with addition of start with application)
 
+func (s *Server) CheckAsaAPI() error {
+	if s.UseAsaAPI {
+		installed := s.checkIfAsaApiInstalled()
+		if !installed {
+			err := helpers.PlantLatestAsaAPIRelease(filepath.Join(s.ServerPath, "ShooterGame", "Binaries", "Win64"))
+			if err != nil {
+				return err
+			}
+		}
+	}
+
+	return nil
+}
+
+//TODO if using asa api embed the console in the application
+
 func (s *Server) Start() error {
 
-	err := s.UpdateConfig()
+	err := s.CheckAsaAPI()
+	if err != nil {
+		return fmt.Errorf("error starting server: failed checking ASA API: %v", err)
+	}
+
+	err = s.UpdateConfig()
 	if err != nil {
 		return fmt.Errorf("error starting server: failed updating server configuration: %v", err)
 	}
@@ -152,7 +175,23 @@ func (s *Server) Start() error {
 // CreateServerCmd returns the command to start the server
 func (s *Server) CreateServerCmd() *exec.Cmd {
 	args := s.CreateArguments()
-	return exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
+
+	if s.UseAsaAPI {
+
+		cmd := exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\AsaApiLoader.exe"), args...)
+
+		cmd.SysProcAttr = &syscall.SysProcAttr{
+			HideWindow:    false,
+			CreationFlags: 0x00000010, //CREATE_NEW_CONSOLE
+		}
+
+		cmd.Dir = path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64")
+
+		return cmd
+	} else {
+		return exec.Command(path.Join(s.ServerPath, "ShooterGame\\Binaries\\Win64\\ArkAscendedServer.exe"), args...)
+	}
+
 }
 
 // ForceStop forces the server to stop "quitting/killing the process"
