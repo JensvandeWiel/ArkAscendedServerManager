@@ -10,11 +10,20 @@ import {
     TabPanel, Tooltip,
     Typography
 } from "@mui/joy";
-import React, {useState} from "react";
-import {DeleteProfile, DeleteServerFiles, GetServerStartupCommand} from "../../../wailsjs/go/server/ServerController";
+import React, {useEffect, useState} from "react";
+import {
+    DeleteProfile,
+    DeleteServerFiles, GetAllServersFromDir,
+    GetServerConfigFile,
+    GetServerStartupCommand, SaveServerConfigFile
+} from "../../../wailsjs/go/server/ServerController";
 import {server} from "../../../wailsjs/go/models";
 import {useAlert} from "../../components/AlertProvider";
 import {IconAlertCircleFilled, IconInfoCircle} from "@tabler/icons-react";
+import MonacoEditor from 'react-monaco-editor';
+import config from "tailwindcss/defaultConfig";
+import {LogDebug} from "../../../wailsjs/runtime";
+
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -258,12 +267,65 @@ function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
     )
 }
 
+function ManualConfigEditorCard({setServ, serv}: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+    const [content, setContent] = useState("")
+
+    const {addAlert} = useAlert();
+
+    const getServerConfigFile = () => {
+        GetServerConfigFile(serv.id).then((config) => {
+            setContent(config);
+        }).catch((err) => {console.error(err); addAlert(err, "danger")})
+    }
+
+    useEffect(() => {
+        getServerConfigFile()
+    }, []);
+
+    useEffect(() => {
+        return () => {
+            setTimeout(getServerConfigFile, 50);
+        }
+    }, [serv]);
+
+
+    const handleEditorChange = (value: string) => {
+        setContent(value);
+    };
+
+    const onSaveConfigButtonClicked = () => {
+        SaveServerConfigFile(content, serv.id).then(() => {}).catch((err) => {console.error(err); addAlert(err, "danger")})
+        location.reload();
+    }
+
+    return (
+        <Card variant="soft" className={''}>
+            <Typography level="title-md">
+                Edit Config manually
+            </Typography>
+            <Divider className={'mx-2'}/>
+            <div>
+                <MonacoEditor
+                    language="json"
+                    width={"100%"}
+                    height={"50vh"}
+                    theme="vs-dark" // You can change this to 'vs' for a light theme
+                    value={content}
+                    onChange={handleEditorChange}
+                />
+                <Button className={"m-2"} onClick={() => onSaveConfigButtonClicked()}>Save config</Button>
+            </div>
+        </Card>
+    )
+}
+
 export function Administration({setServ, serv, onServerFilesDeleted}: Props) {
     return (
         <TabPanel value={4} className={'space-y-8'}>
             <ServerAdministrationCard serv={serv} setServ={setServ} onServerFilesDeleted={onServerFilesDeleted}/>
             <ServerStartupCard serv={serv} setServ={setServ} />
             <ExtraSettingsCard setServ={setServ} serv={serv}/>
+            <ManualConfigEditorCard setServ={setServ} serv={serv}/>
         </TabPanel>
     );
 }
