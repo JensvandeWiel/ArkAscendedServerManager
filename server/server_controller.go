@@ -227,6 +227,42 @@ func (c *ServerController) DeleteProfile(id int) error {
 
 }
 
+func (c *ServerController) GetServerConfigFile(id int) (string, error) {
+	p := path.Join(c.serverDir, strconv.Itoa(id), configFileName)
+
+	//read file and return it
+	b, err := os.ReadFile(p)
+	if err != nil {
+		return "", err
+	}
+
+	return string(b), nil
+
+}
+
+func (c *ServerController) SaveServerConfigFile(content string, id int) error {
+	p := path.Join(c.serverDir, strconv.Itoa(id), configFileName)
+
+	//save server config file
+	err := os.WriteFile(p, []byte(content), 0644)
+	if err != nil {
+		return err
+	}
+
+	serv, err := c.getServerFromDir(id, true)
+	if err != nil {
+		return err
+	}
+
+	err = c.saveServer(&serv)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
+}
+
 //region Private
 
 // getServerFromDir gets the server from the server dir if it does not exist and shouldReturnNew is true it returns a new server.
