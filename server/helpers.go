@@ -334,3 +334,20 @@ func KillProcessUsingPid(pid uint32) error {
 
 	return nil
 }
+
+// add a func that checks if asa server api is installed on s.ServerPath + ShooterGame\Binaries\Win64
+func (s *Server) checkIfAsaApiInstalled() bool {
+	// Check if the file already exists
+	if _, err := os.Stat(filepath.Join(s.ServerPath, "ShooterGame", "Binaries", "Win64", "AsaApiLoader.exe")); os.IsNotExist(err) {
+		// File does not exist, return false
+		return false
+	} else if err != nil {
+		runtime.LogError(s.ctx, "Error checking if AsaApiLoader.exe exists: "+err.Error())
+		// There was an error checking the file's existence
+		return false
+	}
+
+	// File already exists
+	return true
+
+}

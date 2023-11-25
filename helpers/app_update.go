@@ -23,6 +23,7 @@ type Asset struct {
 }
 
 type Release struct {
+	ID      int64   `json:"id"`
 	Url     string  `json:"url"`
 	TagName string  `json:"tag_name"`
 	Name    string  `json:"name"`
