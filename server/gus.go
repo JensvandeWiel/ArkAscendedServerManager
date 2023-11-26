@@ -442,6 +442,8 @@ func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseI
 	s.GameUserSettings.MultiHome.MultiHome = true
 	s.GameUserSettings.ScriptEngineGameSession.MaxPlayers = s.MaxPlayers
 
+	s.GameUserSettings.ServerSettings.ActiveMods = s.Mods
+
 	err = gusIni.ReflectFrom(&s.GameUserSettings)
 	if err != nil {
 		return err
