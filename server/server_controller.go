@@ -93,6 +93,18 @@ func (c *ServerController) ImportSettingsFromFile(serverId int, gusFilePath stri
 		return err
 	}
 
+	err = ensureFilePath(gusFilePath)
+	if err != nil {
+		newErr := fmt.Errorf("Failed to parse GameUserSettings.ini: " + err.Error())
+		return newErr
+	}
+
+	err = ensureFilePath(gameFilePath)
+	if err != nil {
+		newErr := fmt.Errorf("Failed to parse Game.ini: " + err.Error())
+		return newErr
+	}
+
 	err = server.SaveGameUserSettingsIni(gusFilePath, true)
 	if err != nil {
 		return err

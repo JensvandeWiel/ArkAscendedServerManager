@@ -26,12 +26,7 @@ function ImportSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSta
     };
 
     function onSettingsImported() {
-        try {
-            ImportSettingsFromFile(serv.id, serv.refGUSPath || '', serv.refGamePath || '')
-            addAlert("Setting Imported!", "success")
-        } catch (error) {
-            addAlert("Error: " + error, "warning")
-        }
+		ImportSettingsFromFile(serv.id, serv.refGUSPath || '', serv.refGamePath || '').then(() => addAlert("Setting imported!", "success")).catch((err) => addAlert("Error: " + err, "warning"))
     }
 
     return (
