@@ -282,12 +282,13 @@ func (s *Server) SaveGameIni(filePathToLoadFrom string, overrideUseIniConfig boo
 
 	//modify ini file here
 
+	//Same as GUS change. changes from app should now reflect in actual INI file
+	gIni.Append([]byte(s.AdditionalGameSections))
+
 	err = gIni.ReflectFrom(&s.Game)
 	if err != nil {
 		return err
 	}
-
-	gIni.Append([]byte(s.AdditionalGameSections))
 
 	err = gIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
 	if err != nil {
