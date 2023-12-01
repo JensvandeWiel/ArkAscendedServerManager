@@ -271,6 +271,12 @@ func (c *ServerController) SaveServerConfigFile(content string, id int) error {
 		return err
 	}
 
+	// Lets the program save the INI files when pressing Save Config from administration as well as Addition Setting Section
+	err = serv.UpdateConfig()
+	if err != nil {
+		return fmt.Errorf("error starting server: failed updating server configuration: %v", err)
+	}
+
 	return nil
 
 }

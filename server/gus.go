@@ -57,7 +57,7 @@ type ServerSettings struct {
 	//ExtinctionEventTimeInterval                int   `json:"extinctionEventTimeInterval" ini:"ExtinctionEventTimeInterval"`           //TODO: Usage unknown in asa
 	FastDecayUnsnappedCoreStructures           bool    `json:"fastDecayUnsnappedCoreStructures" ini:"FastDecayUnsnappedCoreStructures"` //TODO: Usage unknown in asa
 	ForceAllStructureLocking                   bool    `json:"forceAllStructureLocking" ini:"ForceAllStructureLocking"`
-	GlobalVoiceChat                            bool    `json:"globalVoiceChat" ini:"globalVoiceChat"` //TODO if it actually starts with a non capital letter
+	GlobalVoiceChat                            bool    `json:"globalVoiceChat" ini:"GlobalVoiceChat"` //TODO if it actually starts with a non capital letter
 	HarvestAmountMultiplier                    float32 `json:"harvestAmountMultiplier" ini:"HarvestAmountMultiplier"`
 	HarvestHealthMultiplier                    float32 `json:"harvestHealthMultiplier" ini:"HarvestHealthMultiplier"`
 	IgnoreLimitMaxStructuresInRangeTypeFlag    bool    `json:"ignoreLimitMaxStructuresInRangeTypeFlag" ini:"IgnoreLimitMaxStructuresInRangeTypeFlag"` //TODO: Usage unknown in asa
@@ -96,7 +96,7 @@ type ServerSettings struct {
 	PreventOfflinePvPInterval                  float32 `json:"preventOfflinePvPInterval" ini:"PreventOfflinePvPInterval"`
 	PreventSpawnAnimations                     bool    `json:"preventSpawnAnimations" ini:"PreventSpawnAnimations"`
 	PreventTribeAlliances                      bool    `json:"preventTribeAlliances" ini:"PreventTribeAlliances"`
-	ProximityChat                              bool    `json:"proximityChat" ini:"proximityChat"`
+	ProximityChat                              bool    `json:"proximityChat" ini:"ProximityChat"`
 	PvEAllowStructuresAtSupplyDrops            bool    `json:"pveAllowStructuresAtSupplyDrops" ini:"PvEAllowStructuresAtSupplyDrops"`
 	PvEDinoDecayPeriodMultiplier               float32 `json:"pveDinoDecayPeriodMultiplier" ini:"PvEDinoDecayPeriodMultiplier"`
 	PvEStructureDecayPeriodMultiplier          float32 `json:"pveStructureDecayPeriodMultiplier" ini:"PvEStructureDecayPeriodMultiplier"`
@@ -113,7 +113,7 @@ type ServerSettings struct {
 	ServerCrosshair                            bool    `json:"serverCrosshair" ini:"ServerCrosshair"`
 	ServerForceNoHUD                           bool    `json:"serverForceNoHUD" ini:"ServerForceNoHUD"`
 	ServerHardcore                             bool    `json:"serverHardcore" ini:"ServerHardcore"`
-	ServerPVE                                  bool    `json:"serverPVE" ini:"serverPVE"`
+	ServerPVE                                  bool    `json:"serverPVE" ini:"ServerPVE"`
 	ShowFloatingDamageText                     bool    `json:"showFloatingDamageText" ini:"ShowFloatingDamageText"`
 	ShowMapPlayerLocation                      bool    `json:"showMapPlayerLocation" ini:"ShowMapPlayerLocation"`
 	StructureDamageMultiplier                  float32 `json:"structureDamageMultiplier" ini:"StructureDamageMultiplier"`
@@ -133,7 +133,7 @@ type ServerSettings struct {
 	//CrossARK Transfers
 	CrossARKAllowForeignDinoDownloads bool    `json:"crossARKAllowForeignDinoDownloads" ini:"CrossARKAllowForeignDinoDownloads"` //TODO: Usage unknown in asa
 	MinimumDinoReuploadInterval       float32 `json:"minimumDinoReuploadInterval" ini:"MinimumDinoReuploadInterval"`             //TODO: Usage unknown in asa
-	NoTributeDownloads                bool    `json:"noTributeDownloads" ini:"noTributeDownloads"`
+	NoTributeDownloads                bool    `json:"noTributeDownloads" ini:"NoTributeDownloads"`
 	PreventDownloadDinos              bool    `json:"preventDownloadDinos" ini:"PreventDownloadDinos"`
 	PreventDownloadItems              bool    `json:"preventDownloadItems" ini:"PreventDownloadItems"`
 	PreventDownloadSurvivors          bool    `json:"preventDownloadSurvivors" ini:"PreventDownloadSurvivors"`
@@ -444,25 +444,37 @@ func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseI
 
 	s.GameUserSettings.ServerSettings.ActiveMods = s.Mods
 
+	// Append Additional Settings before reflect because gusIni.Append() reloads the original file without the changes
+	// gusIni.Append([]byte(s.AdditionalGUSSections))
+
 	err = gusIni.ReflectFrom(&s.GameUserSettings)
 	if err != nil {
 		return err
 	}
 
-	if s.ServerPassword != "" {
-		gusIni.Section("ServerSettings").Key("ServerPassword").SetValue(s.ServerPassword)
-	}
-	if s.SpectatorPassword != "" {
-		gusIni.Section("ServerSettings").Key("SpectatorPassword").SetValue(s.SpectatorPassword)
-	}
+	// INI values for these wouldn't change
+	gusIni.Section("ServerSettings").Key("ServerPassword").SetValue(s.ServerPassword)
+	gusIni.Section("ServerSettings").Key("SpectatorPassword").SetValue(s.SpectatorPassword)
 
-	gusIni.Section("ServerSettings").Key("AdminPassword").SetValue(s.AdminPassword)
-
-	gusIni.Append([]byte(s.AdditionalGUSSections))
-
-	err = gusIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
+	err = gusIni.SaveTo(filePath)
 	if err != nil {
 		return err
+	}
+
+	if s.AdditionalGUSSections != "" {
+		addGUSIni, err := ini.LoadSources(ini.LoadOptions{
+			// This setting allowed duplicate values in the INI files. With the Changes values should now be replaced
+			AllowShadows:               true,
+			AllowDuplicateShadowValues: true,
+			PreserveSurroundedQuote:    true,
+		}, filePath, []byte(s.AdditionalGUSSections))
+		if err != nil {
+			return err
+		}
+		err = addGUSIni.SaveTo(filePath)
+		if err != nil {
+			return err
+		}
 	}
 
 	/*err = replaceForwardSlashInFile(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
