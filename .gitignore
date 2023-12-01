@@ -192,3 +192,4 @@ fabric.properties
 !build/windows/installer/VC_redist.x86.exe
 steamcmd
 KEY
+.vscode

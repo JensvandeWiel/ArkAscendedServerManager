@@ -283,7 +283,7 @@ func (s *Server) SaveGameIni(filePathToLoadFrom string, overrideUseIniConfig boo
 	//modify ini file here
 
 	//Same as GUS change. changes from app should now reflect in actual INI file
-	gIni.Append([]byte(s.AdditionalGameSections))
+	// gIni.Append([]byte(s.AdditionalGameSections))
 
 	err = gIni.ReflectFrom(&s.Game)
 	if err != nil {
@@ -293,6 +293,22 @@ func (s *Server) SaveGameIni(filePathToLoadFrom string, overrideUseIniConfig boo
 	err = gIni.SaveTo(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"))
 	if err != nil {
 		return err
+	}
+
+	if s.AdditionalGameSections != "" {
+		addGIni, err := ini.LoadSources(ini.LoadOptions{
+			// This setting allowed duplicate values in the INI files. With the Changes values should now be replaced
+			AllowShadows:               true,
+			AllowDuplicateShadowValues: true,
+			PreserveSurroundedQuote:    true,
+		}, filePath, []byte(s.AdditionalGameSections))
+		if err != nil {
+			return err
+		}
+		err = addGIni.SaveTo(filePath)
+		if err != nil {
+			return err
+		}
 	}
 
 	runtime.EventsEmit(s.ctx, "reloadServers")

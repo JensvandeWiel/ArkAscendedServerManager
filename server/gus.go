@@ -445,7 +445,7 @@ func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseI
 	s.GameUserSettings.ServerSettings.ActiveMods = s.Mods
 
 	// Append Additional Settings before reflect because gusIni.Append() reloads the original file without the changes
-	gusIni.Append([]byte(s.AdditionalGUSSections))
+	// gusIni.Append([]byte(s.AdditionalGUSSections))
 
 	err = gusIni.ReflectFrom(&s.GameUserSettings)
 	if err != nil {
@@ -456,19 +456,25 @@ func (s *Server) SaveGameUserSettingsIni(filePathToLoadFrom string, overrideUseI
 	gusIni.Section("ServerSettings").Key("ServerPassword").SetValue(s.ServerPassword)
 	gusIni.Section("ServerSettings").Key("SpectatorPassword").SetValue(s.SpectatorPassword)
 
-	// if s.ServerPassword != "" {
-	// 	gusIni.Section("ServerSettings").Key("ServerPassword").SetValue(s.ServerPassword)
-	// }
-	// if s.SpectatorPassword != "" {
-	// 	gusIni.Section("ServerSettings").Key("SpectatorPassword").SetValue(s.SpectatorPassword)
-	// }
-
-	// Not Needed anymore since the value is reflected to the ini above
-	// gusIni.Section("ServerSettings").Key("AdminPassword").SetValue(s.AdminPassword)
-
-	err = gusIni.SaveTo(filepath.Join(filePath))
+	err = gusIni.SaveTo(filePath)
 	if err != nil {
 		return err
+	}
+
+	if s.AdditionalGUSSections != "" {
+		addGUSIni, err := ini.LoadSources(ini.LoadOptions{
+			// This setting allowed duplicate values in the INI files. With the Changes values should now be replaced
+			AllowShadows:               true,
+			AllowDuplicateShadowValues: true,
+			PreserveSurroundedQuote:    true,
+		}, filePath, []byte(s.AdditionalGUSSections))
+		if err != nil {
+			return err
+		}
+		err = addGUSIni.SaveTo(filePath)
+		if err != nil {
+			return err
+		}
 	}
 
 	/*err = replaceForwardSlashInFile(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"))
