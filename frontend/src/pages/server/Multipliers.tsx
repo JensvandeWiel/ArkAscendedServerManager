@@ -1637,7 +1637,7 @@ function AdditionalSettings({ setServ, serv }: {setServ: React.Dispatch<React.Se
 			<div className={'space-x-4 w-full'}>
 				<div className={'ml-4'}>
 					<FormLabel>Extra GameUserSettings.ini Sections</FormLabel>
-					<Textarea minRows={5} value={serv?.additionalGUSSections} onChange={(e) => {
+					<Textarea minRows={5} value={serv?.additionalGUSSections} placeholder="e.g.&#10;[ServerSettings]&#10;ItemStackSizeMultiplier=1.0" onChange={(e) => {
                         setServ((p) => {
                             const newState = {...p, convertValues: p.convertValues};
                             newState.additionalGUSSections = e.target.value;
@@ -1646,7 +1646,7 @@ function AdditionalSettings({ setServ, serv }: {setServ: React.Dispatch<React.Se
                     }}></Textarea>
 
 					<FormLabel>Extra Game.ini Sections</FormLabel>
-					<Textarea minRows={5} value={serv?.additionalGameSections} onChange={(e) => {
+					<Textarea minRows={5} value={serv?.additionalGameSections} placeholder="e.g.&#10;[/script/shootergame.shootergamemode]&#10;BabyCuddleIntervalMultiplier=1" onChange={(e) => {
                         setServ((p) => {
                             const newState = {...p, convertValues: p.convertValues};
                             newState.additionalGameSections = e.target.value;
