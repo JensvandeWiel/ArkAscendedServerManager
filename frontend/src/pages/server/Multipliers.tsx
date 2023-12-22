@@ -570,27 +570,6 @@ function DinoMultipliers({ setServ, serv }: { setServ: React.Dispatch<React.SetS
 				<div>
 					<Tooltip
 						enterDelay={500}
-						title={"Specifies the scaling factor for dinosaurs' health recovery. Higher values increase the recovery rate (dinosaurs heal faster).\t"}>
-						<FormLabel>Dino Character Health Recovery Multiplier</FormLabel>
-					</Tooltip>
-					<Slider
-						sliderStep={0.1}
-						sliderMax={25}
-						value={serv?.gameUserSettings.serverSettings.dinoCharacterHealthRecoveryMultiplier}
-						onChange={(v) => {
-							if (v >= 0) {
-								setServ((p) => {
-									const newState = { ...p, convertValues: p.convertValues };
-									newState.gameUserSettings.serverSettings.dinoCharacterHealthRecoveryMultiplier = v;
-									return newState;
-								});
-							}
-						}}
-					/>
-				</div>
-				<div>
-					<Tooltip
-						enterDelay={500}
 						title={"Specifies the scaling factor for dinosaurs' stamina consumption. Higher values increase stamina consumption (dinosaurs get tired faster).\t"}>
 						<FormLabel>Dino Character Stamina Drain Multiplier</FormLabel>
 					</Tooltip>
