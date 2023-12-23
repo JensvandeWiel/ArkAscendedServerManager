@@ -2,12 +2,9 @@ package server
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/JensvandeWiel/ark-ini"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
-	"os"
 	"os/exec"
 	"path"
 	"path/filepath"
@@ -75,6 +72,12 @@ type Server struct {
 	StartWithApplication bool `json:"startWithApplication"`
 }
 
+// Init runs the code that needs to be run when the server is created/loaded like watching the config files
+func (s *Server) Init() {
+	//watch the config files for changes if they change emit an event
+
+}
+
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
 func (s *Server) UpdateConfig() error {
 
@@ -92,18 +95,12 @@ func (s *Server) UpdateConfig() error {
 
 	//load gus and game ini
 
-	gameContent, err := os.ReadFile(gamePath)
-	if err != nil {
-		return errors.New("error reading Game.ini: " + err.Error())
-	}
-
-	game, err := ini.DeserializeIniFile(string(gameContent))
+	//get and update gus before starting server
+	gus, err := s.getGus()
 	if err != nil {
 		return err
 	}
-
-	println("GameUserSettings.ini: ", gus.ToString())
-	println("Game.ini: ", game.ToString())
+	s.updateGus(gus)
 
 	return nil
 }

@@ -5,9 +5,10 @@ go 1.21
 toolchain go1.21.5
 
 require (
-	github.com/JensvandeWiel/ark-ini v1.0.0
+	github.com/JensvandeWiel/ark-ini v1.1.0
 	github.com/StackExchange/wmi v1.2.1
 	github.com/adrg/xdg v0.4.0
+	github.com/fsnotify/fsnotify v1.7.0
 	github.com/go-ini/ini v1.67.0
 	github.com/gorcon/rcon v1.3.4
 	github.com/hashicorp/go-version v1.6.0
@@ -16,7 +17,7 @@ require (
 	github.com/sethvargo/go-password v0.2.0
 	github.com/sqweek/dialog v0.0.0-20220809060634-e981b270ebbf
 	github.com/wailsapp/wails/v2 v2.6.0
-	golang.org/x/sys v0.14.0
+	golang.org/x/sys v0.15.0
 )
 
 require (

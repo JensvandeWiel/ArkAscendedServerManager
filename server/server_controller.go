@@ -15,8 +15,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/fsnotify/fsnotify"
 	"os"
 	"path"
+	"path/filepath"
 	"strconv"
 
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
@@ -33,6 +35,7 @@ type ServerController struct {
 	ctx       context.Context
 	Servers   map[int]*Server
 	helpers   *helpers.HelpersController
+	watcher   *fsnotify.Watcher
 	serverDir string
 }
 
@@ -56,8 +59,17 @@ func (c *ServerController) Startup(ctx context.Context) {
 	}
 
 	c.serverDir = serverDir
+	c.watcher, err = fsnotify.NewWatcher()
+	if err != nil {
+		runtime.LogFatalf(c.ctx, "Error creating fsnotify watcher: %s, app will be in an unuseable state", err.Error())
+	}
 
 	c.StartServersWithApplication()
+	c.InitAllServers()
+}
+
+func (c *ServerController) Shutdown() {
+	c.watcher.Close()
 }
 
 // endregion
@@ -75,7 +87,43 @@ func (c *ServerController) StartServersWithApplication() {
 		server := c.Servers[id]
 		runtime.LogInfof(c.ctx, "Starting server %s automatically", server.ServerName)
 		if server.StartWithApplication {
-			c.StartServer(server.Id)
+			err := c.StartServer(server.Id)
+			if err != nil {
+				runtime.LogError(c.ctx, "Error starting server "+strconv.Itoa(server.Id)+" automatically: "+err.Error())
+			}
+		}
+	}
+}
+
+func (c *ServerController) InitAllServers() {
+
+	//setup watcher
+	go func() {
+		for {
+			select {
+			case event, ok := <-c.watcher.Events:
+				if !ok {
+					return
+				}
+				runtime.LogDebug(c.ctx, "watcher event: "+event.String())
+				if event.Has(fsnotify.Write) {
+					runtime.EventsEmit(c.ctx, "fileChanged", event.Name)
+				}
+			case err, ok := <-c.watcher.Errors:
+				if !ok {
+					return
+				}
+				runtime.LogError(c.ctx, "error:"+err.Error())
+			}
+		}
+	}()
+
+	//for each server in the map add a watcher for the config file
+	for id := range c.Servers {
+		server := c.Servers[id]
+		err := c.watcher.Add(filepath.Join(server.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer"))
+		if err != nil {
+			runtime.LogErrorf(c.ctx, "Error adding watcher for server %s: %s", server.ServerName, err.Error())
 		}
 	}
 }
@@ -148,6 +196,7 @@ func (c *ServerController) GetConnectedPlayerCount(id int) (int, error) {
 
 // CreateServer Creates a new server, returns it and adds it to the map. If it fails it returns an error which is catch-able in the Frontend.
 func (c *ServerController) CreateServer(saveToConfig bool) (Server, error) {
+
 	_, server, err := c.createServer(saveToConfig)
 	if err != nil {
 		newErr := fmt.Errorf("Failed saving new server: " + err.Error())
@@ -334,6 +383,7 @@ func (c *ServerController) getServer(id int, addToMap bool) (*Server, error) {
 
 // createServer Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns an error and an empty server and int -1
 func (c *ServerController) createServer(saveToConfig bool) (int, *Server, error) {
+	//TODO only spot where we load from the config file, we need to implement the ini file watching here
 	// get the highest in to generate new id
 	maxKey := findHighestKey(c.Servers)
 	id := maxKey + 1
@@ -359,6 +409,7 @@ func (c *ServerController) createServer(saveToConfig bool) (int, *Server, error)
 
 	runtime.EventsEmit(c.ctx, "serverCreated", NewServer.Id)
 	NewServer.ctx = c.ctx
+	NewServer.Init()
 
 	return id, &NewServer, nil
 }

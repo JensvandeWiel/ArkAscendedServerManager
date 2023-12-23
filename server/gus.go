@@ -88,3 +88,23 @@ func (s *Server) updateValueInGus(sectionName string, keyName string, value inte
 
 	return nil
 }
+
+func (s *Server) getGusAsMap() (map[string]map[string]string, error) {
+	gus, err := s.getGus()
+	if err != nil {
+		return nil, err
+	}
+
+	return ini.ToMap(gus), nil
+}
+
+func (s *Server) saveGusFromMap(gusMap map[string]map[string]string) error {
+	gus := ini.DeserializeFromMap(gusMap)
+
+	err := s.saveGus(gus)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

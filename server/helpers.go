@@ -78,7 +78,7 @@ func generateNewDefaultServer(id int) Server {
 		spectatorPassword = "default"
 	}*/
 
-	return Server{
+	serv := Server{
 		Id: id,
 
 		DisableUpdateOnStart: false,
@@ -108,6 +108,8 @@ func generateNewDefaultServer(id int) Server {
 
 		StartWithApplication: false,
 	}
+
+	return serv
 }
 
 func CheckIfServerCorrect(server *Server) error {
