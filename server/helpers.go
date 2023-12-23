@@ -103,9 +103,6 @@ func generateNewDefaultServer(id int) Server {
 		QueryPort:  27015,
 		RCONPort:   28015,
 
-		GameUserSettings: generateNewDefaultGameUserSettings(),
-		Game:             generateNewDefaultGame(),
-
 		ServerMap:  "TheIsland_WP",
 		MaxPlayers: 70,
 

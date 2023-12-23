@@ -31,19 +31,19 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
             <div className={'w-[100%] space-y-4'}>
                 <div className={''}>
                     <FormLabel>Server Name:</FormLabel>
-                    <Input value={serv?.serverName} onChange={(e) => setServ((p) => ({ ...p, serverName: e.target.value, convertValues: p.convertValues }))} ></Input>
+                    <Input value={serv?.serverName} onChange={(e) => setServ((p) => ({ ...p, serverName: e.target.value }))} ></Input>
                 </div>
                 <div className={''}>
                     <FormLabel>Server Password:</FormLabel>
-                    <PasswordInput value={serv?.serverPassword} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
+                    <PasswordInput value={serv?.serverPassword} onChange={(e) => setServ((p) => ({ ...p, serverPassword: e.target.value }))} ></PasswordInput>
                 </div>
                 <div className={''}>
                     <FormLabel>Admin Password:</FormLabel>
-                    <PasswordInput value={serv?.adminPassword} onChange={(e) => setServ((p) => ({ ...p, adminPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
+                    <PasswordInput value={serv?.adminPassword} onChange={(e) => setServ((p) => ({ ...p, adminPassword: e.target.value }))} ></PasswordInput>
                 </div>
                 <div className={''}>
                     <FormLabel>Spectator Password:</FormLabel>
-                    <PasswordInput value={serv?.spectatorPassword} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value, convertValues: p.convertValues }))} ></PasswordInput>
+                    <PasswordInput value={serv?.spectatorPassword} onChange={(e) => setServ((p) => ({ ...p, spectatorPassword: e.target.value }))} ></PasswordInput>
                 </div>
             </div>
             <Typography level="title-md">
@@ -53,7 +53,7 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
             <div className={'w-[100%] space-y-4'}>
                 <div className={''}>
                     <FormLabel>Map Name of Mod Map path:</FormLabel>
-                    <Autocomplete freeSolo disableClearable inputValue={serv?.serverMap} options={["TheIsland_WP"]} onChange={(e, v) => setServ((p) => ({ ...p, serverMap: v, convertValues: p.convertValues }))} ></Autocomplete>
+                    <Autocomplete freeSolo disableClearable inputValue={serv?.serverMap} options={["TheIsland_WP"]} onChange={(e, v) => setServ((p) => ({ ...p, serverMap: v }))} ></Autocomplete>
                 </div>
             </div>
             <Typography level="title-md">

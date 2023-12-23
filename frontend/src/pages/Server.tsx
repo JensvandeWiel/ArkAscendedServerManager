@@ -32,7 +32,7 @@ import {UpdaterModal} from "./UpdaterModal";
 import {InstallUpdateVerify} from "../../wailsjs/go/installer/InstallerController";
 import {SendRconCommand} from "../../wailsjs/go/helpers/HelpersController";
 import {Mods} from "./server/Mods";
-import {Multipliers} from "./server/Multipliers";
+import {Ini} from "./server/Ini";
 
 
 type Props = {
@@ -180,7 +180,7 @@ export const Server = ({id, className}: Props) => {
                 {isInstalled? (<Tabs size="sm" className={'flex h-full w-full overflow-y-auto'}>
                     <div className={'h-16 flex w-full'}>
                         <div className="flex items-center">
-                            <Input value={serv?.serverAlias} onChange={(e) => setServ((p) => ({ ...p, serverAlias: e.target.value, convertValues: p.convertValues }))}/>
+                            <Input value={serv?.serverAlias} onChange={(e) => setServ((p) => ({ ...p, serverAlias: e.target.value /*, convertValues: p.convertValues*/ }))}/>
                             <Tooltip title={"Open server install directory"}>
                                 <IconButton className="text-lg font-bold ml-2" onClick={() => BrowserOpenURL("file:///" + serv.serverPath)}><IconExternalLink/></IconButton>
                             </Tooltip>
@@ -246,13 +246,13 @@ export const Server = ({id, className}: Props) => {
                         <Tab variant="plain" indicatorInset color="neutral">Console</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">General Settings</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Mods</Tab>
-                        <Tab variant="plain" indicatorInset color="neutral">Multipliers</Tab>
+                        <Tab variant="plain" indicatorInset color="neutral">Ini configuration</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Administration</Tab>
                     </TabList>
                     <Console serv={serv} setServ={setServ} serverStatus={serverStatus}/>
                     <General serv={serv} setServ={setServ}/>
                     <Mods setServ={setServ} serv={serv}></Mods>
-                    <Multipliers setServ={setServ} serv={serv}/>
+                    <Ini setServ={setServ} serv={serv}/>
                     <Administration serv={serv} setServ={setServ} onServerFilesDeleted={() => CheckServerInstalled(serv.id).then((val) => setIsInstalled(val)).catch((reason) => console.error(reason))}/>
                 </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}
             </Card>

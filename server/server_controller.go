@@ -17,7 +17,6 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"path/filepath"
 	"strconv"
 
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
@@ -84,62 +83,6 @@ func (c *ServerController) StartServersWithApplication() {
 //endregion
 
 //region Frontend functions
-
-// TODO: Really need to add every single setting with accurate naming
-// Could also do with importing Game.ini, this is something I can do in a future PR
-func (c *ServerController) ImportSettingsFromFile(serverId int, gusFilePath string, gameFilePath string) error {
-	server, err := c.GetServer(serverId)
-	if err != nil {
-		return err
-	}
-
-	err = ensureFilePath(gusFilePath)
-	if err != nil {
-		newErr := fmt.Errorf("Failed to parse GameUserSettings.ini: " + err.Error())
-		return newErr
-	}
-
-	err = ensureFilePath(gameFilePath)
-	if err != nil {
-		newErr := fmt.Errorf("Failed to parse Game.ini: " + err.Error())
-		return newErr
-	}
-
-	err = server.SaveGameUserSettingsIni(gusFilePath, true)
-	if err != nil {
-		return err
-	}
-
-	err = server.SaveGameIni(gameFilePath, true)
-	if err != nil {
-		return err
-	}
-
-	server.UseIniConfig = false // once imported, don't have to use the ini config anymore
-
-	c.SaveServer(server)
-
-	return nil
-}
-
-func (c *ServerController) SaveGUSAndGame(serverId int) error {
-	server, err := c.GetServer(serverId)
-	if err != nil {
-		return err
-	}
-
-	err = server.SaveGameUserSettingsIni(filepath.Join(server.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"), false)
-	if err != nil {
-		return err
-	}
-
-	err = server.SaveGameIni(filepath.Join(server.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"), false)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 // GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
 func (c *ServerController) GetAllServers() (map[int]Server, error) {
@@ -337,7 +280,7 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 
 //endregion
 
-// SaveServer saves the server with the given id, and returns bool if successful
+/*// SaveServer saves the server with the given id, and returns bool if successful
 func (c *ServerController) SaveServerGus(id int, gus GameUserSettings) error {
 
 	//TODO Make sure oldserv members get passed over to new instance since frontend will change all members even Command (which should not be updated by the frontend)
@@ -359,7 +302,7 @@ func (c *ServerController) SaveServerGus(id int, gus GameUserSettings) error {
 		return newErr
 	}
 	return nil
-}
+}*/
 
 //endregion
 

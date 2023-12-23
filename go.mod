@@ -1,8 +1,11 @@
 module github.com/JensvandeWiel/ArkAscendedServerManager
 
-go 1.18
+go 1.21
+
+toolchain go1.21.5
 
 require (
+	github.com/JensvandeWiel/ark-ini v1.0.0
 	github.com/StackExchange/wmi v1.2.1
 	github.com/adrg/xdg v0.4.0
 	github.com/go-ini/ini v1.67.0

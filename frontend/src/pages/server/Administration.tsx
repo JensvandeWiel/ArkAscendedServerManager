@@ -191,36 +191,31 @@ function ServerStartupCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
                     <Checkbox label="Disable update on server start" checked={serv?.disableUpdateOnStart}
                               onChange={(e) => setServ((p) => ({
                                   ...p,
-                                  disableUpdateOnStart: e.target.checked,
-                                  convertValues: p.convertValues
+                                  disableUpdateOnStart: e.target.checked
                               }))}/><br/>
                     <Checkbox label="Use ASA Server Api (if not installed it will be installed)" checked={serv?.useAsaAPI}
                               onChange={(e) => setServ((p) => ({
                                   ...p,
-                                  useAsaAPI: e.target.checked,
-                                  convertValues: p.convertValues
+                                  useAsaAPI: e.target.checked
                               }))}/><br/>
                     {/*<Checkbox label="Restart server on server quit" checked={serv?.restartOnServerQuit} onChange={(e) => setServ((p) => ({ ...p, restartOnServerQuit: e.target.checked }))} />*/}
                     <Checkbox label="Start server when application opens" checked={serv?.startWithApplication}
                               onChange={(e) => setServ((p) => ({
                                   ...p,
-                                  startWithApplication: e.target.checked,
-                                  convertValues: p.convertValues
+                                  startWithApplication: e.target.checked
                                 }))}/><br/>
 
                     <FormLabel>Custom server "dash" arguments (only use args like: -EnableIdlePlayerKick
                         -ForceAllowCaveFlyers)</FormLabel>
                     <Input value={serv?.extraDashArgs} onChange={(e) => setServ((p) => ({
                         ...p,
-                        extraDashArgs: e.target.value,
-                        convertValues: p.convertValues
+                        extraDashArgs: e.target.value
                     }))}></Input>
                     <FormLabel>Custom server "questionmark" arguments (only use args like:
                         ?PreventSpawnAnimations=true?PreventTribeAlliances=true)</FormLabel>
                     <Input value={serv?.extraQuestionmarkArguments} onChange={(e) => setServ((p) => ({
                         ...p,
-                        extraQuestionmarkArguments: e.target.value,
-                        convertValues: p.convertValues
+                        extraQuestionmarkArguments: e.target.value
                     }))}></Input>
                 </div>
             </div>
@@ -242,8 +237,7 @@ function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
                         <Checkbox label="Use ini config (only reloads on server start) (not recommended)"
                                   checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({
                             ...p,
-                            useIniConfig: e.target.checked,
-                            convertValues: p.convertValues
+                            useIniConfig: e.target.checked
                         }))}/>
                     </Tooltip>
                     <br/>
@@ -251,8 +245,7 @@ function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
                         <Checkbox label="Discord webhook messages" checked={serv?.discordWebHookEnabled}
                                   onChange={(e) => setServ((p) => ({
                                       ...p,
-                                      discordWebHookEnabled: e.target.checked,
-                                      convertValues: p.convertValues
+                                      discordWebHookEnabled: e.target.checked
                                   }))}/>
                     </Tooltip>
                     <Tooltip title={"The url from the webhook (if not set it will fail)"}>
@@ -260,8 +253,7 @@ function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
                                 <FormLabel>Discord webhook url</FormLabel>
                             <Input value={serv?.discordWebHook} onChange={(e) => setServ((p) => ({
                                 ...p,
-                                discordWebHook: e.target.value,
-                                convertValues: p.convertValues
+                                discordWebHook: e.target.value
                             }))}></Input>
                             </span>
                     </Tooltip>
