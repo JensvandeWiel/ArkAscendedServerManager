@@ -18,7 +18,6 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"os"
 	"path"
-	"path/filepath"
 	"strconv"
 
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
@@ -97,7 +96,7 @@ func (c *ServerController) StartServersWithApplication() {
 
 func (c *ServerController) InitAllServers() {
 
-	//setup watcher
+	/*//setup watcher
 	go func() {
 		for {
 			select {
@@ -125,7 +124,7 @@ func (c *ServerController) InitAllServers() {
 		if err != nil {
 			runtime.LogErrorf(c.ctx, "Error adding watcher for server %s: %s", server.ServerName, err.Error())
 		}
-	}
+	}*/
 }
 
 //endregion

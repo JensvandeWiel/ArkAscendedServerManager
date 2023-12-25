@@ -5,8 +5,10 @@ go 1.21
 toolchain go1.21.5
 
 require (
+	github.com/JensvandeWiel/ark-ini v1.1.0
 	github.com/StackExchange/wmi v1.2.1
 	github.com/adrg/xdg v0.4.0
+	github.com/fsnotify/fsnotify v1.4.9
 	github.com/go-ini/ini v1.67.0
 	github.com/gorcon/rcon v1.3.4
 	github.com/hashicorp/go-version v1.6.0
