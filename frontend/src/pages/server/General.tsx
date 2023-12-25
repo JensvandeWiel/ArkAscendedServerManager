@@ -11,9 +11,10 @@ import {
 
 import {server} from "../../../wailsjs/go/models";
 import React, {useEffect, useState} from "react";
-import {GetNetworkInterfacesIp} from "../../../wailsjs/go/server/ServerController";
+import {GetNetworkInterfacesIp, GetValueFromGus, UpdateValueInGus} from "../../../wailsjs/go/server/ServerController";
 import {PasswordInput} from "../../components/PasswordInput";
 import {Slider} from "../../components/Slider";
+import {useAlert} from "../../components/AlertProvider";
 
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
@@ -22,6 +23,21 @@ type Props = {
 }
 
 function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetStateAction<server.Server>>, serv: server.Server}) {
+
+
+    const {addAlert} = useAlert()
+
+    const [autoSavePeriodMinutes, setAutoSavePeriodMinutes] = useState<number>()
+    const [message, setMessage] = useState<string>()
+    const [duration, setDuration] = useState<number>()
+    const [kickIdlePlayersPeriod, setKickIdlePlayersPeriod] = useState<number>()
+    useEffect(() => {
+        GetValueFromGus(serv.id, "ServerSettings", "AutoSavePeriodMinutes").then((val) => setAutoSavePeriodMinutes(parseInt(val))).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
+        GetValueFromGus(serv.id, "MessageOfTheDay", "Message").then((val) => setMessage(val)).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
+        GetValueFromGus(serv.id, "MessageOfTheDay", "Duration").then((val) => setDuration(parseInt(val))).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
+        GetValueFromGus(serv.id, "ServerSettings", "KickIdlePlayersPeriod").then((val) => setKickIdlePlayersPeriod(parseInt(val))).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
+    }, []);
+
     return (
         <Card variant="soft"  className={''}>
             <Typography level="title-md">
@@ -65,15 +81,10 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                     <FormLabel>Auto Save interval:</FormLabel>
                     <Tooltip title={"Duration that the message is visible in seconds"}>
                         <Slider
-                            value={serv?.gameUserSettings.serverSettings.autoSavePeriodMinutes}
+                            value={autoSavePeriodMinutes?? 0}
                             onChange={(v) => {
-                                if (v >= 0) {
-                                    setServ((p) => {
-                                        const newState = {...p, convertValues: p.convertValues};
-                                        newState.gameUserSettings.serverSettings.autoSavePeriodMinutes = v;
-                                        return newState;
-                                    })
-                                }
+                                setAutoSavePeriodMinutes(v)
+                                UpdateValueInGus(serv.id, "ServerSettings", "AutoSavePeriodMinutes", v.toString()).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
                             }}
                         />
                     </Tooltip>
@@ -87,12 +98,9 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
             <div className={'w-[100%] space-y-4'}>
                 <div className={''}>
                     <FormLabel>Message</FormLabel>
-                    <Textarea minRows={5} value={serv?.gameUserSettings.messageOfTheDay.message} onChange={(e) => {
-                        setServ((p) => {
-                            const newState = {...p, convertValues: p.convertValues};
-                            newState.gameUserSettings.messageOfTheDay.message = e.target.value;
-                            return newState;
-                        })
+                    <Textarea minRows={5} value={message} onChange={(e) => {
+                        setMessage(e.target.value)
+                        UpdateValueInGus(serv.id, "MessageOfTheDay", "Message", e.target.value).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
                     }}></Textarea>
                 </div>
                 <div className={''}>
@@ -101,14 +109,11 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                         <Slider
                             sliderStep={1}
                             sliderMax={240}
-                            value={serv?.gameUserSettings.messageOfTheDay.duration}
+                            value={duration?? 0}
                             onChange={(v) => {
                                 if (v >= 0) {
-                                    setServ((p) => {
-                                        const newState = {...p, convertValues: p.convertValues};
-                                        newState.gameUserSettings.messageOfTheDay.duration = v;
-                                        return newState;
-                                    })
+                                    setDuration(v)
+                                    UpdateValueInGus(serv.id, "MessageOfTheDay", "Duration", v.toString()).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
                                 }
                             }}
                         />
@@ -132,7 +137,7 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                             onChange={(v) => {
                                 if (v >= 0) {
                                     setServ((p) => {
-                                        const newState = {...p, convertValues: p.convertValues};
+                                        const newState = {...p};
                                         newState.maxPlayers = v;
                                         return newState;
                                     })
@@ -142,21 +147,18 @@ function GeneralSettings({ setServ, serv }: {setServ: React.Dispatch<React.SetSt
                     </div>
                     <div className={"flex-grow"}>
                         <Tooltip title={"The duration before an idle player gets kicked in seconds"}>
-                            <FormLabel> <Checkbox className={"mr-2"} checked={serv?.kickIdlePlayers} onChange={(e) => setServ((p) => ({ ...p, kickIdlePlayers: e.target.checked, convertValues: p.convertValues }))}/> Kick Idle Players Period:</FormLabel>
+                            <FormLabel> <Checkbox className={"mr-2"} checked={serv?.kickIdlePlayers} onChange={(e) => setServ((p) => ({ ...p, kickIdlePlayers: e.target.checked }))}/> Kick Idle Players Period:</FormLabel>
                         </Tooltip>
                         <Slider
                             className={""}
                             disabled={!(serv?.kickIdlePlayers)}
                             sliderStep={1}
                             sliderMax={3600}
-                            value={serv?.gameUserSettings.serverSettings.kickIdlePlayersPeriod}
+                            value={kickIdlePlayersPeriod?? 0}
                             onChange={(v) => {
                                 if (v >= 0) {
-                                    setServ((p) => {
-                                        const newState = {...p, convertValues: p.convertValues};
-                                        newState.gameUserSettings.serverSettings.kickIdlePlayersPeriod = v;
-                                        return newState;
-                                    })
+                                    setKickIdlePlayersPeriod(v)
+                                    UpdateValueInGus(serv.id, "ServerSettings", "KickIdlePlayersPeriod", v.toString()).catch((reason) => {console.error(reason); addAlert(reason, "danger")})
                                 }
                             }}
                         />
@@ -204,7 +206,6 @@ function NetworkingCard({ setServ, serv }: {setServ: React.Dispatch<React.SetSta
                             return{
                                 ...prevState,
                                 ipAddress: newValue?? "0.0.0.0",
-                                convertValues: prevState.convertValues
                             }
                         }
                     )
@@ -217,7 +218,7 @@ function NetworkingCard({ setServ, serv }: {setServ: React.Dispatch<React.SetSta
             <div className={'space-x-4 w-11/12'}>
                 <div className={'w-32 inline-block'}>
                     <FormLabel>Server Port:</FormLabel>
-                    <Input className={''} type={'number'} required value={serv?.serverPort} onChange={(e) => (parseInt(e.target.value) >= 1 && parseInt(e.target.value) <= 65535) ? setServ((p) => ({ ...p, serverPort: parseInt(e.target.value), peerPort: parseInt(e.target.value) + 1, convertValues: p.convertValues })) : null} ></Input>
+                    <Input className={''} type={'number'} required value={serv?.serverPort} onChange={(e) => (parseInt(e.target.value) >= 1 && parseInt(e.target.value) <= 65535) ? setServ((p) => ({ ...p, serverPort: parseInt(e.target.value), peerPort: parseInt(e.target.value) + 1})) : null} ></Input>
                 </div>
                 <div className={'w-32 inline-block'}>
                     <FormLabel>Peer Port:</FormLabel>
@@ -225,11 +226,11 @@ function NetworkingCard({ setServ, serv }: {setServ: React.Dispatch<React.SetSta
                 </div>
                 <div className={'w-32 inline-block'}>
                     <FormLabel>Query Port:</FormLabel>
-                    <Input className={''} type={'number'} value={serv?.queryPort} onChange={(e) => (parseInt(e.target.value) >= 1 && parseInt(e.target.value) <= 65535) ? setServ((p) => ({ ...p, queryPort: parseInt(e.target.value), convertValues: p.convertValues})) : null}></Input>
+                    <Input className={''} type={'number'} value={serv?.queryPort} onChange={(e) => (parseInt(e.target.value) >= 1 && parseInt(e.target.value) <= 65535) ? setServ((p) => ({ ...p, queryPort: parseInt(e.target.value)})) : null}></Input>
                 </div>
                 <div className={'w-32 inline-block'}>
                     <FormLabel>RCON Port:</FormLabel>
-                    <Input className={''} value={serv?.rconPort} onChange={(e) => (parseInt(e.target.value) >= 1 && parseInt(e.target.value) <= 65535) ? setServ((p) => ({ ...p, rconPort: parseInt(e.target.value), convertValues: p.convertValues})) : null} type={'number'}></Input >
+                    <Input className={''} value={serv?.rconPort} onChange={(e) => (parseInt(e.target.value) >= 1 && parseInt(e.target.value) <= 65535) ? setServ((p) => ({ ...p, rconPort: parseInt(e.target.value)})) : null} type={'number'}></Input >
                 </div>
             </div>
         </Card>

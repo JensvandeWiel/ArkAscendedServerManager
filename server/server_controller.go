@@ -273,6 +273,116 @@ func (c *ServerController) SaveServerConfigFile(content string, id int) error {
 
 }
 
+func (c *ServerController) UpdateValueInGus(id int, sectionName string, keyName string, value string) error {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in gus " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	err = server.updateValueInGus(sectionName, keyName, value)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in gus " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	return nil
+}
+
+func (c *ServerController) UpdateValueInGame(id int, sectionName string, keyName string, value string) error {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in game " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	err = server.updateValueInGame(sectionName, keyName, value)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in game " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	return nil
+}
+
+func (c *ServerController) GetGusAsMap(id int) (map[string]map[string]string, error) {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error getting gus as map " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return nil, newErr
+	}
+
+	gus, err := server.getGusAsMap()
+	if err != nil {
+		newErr := fmt.Errorf("error getting gus as map " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return nil, newErr
+	}
+
+	return gus, nil
+}
+
+func (c *ServerController) SaveGusFromMap(id int, gusMap map[string]map[string]string) error {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error saving gus from map " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	err = server.saveGusFromMap(gusMap)
+	if err != nil {
+		newErr := fmt.Errorf("error saving gus from map " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	return nil
+}
+
+// GetValueFromGus returns the value from the gus with the given section and key name. If it fails it returns an error which is catch-able
+func (c *ServerController) GetValueFromGus(id int, sectionName string, keyName string) (string, error) {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from gus " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	value, err := server.getValueFromGus(sectionName, keyName)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from gus " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	return value, nil
+}
+
+// GetValueFromGame returns the value from the game with the given section and key name. If it fails it returns an error which is catch-able
+func (c *ServerController) GetValueFromGame(id int, sectionName string, keyName string) (string, error) {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from game " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	value, err := server.getValueFromGame(sectionName, keyName)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from game " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	return value, nil
+}
+
 //region Private
 
 // getServerFromDir gets the server from the server dir if it does not exist and shouldReturnNew is true it returns a new server.

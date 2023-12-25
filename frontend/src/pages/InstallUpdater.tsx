@@ -32,7 +32,7 @@ export function InstallUpdater({setServ, serv, onInstalled}: Props) {
     const [installerModalOpen, setInstallerModalOpen] = useState(false)
     const {addAlert} = useAlert()
     function onServerPathClicked() {
-        OpenDirectoryDialog().then((val) => setServ((p) => ({ ...p, serverPath: val, convertValues: p.convertValues })))
+        OpenDirectoryDialog().then((val) => setServ((p) => ({ ...p, serverPath: val})))
     }
 
     function onStartInstallButtonClicked() {

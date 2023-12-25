@@ -108,3 +108,17 @@ func (s *Server) saveGameFromMap(gameMap map[string]map[string]string) error {
 
 	return nil
 }
+
+func (s *Server) getValueFromGame(sectionName string, keyName string) (string, error) {
+	game, err := s.getGame()
+	if err != nil {
+		return "", err
+	}
+
+	key, err := game.GetKeyFromSection(sectionName, keyName)
+	if err != nil {
+		return "", err
+	}
+
+	return key.ToValueString(), nil
+}

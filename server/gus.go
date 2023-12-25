@@ -108,3 +108,17 @@ func (s *Server) saveGusFromMap(gusMap map[string]map[string]string) error {
 
 	return nil
 }
+
+func (s *Server) getValueFromGus(sectionName string, keyName string) (string, error) {
+	gus, err := s.getGus()
+	if err != nil {
+		return "", err
+	}
+
+	key, err := gus.GetKeyFromSection(sectionName, keyName)
+	if err != nil {
+		return "", err
+	}
+
+	return key.ToValueString(), nil
+}
