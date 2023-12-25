@@ -233,14 +233,14 @@ function ExtraSettingsCard({setServ, serv}: {setServ: React.Dispatch<React.SetSt
 
             <div className={'space-x-4 w-full flex'}>
                 <div className={'inline-block'}>
-                    <Tooltip title={"Loads server config form ini first instead of json"}>
+                    {/*<Tooltip title={"Loads server config form ini first instead of json"}>
                         <Checkbox label="Use ini config (only reloads on server start) (not recommended)"
                                   checked={serv?.useIniConfig} onChange={(e) => setServ((p) => ({
                             ...p,
                             useIniConfig: e.target.checked
                         }))}/>
                     </Tooltip>
-                    <br/>
+                    <br/>*/}
                     <Tooltip title={"Enables discord webhook messages"}>
                         <Checkbox label="Discord webhook messages" checked={serv?.discordWebHookEnabled}
                                   onChange={(e) => setServ((p) => ({

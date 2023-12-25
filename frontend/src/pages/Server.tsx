@@ -278,13 +278,13 @@ export const Server = ({id, className}: Props) => {
                         <Tab variant="plain" indicatorInset color="neutral">Console</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">General Settings</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Mods</Tab>
-                        {/*<Tab variant="plain" indicatorInset color="neutral">Ini configuration</Tab>*/}
+                        <Tab variant="plain" indicatorInset color="neutral">Ini configuration</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Administration</Tab>
                     </TabList>
                     <Console serv={serv} setServ={setServ} serverStatus={serverStatus}/>
                     <General serv={serv} setServ={setServ} gus={gus} setGus={setGus}/>
                     <Mods setServ={setServ} serv={serv}></Mods>
-                    {/*<Ini setServ={setServ} serv={serv}/>*/}
+                    <Ini setServ={setServ} serv={serv}/>
                     <Administration serv={serv} setServ={setServ} onServerFilesDeleted={() => CheckServerInstalled(serv.id).then((val) => setIsInstalled(val)).catch((reason) => console.error(reason))}/>
                 </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}
             </Card>

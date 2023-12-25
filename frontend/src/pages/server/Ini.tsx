@@ -18,7 +18,7 @@ export function Ini({ setServ, serv }: Props) {
 		<TabPanel
 			value={3}
 			className={'space-y-8'}>
-			bob
+			Not implemented yet, use manual configuration trough ini files for now.
 		</TabPanel>
 	);
 }
