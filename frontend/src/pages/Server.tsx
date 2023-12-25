@@ -18,15 +18,15 @@ import {useEffect, useState} from "react";
 import {server} from "../../wailsjs/go/models";
 import {
     CheckServerInstalled,
-    ForceStopServer,
-    GetServer, GetServerStatus,
+    ForceStopServer, GetGusAsMap,
+    GetServer, GetServerStatus, SaveGusFromMap,
     SaveServer,
     StartServer, StopServer
 } from "../../wailsjs/go/server/ServerController";
 import {InstallUpdater} from "./InstallUpdater";
 import {useAlert} from "../components/AlertProvider";
 import {BrowserOpenURL, EventsOff, EventsOn} from "../../wailsjs/runtime";
-import {IconAlertCircleFilled, IconExternalLink} from "@tabler/icons-react";
+import {IconAlertCircleFilled, IconExternalLink, IconReload} from "@tabler/icons-react";
 import {Console} from "./server/Console";
 import {UpdaterModal} from "./UpdaterModal";
 import {InstallUpdateVerify} from "../../wailsjs/go/installer/InstallerController";
@@ -47,6 +47,12 @@ export const Server = ({id, className}: Props) => {
     defaultServer.serverAlias = ""
     defaultServer.ipAddress = "0.0.0.0"
 
+    const placeholderGus = {
+        "unknown": {
+            unknown: "", // Default value for MaxPlayers
+        },
+    }
+
 
 
     const [serv, setServ] = useState<server.Server>(defaultServer)
@@ -54,11 +60,34 @@ export const Server = ({id, className}: Props) => {
     const [serverStatus, setServerStatus] = useState(false)
     const [forceStopModalOpen, setForceStopModalOpen] = useState(false)
     const [startModalOpen, setStartModalOpen] = useState(false)
+    const [gus, setGus] = useState<{     [key: string]: {         [key: string]: string;     }; }>(placeholderGus)
 
     const [updaterModalOpen, setUpdaterModalOpen] = useState(false)
     const {addAlert} = useAlert()
 
     //region useEffect land :)
+
+    useEffect(() => {
+        if (serv.id >= 0) {
+            GetGusAsMap(serv.id).then((val) => setGus(val)).catch((reason) => console.error(reason))
+        }
+    }, [serv]);
+
+    /*useEffect(() => {
+        EventsOn("fileChanged", (data) => {
+            GetGusAsMap(serv.id).then((val) => {setGus(val); console.log(val)}).catch((reason) => console.error(reason))
+        })
+    }, []);*/
+
+    useEffect(() => {
+        //check if gus is placeholder
+        if (Object.keys(gus).length === 1 && Object.keys(gus)[0] === "unknown") {
+            return
+        }
+
+        //update gus with new values
+        SaveGusFromMap(serv.id, gus).catch((reason) => console.error(reason))
+    }, [gus]);
 
     useEffect(() => {
         if (serv.id >= 0) {
@@ -184,6 +213,9 @@ export const Server = ({id, className}: Props) => {
                             <Tooltip title={"Open server install directory"}>
                                 <IconButton className="text-lg font-bold ml-2" onClick={() => BrowserOpenURL("file:///" + serv.serverPath)}><IconExternalLink/></IconButton>
                             </Tooltip>
+                            <Tooltip title={"Reload ini values from files"}>
+                                <IconButton className="text-lg font-bold ml-2" onClick={() => {GetGusAsMap(serv.id).then((val) => setGus(val)).catch((reason) => console.error(reason))}}><IconReload/></IconButton>
+                            </Tooltip>
                         </div>
 
 
@@ -246,13 +278,13 @@ export const Server = ({id, className}: Props) => {
                         <Tab variant="plain" indicatorInset color="neutral">Console</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">General Settings</Tab>
                         <Tab variant="plain" indicatorInset color="neutral">Mods</Tab>
-                        <Tab variant="plain" indicatorInset color="neutral">Ini configuration</Tab>
+                        {/*<Tab variant="plain" indicatorInset color="neutral">Ini configuration</Tab>*/}
                         <Tab variant="plain" indicatorInset color="neutral">Administration</Tab>
                     </TabList>
                     <Console serv={serv} setServ={setServ} serverStatus={serverStatus}/>
-                    <General serv={serv} setServ={setServ}/>
+                    <General serv={serv} setServ={setServ} gus={gus} setGus={setGus}/>
                     <Mods setServ={setServ} serv={serv}></Mods>
-                    <Ini setServ={setServ} serv={serv}/>
+                    {/*<Ini setServ={setServ} serv={serv}/>*/}
                     <Administration serv={serv} setServ={setServ} onServerFilesDeleted={() => CheckServerInstalled(serv.id).then((val) => setIsInstalled(val)).catch((reason) => console.error(reason))}/>
                 </Tabs>) : (<InstallUpdater serv={serv} setServ={setServ} onInstalled={() => setIsInstalled(true)}/>)}
             </Card>
