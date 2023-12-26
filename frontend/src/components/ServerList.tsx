@@ -21,9 +21,19 @@ type Props = {
   handleCreateNewServerClicked: () => void;
 };
 
-export const ServerList = ({serverListType, servers, setActiveServer, setDrawerOpen, handleCreateNewServerClicked}: Props) => {
-  const [playerCounts, setPlayerCounts] = useState<Record<number, number | undefined>>({});
-  const [serverStatuses, setServerStatuses] = useState<Record<number, boolean | undefined>>({});
+export const ServerList = ({
+  serverListType,
+  servers,
+  setActiveServer,
+  setDrawerOpen,
+  handleCreateNewServerClicked,
+}: Props) => {
+  const [playerCounts, setPlayerCounts] = useState<
+    Record<number, number | undefined>
+  >({});
+  const [serverStatuses, setServerStatuses] = useState<
+    Record<number, boolean | undefined>
+  >({});
 
   const { addAlert } = useAlert();
 
@@ -33,7 +43,7 @@ export const ServerList = ({serverListType, servers, setActiveServer, setDrawerO
   useEffect(() => {
     const refreshPlayerCounts = async () => {
       if (!servers) {
-        return
+        return;
       }
 
       await Promise.all(
@@ -44,22 +54,24 @@ export const ServerList = ({serverListType, servers, setActiveServer, setDrawerO
             return;
           }
 
-          GetConnectedPlayerCount(serverId).then((count) => {
-            setPlayerCounts((prevPlayerCounts) => {
-              return {
-                ...prevPlayerCounts,
-                [serverId]: count as number,
-              };
+          GetConnectedPlayerCount(serverId)
+            .then((count) => {
+              setPlayerCounts((prevPlayerCounts) => {
+                return {
+                  ...prevPlayerCounts,
+                  [serverId]: count as number,
+                };
+              });
+            })
+            .catch(() => {
+              setPlayerCounts((prevPlayerCounts) => {
+                return {
+                  ...prevPlayerCounts,
+                  [serverId]: 0,
+                };
+              });
             });
-          }).catch(() => {
-            setPlayerCounts((prevPlayerCounts) => {
-              return {
-                ...prevPlayerCounts,
-                [serverId]: 0,
-              };
-            });
-          });
-        })
+        }),
       );
     };
 
@@ -69,7 +81,7 @@ export const ServerList = ({serverListType, servers, setActiveServer, setDrawerO
   useEffect(() => {
     const refreshServerStatuses = async () => {
       if (!servers) {
-        return
+        return;
       }
 
       await Promise.all(
@@ -80,18 +92,20 @@ export const ServerList = ({serverListType, servers, setActiveServer, setDrawerO
             return;
           }
 
-          GetServerStatus(serverId).catch((reason) => {
-            console.error("serverstatus: " + reason);
-            addAlert(reason, "danger");
-          }).then((count) => {
-            setServerStatuses((prevServerStatuses) => {
-              return {
-                ...prevServerStatuses,
-                [serverId]: count as boolean | undefined,
-              };
+          GetServerStatus(serverId)
+            .catch((reason) => {
+              console.error("serverstatus: " + reason);
+              addAlert(reason, "danger");
+            })
+            .then((count) => {
+              setServerStatuses((prevServerStatuses) => {
+                return {
+                  ...prevServerStatuses,
+                  [serverId]: count as boolean | undefined,
+                };
+              });
             });
-          });
-        })
+        }),
       );
     };
 
@@ -118,7 +132,8 @@ export const ServerList = ({serverListType, servers, setActiveServer, setDrawerO
             if (serverListType === ServerListType.LIST) {
               return (
                 <ListItem key={index}>
-                  <ListItemButton onClick={() => {
+                  <ListItemButton
+                    onClick={() => {
                       setActiveServer(index);
                       setDrawerOpen(false);
                     }}
@@ -130,14 +145,39 @@ export const ServerList = ({serverListType, servers, setActiveServer, setDrawerO
               );
             } else if (serverListType === ServerListType.CARD) {
               return (
-                <ListItem className={"w-[calc(100%_*_(1/4))] p-[10px]"} key={index}>
-                  <Card className={"cursor-pointer w-full"} onClick={() => {setActiveServer(index);}}>
+                <ListItem
+                  className={"w-[calc(100%_*_(1/4))] p-[10px]"}
+                  key={index}
+                >
+                  <Card
+                    className={"cursor-pointer w-full"}
+                    onClick={() => {
+                      setActiveServer(index);
+                    }}
+                  >
                     <div className={"px-2"}>
-                      <div className={"text-xl font-bold break-all"}>{server.serverAlias ? server.serverAlias : "Unnamed Server"}</div>
-                      <div className={"text-lg mb-2"}>{server.ipAddress}:{server.queryPort}</div>
+                      <div className={"text-xl font-bold break-all"}>
+                        {server.serverAlias
+                          ? server.serverAlias
+                          : "Unnamed Server"}
+                      </div>
+                      <div className={"text-lg mb-2"}>
+                        {server.ipAddress}:{server.queryPort}
+                      </div>
 
-                      <div>Players: {playerCount !== undefined ? `${playerCount}/${server.maxPlayers}` : "Loading..."}</div>
-                      <div>Status: {serverStatus !== undefined ? (serverStatus ? "Running" : "Stopped") : "Loading..."}
+                      <div>
+                        Players:{" "}
+                        {playerCount !== undefined
+                          ? `${playerCount}/${server.maxPlayers}`
+                          : "Loading..."}
+                      </div>
+                      <div>
+                        Status:{" "}
+                        {serverStatus !== undefined
+                          ? serverStatus
+                            ? "Running"
+                            : "Stopped"
+                          : "Loading..."}
                       </div>
                     </div>
                   </Card>
@@ -148,7 +188,10 @@ export const ServerList = ({serverListType, servers, setActiveServer, setDrawerO
         )}
       </List>
       {serverListType === ServerListType.CARD ? (
-        <Button className={"ml-[10px]"} onClick={() => handleCreateNewServerClicked()}>
+        <Button
+          className={"ml-[10px]"}
+          onClick={() => handleCreateNewServerClicked()}
+        >
           <IconPlus /> Create new server
         </Button>
       ) : (
