@@ -3,7 +3,6 @@ package server
 import (
 	"errors"
 	ini "github.com/JensvandeWiel/ark-ini"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
 	"path/filepath"
 )
@@ -32,9 +31,7 @@ func (s *Server) getGus() (*ini.IniFile, error) {
 // saveGus saves the GameUserSettings.ini file to disk
 func (s *Server) saveGus(gus *ini.IniFile) error {
 	gusPath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini")
-	runtime.LogDebug(s.ctx, "GUS before: "+gus.GetOrCreateSection("MessageOfTheDay").ToString())
 	s.updateGus(gus)
-	runtime.LogDebug(s.ctx, "GUS after: "+gus.GetOrCreateSection("MessageOfTheDay").ToString())
 	err := os.WriteFile(gusPath, []byte(gus.ToString()), 0644)
 	if err != nil {
 		return err
@@ -51,6 +48,16 @@ func (s *Server) updateGus(gus *ini.IniFile) {
 		serverSettings.AddOrReplaceKey("RCONEnabled", true)
 		serverSettings.AddOrReplaceKey("RCONPort", s.RCONPort)
 		serverSettings.AddOrReplaceKey("ServerAdminPassword", s.AdminPassword)
+		if s.ServerPassword != "" {
+			serverSettings.AddOrReplaceKey("ServerPassword", s.ServerPassword)
+		} else {
+			serverSettings.RemoveMultipleKey("ServerPassword")
+		}
+		if s.SpectatorPassword != "" {
+			serverSettings.AddOrReplaceKey("SpectatorPassword", s.SpectatorPassword)
+		} else {
+			serverSettings.RemoveMultipleKey("SpectatorPassword")
+		}
 		serverSettings.AddOrReplaceKey("ActiveMods", s.Mods)
 	}
 
