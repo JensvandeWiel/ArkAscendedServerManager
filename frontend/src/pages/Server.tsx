@@ -47,11 +47,12 @@ export const Server = ({id, className}: Props) => {
     defaultServer.serverAlias = ""
     defaultServer.ipAddress = "0.0.0.0"
 
-    const placeholderGus = {
+    const placeholderGus: {[key: string]: {[key: string]: Array<string>}} = {
         "unknown": {
-            unknown: "", // Default value for MaxPlayers
+            unknown: [""], // Default value for MaxPlayers
         },
-    }
+    };
+
 
 
 
@@ -60,7 +61,7 @@ export const Server = ({id, className}: Props) => {
     const [serverStatus, setServerStatus] = useState(false)
     const [forceStopModalOpen, setForceStopModalOpen] = useState(false)
     const [startModalOpen, setStartModalOpen] = useState(false)
-    const [gus, setGus] = useState<{     [key: string]: {         [key: string]: string;     }; }>(placeholderGus)
+    const [gus, setGus] = useState<{[key: string]: {[key: string]: Array<string>}}>(placeholderGus)
 
     const [updaterModalOpen, setUpdaterModalOpen] = useState(false)
     const {addAlert} = useAlert()

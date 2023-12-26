@@ -3,9 +3,12 @@ package server
 import (
 	"errors"
 	ini "github.com/JensvandeWiel/ark-ini"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os"
 	"path/filepath"
 )
+
+var duplicateKeys = []string{}
 
 // getGus returns the GameUserSettings.ini file as an ini.IniFile struct
 func (s *Server) getGus() (*ini.IniFile, error) {
@@ -16,7 +19,7 @@ func (s *Server) getGus() (*ini.IniFile, error) {
 		return nil, errors.New("error reading GameUserSettings.ini: " + err.Error())
 	}
 
-	gus, err := ini.DeserializeIniFile(string(gusContent) /*insert allowed duplicate keys here*/)
+	gus, err := ini.DeserializeIniFile(string(gusContent), duplicateKeys... /*insert allowed duplicate keys here*/)
 	if err != nil {
 		return nil, err
 	}
@@ -29,9 +32,9 @@ func (s *Server) getGus() (*ini.IniFile, error) {
 // saveGus saves the GameUserSettings.ini file to disk
 func (s *Server) saveGus(gus *ini.IniFile) error {
 	gusPath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini")
-
+	runtime.LogDebug(s.ctx, "GUS before: "+gus.GetOrCreateSection("MessageOfTheDay").ToString())
 	s.updateGus(gus)
-
+	runtime.LogDebug(s.ctx, "GUS after: "+gus.GetOrCreateSection("MessageOfTheDay").ToString())
 	err := os.WriteFile(gusPath, []byte(gus.ToString()), 0644)
 	if err != nil {
 		return err
@@ -89,7 +92,7 @@ func (s *Server) updateValueInGus(sectionName string, keyName string, value inte
 	return nil
 }
 
-func (s *Server) getGusAsMap() (map[string]map[string]string, error) {
+func (s *Server) getGusAsMap() (map[string]map[string][]string, error) {
 	gus, err := s.getGus()
 	if err != nil {
 		return nil, err
@@ -98,8 +101,8 @@ func (s *Server) getGusAsMap() (map[string]map[string]string, error) {
 	return ini.ToMap(gus), nil
 }
 
-func (s *Server) saveGusFromMap(gusMap map[string]map[string]string) error {
-	gus := ini.DeserializeFromMap(gusMap)
+func (s *Server) saveGusFromMap(gusMap map[string]map[string][]string) error {
+	gus := ini.DeserializeFromMap(gusMap, duplicateKeys...)
 
 	err := s.saveGus(gus)
 	if err != nil {

@@ -25,8 +25,8 @@ import {EventsOn} from "../../../wailsjs/runtime";
 type Props = {
     setServ: React.Dispatch<React.SetStateAction<server.Server>>
     serv: server.Server;
-    setGus:  React.Dispatch<React.SetStateAction<{[p: string]: {[p: string]: string}}>>
-    gus: {[p: string]: {[p: string]: string}}
+    setGus:  React.Dispatch<React.SetStateAction<{[key: string]: {[key: string]: Array<string>}}>>
+    gus: {[key: string]: {[key: string]: Array<string>}}
 
 }
 
@@ -88,11 +88,11 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
                         <FormLabel>Auto Save interval:</FormLabel>
                         <Tooltip title={"Duration that the message is visible in seconds"}>
                             <Slider
-                                value={parseFloat(gus["ServerSettings"]["AutoSavePeriodMinutes"]?? "0")}
+                                value={parseFloat(gus["ServerSettings"]["AutoSavePeriodMinutes"][0]?? "0")}
                                 onChange={(v) => {
                                     setGus((p) => {
                                         const newState = {...p};
-                                        newState["ServerSettings"].AutoSavePeriodMinutes = v.toString();
+                                        newState["ServerSettings"].AutoSavePeriodMinutes[0] = v.toString();
                                         return newState;
                                     })
                                 }}
@@ -108,10 +108,10 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
                 <div className={'w-[100%] space-y-4'}>
                     <div className={''}>
                         <FormLabel>Message</FormLabel>
-                        <Textarea minRows={5} value={gus["MessageOfTheDay"].Message} onChange={(e) => {
+                        <Textarea minRows={5} value={gus["MessageOfTheDay"].Message[0]} onChange={(e) => {
                             setGus((p) => {
                                 const newState = {...p};
-                                newState["MessageOfTheDay"].Message = e.target.value;
+                                newState["MessageOfTheDay"].Message[0] = e.target.value;
                                 return newState;
                             })
                         }}></Textarea>
@@ -122,12 +122,12 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
                             <Slider
                                 sliderStep={1}
                                 sliderMax={240}
-                                value={parseFloat(gus["MessageOfTheDay"].Duration)?? 0}
+                                value={parseFloat(gus["MessageOfTheDay"].Duration[0])?? 0}
                                 onChange={(v) => {
                                     if (v >= 0) {
                                         setGus((p) => {
                                             const newState = {...p};
-                                            newState["MessageOfTheDay"].Duration = v.toString();
+                                            newState["MessageOfTheDay"].Duration[0] = v.toString();
                                             return newState;
                                         })
                                     }
@@ -170,12 +170,12 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
                                 disabled={!(serv?.kickIdlePlayers)}
                                 sliderStep={1}
                                 sliderMax={3600}
-                                value={parseFloat(gus["ServerSettings"].KickIdlePlayersPeriod)?? 0}
+                                value={parseFloat(gus["ServerSettings"].KickIdlePlayersPeriod[0])?? 0}
                                 onChange={(v) => {
                                     if (v >= 0) {
                                         setGus((p) => {
                                             const newState = {...p};
-                                            newState["ServerSettings"].KickIdlePlayersPeriod = v.toString();
+                                            newState["ServerSettings"].KickIdlePlayersPeriod[0] = v.toString();
                                             return newState;
                                         });
                                     }

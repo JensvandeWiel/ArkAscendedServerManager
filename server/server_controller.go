@@ -308,7 +308,7 @@ func (c *ServerController) UpdateValueInGame(id int, sectionName string, keyName
 	return nil
 }
 
-func (c *ServerController) GetGusAsMap(id int) (map[string]map[string]string, error) {
+func (c *ServerController) GetGusAsMap(id int) (map[string]map[string][]string, error) {
 	server, err := c.getServer(id, false)
 	if err != nil {
 		newErr := fmt.Errorf("error getting gus as map " + strconv.Itoa(id) + ": server does not exist in map")
@@ -326,7 +326,7 @@ func (c *ServerController) GetGusAsMap(id int) (map[string]map[string]string, er
 	return gus, nil
 }
 
-func (c *ServerController) SaveGusFromMap(id int, gusMap map[string]map[string]string) error {
+func (c *ServerController) SaveGusFromMap(id int, gusMap map[string]map[string][]string) error {
 	server, err := c.getServer(id, false)
 	if err != nil {
 		newErr := fmt.Errorf("error saving gus from map " + strconv.Itoa(id) + ": server does not exist in map")

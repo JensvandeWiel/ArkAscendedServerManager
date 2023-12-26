@@ -89,7 +89,7 @@ func (s *Server) updateValueInGame(sectionName string, keyName string, value int
 	return nil
 }
 
-func (s *Server) getGameAsMap() (map[string]map[string]string, error) {
+func (s *Server) getGameAsMap() (map[string]map[string][]string, error) {
 	game, err := s.getGame()
 	if err != nil {
 		return nil, err
@@ -98,7 +98,7 @@ func (s *Server) getGameAsMap() (map[string]map[string]string, error) {
 	return ini.ToMap(game), nil
 }
 
-func (s *Server) saveGameFromMap(gameMap map[string]map[string]string) error {
+func (s *Server) saveGameFromMap(gameMap map[string]map[string][]string) error {
 	game := ini.DeserializeFromMap(gameMap)
 
 	err := s.saveGame(game)
