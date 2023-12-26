@@ -206,7 +206,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 				<Divider className={"mx-2"} />
 				<div className={"w-[100%] space-y-4"}>
 					<div className={"flex space-x-2"}>
-						<div className={"flex-grow"}>
+						<div className={"flex-grow space-y-2"}>
 							<FormLabel>Max Players:</FormLabel>
 							<Slider
 								className={""}
@@ -224,7 +224,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 								}}
 							/>
 						</div>
-						<div className={"flex-grow"}>
+						<div className={"flex-grow space-y-2"}>
 							<Tooltip
 								title={
 									"The duration before an idle player gets kicked in seconds"
@@ -272,11 +272,42 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 							/>
 						</div>
 					</div>
+					<div className={"space-y-2"}>
+						<FormLabel>Ban list url:</FormLabel>
+						<Input
+							value={gus["ServerSettings"]["BanListURL"]}
+							onChange={(e) => {
+								setGus((p) => {
+									const newState = { ...p };
+									newState["ServerSettings"]["BanListURL"] = [
+										e.target.value,
+									];
+									return newState;
+								});
+							}}
+						></Input>
+					</div>
+					<div className={"space-y-2"}>
+						<FormLabel>Allowed Cheaters URL:</FormLabel>
+						<Input
+							value={gus["ServerSettings"]["AllowedCheatersURL"]}
+							onChange={(e) => {
+								setGus((p) => {
+									const newState = { ...p };
+									newState["ServerSettings"][
+										"AllowedCheatersURL"
+									] = [e.target.value];
+									return newState;
+								});
+							}}
+						></Input>
+					</div>
 				</div>
 			</Card>
 		);
 	}
 }
+
 function NetworkingCard({
 	setServ,
 	serv,
