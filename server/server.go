@@ -3,6 +3,8 @@ package server
 import (
 	"context"
 	"fmt"
+	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 	"os/exec"
 	"path"
 	"path/filepath"
@@ -10,9 +12,6 @@ import (
 	"strings"
 	"syscall"
 	"time"
-
-	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
-	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // Server contains the server "stuff"
@@ -64,14 +63,8 @@ type Server struct {
 	RCONPort   int    `json:"rconPort"`
 
 	//Server configuration
-
-	//INI
-	GameUserSettings       GameUserSettings `json:"gameUserSettings"`
-	Game                   Game             `json:"game"`
-	AdditionalGUSSections  string           `json:"additionalGUSSections"`
-	AdditionalGameSections string           `json:"additionalGameSections"`
-	RefGUSPath             string           `json:"refGUSPath"`
-	RefGamePath            string           `json:"refGamePath"`
+	/*gus *ini.IniFile `json:"-"`
+	game *ini.IniFile `json:"-"`*/
 
 	ServerMap  string `json:"serverMap"`
 	MaxPlayers int    `json:"maxPlayers"`
@@ -79,27 +72,35 @@ type Server struct {
 	StartWithApplication bool `json:"startWithApplication"`
 }
 
+// Init runs the code that needs to be run when the server is created/loaded like watching the config files
+func (s *Server) Init() {
+	//watch the config files for changes if they change emit an event
+
+}
+
 // UpdateConfig updates the configuration files for the server e.g.: GameUserSettings.ini
 func (s *Server) UpdateConfig() error {
 
-	err := CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini"))
+	gamePath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini")
+	gusPath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini")
+
+	err := CopyAndMakeOld(gusPath)
 	if err != nil {
 		return err
 	}
-	err = CopyAndMakeOld(filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini"))
+	err = CopyAndMakeOld(gamePath)
 	if err != nil {
 		return err
 	}
 
-	err = s.SaveGameIni(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"), false)
-	if err != nil {
-		return err
-	}
+	//load gus and game ini
 
-	err = s.SaveGameUserSettingsIni(filepath.Join(s.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"), false)
+	//get and update gus before starting server
+	gus, err := s.getGus()
 	if err != nil {
 		return err
 	}
+	s.updateGus(gus)
 
 	return nil
 }

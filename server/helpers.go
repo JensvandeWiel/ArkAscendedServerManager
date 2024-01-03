@@ -78,7 +78,7 @@ func generateNewDefaultServer(id int) Server {
 		spectatorPassword = "default"
 	}*/
 
-	return Server{
+	serv := Server{
 		Id: id,
 
 		DisableUpdateOnStart: false,
@@ -103,14 +103,13 @@ func generateNewDefaultServer(id int) Server {
 		QueryPort:  27015,
 		RCONPort:   28015,
 
-		GameUserSettings: generateNewDefaultGameUserSettings(),
-		Game:             generateNewDefaultGame(),
-
 		ServerMap:  "TheIsland_WP",
 		MaxPlayers: 70,
 
 		StartWithApplication: false,
 	}
+
+	return serv
 }
 
 func CheckIfServerCorrect(server *Server) error {

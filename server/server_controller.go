@@ -15,9 +15,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/fsnotify/fsnotify"
 	"os"
 	"path"
-	"path/filepath"
 	"strconv"
 
 	"github.com/JensvandeWiel/ArkAscendedServerManager/helpers"
@@ -34,6 +34,7 @@ type ServerController struct {
 	ctx       context.Context
 	Servers   map[int]*Server
 	helpers   *helpers.HelpersController
+	watcher   *fsnotify.Watcher
 	serverDir string
 }
 
@@ -57,8 +58,17 @@ func (c *ServerController) Startup(ctx context.Context) {
 	}
 
 	c.serverDir = serverDir
+	c.watcher, err = fsnotify.NewWatcher()
+	if err != nil {
+		runtime.LogFatalf(c.ctx, "Error creating fsnotify watcher: %s, app will be in an unuseable state", err.Error())
+	}
 
 	c.StartServersWithApplication()
+	c.InitAllServers()
+}
+
+func (c *ServerController) Shutdown() {
+	c.watcher.Close()
 }
 
 // endregion
@@ -76,70 +86,50 @@ func (c *ServerController) StartServersWithApplication() {
 		server := c.Servers[id]
 		runtime.LogInfof(c.ctx, "Starting server %s automatically", server.ServerName)
 		if server.StartWithApplication {
-			c.StartServer(server.Id)
+			err := c.StartServer(server.Id)
+			if err != nil {
+				runtime.LogError(c.ctx, "Error starting server "+strconv.Itoa(server.Id)+" automatically: "+err.Error())
+			}
 		}
 	}
+}
+
+func (c *ServerController) InitAllServers() {
+
+	/*//setup watcher
+	go func() {
+		for {
+			select {
+			case event, ok := <-c.watcher.Events:
+				if !ok {
+					return
+				}
+				runtime.LogDebug(c.ctx, "watcher event: "+event.String())
+				if event.Has(fsnotify.Write) {
+					runtime.EventsEmit(c.ctx, "fileChanged", event.Name)
+				}
+			case err, ok := <-c.watcher.Errors:
+				if !ok {
+					return
+				}
+				runtime.LogError(c.ctx, "error:"+err.Error())
+			}
+		}
+	}()
+
+	//for each server in the map add a watcher for the config file
+	for id := range c.Servers {
+		server := c.Servers[id]
+		err := c.watcher.Add(filepath.Join(server.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer"))
+		if err != nil {
+			runtime.LogErrorf(c.ctx, "Error adding watcher for server %s: %s", server.ServerName, err.Error())
+		}
+	}*/
 }
 
 //endregion
 
 //region Frontend functions
-
-// TODO: Really need to add every single setting with accurate naming
-// Could also do with importing Game.ini, this is something I can do in a future PR
-func (c *ServerController) ImportSettingsFromFile(serverId int, gusFilePath string, gameFilePath string) error {
-	server, err := c.GetServer(serverId)
-	if err != nil {
-		return err
-	}
-
-	err = ensureFilePath(gusFilePath)
-	if err != nil {
-		newErr := fmt.Errorf("Failed to parse GameUserSettings.ini: " + err.Error())
-		return newErr
-	}
-
-	err = ensureFilePath(gameFilePath)
-	if err != nil {
-		newErr := fmt.Errorf("Failed to parse Game.ini: " + err.Error())
-		return newErr
-	}
-
-	err = server.SaveGameUserSettingsIni(gusFilePath, true)
-	if err != nil {
-		return err
-	}
-
-	err = server.SaveGameIni(gameFilePath, true)
-	if err != nil {
-		return err
-	}
-
-	server.UseIniConfig = false // once imported, don't have to use the ini config anymore
-
-	c.SaveServer(server)
-
-	return nil
-}
-
-func (c *ServerController) SaveGUSAndGame(serverId int) error {
-	server, err := c.GetServer(serverId)
-	if err != nil {
-		return err
-	}
-
-	err = server.SaveGameUserSettingsIni(filepath.Join(server.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\GameUserSettings.ini"), false)
-	if err != nil {
-		return err
-	}
-
-	err = server.SaveGameIni(filepath.Join(server.ServerPath, "ShooterGame\\Saved\\Config\\WindowsServer\\Game.ini"), false)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
 
 // GetAllServers gets all servers and saves them to ServerController.Servers and also returns them, if it fails it returns nil and error. If they already exist in the map it will just get that.
 func (c *ServerController) GetAllServers() (map[int]Server, error) {
@@ -205,6 +195,7 @@ func (c *ServerController) GetConnectedPlayerCount(id int) (int, error) {
 
 // CreateServer Creates a new server, returns it and adds it to the map. If it fails it returns an error which is catch-able in the Frontend.
 func (c *ServerController) CreateServer(saveToConfig bool) (Server, error) {
+
 	_, server, err := c.createServer(saveToConfig)
 	if err != nil {
 		newErr := fmt.Errorf("Failed saving new server: " + err.Error())
@@ -281,6 +272,116 @@ func (c *ServerController) SaveServerConfigFile(content string, id int) error {
 
 }
 
+func (c *ServerController) UpdateValueInGus(id int, sectionName string, keyName string, value string) error {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in gus " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	err = server.updateValueInGus(sectionName, keyName, value)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in gus " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	return nil
+}
+
+func (c *ServerController) UpdateValueInGame(id int, sectionName string, keyName string, value string) error {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in game " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	err = server.updateValueInGame(sectionName, keyName, value)
+	if err != nil {
+		newErr := fmt.Errorf("error updating value in game " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	return nil
+}
+
+func (c *ServerController) GetGusAsMap(id int) (map[string]map[string][]string, error) {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error getting gus as map " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return nil, newErr
+	}
+
+	gus, err := server.getGusAsMap()
+	if err != nil {
+		newErr := fmt.Errorf("error getting gus as map " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return nil, newErr
+	}
+
+	return gus, nil
+}
+
+func (c *ServerController) SaveGusFromMap(id int, gusMap map[string]map[string][]string) error {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error saving gus from map " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	err = server.saveGusFromMap(gusMap)
+	if err != nil {
+		newErr := fmt.Errorf("error saving gus from map " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return newErr
+	}
+
+	return nil
+}
+
+// GetValueFromGus returns the value from the gus with the given section and key name. If it fails it returns an error which is catch-able
+func (c *ServerController) GetValueFromGus(id int, sectionName string, keyName string) (string, error) {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from gus " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	value, err := server.getValueFromGus(sectionName, keyName)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from gus " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	return value, nil
+}
+
+// GetValueFromGame returns the value from the game with the given section and key name. If it fails it returns an error which is catch-able
+func (c *ServerController) GetValueFromGame(id int, sectionName string, keyName string) (string, error) {
+	server, err := c.getServer(id, false)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from game " + strconv.Itoa(id) + ": server does not exist in map")
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	value, err := server.getValueFromGame(sectionName, keyName)
+	if err != nil {
+		newErr := fmt.Errorf("error getting value from game " + strconv.Itoa(id) + ": " + err.Error())
+		runtime.LogError(c.ctx, newErr.Error())
+		return "", newErr
+	}
+
+	return value, nil
+}
+
 //region Private
 
 // getServerFromDir gets the server from the server dir if it does not exist and shouldReturnNew is true it returns a new server.
@@ -337,7 +438,7 @@ func (c *ServerController) getServerFromDir(id int, shouldReturnNew bool) (Serve
 
 //endregion
 
-// SaveServer saves the server with the given id, and returns bool if successful
+/*// SaveServer saves the server with the given id, and returns bool if successful
 func (c *ServerController) SaveServerGus(id int, gus GameUserSettings) error {
 
 	//TODO Make sure oldserv members get passed over to new instance since frontend will change all members even Command (which should not be updated by the frontend)
@@ -359,7 +460,7 @@ func (c *ServerController) SaveServerGus(id int, gus GameUserSettings) error {
 		return newErr
 	}
 	return nil
-}
+}*/
 
 //endregion
 
@@ -391,6 +492,7 @@ func (c *ServerController) getServer(id int, addToMap bool) (*Server, error) {
 
 // createServer Creates a new server, returns it and adds it to the map, it also returns the key. If it fails it returns an error and an empty server and int -1
 func (c *ServerController) createServer(saveToConfig bool) (int, *Server, error) {
+	//TODO only spot where we load from the config file, we need to implement the ini file watching here
 	// get the highest in to generate new id
 	maxKey := findHighestKey(c.Servers)
 	id := maxKey + 1
@@ -416,6 +518,7 @@ func (c *ServerController) createServer(saveToConfig bool) (int, *Server, error)
 
 	runtime.EventsEmit(c.ctx, "serverCreated", NewServer.Id)
 	NewServer.ctx = c.ctx
+	NewServer.Init()
 
 	return id, &NewServer, nil
 }

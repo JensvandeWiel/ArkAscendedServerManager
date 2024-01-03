@@ -64,6 +64,9 @@ func main() {
 			s.Startup(ctx)
 			i.Startup(ctx)
 		},
+		OnShutdown: func(ctx context.Context) {
+			s.Shutdown()
+		},
 		Logger:   l,
 		LogLevel: wailsLogger.TRACE,
 		Bind: []interface{}{
