@@ -12,6 +12,16 @@ var duplicateKeys = []string{}
 // getGus returns the GameUserSettings.ini file as an ini.IniFile struct
 func (s *Server) getGus() (*ini.IniFile, error) {
 	gusPath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "GameUserSettings.ini")
+	if _, err := os.Stat(gusPath); os.IsNotExist(err) {
+		err = os.MkdirAll(filepath.Dir(gusPath), 0644)
+		if err != nil {
+			return nil, err
+		}
+		err = os.WriteFile(gusPath, []byte(""), 0644)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	gusContent, err := os.ReadFile(gusPath)
 	if err != nil {

@@ -11,6 +11,17 @@ import (
 func (s *Server) getGame() (*ini.IniFile, error) {
 	gamePath := filepath.Join(s.ServerPath, "ShooterGame", "Saved", "Config", "WindowsServer", "Game.ini")
 
+	if _, err := os.Stat(gamePath); os.IsNotExist(err) {
+		err = os.MkdirAll(filepath.Dir(gamePath), 0644)
+		if err != nil {
+			return nil, err
+		}
+		err = os.WriteFile(gamePath, []byte(""), 0644)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	gameContent, err := os.ReadFile(gamePath)
 	if err != nil {
 		return nil, errors.New("error reading Game.ini: " + err.Error())

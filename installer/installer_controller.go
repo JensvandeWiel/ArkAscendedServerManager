@@ -50,7 +50,7 @@ func (c *InstallerController) InstallUpdateVerify(installPath string) error {
 	}
 
 	c.config.GetConfig()
-	steamCMDPath = c.config.Config.SteamCMDPath
+	steamCMDPath = "\"" + c.config.Config.SteamCMDPath + "\""
 
 	prompts := []*gosteamcmd.Prompt{
 		gosteamcmd.ForceInstallDir("\"" + installPath + "\""),

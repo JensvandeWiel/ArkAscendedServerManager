@@ -26,6 +26,7 @@ import { PasswordInput } from "../../components/PasswordInput";
 import { Slider } from "../../components/Slider";
 import { useAlert } from "../../components/AlertProvider";
 import { EventsOn } from "../../../wailsjs/runtime";
+import {getVal} from "../../helpers/ini";
 
 type Props = {
 	setServ: React.Dispatch<React.SetStateAction<server.Server>>;
@@ -136,9 +137,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 						>
 							<Slider
 								value={parseFloat(
-									gus["ServerSettings"][
-										"AutoSavePeriodMinutes"
-									][0] ?? "0",
+									getVal(gus, "ServerSettings", "AutoSavePeriodMinutes") ?? "0",
 								)}
 								onChange={(v) => {
 									setGus((p) => {
@@ -161,11 +160,11 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 						<FormLabel>Message</FormLabel>
 						<Textarea
 							minRows={5}
-							value={gus["MessageOfTheDay"].Message[0]}
+							value={getVal(gus, "MessageOfTheDay", "Message")}
 							onChange={(e) => {
 								setGus((p) => {
 									const newState = { ...p };
-									newState["MessageOfTheDay"].Message[0] =
+									newState["MessageOfTheDay"]["Message"][0] =
 										e.target.value;
 									return newState;
 								});
@@ -184,7 +183,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 								sliderMax={240}
 								value={
 									parseFloat(
-										gus["MessageOfTheDay"].Duration[0],
+										getVal(gus, "MessageOfTheDay", "Duration"),
 									) ?? 0
 								}
 								onChange={(v) => {
@@ -253,8 +252,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 								sliderMax={3600}
 								value={
 									parseFloat(
-										gus["ServerSettings"]
-											.KickIdlePlayersPeriod[0],
+										getVal(gus, "ServerSettings", "KickIdlePlayersPeriod"),
 									) ?? 0
 								}
 								onChange={(v) => {
@@ -275,7 +273,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 					<div className={"space-y-2"}>
 						<FormLabel>Ban list url:</FormLabel>
 						<Input
-							value={gus["ServerSettings"]["BanListURL"]}
+							value={getVal(gus, "ServerSettings", "BanListURL")}
 							onChange={(e) => {
 								setGus((p) => {
 									const newState = { ...p };
@@ -290,7 +288,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 					<div className={"space-y-2"}>
 						<FormLabel>Allowed Cheaters URL:</FormLabel>
 						<Input
-							value={gus["ServerSettings"]["AllowedCheatersURL"]}
+							value={getVal(gus, "ServerSettings", "AllowedCheatersURL")}
 							onChange={(e) => {
 								setGus((p) => {
 									const newState = { ...p };
