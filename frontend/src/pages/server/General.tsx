@@ -137,9 +137,7 @@ function GeneralSettings({ setServ, serv, setGus, gus }: Props) {
 						>
 							<Slider
 								value={parseFloat(
-									gus["ServerSettings"][
-										"AutoSavePeriodMinutes"
-									][0] ?? "0",
+									getVal(gus, "ServerSettings", "AutoSavePeriodMinutes") ?? "0",
 								)}
 								onChange={(v) => {
 									setGus((p) => {
