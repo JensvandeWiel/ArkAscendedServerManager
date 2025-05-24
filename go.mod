@@ -1,8 +1,6 @@
 module github.com/JensvandeWiel/ArkAscendedServerManager
 
-go 1.21
-
-toolchain go1.21.5
+go 1.23.0
 
 require (
 	github.com/JensvandeWiel/ark-ini v1.2.0
@@ -17,7 +15,7 @@ require (
 	github.com/sethvargo/go-password v0.2.0
 	github.com/sqweek/dialog v0.0.0-20220809060634-e981b270ebbf
 	github.com/wailsapp/wails/v2 v2.7.1
-	golang.org/x/sys v0.15.0
+	golang.org/x/sys v0.31.0
 )
 
 require (
@@ -45,10 +43,10 @@ require (
 	github.com/valyala/fasttemplate v1.2.2 // indirect
 	github.com/wailsapp/go-webview2 v1.0.10 // indirect
 	github.com/wailsapp/mimetype v1.4.1 // indirect
-	golang.org/x/crypto v0.17.0 // indirect
+	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
-	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 )
 
 // replace github.com/wailsapp/wails/v2 v2.6.0 => C:\Users\jens\go\pkg\mod
