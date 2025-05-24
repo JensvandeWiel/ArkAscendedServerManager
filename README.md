@@ -1,10 +1,10 @@
 # Ark Ascended Server Manager
-⚠️ Archived: Lately i have not had any time for this project, this is why it's archived, this does not say anything about the future, there is a change this will get revived or a new project will arise. As alternative i recommend: https://github.com/ChronosWS/asma
+#⚠️ Project is back on track, look in the discord for more information!
 ##### A multi server manager for the game: ARK: Survival Ascended
 <img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/63e303e8-f2a8-4cdc-9c2c-4eb68050b051" width="600" ></img>
 <img src="https://github.com/JensvandeWiel/ArkAscendedServerManager/assets/53059031/2d7a2314-9b87-45b4-9469-f018c4fedb0d" width="600" ></img>
 ### Why
-For ARK: SE there only existed a closed source with relic like code🧓. When they made the announcement that they won't make a new version/update their software for ARK: Ascended we stepped in to fill the void, our goal is to make this software easy to use and cross platform (when we get linux binaries for the servers).
+For ARK: SE there only existed project with relic like code🧓. When they made the announcement that they won't make a new version/update their software for ARK: Ascended we stepped in to fill the void, our goal is to make this software easy to use and cross platform (when we get linux binaries for the servers).
 ### How to use
 For now the only way is to use the [nightly](https://github.com/JensvandeWiel/ArkAscendedServerManager/releases/tag/nightly) release, this is because we are not yet ready to release an alpha version. You can download the installer and install! **(nightly is unstable and does not have auto updating at this time!)**
 
