@@ -6,3 +6,11 @@ allprojects {
     }
 }
 
+group = "eu.wynq.arkascendedservermanager"
+
+
+plugins {
+    alias(libs.plugins.lumo)
+    alias(libs.plugins.kotlin.jvm) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+}

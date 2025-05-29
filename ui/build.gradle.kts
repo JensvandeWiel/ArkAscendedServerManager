@@ -19,7 +19,10 @@ dependencies {
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     implementation(project(":core"))
+    implementation(project(":components"))
 }
+
+group = parent!!.group
 
 compose.desktop {
     application {

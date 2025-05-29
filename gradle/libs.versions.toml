@@ -7,4 +7,5 @@ composePlugin = "2.1.21"
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composePlugin" }
+lumo = { id = "com.nomanr.plugin.lumo", version = "1.2.5" }
 
