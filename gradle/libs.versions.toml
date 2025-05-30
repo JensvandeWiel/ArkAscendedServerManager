@@ -2,10 +2,17 @@
 kotlin = "2.1.21"
 compose = "1.7.3"
 composePlugin = "2.1.21"
+decompose = "3.3.0"
+fluentUi = "0.0.1-dev.8"
+
+[libraries]
+decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
+decomposeExtensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
+fluentUi = { module = "com.konyaco:fluent", version.ref = "fluentUi" }
+fluentIconsExtended = { module = "com.konyaco:fluent-icons-extended", version.ref = "fluentUi" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composePlugin" }
-lumo = { id = "com.nomanr.plugin.lumo", version = "1.2.5" }
-
+kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

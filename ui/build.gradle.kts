@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.compose)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 repositories {
@@ -19,7 +20,10 @@ dependencies {
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
     implementation(project(":core"))
-    implementation(project(":components"))
+    implementation(libs.decompose)
+    implementation(libs.decomposeExtensions)
+    implementation(libs.fluentUi)
+    implementation(libs.fluentIconsExtended)
 }
 
 group = parent!!.group
