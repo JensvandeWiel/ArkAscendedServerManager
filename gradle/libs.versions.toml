@@ -4,6 +4,8 @@ compose = "1.7.3"
 composePlugin = "2.1.21"
 decompose = "3.3.0"
 fluentUi = "0.0.1-dev.8"
+kotlinLogging = "5.1.1"
+slf4j = "2.0.12"
 
 [libraries]
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
@@ -12,9 +14,13 @@ fluentUi = { module = "com.konyaco:fluent", version.ref = "fluentUi" }
 fluentIconsExtended = { module = "com.konyaco:fluent-icons-extended", version.ref = "fluentUi" }
 kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
 sonner = { module = "io.github.dokar3:sonner", version = "0.3.8" }
+kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlinLogging" }
+slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+logbackClassic = { module = "ch.qos.logback:logback-classic", version = "1.5.6" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 compose = { id = "org.jetbrains.compose", version.ref = "compose" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "composePlugin" }
 kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+

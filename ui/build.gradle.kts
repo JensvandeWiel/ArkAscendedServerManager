@@ -25,6 +25,11 @@ dependencies {
     implementation(libs.fluentUi)
     implementation(libs.fluentIconsExtended)
     implementation(libs.sonner)
+
+    // Logging dependencies
+    implementation(libs.kotlinLogging)
+    implementation(libs.slf4jApi)
+    implementation(libs.logbackClassic)
 }
 
 group = parent!!.group
