@@ -24,6 +24,7 @@ dependencies {
     implementation(libs.decomposeExtensions)
     implementation(libs.fluentUi)
     implementation(libs.fluentIconsExtended)
+    implementation(libs.sonner)
 }
 
 group = parent!!.group

@@ -4,21 +4,52 @@ import androidx.compose.ui.text.input.TextFieldValue
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.dokar.sonner.ToastType
+import settings.SettingsHelper
+import ui.ToastManager
 
 class SettingsComponent(
     componentContext: ComponentContext
 ) : ComponentContext by componentContext {
-    private val _model = MutableValue(SettingsModel(TextFieldValue("")))
-    val model: Value<SettingsModel> get() = _model
+    private val _model: MutableValue<SettingsModel>
 
     init {
-        _model.subscribe {
-            println("SettingsModel updated: value1 = ${it.value1.text}")
+        val settings = SettingsHelper().getSettings()
+        if (settings.isFailure) {
+            ToastManager.get()
+                .toast(settings.exceptionOrNull()?.message ?: "Failed to load settings", type = ToastType.Error)
         }
+        _model = MutableValue(
+            settings.getOrNull()?.toSettingsModel() ?: SettingsModel(
+                steamCmdPath = TextFieldValue(""),
+                applicationDataPath = TextFieldValue("")
+            )
+        )
     }
 
-    fun updateValue1(newValue: TextFieldValue) {
-        println("Updating value1 to: ${newValue.text}")
-        _model.value = _model.value.copy(value1 = newValue)
+    val model: Value<SettingsModel> get() = _model
+
+    fun updateSteamCmdPath(newValue: TextFieldValue) {
+        _model.value = _model.value.copy(steamCmdPath = newValue)
+    }
+
+    fun updateApplicationDataPath(newValue: TextFieldValue) {
+        _model.value = _model.value.copy(applicationDataPath = newValue)
+    }
+
+    fun saveSettings() {
+        val validationResult = _model.value.validate()
+        if (!validationResult.isValid) {
+            ToastManager.get().toast(validationResult.error ?: "Unknown error", type = ToastType.Error)
+            return
+        }
+        val settings = _model.value.toSettings()
+        val result = SettingsHelper().saveSettings(settings)
+        if (result.isFailure) {
+            ToastManager.get()
+                .toast(result.exceptionOrNull()?.message ?: "Failed to save settings", type = ToastType.Error)
+            return
+        }
+        ToastManager.get().toast("Settings saved successfully", type = ToastType.Success)
     }
 }

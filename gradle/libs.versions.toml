@@ -10,6 +10,8 @@ decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decom
 decomposeExtensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
 fluentUi = { module = "com.konyaco:fluent", version.ref = "fluentUi" }
 fluentIconsExtended = { module = "com.konyaco:fluent-icons-extended", version.ref = "fluentUi" }
+kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
+sonner = { module = "io.github.dokar3:sonner", version = "0.3.8" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
