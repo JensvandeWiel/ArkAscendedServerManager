@@ -17,6 +17,7 @@ sonner = { module = "io.github.dokar3:sonner", version = "0.3.8" }
 kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlinLogging" }
 slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logbackClassic = { module = "ch.qos.logback:logback-classic", version = "1.5.6" }
+nomenEstOmen = { module = "com.oblac:nomen-est-omen", version = "2.2.1" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

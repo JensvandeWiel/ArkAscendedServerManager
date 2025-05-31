@@ -15,12 +15,12 @@ import com.konyaco.fluent.component.SideNavItem
 import com.konyaco.fluent.component.Text
 import com.konyaco.fluent.darkColors
 import com.konyaco.fluent.icons.Icons
-import com.konyaco.fluent.icons.regular.Home
+import com.konyaco.fluent.icons.regular.Server
 import com.konyaco.fluent.icons.regular.Settings
 import com.konyaco.fluent.surface.Card
 import ui.ToastHost
-import ui.main.MainScreen
 import ui.root.RootComponent
+import ui.serverList.ServerListScreen
 import ui.settings.SettingsScreen
 
 @OptIn(ExperimentalFluentApi::class)
@@ -64,15 +64,15 @@ fun RootContent(component: RootComponent) {
                             SideNavItem(
                                 icon = {
                                     Icon(
-                                        imageVector = Icons.Regular.Home,
-                                        contentDescription = "Home"
+                                        imageVector = Icons.Regular.Server,
+                                        contentDescription = "Servers"
                                     )
                                 },
-                                selected = component.isMainActive(),
+                                selected = component.isServerListActive(),
                                 onClick = {
-                                    component.navigateToMain()
+                                    component.navigateToServerList()
                                 },
-                                content = { Text("Main") }
+                                content = { Text("Servers") }
                             )
                         }
                         Card(
@@ -88,8 +88,8 @@ fun RootContent(component: RootComponent) {
                                 modifier = Modifier.fillMaxSize().padding(8.dp)
                             ) {
                                 when (val instance = child.instance) {
-                                    is RootComponent.Child.Main -> MainScreen(instance.component)
                                     is RootComponent.Child.Settings -> SettingsScreen(instance.component)
+                                    is RootComponent.Child.ServerList -> ServerListScreen(instance.component)
                                 }
                             }
                         }

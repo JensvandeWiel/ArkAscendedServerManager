@@ -5,31 +5,36 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.bringToFront
+import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
-import ui.main.MainComponent
+import server.ServerConfig
+import server.ServerLoader
 import ui.settings.SettingsComponent
+import ui.serverList.ServerListComponent
 
 class RootComponent(
     componentContext: ComponentContext
 ) : ComponentContext by componentContext {
 
-    sealed class Child {
-        class Main(
-            val component: MainComponent
-        ) : Child()
+    val servers: MutableValue<List<ServerConfig>> = MutableValue<List<ServerConfig>>(
+        ServerLoader.loadServers().getOrNull() ?: emptyList()
+    )
 
+    // Functions to manage servers
+    fun addServer(): Result<Unit> {
+        val newServer = ServerLoader.generateNewServer()
+        servers.value = servers.value + newServer
+        return ServerLoader.addServer(serverConfig = newServer)
+    }
+
+    sealed class Child {
+        class ServerList(
+            val component: ServerListComponent
+        ) : Child()
         class Settings(
             val component: SettingsComponent
         ) : Child()
-    }
-
-    fun navigateToMain() {
-        navigation.bringToFront(Config.Main)
-    }
-
-    fun isMainActive(): Boolean {
-        return stack.value.active.configuration == Config.Main
     }
 
     fun navigateToSettings() {
@@ -40,6 +45,14 @@ class RootComponent(
         return stack.value.active.configuration == Config.Settings
     }
 
+    fun navigateToServerList() {
+        navigation.bringToFront(Config.ServerList)
+    }
+
+    fun isServerListActive(): Boolean {
+        return stack.value.active.configuration == Config.ServerList
+    }
+
 
     private val navigation = StackNavigation<Config>()
 
@@ -47,7 +60,7 @@ class RootComponent(
         childStack(
             source = navigation,
             serializer = Config.serializer(),
-            initialConfiguration = Config.Main,
+            initialConfiguration = Config.ServerList,
             handleBackButton = true,
             childFactory = ::createChild
         )
@@ -57,19 +70,19 @@ class RootComponent(
         componentContext: ComponentContext
     ): RootComponent.Child =
         when (config) {
-            is Config.Main -> RootComponent.Child.Main(
-                component = MainComponent(componentContext)
-            )
             is Config.Settings -> RootComponent.Child.Settings(
                 component = SettingsComponent(componentContext)
+            )
+            is Config.ServerList -> RootComponent.Child.ServerList(
+                component = ServerListComponent(componentContext, servers, ::addServer)
             )
         }
 
     @Serializable
     private sealed class Config {
         @Serializable
-        data object Main : Config()
-        @Serializable
         data object Settings : Config()
+        @Serializable
+        data object ServerList : Config()
     }
 }
