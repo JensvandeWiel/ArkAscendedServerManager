@@ -7,6 +7,8 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.bringToFront
+import com.arkivanov.decompose.router.stack.items
+import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.operator.map
@@ -26,6 +28,9 @@ class RootComponent(
     val servers: MutableValue<List<ServerProfile>> = MutableValue<List<ServerProfile>>(
         ProfileLoader.loadProfiles().getOrNull() ?: emptyList()
     )
+
+    // Store created server components to preserve their state
+    private val serverComponents = mutableMapOf<String, ServerComponent>()
 
     // Functions to manage servers
     fun addServer(): Result<Unit> {
@@ -64,54 +69,74 @@ class RootComponent(
     }
 
     fun navigateToServer(serverUuid: String) {
-        navigation.bringToFront(Config.Server(serverUuid))
+        val serverInStack = stack.value.items.find { item ->
+            val config = item.configuration
+            config is Config.Server && config.serverUuid == serverUuid
+        }
+        if (serverInStack == null) {
+            navigation.push(Config.Server(serverUuid))
+        } else {
+            navigation.bringToFront(Config.Server(serverUuid))
+        }
     }
-
-    fun isServerActive(serverUuid: Uuid): Boolean {
-        return stack.value.active.configuration == Config.Server(serverUuid.toString())
-    }
-
 
     private val navigation = StackNavigation<Config>()
 
-    val stack: Value<ChildStack<*, RootComponent.Child>> =
+    val stack: Value<ChildStack<*, Child>> =
         childStack(
             source = navigation,
             serializer = Config.serializer(),
             initialConfiguration = Config.ServerList,
             handleBackButton = true,
+            key = "root_stack",
             childFactory = ::createChild
         )
 
     private fun createChild(
         config: Config,
         componentContext: ComponentContext
-    ): RootComponent.Child =
+    ): Child =
         when (config) {
-            is Config.Settings -> RootComponent.Child.Settings(
+            is Config.Settings -> Child.Settings(
                 component = SettingsComponent(componentContext)
             )
-            is Config.ServerList -> RootComponent.Child.ServerList(
+            is Config.ServerList -> Child.ServerList(
                 component = ServerListComponent(componentContext, servers, ::addServer, ::navigateToServer)
             )
             is Config.Server -> {
-                val serverConfig = servers.value.find { it.uuid.toString() == config.serverUuid }
-                    ?: error("Server not found")
-                val serverValue = servers.map {
-                    it.find { server -> server.uuid.toString() == config.serverUuid }
-                        ?: error("Server not found in the list")
-                }
-                val onUpdateServer: (ServerProfile) -> Result<Unit> = { updatedServer ->
-                    val result = ProfileLoader.updateProfile(profile = updatedServer)
-                    if (result.isSuccess) {
-                        servers.value = servers.value.map { if (it.uuid == updatedServer.uuid) updatedServer else it }
+                val existingComponent = serverComponents[config.serverUuid]
+
+                if (existingComponent != null) {
+                    Child.Server(
+                        serverUuid = config.serverUuid,
+                        component = existingComponent
+                    )
+                } else {
+                    val serverConfig = servers.value.find { it.uuid.toString() == config.serverUuid }
+                        ?: error("Server not found")
+
+                    val serverValue = servers.map {
+                        it.find { server -> server.uuid.toString() == config.serverUuid }
+                            ?: error("Server not found in the list")
                     }
-                    result
+
+                    val onUpdateServer: (ServerProfile) -> Result<Unit> = { updatedServer ->
+                        val result = ProfileLoader.updateProfile(profile = updatedServer)
+                        if (result.isSuccess) {
+                            servers.value = servers.value.map { if (it.uuid == updatedServer.uuid) updatedServer else it }
+                        }
+                        result
+                    }
+
+                    // Create new component and store it
+                    val newComponent = ServerComponent(componentContext, serverValue, onUpdateServer)
+                    serverComponents[config.serverUuid] = newComponent
+
+                    Child.Server(
+                        serverUuid = config.serverUuid,
+                        component = newComponent
+                    )
                 }
-                Child.Server(
-                    serverUuid = config.serverUuid,
-                    component = ServerComponent(componentContext, serverValue, onUpdateServer)
-                )
             }
         }
 
@@ -124,8 +149,11 @@ class RootComponent(
         @Serializable
         data class Server(val serverUuid: String) : Config() {
             override fun equals(other: Any?): Boolean {
-                return other is Server && other.serverUuid == serverUuid
+                if (this === other) return true
+                if (other !is Server) return false
+                return serverUuid == other.serverUuid
             }
+
             override fun hashCode(): Int {
                 return serverUuid.hashCode()
             }
