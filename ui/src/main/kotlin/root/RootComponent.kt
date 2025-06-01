@@ -105,40 +105,40 @@ class RootComponent(
             )
             is Config.Server -> {
                 val existingComponent = serverComponents[config.serverUuid]
-
-                if (existingComponent != null) {
-                    Child.Server(
-                        serverUuid = config.serverUuid,
-                        component = existingComponent
-                    )
-                } else {
-                    val serverConfig = servers.value.find { it.uuid.toString() == config.serverUuid }
-                        ?: error("Server not found")
-
-                    val serverValue = servers.map {
-                        it.find { server -> server.uuid.toString() == config.serverUuid }
-                            ?: error("Server not found in the list")
-                    }
-
-                    val onUpdateServer: (ServerProfile) -> Result<Unit> = { updatedServer ->
-                        val result = ProfileLoader.updateProfile(profile = updatedServer)
-                        if (result.isSuccess) {
-                            servers.value = servers.value.map { if (it.uuid == updatedServer.uuid) updatedServer else it }
-                        }
-                        result
-                    }
-
-                    // Create new component and store it
-                    val newComponent = ServerComponent(componentContext, serverValue, onUpdateServer)
-                    serverComponents[config.serverUuid] = newComponent
-
-                    Child.Server(
-                        serverUuid = config.serverUuid,
-                        component = newComponent
-                    )
+                existingComponent?.let {
+                    return@createChild Child.Server(serverUuid = config.serverUuid, component = it)
                 }
+
+                createAndStoreServerComponent(componentContext, config.serverUuid)
             }
         }
+
+    /**
+     * Creates a new ServerComponent, stores it in the serverComponents map and returns a Child.Server
+     */
+    private fun createAndStoreServerComponent(
+        componentContext: ComponentContext,
+        serverUuid: String
+    ): Child.Server {
+        val serverValue = servers.map {
+            it.find { server -> server.uuid.toString() == serverUuid }
+                ?: error("Server not found in the list")
+        }
+
+        val onUpdateServer: (ServerProfile) -> Result<Unit> = { updatedServer ->
+            val result = ProfileLoader.updateProfile(profile = updatedServer)
+            if (result.isSuccess) {
+                servers.value = servers.value.map { if (it.uuid == updatedServer.uuid) updatedServer else it }
+            }
+            result
+        }
+
+        // Create new component and store it
+        val newComponent = ServerComponent(componentContext, serverValue, onUpdateServer)
+        serverComponents[serverUuid] = newComponent
+
+        return Child.Server(serverUuid = serverUuid, component = newComponent)
+    }
 
     @Serializable
     private sealed class Config {
