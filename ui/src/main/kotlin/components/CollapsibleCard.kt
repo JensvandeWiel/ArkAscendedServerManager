@@ -18,10 +18,6 @@ import com.konyaco.fluent.surface.Card
 import com.konyaco.fluent.surface.CardColor
 import com.konyaco.fluent.surface.CardDefaults
 
-// Custom colors for elevated card appearance
-private val ElevatedCardBackground = Color(0xFFF8F8F8)
-private val ElevatedCardBorder = Color(0xFFE0E0E0)
-
 /**
  * A collapsible card component using Fluent UI styling.
  *
@@ -41,9 +37,8 @@ fun CollapsibleCard(
     val rotationState by animateFloatAsState(
         targetValue = if (expanded) 180f else 0f, label = "rotation"
     )
-
     val default = CardColor(
-        fillColor = FluentTheme.colors.background.layer.default,
+        fillColor = if (FluentTheme.colors.darkMode) Color(0xff303030) else Color(0xffededed),
         contentColor = FluentTheme.colors.text.text.primary,
         borderBrush = SolidColor(FluentTheme.colors.stroke.card.default)
     )
