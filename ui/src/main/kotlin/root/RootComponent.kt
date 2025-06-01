@@ -133,7 +133,7 @@ class RootComponent(
             result
         }
 
-        // Create new component and store it
+        // Create new components and store it
         val newComponent = ServerComponent(componentContext, serverValue, onUpdateServer)
         serverComponents[serverUuid] = newComponent
 

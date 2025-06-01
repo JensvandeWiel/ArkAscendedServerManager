@@ -23,6 +23,7 @@ nomenEstOmen = { module = "com.oblac:nomen-est-omen", version = "2.2.1" }
 steamCmd = { module = "eu.wynq:kotlin-steamcmd", version.ref = "steamCmd" }
 coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
+essenty = { module = "com.arkivanov.essenty:lifecycle-coroutines", version = "2.5.0" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

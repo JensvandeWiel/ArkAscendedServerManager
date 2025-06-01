@@ -32,6 +32,8 @@ dependencies {
     implementation(libs.logbackClassic)
 
     implementation(libs.nomenEstOmen)
+    implementation(libs.steamCmd)
+    implementation(libs.essenty)
 }
 
 group = parent!!.group
