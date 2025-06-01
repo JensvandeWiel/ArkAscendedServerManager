@@ -6,6 +6,8 @@ decompose = "3.3.0"
 fluentUi = "0.0.1-dev.8"
 kotlinLogging = "5.1.1"
 slf4j = "2.0.12"
+steamCmd = "0.1.0"
+coroutines = "1.7.3"
 
 [libraries]
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
@@ -18,6 +20,9 @@ kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "
 slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logbackClassic = { module = "ch.qos.logback:logback-classic", version = "1.5.6" }
 nomenEstOmen = { module = "com.oblac:nomen-est-omen", version = "2.2.1" }
+steamCmd = { module = "eu.wynq:kotlin-steamcmd", version.ref = "steamCmd" }
+coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

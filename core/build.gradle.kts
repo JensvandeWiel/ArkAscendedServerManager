@@ -8,4 +8,7 @@ dependencies {
     implementation(libs.nomenEstOmen)
     implementation(libs.kotlinLogging)
     implementation(libs.slf4jApi)
+    implementation(libs.coroutinesCore)
+    implementation(libs.coroutinesSwing)
+    implementation(libs.steamCmd)
 }
