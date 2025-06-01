@@ -10,11 +10,11 @@ import androidx.compose.ui.unit.dp
 import com.konyaco.fluent.FluentTheme
 import com.konyaco.fluent.component.Text
 import com.konyaco.fluent.surface.Card
-import server.ServerConfig
+import server.ServerProfile
 
 @Composable
 fun ServerCard(
-    server: ServerConfig,
+    server: ServerProfile,
     onClick: () -> Unit = { }
 ) {
     Card(onClick = onClick, modifier = Modifier.fillMaxWidth().height(128.dp))

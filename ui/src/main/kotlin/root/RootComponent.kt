@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalUuidApi::class)
+
 package ui.root
 
 import com.arkivanov.decompose.ComponentContext
@@ -7,25 +9,29 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.operator.map
 import kotlinx.serialization.Serializable
-import server.ServerConfig
-import server.ServerLoader
+import server.ServerProfile
+import server.ProfileLoader
+import ui.server.ServerComponent
 import ui.settings.SettingsComponent
 import ui.serverList.ServerListComponent
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 class RootComponent(
     componentContext: ComponentContext
 ) : ComponentContext by componentContext {
 
-    val servers: MutableValue<List<ServerConfig>> = MutableValue<List<ServerConfig>>(
-        ServerLoader.loadServers().getOrNull() ?: emptyList()
+    val servers: MutableValue<List<ServerProfile>> = MutableValue<List<ServerProfile>>(
+        ProfileLoader.loadProfiles().getOrNull() ?: emptyList()
     )
 
     // Functions to manage servers
     fun addServer(): Result<Unit> {
-        val newServer = ServerLoader.generateNewServer()
+        val newServer = ProfileLoader.generateNewProfile()
         servers.value = servers.value + newServer
-        return ServerLoader.addServer(serverConfig = newServer)
+        return ProfileLoader.addProfile(profile = newServer)
     }
 
     sealed class Child {
@@ -34,6 +40,10 @@ class RootComponent(
         ) : Child()
         class Settings(
             val component: SettingsComponent
+        ) : Child()
+        class Server(
+            val serverUuid: String,
+            val component: ServerComponent
         ) : Child()
     }
 
@@ -51,6 +61,14 @@ class RootComponent(
 
     fun isServerListActive(): Boolean {
         return stack.value.active.configuration == Config.ServerList
+    }
+
+    fun navigateToServer(serverUuid: String) {
+        navigation.bringToFront(Config.Server(serverUuid))
+    }
+
+    fun isServerActive(serverUuid: Uuid): Boolean {
+        return stack.value.active.configuration == Config.Server(serverUuid.toString())
     }
 
 
@@ -74,8 +92,27 @@ class RootComponent(
                 component = SettingsComponent(componentContext)
             )
             is Config.ServerList -> RootComponent.Child.ServerList(
-                component = ServerListComponent(componentContext, servers, ::addServer)
+                component = ServerListComponent(componentContext, servers, ::addServer, ::navigateToServer)
             )
+            is Config.Server -> {
+                val serverConfig = servers.value.find { it.uuid.toString() == config.serverUuid }
+                    ?: error("Server not found")
+                val serverValue = servers.map {
+                    it.find { server -> server.uuid.toString() == config.serverUuid }
+                        ?: error("Server not found in the list")
+                }
+                val onUpdateServer: (ServerProfile) -> Result<Unit> = { updatedServer ->
+                    val result = ProfileLoader.updateProfile(profile = updatedServer)
+                    if (result.isSuccess) {
+                        servers.value = servers.value.map { if (it.uuid == updatedServer.uuid) updatedServer else it }
+                    }
+                    result
+                }
+                Child.Server(
+                    serverUuid = config.serverUuid,
+                    component = ServerComponent(componentContext, serverValue, onUpdateServer)
+                )
+            }
         }
 
     @Serializable
@@ -84,5 +121,14 @@ class RootComponent(
         data object Settings : Config()
         @Serializable
         data object ServerList : Config()
+        @Serializable
+        data class Server(val serverUuid: String) : Config() {
+            override fun equals(other: Any?): Boolean {
+                return other is Server && other.serverUuid == serverUuid
+            }
+            override fun hashCode(): Int {
+                return serverUuid.hashCode()
+            }
+        }
     }
 }

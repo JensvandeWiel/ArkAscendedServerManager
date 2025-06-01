@@ -20,6 +20,7 @@ import com.konyaco.fluent.icons.regular.Settings
 import com.konyaco.fluent.surface.Card
 import ui.ToastHost
 import ui.root.RootComponent
+import ui.server.ServerScreen
 import ui.serverList.ServerListScreen
 import ui.settings.SettingsScreen
 
@@ -90,6 +91,9 @@ fun RootContent(component: RootComponent) {
                                 when (val instance = child.instance) {
                                     is RootComponent.Child.Settings -> SettingsScreen(instance.component)
                                     is RootComponent.Child.ServerList -> ServerListScreen(instance.component)
+                                    is RootComponent.Child.Server -> ServerScreen(
+                                        instance.component
+                                    )
                                 }
                             }
                         }

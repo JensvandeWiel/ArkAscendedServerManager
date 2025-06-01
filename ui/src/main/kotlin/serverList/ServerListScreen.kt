@@ -15,7 +15,9 @@ import com.konyaco.fluent.component.ListItemSeparator
 import com.konyaco.fluent.component.Text
 import serverList.components.ServerCard
 import ui.ToastManager
+import kotlin.uuid.ExperimentalUuidApi
 
+@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun ServerListScreen(component: ServerListComponent) {
     val servers by component.servers.subscribeAsState()
@@ -48,7 +50,9 @@ fun ServerListScreen(component: ServerListComponent) {
 
         LazyColumn(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxSize()) {
             items(servers.size) {
-                ServerCard(servers[it])
+                ServerCard(servers[it]) {
+                    component.onServerSelected(servers[it].uuid.toString())
+                }
             }
         }
     }
