@@ -33,6 +33,10 @@ class ServerManager(private val _profile: ServerProfile) {
 
 
     private suspend fun getLatestApiRelease(): Result<String> {
+        val serverPath = Path.of(_profile.installationLocation, "ShooterGame\\Binaries\\Win64")
+        if (!serverPath.toFile().exists()) {
+            serverPath.toFile().mkdirs()
+        }
         val url = "https://api.github.com/repos/ArkServerApi/AsaApi/releases/latest"
         return try {
             val response = httpClient.get(url)
