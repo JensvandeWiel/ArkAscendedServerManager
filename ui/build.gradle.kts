@@ -40,11 +40,11 @@ group = parent!!.group
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "ui.MainKt"
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "demo"
+            packageName = "ArkAscendedServerManager"
             packageVersion = "1.0.0"
         }
     }

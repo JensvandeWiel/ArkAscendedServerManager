@@ -8,6 +8,7 @@ kotlinLogging = "5.1.1"
 slf4j = "2.0.12"
 steamCmd = "0.1.0"
 coroutines = "1.7.3"
+ktor = "3.1.3"
 
 [libraries]
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
@@ -24,6 +25,8 @@ steamCmd = { module = "eu.wynq:kotlin-steamcmd", version.ref = "steamCmd" }
 coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 essenty = { module = "com.arkivanov.essenty:lifecycle-coroutines", version = "2.5.0" }
+ktor = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktorCio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
