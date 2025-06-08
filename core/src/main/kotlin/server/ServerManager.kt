@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalUuidApi::class)
+@file:OptIn(ExperimentalUuidApi::class, ExperimentalAtomicApi::class)
 
 package server
 
@@ -11,14 +11,14 @@ import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.isSuccess
-import io.ktor.utils.io.copyTo
 import io.ktor.utils.io.jvm.javaio.copyTo
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import settings.SettingsHelper
 import java.nio.file.Path
-import kotlin.text.get
+import kotlin.concurrent.atomics.AtomicBoolean
+import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlin.uuid.ExperimentalUuidApi
 
 class ServerManager(private val _profile: ServerProfile) {
@@ -222,13 +222,13 @@ class ServerManager(private val _profile: ServerProfile) {
     }
 
     companion object {
-        private var installing = false
+        private var isInstalling = AtomicBoolean(false)
         fun installerRunning(): Boolean {
-            return installing
+            return isInstalling.load()
         }
 
         private fun setInstalling(value: Boolean) {
-            installing = value
+            isInstalling.exchange(value)
         }
     }
 }
