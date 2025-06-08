@@ -63,6 +63,18 @@ class ServerManager(private val _profile: ServerProfile) {
         val apiUrl = "https://github.com/ArkServerApi/AsaApi/releases/download/$apiVersion/AsaApi_$apiVersion.zip"
         logger.info { "Installing API version $apiVersion from $apiUrl" }
 
+        // Check installed version
+        val installedApiPath = Path.of(_profile.installationLocation, "apiversion.txt")
+        if (installedApiPath.toFile().exists()) {
+            // Read the installed version
+            val installedVersion = installedApiPath.toFile().readText().trim()
+            if (installedVersion == apiVersion) {
+                logger.info { "API is already installed at version $installedVersion" }
+                return Result.success(Unit)
+            }
+        }
+
+
         // Get zip file URL from the API release
         try {
             val response = httpClient.get(apiUrl)
@@ -151,6 +163,15 @@ class ServerManager(private val _profile: ServerProfile) {
                 logger.error(e) { "Error during Version DLL downloading or extraction" }
                 return Result.failure(e)
             }
+        }
+
+        try {
+            val apiVersionFile = Path.of(_profile.installationLocation, "apiversion.txt")
+            apiVersionFile.toFile().writeText(apiVersion)
+            logger.info { "Updated API version file to $apiVersion" }
+        } catch (e: Exception) {
+            logger.error(e) { "Error writing API version file" }
+            return Result.failure(e)
         }
 
         logger.info { "API installation completed successfully for ${_profile.profileName} (${_profile.uuid})" }
