@@ -23,7 +23,16 @@ import kotlin.uuid.ExperimentalUuidApi
 
 class ServerManager(private val _profile: ServerProfile) {
     private val logger = KotlinLogging.logger("ServerManager (${_profile.uuid})")
-    private val httpClient = HttpClient(CIO)
+    private val httpClient = HttpClient(CIO) {
+        engine {
+            requestTimeout = 1000 * 60 * 5
+            endpoint {
+                connectTimeout = 1000 * 60 * 5
+                connectAttempts = 5
+            }
+
+        }
+    }
     fun isInstalled(): Boolean {
         // Check if the installation directory exists
         val installationPath =
