@@ -1,3 +1,4 @@
+@file:OptIn(ExperimentalUuidApi::class)
 package server
 
 import com.oblac.nomen.Nomen
@@ -8,7 +9,6 @@ import java.nio.file.Path
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
-@OptIn(ExperimentalUuidApi::class)
 object ProfileLoader {
     private val logger = KotlinLogging.logger {}
     fun loadProfiles(dataDir: String = SettingsHelper().getSettings().getOrNull()?.applicationDataPath ?: "C:/aasm"): Result<List<ServerProfile>> {
@@ -37,7 +37,7 @@ object ProfileLoader {
         return ServerProfile(
             uuid = Uuid.random(),
             profileName = name,
-            installationLocation = Path.of(SettingsHelper().getSettings().getOrNull()?.applicationDataPath).resolve("servers").resolve(name).toString()
+            installationLocation = Path.of(SettingsHelper().getSettings().getOrNull()?.applicationDataPath!!).resolve("servers").resolve(name).toString()
         )
     }
 

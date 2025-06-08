@@ -47,7 +47,7 @@ fun ServerScreen(component: ServerComponent) {
                         ProgressBar(Modifier.width(128.dp))
                     }
                 } else {
-                    Text("Installation status: " + if (server.getServerManager().isInstalled()) "Installed" else "Not Installed")
+                    Text("Installation status: " + if (server.getServerManager().getInstallManager().isInstalled()) "Installed" else "Not Installed")
                     Spacer(modifier = Modifier.weight(1f))
                     AccentButton(
                         onClick = {
@@ -55,7 +55,7 @@ fun ServerScreen(component: ServerComponent) {
                         },
                         modifier = Modifier.padding(start = 8.dp)
                     ) {
-                        Text(if (server.getServerManager().isInstalled()) "Update" else "Install")
+                        Text(if (server.getServerManager().getInstallManager().isInstalled()) "Update" else "Install")
                     }
                 }
             }

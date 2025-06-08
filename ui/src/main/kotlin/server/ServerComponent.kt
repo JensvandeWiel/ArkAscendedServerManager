@@ -126,17 +126,18 @@ class ServerComponent(
     fun startServerInstallation() {
         scope.launch(Dispatchers.IO) {
             val serverManager = server.value.getServerManager()
+            val installManager = serverManager.getInstallManager()
 
             withContext(Dispatchers.Main) {
                 installationModel.value = InstallationModel(
                     isInstalling = true,
                     status = Preparing(),
-                    message = "Starting " + if (serverManager.isInstalled()) "update" else "installation",
+                    message = "Starting " + if (installManager.isInstalled()) "update" else "installation",
                     progress = null
                 )
             }
 
-            val result = serverManager.install { status ->
+            val result = installManager.install { status ->
                 onInstallationStatusUpdate(status)
             }
 

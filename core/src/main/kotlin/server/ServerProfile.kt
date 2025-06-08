@@ -11,6 +11,7 @@ data class ServerProfile @OptIn(ExperimentalUuidApi::class) constructor(
     val installationLocation: String,
 ) {
     fun getServerManager(): ServerManager {
-        return ServerManager(this)
+        val installManager = InstallManager(this)
+        return ServerManager(this, installManager)
     }
 }
