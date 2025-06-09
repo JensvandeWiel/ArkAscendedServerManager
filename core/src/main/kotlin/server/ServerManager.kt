@@ -8,7 +8,8 @@ import kotlin.uuid.ExperimentalUuidApi
 
 class ServerManager(
     private val _profile: ServerProfile,
-    private val installManager: InstallManager
+    private val installManager: InstallManager = InstallManager(_profile),
+    private val powerManager: PowerManager = PowerManager(_profile),
 ) {
     private val logger = KotlinLogging.logger("ServerManager (${_profile.uuid})")
 
@@ -17,6 +18,13 @@ class ServerManager(
      */
     fun getInstallManager(): InstallManager {
         return installManager
+    }
+
+    /**
+     * Returns the PowerManager instance for direct access to power management functionality
+     */
+    fun getPowerManager(): PowerManager {
+        return powerManager
     }
 
 }

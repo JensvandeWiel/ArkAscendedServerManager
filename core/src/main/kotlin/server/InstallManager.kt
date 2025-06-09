@@ -24,9 +24,7 @@ import kotlin.concurrent.atomics.ExperimentalAtomicApi
 import kotlin.uuid.ExperimentalUuidApi
 
 class InstallManager(private val profile: ServerProfile) {
-    val binaryPath = "ShooterGame\\Binaries\\Win64"
-    val arkId = "2088130"
-    val profileBinaryPath: Path = Path.of(profile.installationLocation, binaryPath)
+    val profileBinaryPath: Path = Path.of(profile.installationLocation, Constants.SERVER_BINARY_PATH)
     private val logger = KotlinLogging.logger("InstallManager (${profile.uuid})")
     private val httpClient = HttpClient(CIO) {
         engine {
@@ -251,9 +249,9 @@ class InstallManager(private val profile: ServerProfile) {
                 "force_install_dir ${profile.installationLocation}",
                 "login anonymous",
                 if (validate) {
-                    "app_update $arkId validate"
+                    "app_update ${Constants.ARK_APP_ID} validate"
                 } else {
-                    "app_update $arkId"
+                    "app_update ${Constants.ARK_APP_ID}"
                 },
                 "quit"
             )
