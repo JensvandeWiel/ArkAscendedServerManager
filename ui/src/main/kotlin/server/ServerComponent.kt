@@ -38,6 +38,8 @@ class ServerComponent(
         InstallationModel(isInstalling = false, status = Preparing())
     )
 
+    val administrationModel: MutableValue<AdministrationModel> = MutableValue(AdministrationModel.fromAdministrationConfig(server.value.administrationConfig))
+
     fun onInstallationStatusUpdate(status: Status) {
         scope.launch(Dispatchers.Main) {
             when (status) {
@@ -165,6 +167,10 @@ class ServerComponent(
         this.profileConfigurationModel.value = profileConfigurationModel
     }
 
+    fun updateAdministrationModel(administrationModel: AdministrationModel) {
+        this.administrationModel.value = administrationModel
+    }
+
     fun saveProfileConfiguration() {
         scope.launch(Dispatchers.IO) {
             val validationResult = profileConfigurationModel.value.validate()
@@ -176,9 +182,19 @@ class ServerComponent(
                 return@launch
             }
 
+            val administrationValidationResult = administrationModel.value.validate()
+            if (!administrationValidationResult.isValid) {
+                withContext(Dispatchers.Main) {
+                    ToastManager.get().toast(administrationValidationResult.error ?: "Unknown error", type = ToastType.Error)
+                    logger.error { "Administration validation failed: ${administrationValidationResult.error}" }
+                }
+                return@launch
+            }
+
             val updatedServer = server.value.copy(
                 profileName = profileConfigurationModel.value.profileName.text,
-                installationLocation = profileConfigurationModel.value.installationLocation.text
+                installationLocation = profileConfigurationModel.value.installationLocation.text,
+                administrationConfig = administrationModel.value.toAdministrationConfig()
             )
 
             val result = onUpdateServer(updatedServer)

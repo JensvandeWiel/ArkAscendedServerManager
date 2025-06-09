@@ -18,7 +18,10 @@ object ProfileLoader {
             val servers = dataDirPath.toFile().listFiles()?.mapNotNull { file ->
                 if (file.isFile && file.extension == "json") {
                     val json = file.readText()
-                    Json.decodeFromString<ServerProfile>(json)
+                    Json {
+                        prettyPrint = true
+                        encodeDefaults = true
+                    }.decodeFromString<ServerProfile>(json)
                 } else {
                     null
                 }
@@ -37,7 +40,8 @@ object ProfileLoader {
         return ServerProfile(
             uuid = Uuid.random(),
             profileName = name,
-            installationLocation = Path.of(SettingsHelper().getSettings().getOrNull()?.applicationDataPath!!).resolve("servers").resolve(name).toString()
+            installationLocation = Path.of(SettingsHelper().getSettings().getOrNull()?.applicationDataPath!!).resolve("servers").resolve(name).toString(),
+            administrationConfig = AdministrationConfig(serverName = name)
         )
     }
 
@@ -60,7 +64,11 @@ object ProfileLoader {
             val dataDirPath = Path.of(dataDir).resolve("servers")
             val serverFile = dataDirPath.resolve("${profile.uuid}.json").toFile()
             if (serverFile.exists()) {
-                serverFile.writeText(Json.encodeToString(profile))
+                serverFile.writeText(Json {
+                    prettyPrint = true
+                    encodeDefaults = true
+
+                }.encodeToString(profile))
                 logger.info { "Updated server: ${profile.profileName} with UUID: ${profile.uuid}" }
                 Result.success(Unit)
             } else {
