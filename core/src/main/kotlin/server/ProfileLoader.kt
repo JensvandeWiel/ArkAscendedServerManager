@@ -72,7 +72,7 @@ object ProfileLoader {
         }
     }
 
-    private fun createServerStartupScript(profile: ServerProfile): Result<Unit> {
+    fun createServerStartupScript(profile: ServerProfile): Result<Unit> {
         logger.info { "Creating startup script for server: ${profile.profileName} at ${profile.installationLocation}" }
         val script = profile.generateStartupScript()
         val scriptFile = Path.of(profile.installationLocation).resolve("start.bat").toFile()
@@ -88,7 +88,7 @@ object ProfileLoader {
         }
     }
 
-    private fun updateStartupScript(profile: ServerProfile): Result<Unit> {
+    fun updateStartupScript(profile: ServerProfile): Result<Unit> {
         val script = profile.generateStartupScript()
         val scriptFile = Path.of(profile.installationLocation).resolve("start.bat").toFile()
         // Ensure the directory exists

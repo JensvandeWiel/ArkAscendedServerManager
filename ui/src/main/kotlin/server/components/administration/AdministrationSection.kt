@@ -10,6 +10,7 @@ import com.konyaco.fluent.FluentTheme
 import com.konyaco.fluent.component.Text
 import components.CollapsibleCard
 import ui.server.ServerComponent
+import ui.server.components.ModsManagerView
 
 @Composable
 fun AdministrationSection(component: ServerComponent) {
@@ -25,6 +26,12 @@ fun AdministrationSection(component: ServerComponent) {
             AdministrationBasicFields(component, administrationModel)
             AdministrationPortsSection(component, administrationModel)
             AdministrationRconSection(component, administrationModel)
+            ModsManagerView(
+                mods = administrationModel.mods,
+                onModsChanged = { updatedMods ->
+                    component.updateModsList(updatedMods)
+                }
+            )
         }
     }
 }

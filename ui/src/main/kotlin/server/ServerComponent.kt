@@ -18,6 +18,7 @@ import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import server.ProfileLoader
 import server.ServerProfile
 import ui.ToastManager
 import kotlin.uuid.ExperimentalUuidApi
@@ -54,6 +55,13 @@ class ServerComponent(
     }
 
     suspend fun startServer(): Result<Unit> {
+
+        val res = ProfileLoader.updateStartupScript(server.value)
+        if (res.isFailure) {
+            logger.error(res.exceptionOrNull()) { "Failed to update startup script" }
+            return Result.failure(res.exceptionOrNull() ?: Exception("Unknown error"))
+        }
+
         return withContext(Dispatchers.IO) {
             try {
                 val powerManager = server.value.getServerManager().getPowerManager()
@@ -287,5 +295,21 @@ class ServerComponent(
                 }
             }
         }
+    }
+
+    fun updateModsList(updatedMods: MutableList<Int>) {
+        administrationModel.value = administrationModel.value.copy(mods = updatedMods)
+    }
+
+    fun addMod(modId: Int) {
+        if (!administrationModel.value.mods.contains(modId)) {
+            val updatedMods = administrationModel.value.mods.toMutableList().also { it.add(modId) }
+            updateModsList(updatedMods)
+        }
+    }
+
+    fun removeMod(modId: Int) {
+        val updatedMods = administrationModel.value.mods.toMutableList().also { it.remove(modId) }
+        updateModsList(updatedMods)
     }
 }

@@ -18,7 +18,6 @@ fun ServerScreen(component: ServerComponent) {
     val scrollState = rememberScrollState()
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        // Header sections
         Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(16.dp, 0.dp)) {
             ServerHeaderSection(component)
             InstallationSection(component)
@@ -27,7 +26,6 @@ fun ServerScreen(component: ServerComponent) {
 
         ListItemSeparator(Modifier)
 
-        // Scrollable content sections
         Column(Modifier.verticalScroll(scrollState), verticalArrangement = Arrangement.spacedBy(8.dp)) {
             ProfileConfigurationSection(component)
             AdministrationSection(component)

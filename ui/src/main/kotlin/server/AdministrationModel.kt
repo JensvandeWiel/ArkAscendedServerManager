@@ -15,8 +15,8 @@ data class AdministrationModel(
     val rconEnabled: Boolean,
     val rconPassword: TextFieldValue,
     val map: TextFieldValue,
-    val slots: TextFieldValue
-
+    val slots: TextFieldValue,
+    val mods: MutableList<Int> = mutableListOf()
 ) {
     fun toAdministrationConfig(): AdministrationConfig {
         return AdministrationConfig(
@@ -29,7 +29,8 @@ data class AdministrationModel(
             rconEnabled = rconEnabled,
             rconPassword = rconPassword.text,
             map = map.text,
-            slots = slots.text.toIntOrNull() ?: 70
+            slots = slots.text.toIntOrNull() ?: 70,
+            mods = mods.toList()
         )
     }
     companion object {
@@ -45,7 +46,8 @@ data class AdministrationModel(
                 rconEnabled = administrationConfig.rconEnabled,
                 rconPassword = TextFieldValue(administrationConfig.rconPassword),
                 map = TextFieldValue(administrationConfig.map),
-                slots = TextFieldValue(administrationConfig.slots.toString())
+                slots = TextFieldValue(administrationConfig.slots.toString()),
+                mods = administrationConfig.mods.toMutableList()
             )
         }
     }

@@ -36,8 +36,6 @@ dependencies {
     implementation(libs.essenty)
 }
 
-group = parent!!.group
-
 compose.desktop {
     application {
         mainClass = "ui.MainKt"
