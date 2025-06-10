@@ -18,9 +18,9 @@ data class ServerProfile @OptIn(ExperimentalUuidApi::class) constructor(
 
     fun generateStartupScript(): String {
         val sb = StringBuilder()
-        sb.append("start \"")
+        sb.append("start ")
         sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, Constants.SERVER_EXECUTABLE_NAME))
-        sb.append("\" ")
+        sb.append(" ")
         sb.append(administrationConfig.map)
         sb.append("?SessionName=${administrationConfig.serverName}")
         sb.append("?Port=${administrationConfig.serverPort}")
@@ -33,6 +33,7 @@ data class ServerProfile @OptIn(ExperimentalUuidApi::class) constructor(
             sb.append("?ServerPassword=${administrationConfig.serverPassword}")
         }
         sb.append("?ServerAdminPassword=${administrationConfig.adminPassword}")
+        sb.append(" -WinLiveMaxPlayers=" + administrationConfig.slots)
         return sb.toString()
     }
 }

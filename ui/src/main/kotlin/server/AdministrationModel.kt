@@ -6,15 +6,16 @@ import ui.ValidationResult
 
 data class AdministrationModel(
     val serverName: TextFieldValue,
-    val serverPasswordEnabled: Boolean = false,
-    val serverPassword: TextFieldValue = TextFieldValue(""),
-    val adminPassword: TextFieldValue = TextFieldValue(""),
-    val serverPort: TextFieldValue = TextFieldValue(""),
-    val queryPort: TextFieldValue = TextFieldValue(""),
-    val rconPort: TextFieldValue = TextFieldValue(""),
-    val rconEnabled: Boolean = true,
-    val rconPassword: TextFieldValue = TextFieldValue(""),
-    val map: TextFieldValue = TextFieldValue(""),
+    val serverPasswordEnabled: Boolean,
+    val serverPassword: TextFieldValue,
+    val adminPassword: TextFieldValue,
+    val serverPort: TextFieldValue,
+    val queryPort: TextFieldValue,
+    val rconPort: TextFieldValue,
+    val rconEnabled: Boolean,
+    val rconPassword: TextFieldValue,
+    val map: TextFieldValue,
+    val slots: TextFieldValue
 
 ) {
     fun toAdministrationConfig(): AdministrationConfig {
@@ -27,7 +28,8 @@ data class AdministrationModel(
             rconPort = rconPort.text.toIntOrNull() ?: 27016,
             rconEnabled = rconEnabled,
             rconPassword = rconPassword.text,
-            map = map.text
+            map = map.text,
+            slots = slots.text.toIntOrNull() ?: 70
         )
     }
     companion object {
@@ -42,7 +44,8 @@ data class AdministrationModel(
                 rconPort = TextFieldValue(administrationConfig.rconPort.toString()),
                 rconEnabled = administrationConfig.rconEnabled,
                 rconPassword = TextFieldValue(administrationConfig.rconPassword),
-                map = TextFieldValue(administrationConfig.map)
+                map = TextFieldValue(administrationConfig.map),
+                slots = TextFieldValue(administrationConfig.slots.toString())
             )
         }
     }
@@ -120,6 +123,15 @@ data class AdministrationModel(
 
         if (map.text.isBlank()) {
             return ValidationResult.invalid("Map cannot be empty")
+        }
+
+        if (slots.text.isBlank() || !slots.text.matches(Regex("\\d+"))) {
+            return ValidationResult.invalid("Slots must be a valid number")
+        }
+
+        val slotsValue = slots.text.toIntOrNull()
+        if (slotsValue == null || slotsValue < 1) {
+            return ValidationResult.invalid("Slots must be at least 1")
         }
 
         return ValidationResult.valid()

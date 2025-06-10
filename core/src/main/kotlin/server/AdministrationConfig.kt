@@ -14,6 +14,7 @@ data class AdministrationConfig(
     val rconEnabled: Boolean = true,
     val rconPassword: String = getRandomString(16),
     val map: String = "TheIsland_WP",
+    val slots: Int = 70,
 )
 
 

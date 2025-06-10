@@ -68,4 +68,14 @@ fun AdministrationBasicFields(component: ServerComponent, administrationModel: A
         modifier = Modifier.fillMaxWidth(),
         header = { Text("Map") },
     )
+    TextField(
+        value = administrationModel.slots,
+        onValueChange = { newValue ->
+            component.updateAdministrationModel(
+                component.administrationModel.value.copy(slots = newValue)
+            )
+        },
+        modifier = Modifier.fillMaxWidth(),
+        header = { Text("Slots") },
+    )
 }
