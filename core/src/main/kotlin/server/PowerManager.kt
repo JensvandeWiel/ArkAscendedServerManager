@@ -6,6 +6,9 @@ import java.nio.file.Path
 
 class PowerManager(private val profile: ServerProfile) {
 
+    /**
+     * Retrieves the OS process for the server executable based on the installation location.
+     * */
     fun getProcess(): Result<OSProcess?> {
         val systemInfo = SystemInfo()
         val processes = systemInfo.operatingSystem.processes
