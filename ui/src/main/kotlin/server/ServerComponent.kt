@@ -15,8 +15,8 @@ import com.arkivanov.decompose.value.Value
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.dokar.sonner.ToastType
 import io.github.oshai.kotlinlogging.KotlinLogging
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import server.ServerProfile
 import ui.ToastManager
@@ -34,11 +34,87 @@ class ServerComponent(
         ProfileConfigurationModel.fromServerProfile(server.value)
     )
 
+    private val _isRunning: MutableValue<Boolean> = MutableValue(
+        (server.value.getServerManager().getPowerManager().isRunning().getOrNull() != null) ?: false
+    )
+
+    val isRunning: Value<Boolean> = _isRunning
+
+    suspend fun updateServerRunningState() {
+        return withContext(Dispatchers.IO) {
+            try {
+                val isRunningAtm = server.value.getServerManager().getPowerManager().isRunning().getOrNull() != null
+                _isRunning.value = isRunningAtm
+                logger.debug { "Polled server running state: ${server.value.uuid} is: " + isRunningAtm }
+            } catch (e: Exception) {
+                logger.error(e) { "Error checking server running state" }
+                _isRunning.value = false
+            }
+        }
+    }
+
+    suspend fun startServer(): Result<Unit> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val powerManager = server.value.getServerManager().getPowerManager()
+                if (powerManager.isRunning().getOrNull() != null) {
+                    return@withContext Result.failure(Exception("Server is already running."))
+                }
+                val result = powerManager.startServer()
+                if (result.isFailure) {
+                    logger.error(result.exceptionOrNull()) { "Failed to start server" }
+                    return@withContext Result.failure(result.exceptionOrNull() ?: Exception("Unknown error"))
+                }
+                withContext(Dispatchers.Main) {
+                    updateServerRunningState()
+                }
+                Result.success(Unit)
+            } catch (e: Exception) {
+                logger.error(e) { "Failed to start server" }
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun stopServer(): Result<Unit> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val powerManager = server.value.getServerManager().getPowerManager()
+                if (powerManager.isRunning().getOrNull() == null) {
+                    return@withContext Result.failure(Exception("Server is not running."))
+                }
+                val result = powerManager.stopServer()
+                if (result.isFailure) {
+                    logger.error(result.exceptionOrNull()) { "Failed to stop server" }
+                    return@withContext Result.failure(result.exceptionOrNull() ?: Exception("Unknown error"))
+                }
+                withContext(Dispatchers.Main) {
+                    updateServerRunningState()
+                }
+                Result.success(Unit)
+            } catch (e: Exception) {
+                logger.error(e) { "Failed to stop server" }
+                Result.failure(e)
+            }
+        }
+    }
+
+
+    init {
+        // Poll the server running state every 5 seconds
+        scope.launch(Dispatchers.IO) {
+            while (true) {
+                updateServerRunningState()
+                kotlinx.coroutines.delay(5000)
+            }
+        }
+    }
+
     val installationModel: MutableValue<InstallationModel> = MutableValue(
         InstallationModel(isInstalling = false, status = Preparing())
     )
-
-    val administrationModel: MutableValue<AdministrationModel> = MutableValue(AdministrationModel.fromAdministrationConfig(server.value.administrationConfig))
+    val administrationModel: MutableValue<AdministrationModel> =
+        MutableValue(AdministrationModel.fromAdministrationConfig(server.value.administrationConfig))
 
     fun onInstallationStatusUpdate(status: Status) {
         scope.launch(Dispatchers.Main) {
@@ -185,7 +261,8 @@ class ServerComponent(
             val administrationValidationResult = administrationModel.value.validate()
             if (!administrationValidationResult.isValid) {
                 withContext(Dispatchers.Main) {
-                    ToastManager.get().toast(administrationValidationResult.error ?: "Unknown error", type = ToastType.Error)
+                    ToastManager.get()
+                        .toast(administrationValidationResult.error ?: "Unknown error", type = ToastType.Error)
                     logger.error { "Administration validation failed: ${administrationValidationResult.error}" }
                 }
                 return@launch

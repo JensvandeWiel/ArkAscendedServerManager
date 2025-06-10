@@ -1,5 +1,6 @@
 package server
 
+import java.security.SecureRandom
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -16,9 +17,10 @@ data class AdministrationConfig(
 )
 
 
-private fun getRandomString(length: Int) : String {
-    val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+private fun getRandomString(length: Int): String {
+    val allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+    val random = SecureRandom()
     return (1..length)
-        .map { allowedChars.random() }
+        .map { allowedChars[random.nextInt(allowedChars.length)] }
         .joinToString("")
 }
