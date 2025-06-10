@@ -12,7 +12,7 @@ data class AdministrationConfig(
     val rconPort: Int = 27016,
     val rconEnabled: Boolean = true,
     val rconPassword: String = getRandomString(16),
-    val map: String = "TheIsland",
+    val map: String = "TheIsland_WP",
 )
 
 
