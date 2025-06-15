@@ -34,7 +34,9 @@ data class ServerProfile @OptIn(ExperimentalUuidApi::class) constructor(
         }
         sb.append("?ServerAdminPassword=${administrationConfig.adminPassword}")
         sb.append(" -WinLiveMaxPlayers=" + administrationConfig.slots)
-        sb.append(" -mods=" + administrationConfig.mods.joinToString(","))
+        if (administrationConfig.mods.isNotEmpty()) {
+            sb.append(" -mods=" + administrationConfig.mods.joinToString(","))
+        }
         // sb.append(" -OldConsole")
         return sb.toString()
     }
