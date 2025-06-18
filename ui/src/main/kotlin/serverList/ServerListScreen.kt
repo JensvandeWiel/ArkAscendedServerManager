@@ -9,10 +9,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.konyaco.fluent.FluentTheme
-import com.konyaco.fluent.component.AccentButton
-import com.konyaco.fluent.component.ListItemSeparator
-import com.konyaco.fluent.component.Text
+import io.github.composefluent.FluentTheme
+import io.github.composefluent.component.AccentButton
+import io.github.composefluent.component.ListItemSeparator
+import io.github.composefluent.component.Text
 import serverList.components.ServerCard
 import ui.ToastManager
 import kotlin.uuid.ExperimentalUuidApi

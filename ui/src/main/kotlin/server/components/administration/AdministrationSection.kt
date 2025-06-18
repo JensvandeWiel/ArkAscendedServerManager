@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.konyaco.fluent.FluentTheme
-import com.konyaco.fluent.component.Text
+import io.github.composefluent.FluentTheme
+import io.github.composefluent.component.Text
 import components.CollapsibleCard
 import ui.server.ServerComponent
 import ui.server.components.ModsManagerView

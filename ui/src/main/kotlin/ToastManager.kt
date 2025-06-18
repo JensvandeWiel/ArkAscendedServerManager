@@ -7,7 +7,7 @@ import com.dokar.sonner.ToastType
 import com.dokar.sonner.Toaster
 import com.dokar.sonner.ToasterState
 import com.dokar.sonner.rememberToasterState
-import com.konyaco.fluent.FluentTheme
+import io.github.composefluent.FluentTheme
 
 /**
  * Manager for handling toast notifications application wide.

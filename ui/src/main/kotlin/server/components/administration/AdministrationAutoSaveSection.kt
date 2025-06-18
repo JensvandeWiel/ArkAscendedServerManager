@@ -4,8 +4,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.konyaco.fluent.component.Text
-import com.konyaco.fluent.component.TextField
+import io.github.composefluent.component.Text
+import io.github.composefluent.component.TextField
 import ui.server.GameUserSettingsModel
 import ui.server.ServerComponent
 

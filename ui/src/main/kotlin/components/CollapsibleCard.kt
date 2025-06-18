@@ -10,13 +10,13 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.unit.dp
-import com.konyaco.fluent.FluentTheme
-import com.konyaco.fluent.component.Icon
-import com.konyaco.fluent.icons.Icons
-import com.konyaco.fluent.icons.regular.ChevronDown
-import com.konyaco.fluent.surface.Card
-import com.konyaco.fluent.surface.CardColor
-import com.konyaco.fluent.surface.CardDefaults
+import io.github.composefluent.FluentTheme
+import io.github.composefluent.component.Icon
+import io.github.composefluent.icons.Icons
+import io.github.composefluent.icons.regular.ChevronDown
+import io.github.composefluent.surface.Card
+import io.github.composefluent.surface.CardColor
+import io.github.composefluent.surface.CardDefaults
 
 /**
  * A collapsible card component using Fluent UI styling.

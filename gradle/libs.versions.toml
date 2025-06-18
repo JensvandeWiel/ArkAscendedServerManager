@@ -3,7 +3,7 @@ kotlin = "2.1.21"
 compose = "1.7.3"
 composePlugin = "2.1.21"
 decompose = "3.3.0"
-fluentUi = "0.0.1-dev.8"
+fluentUi = "0.1.0-SNAPSHOT"
 kotlinLogging = "5.1.1"
 slf4j = "2.0.12"
 steamCmd = "0.1.0"
@@ -14,8 +14,8 @@ oshi = "6.8.2"
 [libraries]
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decomposeExtensions = { module = "com.arkivanov.decompose:extensions-compose", version.ref = "decompose" }
-fluentUi = { module = "com.konyaco:fluent", version.ref = "fluentUi" }
-fluentIconsExtended = { module = "com.konyaco:fluent-icons-extended", version.ref = "fluentUi" }
+fluentUi = { module = "io.github.compose-fluent:fluent", version.ref = "fluentUi" }
+fluentIconsExtended = { module = "io.github.compose-fluent:fluent-icons-extended", version.ref = "fluentUi" }
 kotlinxSerializationJson = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.8.1" }
 sonner = { module = "io.github.dokar3:sonner", version = "0.3.8" }
 kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlinLogging" }

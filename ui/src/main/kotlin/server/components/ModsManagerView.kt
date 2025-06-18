@@ -12,11 +12,11 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import com.konyaco.fluent.FluentTheme
-import com.konyaco.fluent.component.*
-import com.konyaco.fluent.icons.Icons
-import com.konyaco.fluent.icons.filled.Add
-import com.konyaco.fluent.icons.filled.Delete
+import io.github.composefluent.FluentTheme
+import io.github.composefluent.component.*
+import io.github.composefluent.icons.Icons
+import io.github.composefluent.icons.filled.Add
+import io.github.composefluent.icons.filled.Delete
 
 @Composable
 fun ModsManagerView(

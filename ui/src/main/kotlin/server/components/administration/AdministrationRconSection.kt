@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.konyaco.fluent.FluentTheme
-import com.konyaco.fluent.component.ListItemSeparator
-import com.konyaco.fluent.component.Switcher
-import com.konyaco.fluent.component.Text
-import com.konyaco.fluent.component.TextField
+import io.github.composefluent.FluentTheme
+import io.github.composefluent.component.ListItemSeparator
+import io.github.composefluent.component.Switcher
+import io.github.composefluent.component.Text
+import io.github.composefluent.component.TextField
 import ui.server.AdministrationModel
 import ui.server.ServerComponent
 
