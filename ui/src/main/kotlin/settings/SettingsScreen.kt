@@ -7,10 +7,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.konyaco.fluent.component.AccentButton
-import com.konyaco.fluent.component.ListItemSeparator
-import com.konyaco.fluent.component.Text
-import com.konyaco.fluent.component.TextField
+import io.github.composefluent.component.AccentButton
+import io.github.composefluent.component.ListItemSeparator
+import io.github.composefluent.component.Text
+import io.github.composefluent.component.TextField
 
 @Composable
 fun SettingsScreen(component: SettingsComponent) {
@@ -24,7 +24,7 @@ fun SettingsScreen(component: SettingsComponent) {
             Text(
                 text = "Settings",
                 modifier = Modifier,
-                style = com.konyaco.fluent.FluentTheme.typography.title
+                style = io.github.composefluent.FluentTheme.typography.title
             )
             Spacer(modifier = Modifier.weight(1f))
             AccentButton(onClick = {
@@ -42,7 +42,7 @@ fun SettingsScreen(component: SettingsComponent) {
             TextField(
                 value = model.steamCmdPath,
                 header = {
-                    Text("SteamCMD Path", style = com.konyaco.fluent.FluentTheme.typography.body)
+                    Text("SteamCMD Path", style = io.github.composefluent.FluentTheme.typography.body)
                 },
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = { component.updateSteamCmdPath(it) }
@@ -50,7 +50,7 @@ fun SettingsScreen(component: SettingsComponent) {
             TextField(
                 value = model.applicationDataPath,
                 header = {
-                    Text("Application Data Path", style = com.konyaco.fluent.FluentTheme.typography.body)
+                    Text("Application Data Path", style = io.github.composefluent.FluentTheme.typography.body)
                 },
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = { component.updateApplicationDataPath(it) }

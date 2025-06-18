@@ -27,6 +27,7 @@ allprojects {
                             ?: System.getProperty("GITHUB_TOKEN")
             }
         }
+        maven("https://central.sonatype.com/repository/maven-snapshots/")
     }
 }
 

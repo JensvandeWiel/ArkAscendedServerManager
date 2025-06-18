@@ -9,9 +9,9 @@ import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.dokar.sonner.ToastType
-import com.konyaco.fluent.FluentTheme
-import com.konyaco.fluent.component.AccentButton
-import com.konyaco.fluent.component.Text
+import io.github.composefluent.FluentTheme
+import io.github.composefluent.component.AccentButton
+import io.github.composefluent.component.Text
 import kotlinx.coroutines.launch
 import ui.ToastManager
 import ui.server.ServerComponent

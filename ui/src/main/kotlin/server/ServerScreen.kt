@@ -6,7 +6,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.konyaco.fluent.component.ListItemSeparator
+import io.github.composefluent.component.ListItemSeparator
 import ui.server.components.InstallationSection
 import ui.server.components.ProfileConfigurationSection
 import ui.server.components.ServerControlSection

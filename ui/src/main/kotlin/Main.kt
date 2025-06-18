@@ -12,7 +12,7 @@ import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
-import com.konyaco.fluent.ExperimentalFluentApi
+import io.github.composefluent.ExperimentalFluentApi
 import org.slf4j.LoggerFactory
 import root.RootContent
 import ui.root.RootComponent
