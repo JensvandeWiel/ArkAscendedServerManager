@@ -14,5 +14,5 @@ dependencies {
     implementation(libs.ktor)
     implementation(libs.ktorCio)
     implementation(libs.oshi)
-
+    implementation(libs.inisaur)
 }

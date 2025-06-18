@@ -34,6 +34,7 @@ dependencies {
     implementation(libs.nomenEstOmen)
     implementation(libs.steamCmd)
     implementation(libs.essenty)
+    implementation(libs.inisaur)
 }
 
 compose.desktop {

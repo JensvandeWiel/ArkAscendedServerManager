@@ -23,6 +23,7 @@ slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logbackClassic = { module = "ch.qos.logback:logback-classic", version = "1.5.6" }
 nomenEstOmen = { module = "com.oblac:nomen-est-omen", version = "2.2.1" }
 steamCmd = { module = "eu.wynq:kotlin-steamcmd", version.ref = "steamCmd" }
+inisaur = { module = "eu.wynq:inisaur", version = "0.2.1" }
 coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 essenty = { module = "com.arkivanov.essenty:lifecycle-coroutines", version = "2.5.0" }

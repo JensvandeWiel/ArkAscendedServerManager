@@ -1,9 +1,9 @@
 package ui.server.components.administration
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.konyaco.fluent.FluentTheme
@@ -15,6 +15,7 @@ import ui.server.components.ModsManagerView
 @Composable
 fun AdministrationSection(component: ServerComponent) {
     val administrationModel by component.administrationModel.subscribeAsState()
+    val gameUserSettingsModel by component.gameUserSettingsModel.subscribeAsState()
 
     CollapsibleCard(
         title = { Text("Administration", style = FluentTheme.typography.bodyStrong) },
@@ -32,6 +33,7 @@ fun AdministrationSection(component: ServerComponent) {
                     component.updateModsList(updatedMods)
                 }
             )
+            AdministrationAutoSaveSection(component, gameUserSettingsModel)
         }
     }
 }

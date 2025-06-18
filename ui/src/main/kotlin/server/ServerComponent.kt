@@ -124,6 +124,9 @@ class ServerComponent(
     val administrationModel: MutableValue<AdministrationModel> =
         MutableValue(AdministrationModel.fromAdministrationConfig(server.value.administrationConfig))
 
+    val gameUserSettingsModel: MutableValue<GameUserSettingsModel> =
+        MutableValue(GameUserSettingsModel.fromGameUserSettings(server.value.gameUserSettings))
+
     fun onInstallationStatusUpdate(status: Status) {
         scope.launch(Dispatchers.Main) {
             when (status) {
@@ -255,6 +258,10 @@ class ServerComponent(
         this.administrationModel.value = administrationModel
     }
 
+    fun updateGameUserSettingsModel(gameUserSettingsModel: GameUserSettingsModel) {
+        this.gameUserSettingsModel.value = gameUserSettingsModel
+    }
+
     fun saveProfileConfiguration() {
         scope.launch(Dispatchers.IO) {
             val validationResult = profileConfigurationModel.value.validate()
@@ -276,10 +283,23 @@ class ServerComponent(
                 return@launch
             }
 
+            val gameUserSettingsValidationResult = gameUserSettingsModel.value.validate()
+            if (!gameUserSettingsValidationResult.isValid) {
+                withContext(Dispatchers.Main) {
+                    ToastManager.get()
+                        .toast(gameUserSettingsValidationResult.error ?: "Unknown error", type = ToastType.Error)
+                    logger.error { "Game user settings validation failed: ${gameUserSettingsValidationResult.error}" }
+                }
+                return@launch
+            }
+
             val updatedServer = server.value.copy(
                 profileName = profileConfigurationModel.value.profileName.text,
                 installationLocation = profileConfigurationModel.value.installationLocation.text,
-                administrationConfig = administrationModel.value.toAdministrationConfig()
+                administrationConfig = administrationModel.value.toAdministrationConfig(),
+                gameUserSettings = server.value.gameUserSettings.copy(
+                    serverSettings = gameUserSettingsModel.value.toGameUserSettings().serverSettings
+                )
             )
 
             val result = onUpdateServer(updatedServer)
@@ -299,17 +319,5 @@ class ServerComponent(
 
     fun updateModsList(updatedMods: MutableList<Int>) {
         administrationModel.value = administrationModel.value.copy(mods = updatedMods)
-    }
-
-    fun addMod(modId: Int) {
-        if (!administrationModel.value.mods.contains(modId)) {
-            val updatedMods = administrationModel.value.mods.toMutableList().also { it.add(modId) }
-            updateModsList(updatedMods)
-        }
-    }
-
-    fun removeMod(modId: Int) {
-        val updatedMods = administrationModel.value.mods.toMutableList().also { it.remove(modId) }
-        updateModsList(updatedMods)
     }
 }

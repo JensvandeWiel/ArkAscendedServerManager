@@ -27,10 +27,24 @@ object ProfileLoader {
             val servers = dataDirPath.toFile().listFiles()?.mapNotNull { file ->
                 if (file.isFile && file.extension == "json") {
                     val json = file.readText()
-                    Json {
+                    var profile = Json {
                         prettyPrint = true
                         encodeDefaults = true
+                        ignoreUnknownKeys = true
                     }.decodeFromString<ServerProfile>(json)
+
+                    var gus = profile.loadGameUserSettings().getOrThrow()
+                    if (gus != null) {
+                        profile = profile.copy(
+                            gameUserSettings = gus
+                        )
+                    }
+
+                    if (gus == null) {
+                        profile.saveGameUserSettings().getOrThrow()
+                    }
+
+                    profile
                 } else {
                     null
                 }
@@ -38,6 +52,7 @@ object ProfileLoader {
             logger.info { "Loaded ${servers.size} servers from $dataDirPath" }
             Result.success(servers)
         } catch (e: Exception) {
+            logger.error(e) { "Failed to load server profiles from $dataDirPath: " + e.message }
             Result.failure(e)
         }
     }
@@ -120,10 +135,15 @@ object ProfileLoader {
                 serverFile.writeText(Json {
                     prettyPrint = true
                     encodeDefaults = true
-
                 }.encodeToString(profile))
+                logger.info { "Updating GameUserSettings: ${profile.profileName} with UUID: ${profile.uuid}" }
+                profile.saveGameUserSettings().getOrThrow()
+                logger.info { "Updated GameUserSettings for server: ${profile.profileName}" }
+                logger.info { "Updating startup script: ${profile.profileName} with UUID: ${profile.uuid}" }
+                updateStartupScript(profile).getOrThrow()
+                logger.info { "Updated startup script for server: ${profile.profileName} with UUID: ${profile.uuid}" }
                 logger.info { "Updated server: ${profile.profileName} with UUID: ${profile.uuid}" }
-                return updateStartupScript(profile)
+                return Result.success(Unit)
             } else {
                 Result.failure(Exception("Server file does not exist: ${serverFile.absolutePath}"))
             }
