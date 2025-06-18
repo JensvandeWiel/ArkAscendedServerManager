@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.1.21"
-compose = "1.7.3"
+compose = "1.8.0"
 composePlugin = "2.1.21"
 decompose = "3.3.0"
 fluentUi = "0.1.0-SNAPSHOT"
