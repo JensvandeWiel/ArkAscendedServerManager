@@ -7,11 +7,11 @@ import androidx.compose.ui.Modifier
 import io.github.composefluent.component.Text
 import io.github.composefluent.component.TextField
 import ui.server.GameUserSettingsModel
-import ui.server.ServerComponent
+import ui.server.GeneralConfigurationComponent
 
 @Composable
-fun AdministrationAutoSaveSection(
-    component: ServerComponent,
+fun GeneralConfigurationAutoSaveSection(
+    component: GeneralConfigurationComponent,
     gameUserSettingsModel: GameUserSettingsModel
 ) {
     Row {

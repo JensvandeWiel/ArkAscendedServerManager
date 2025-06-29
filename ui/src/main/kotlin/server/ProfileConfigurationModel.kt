@@ -4,8 +4,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import server.ServerProfile
 import ui.ValidationResult
 
-data class ProfileConfigurationModel(val profileName: TextFieldValue,
-                                     val installationLocation: TextFieldValue) {
+data class ProfileConfigurationModel(
+    val profileName: TextFieldValue,
+    val installationLocation: TextFieldValue
+) {
     companion object {
         fun fromServerProfile(serverProfile: ServerProfile): ProfileConfigurationModel {
             return ProfileConfigurationModel(

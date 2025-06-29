@@ -9,17 +9,17 @@ import io.github.composefluent.component.ListItemSeparator
 import io.github.composefluent.component.Switcher
 import io.github.composefluent.component.Text
 import io.github.composefluent.component.TextField
-import ui.server.AdministrationModel
-import ui.server.ServerComponent
+import ui.server.GeneralConfigurationModel
+import ui.server.GeneralConfigurationComponent
 
 @Composable
-fun AdministrationRconSection(component: ServerComponent, administrationModel: AdministrationModel) {
+fun GeneralConfigurationRconSection(component: GeneralConfigurationComponent, generalConfigurationModel: GeneralConfigurationModel) {
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Switcher(
-            checked = administrationModel.rconEnabled,
+            checked = generalConfigurationModel.rconEnabled,
             onCheckStateChange = { newValue ->
                 component.updateAdministrationModel(
-                    component.administrationModel.value.copy(rconEnabled = newValue)
+                    component.generalConfigurationModel.value.copy(rconEnabled = newValue)
                 )
             }
         )
@@ -29,11 +29,11 @@ fun AdministrationRconSection(component: ServerComponent, administrationModel: A
     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
         Box(modifier = Modifier.weight(1f)) {
             TextField(
-                enabled = administrationModel.rconEnabled,
-                value = administrationModel.rconPort,
+                enabled = generalConfigurationModel.rconEnabled,
+                value = generalConfigurationModel.rconPort,
                 onValueChange = { newValue ->
                     component.updateAdministrationModel(
-                        component.administrationModel.value.copy(rconPort = newValue)
+                        component.generalConfigurationModel.value.copy(rconPort = newValue)
                     )
                 },
                 header = { Text("RCON Port") },
@@ -42,11 +42,11 @@ fun AdministrationRconSection(component: ServerComponent, administrationModel: A
         }
         Box(modifier = Modifier.weight(1f)) {
             TextField(
-                enabled = administrationModel.rconEnabled,
-                value = administrationModel.rconPassword,
+                enabled = generalConfigurationModel.rconEnabled,
+                value = generalConfigurationModel.rconPassword,
                 onValueChange = { newValue ->
                     component.updateAdministrationModel(
-                        component.administrationModel.value.copy(rconPassword = newValue)
+                        component.generalConfigurationModel.value.copy(rconPassword = newValue)
                     )
                 },
                 header = { Text("RCON Password") },
