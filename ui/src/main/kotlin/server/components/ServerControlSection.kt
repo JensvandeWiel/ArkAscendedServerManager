@@ -20,12 +20,14 @@ import ui.server.ServerComponent
 fun ServerControlSection(component: ServerComponent) {
     val server by component.server.subscribeAsState()
     val isRunning by component.isRunning.subscribeAsState()
+    val installationModel by component.installationModel.subscribeAsState()
+
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         Text("Server is " + if (isRunning) "running" else "not running", style = FluentTheme.typography.body)
         Spacer(modifier = Modifier.weight(1f))
         AccentButton(
-            disabled = !server.getServerManager().getInstallManager().isInstalled(),
+            disabled = !server.getServerManager().getInstallManager().isInstalled() || installationModel.isInstalling,
             onClick = {
                 component.coroutineScope().launch {
                     if (isRunning) {

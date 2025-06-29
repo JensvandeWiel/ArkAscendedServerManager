@@ -17,6 +17,7 @@ import ui.server.ServerComponent
 fun InstallationSection(component: ServerComponent) {
     val server by component.server.subscribeAsState()
     val installationModel by component.installationModel.subscribeAsState()
+    val isRunning by component.isRunning.subscribeAsState()
 
     Row(verticalAlignment = Alignment.CenterVertically) {
         if (installationModel.isInstalling) {
@@ -41,6 +42,7 @@ fun InstallationSection(component: ServerComponent) {
             )
             Spacer(modifier = Modifier.weight(1f))
             AccentButton(
+                disabled = isRunning,
                 onClick = {
                     component.startServerInstallation()
                 },
