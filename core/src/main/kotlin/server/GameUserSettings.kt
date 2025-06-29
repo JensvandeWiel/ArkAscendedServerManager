@@ -14,9 +14,19 @@ data class ServerSettings(
     val autoSavePeriodMinutes: Float = 15f
 )
 
+@IniSection("MessageOfTheDay")
+@Serializable
+data class MessageOfTheDay(
+    @IniProperty("Duration")
+    val duration: Int = 20,
+    @IniProperty("Message")
+    val message: String = ""
+)
+
 @IniSerializable
 @Serializable
 data class GameUserSettings(
     override val ignoredKeys: IniFile = IniFile(),
     val serverSettings: ServerSettings = ServerSettings(),
+    val messageOfTheDay: MessageOfTheDay = MessageOfTheDay()
 ) : WithIgnored

@@ -13,6 +13,7 @@ import io.github.composefluent.surface.Card
 import ui.server.components.ModsManagerView
 import ui.server.components.administration.GeneralConfigurationAutoSaveSection
 import ui.server.components.administration.GeneralConfigurationBasicFields
+import ui.server.components.administration.GeneralConfigurationMotdSection
 import ui.server.components.administration.GeneralConfigurationPortsSection
 import ui.server.components.administration.GeneralConfigurationRconSection
 
@@ -38,6 +39,7 @@ fun GeneralConfigurationScreen(component: GeneralConfigurationComponent) {
                 }
             )
             GeneralConfigurationAutoSaveSection(component, gameUserSettingsModel)
+            GeneralConfigurationMotdSection(component, gameUserSettingsModel)
         }
     }
 }

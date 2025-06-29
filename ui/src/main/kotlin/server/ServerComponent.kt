@@ -340,9 +340,12 @@ class ServerComponent(
                 installationLocation = profileConfigurationModel.value.installationLocation.text,
                 administrationConfig = generalConfigurationModel.value.toAdministrationConfig(),
                 gameUserSettings = server.value.gameUserSettings.copy(
-                    serverSettings = gameUserSettingsModel.value.toGameUserSettings().serverSettings
+                    serverSettings = gameUserSettingsModel.value.toGameUserSettings().serverSettings,
+                    messageOfTheDay = gameUserSettingsModel.value.toGameUserSettings().messageOfTheDay
                 )
             )
+
+            println(updatedServer)
 
             val result = onUpdateServer(updatedServer)
             withContext(Dispatchers.Main) {
