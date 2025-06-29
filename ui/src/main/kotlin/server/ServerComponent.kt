@@ -10,14 +10,20 @@ import SteamCMDInstalling
 import SteamCMDUpdating
 import Validating
 import com.arkivanov.decompose.ComponentContext
+import com.arkivanov.decompose.router.stack.ChildStack
+import com.arkivanov.decompose.router.stack.StackNavigation
+import com.arkivanov.decompose.router.stack.bringToFront
+import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
+import com.arkivanov.decompose.value.operator.map
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
 import com.dokar.sonner.ToastType
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.Serializable
 import server.ProfileLoader
 import server.ServerProfile
 import ui.ToastManager
@@ -31,9 +37,53 @@ class ServerComponent(
 ) : ComponentContext by componentContext {
     private var logger = KotlinLogging.logger { }
     private val scope = coroutineScope()
-    var profileConfigurationModel: MutableValue<ProfileConfigurationModel> = MutableValue(
-        ProfileConfigurationModel.fromServerProfile(server.value)
-    )
+
+    private val navigation = StackNavigation<ServerConfig>()
+
+    val stack: Value<ChildStack<*, ServerChild>> =
+        childStack(
+            source = navigation,
+            serializer = ServerConfig.serializer(),
+            initialConfiguration = ServerConfig.ProfileConfiguration,
+            handleBackButton = false,
+            key = "server_stack",
+            childFactory = ::createServerChild
+        )
+
+    fun navigateToProfileConfiguration() {
+        navigation.bringToFront(ServerConfig.ProfileConfiguration)
+    }
+
+    fun navigateToGeneralConfiguration() {
+        navigation.bringToFront(ServerConfig.GeneralConfiguration)
+    }
+
+    val isProfileConfigurationActive: Value<Boolean> =
+        stack.map { it.active.configuration == ServerConfig.ProfileConfiguration }
+    val isGeneralConfigurationActive: Value<Boolean> = stack.map { it.active.configuration == ServerConfig.GeneralConfiguration }
+
+    private fun createServerChild(
+        config: ServerConfig,
+        componentContext: ComponentContext
+    ): ServerChild =
+        when (config) {
+            is ServerConfig.ProfileConfiguration -> ServerChild.ProfileConfiguration
+            is ServerConfig.GeneralConfiguration -> ServerChild.GeneralConfiguration
+        }
+
+    sealed class ServerChild {
+        data object ProfileConfiguration : ServerChild()
+        data object GeneralConfiguration : ServerChild()
+    }
+
+    @Serializable
+    private sealed class ServerConfig {
+        @Serializable
+        data object ProfileConfiguration : ServerConfig()
+
+        @Serializable
+        data object GeneralConfiguration : ServerConfig()
+    }
 
     private val _isRunning: MutableValue<Boolean> = MutableValue(
         (server.value.getServerManager().getPowerManager().isRunning().getOrNull() != null) ?: false
@@ -118,11 +168,15 @@ class ServerComponent(
         }
     }
 
+    var profileConfigurationModel: MutableValue<ProfileConfigurationModel> = MutableValue(
+        ProfileConfigurationModel.fromServerProfile(server.value)
+    )
+
     val installationModel: MutableValue<InstallationModel> = MutableValue(
         InstallationModel(isInstalling = false, status = Preparing())
     )
-    val administrationModel: MutableValue<AdministrationModel> =
-        MutableValue(AdministrationModel.fromAdministrationConfig(server.value.administrationConfig))
+    val generalConfigurationModel: MutableValue<GeneralConfigurationModel> =
+        MutableValue(GeneralConfigurationModel.fromAdministrationConfig(server.value.administrationConfig))
 
     val gameUserSettingsModel: MutableValue<GameUserSettingsModel> =
         MutableValue(GameUserSettingsModel.fromGameUserSettings(server.value.gameUserSettings))
@@ -250,18 +304,6 @@ class ServerComponent(
         }
     }
 
-    fun updateProfileConfigurationModel(profileConfigurationModel: ProfileConfigurationModel) {
-        this.profileConfigurationModel.value = profileConfigurationModel
-    }
-
-    fun updateAdministrationModel(administrationModel: AdministrationModel) {
-        this.administrationModel.value = administrationModel
-    }
-
-    fun updateGameUserSettingsModel(gameUserSettingsModel: GameUserSettingsModel) {
-        this.gameUserSettingsModel.value = gameUserSettingsModel
-    }
-
     fun saveProfileConfiguration() {
         scope.launch(Dispatchers.IO) {
             val validationResult = profileConfigurationModel.value.validate()
@@ -273,7 +315,7 @@ class ServerComponent(
                 return@launch
             }
 
-            val administrationValidationResult = administrationModel.value.validate()
+            val administrationValidationResult = generalConfigurationModel.value.validate()
             if (!administrationValidationResult.isValid) {
                 withContext(Dispatchers.Main) {
                     ToastManager.get()
@@ -296,7 +338,7 @@ class ServerComponent(
             val updatedServer = server.value.copy(
                 profileName = profileConfigurationModel.value.profileName.text,
                 installationLocation = profileConfigurationModel.value.installationLocation.text,
-                administrationConfig = administrationModel.value.toAdministrationConfig(),
+                administrationConfig = generalConfigurationModel.value.toAdministrationConfig(),
                 gameUserSettings = server.value.gameUserSettings.copy(
                     serverSettings = gameUserSettingsModel.value.toGameUserSettings().serverSettings
                 )
@@ -315,9 +357,5 @@ class ServerComponent(
                 }
             }
         }
-    }
-
-    fun updateModsList(updatedMods: MutableList<Int>) {
-        administrationModel.value = administrationModel.value.copy(mods = updatedMods)
     }
 }

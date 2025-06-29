@@ -4,42 +4,40 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.unit.dp
-import io.github.composefluent.FluentTheme
 import io.github.composefluent.component.CheckBox
 import io.github.composefluent.component.Text
 import io.github.composefluent.component.TextField
-import ui.server.AdministrationModel
-import ui.server.ServerComponent
+import ui.server.GeneralConfigurationModel
+import ui.server.GeneralConfigurationComponent
 
 @Composable
-fun AdministrationBasicFields(component: ServerComponent, administrationModel: AdministrationModel) {
+fun GeneralConfigurationBasicFields(component: GeneralConfigurationComponent, generalConfigurationModel: GeneralConfigurationModel) {
     TextField(
-        value = administrationModel.serverName,
+        value = generalConfigurationModel.serverName,
         onValueChange = { newValue ->
             component.updateAdministrationModel(
-                component.administrationModel.value.copy(serverName = newValue)
+                component.generalConfigurationModel.value.copy(serverName = newValue)
             )
         },
         modifier = Modifier.fillMaxWidth(),
         header = { Text("Server Name") },
     )
     TextField(
-        value = administrationModel.serverPassword,
+        value = generalConfigurationModel.serverPassword,
         onValueChange = { newValue ->
             component.updateAdministrationModel(
-                component.administrationModel.value.copy(serverPassword = newValue)
+                component.generalConfigurationModel.value.copy(serverPassword = newValue)
             )
         },
-        enabled = administrationModel.serverPasswordEnabled,
+        enabled = generalConfigurationModel.serverPasswordEnabled,
         modifier = Modifier.fillMaxWidth(),
         header = {
             CheckBox(
-                administrationModel.serverPasswordEnabled,
+                generalConfigurationModel.serverPasswordEnabled,
                 "Server Password",
                 onCheckStateChange = {
                     component.updateAdministrationModel(
-                        administrationModel.copy(
+                        generalConfigurationModel.copy(
                             serverPasswordEnabled = it,
                             serverPassword = TextFieldValue("")
                         )
@@ -49,30 +47,30 @@ fun AdministrationBasicFields(component: ServerComponent, administrationModel: A
         },
     )
     TextField(
-        value = administrationModel.adminPassword,
+        value = generalConfigurationModel.adminPassword,
         onValueChange = { newValue ->
             component.updateAdministrationModel(
-                component.administrationModel.value.copy(adminPassword = newValue)
+                component.generalConfigurationModel.value.copy(adminPassword = newValue)
             )
         },
         modifier = Modifier.fillMaxWidth(),
         header = { Text("Admin Password") },
     )
     TextField(
-        value = administrationModel.map,
+        value = generalConfigurationModel.map,
         onValueChange = { newValue ->
             component.updateAdministrationModel(
-                component.administrationModel.value.copy(map = newValue)
+                component.generalConfigurationModel.value.copy(map = newValue)
             )
         },
         modifier = Modifier.fillMaxWidth(),
         header = { Text("Map") },
     )
     TextField(
-        value = administrationModel.slots,
+        value = generalConfigurationModel.slots,
         onValueChange = { newValue ->
             component.updateAdministrationModel(
-                component.administrationModel.value.copy(slots = newValue)
+                component.generalConfigurationModel.value.copy(slots = newValue)
             )
         },
         modifier = Modifier.fillMaxWidth(),

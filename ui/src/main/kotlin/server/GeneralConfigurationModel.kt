@@ -4,7 +4,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import server.AdministrationConfig
 import ui.ValidationResult
 
-data class AdministrationModel(
+data class GeneralConfigurationModel(
     val serverName: TextFieldValue,
     val serverPasswordEnabled: Boolean,
     val serverPassword: TextFieldValue,
@@ -34,8 +34,8 @@ data class AdministrationModel(
         )
     }
     companion object {
-        fun fromAdministrationConfig(administrationConfig: AdministrationConfig): AdministrationModel {
-            return AdministrationModel(
+        fun fromAdministrationConfig(administrationConfig: AdministrationConfig): GeneralConfigurationModel {
+            return GeneralConfigurationModel(
                 serverName = TextFieldValue(administrationConfig.serverName),
                 serverPasswordEnabled = administrationConfig.serverPassword != null,
                 serverPassword = TextFieldValue(administrationConfig.serverPassword ?: ""),
@@ -53,7 +53,7 @@ data class AdministrationModel(
     }
 
 
-    fun validate(): ValidationResult<AdministrationModel> {
+    fun validate(): ValidationResult<GeneralConfigurationModel> {
         if (serverName.text.isBlank()) {
             return ValidationResult.invalid("Server name cannot be empty")
         }
