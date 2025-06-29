@@ -1,10 +1,12 @@
 package ui.server.components.administration
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
 import io.github.composefluent.component.CheckBox
+import io.github.composefluent.component.SecureTextField
 import io.github.composefluent.component.Text
 import io.github.composefluent.component.TextField
 import ui.server.GeneralConfigurationModel
@@ -22,13 +24,8 @@ fun GeneralConfigurationBasicFields(component: GeneralConfigurationComponent, ge
         modifier = Modifier.fillMaxWidth(),
         header = { Text("Server Name") },
     )
-    TextField(
-        value = generalConfigurationModel.serverPassword,
-        onValueChange = { newValue ->
-            component.updateAdministrationModel(
-                component.generalConfigurationModel.value.copy(serverPassword = newValue)
-            )
-        },
+    SecureTextField(
+        state = generalConfigurationModel.serverPassword,
         enabled = generalConfigurationModel.serverPasswordEnabled,
         modifier = Modifier.fillMaxWidth(),
         header = {
@@ -39,20 +36,15 @@ fun GeneralConfigurationBasicFields(component: GeneralConfigurationComponent, ge
                     component.updateAdministrationModel(
                         generalConfigurationModel.copy(
                             serverPasswordEnabled = it,
-                            serverPassword = TextFieldValue("")
+                            serverPassword = TextFieldState("")
                         )
                     )
                 }
             )
         },
     )
-    TextField(
-        value = generalConfigurationModel.adminPassword,
-        onValueChange = { newValue ->
-            component.updateAdministrationModel(
-                component.generalConfigurationModel.value.copy(adminPassword = newValue)
-            )
-        },
+    SecureTextField(
+        state = generalConfigurationModel.adminPassword,
         modifier = Modifier.fillMaxWidth(),
         header = { Text("Admin Password") },
     )

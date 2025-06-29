@@ -1,5 +1,6 @@
 package ui.server
 
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.ui.text.input.TextFieldValue
 import server.AdministrationConfig
 import ui.ValidationResult
@@ -7,13 +8,13 @@ import ui.ValidationResult
 data class GeneralConfigurationModel(
     val serverName: TextFieldValue,
     val serverPasswordEnabled: Boolean,
-    val serverPassword: TextFieldValue,
-    val adminPassword: TextFieldValue,
+    val serverPassword: TextFieldState,
+    val adminPassword: TextFieldState,
     val serverPort: TextFieldValue,
     val queryPort: TextFieldValue,
     val rconPort: TextFieldValue,
     val rconEnabled: Boolean,
-    val rconPassword: TextFieldValue,
+    val rconPassword: TextFieldState,
     val map: TextFieldValue,
     val slots: TextFieldValue,
     val mods: MutableList<Int> = mutableListOf()
@@ -21,30 +22,33 @@ data class GeneralConfigurationModel(
     fun toAdministrationConfig(): AdministrationConfig {
         return AdministrationConfig(
             serverName = serverName.text,
-            serverPassword = if (serverPasswordEnabled) serverPassword.text else null,
-            adminPassword = adminPassword.text,
+            serverPassword = if (serverPasswordEnabled) serverPassword.text.toString() else null,
+            adminPassword = adminPassword.text.toString(),
             serverPort = serverPort.text.toIntOrNull() ?: 7777,
             queryPort = queryPort.text.toIntOrNull() ?: 27015,
             rconPort = rconPort.text.toIntOrNull() ?: 27016,
             rconEnabled = rconEnabled,
-            rconPassword = rconPassword.text,
+            rconPassword = rconPassword.text.toString(),
             map = map.text,
             slots = slots.text.toIntOrNull() ?: 70,
             mods = mods.toList()
         )
     }
+
     companion object {
         fun fromAdministrationConfig(administrationConfig: AdministrationConfig): GeneralConfigurationModel {
             return GeneralConfigurationModel(
                 serverName = TextFieldValue(administrationConfig.serverName),
                 serverPasswordEnabled = administrationConfig.serverPassword != null,
-                serverPassword = TextFieldValue(administrationConfig.serverPassword ?: ""),
-                adminPassword = TextFieldValue(administrationConfig.adminPassword),
+                serverPassword = TextFieldState(administrationConfig.serverPassword ?: ""),
+                adminPassword = TextFieldState(administrationConfig.adminPassword),
                 serverPort = TextFieldValue(administrationConfig.serverPort.toString()),
                 queryPort = TextFieldValue(administrationConfig.queryPort.toString()),
                 rconPort = TextFieldValue(administrationConfig.rconPort.toString()),
                 rconEnabled = administrationConfig.rconEnabled,
-                rconPassword = TextFieldValue(administrationConfig.rconPassword),
+                rconPassword = TextFieldState(
+                    administrationConfig.rconPassword ?: ""
+                ),
                 map = TextFieldValue(administrationConfig.map),
                 slots = TextFieldValue(administrationConfig.slots.toString()),
                 mods = administrationConfig.mods.toMutableList()

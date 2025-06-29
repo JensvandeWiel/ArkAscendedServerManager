@@ -6,6 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.composefluent.FluentTheme
 import io.github.composefluent.component.ListItemSeparator
+import io.github.composefluent.component.SecureTextField
 import io.github.composefluent.component.Switcher
 import io.github.composefluent.component.Text
 import io.github.composefluent.component.TextField
@@ -41,14 +42,9 @@ fun GeneralConfigurationRconSection(component: GeneralConfigurationComponent, ge
             )
         }
         Box(modifier = Modifier.weight(1f)) {
-            TextField(
+            SecureTextField(
                 enabled = generalConfigurationModel.rconEnabled,
-                value = generalConfigurationModel.rconPassword,
-                onValueChange = { newValue ->
-                    component.updateAdministrationModel(
-                        component.generalConfigurationModel.value.copy(rconPassword = newValue)
-                    )
-                },
+                state = generalConfigurationModel.rconPassword,
                 header = { Text("RCON Password") },
                 modifier = Modifier.fillMaxWidth()
             )
