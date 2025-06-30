@@ -7,6 +7,14 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
 }
 
+// Debug the version resolution
+val versionProperty = project.findProperty("version") as String?
+val projectVersion = project.version.toString()
+
+// Use the passed version property, fallback to 1.0.0
+val appVersion = versionProperty?.takeIf { it != "unspecified" } ?: "1.0.0"
+project.version = appVersion
+
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
@@ -40,7 +48,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Msi)
             packageName = "ArkAscendedServerManager"
-            packageVersion = "1.0.0"
+            packageVersion = appVersion
 
             windows {
                 menu = true
@@ -54,6 +62,5 @@ compose.desktop {
         buildTypes.release.proguard {
             configurationFiles.from("proguard-rules.pro")
         }
-
     }
 }
