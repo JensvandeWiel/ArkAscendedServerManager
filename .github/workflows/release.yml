@@ -23,6 +23,9 @@ jobs:
 
       - name: Build MSI package
         run: ./gradlew :ui:packageMsi
+        env:
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Find MSI file
         id: find-msi
