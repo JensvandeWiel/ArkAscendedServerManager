@@ -7,13 +7,15 @@ plugins {
     alias(libs.plugins.kotlinxSerialization)
 }
 
-// Debug the version resolution
-val versionProperty = project.findProperty("version") as String?
-val projectVersion = project.version.toString()
-
-// Use the passed version property, fallback to 1.0.0
-val appVersion = versionProperty?.takeIf { it != "unspecified" } ?: "1.0.0"
-project.version = appVersion
+val appVersion = when {
+    project.hasProperty("version") && project.property("version") != "unspecified" -> {
+        project.property("version").toString()
+    }
+    System.getProperty("version") != null -> {
+        System.getProperty("version")
+    }
+    else -> "1.0.0"
+}
 
 repositories {
     mavenCentral()

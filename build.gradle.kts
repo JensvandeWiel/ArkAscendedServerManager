@@ -11,6 +11,9 @@ if (envFile.exists()) {
 }
 
 allprojects {
+    if (project.hasProperty("version")) {
+        version = project.property("version").toString()
+    }
     repositories {
         google()
         mavenCentral()
