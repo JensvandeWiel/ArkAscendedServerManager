@@ -11,6 +11,7 @@ import io.github.composefluent.component.AccentButton
 import io.github.composefluent.component.ListItemSeparator
 import io.github.composefluent.component.Text
 import io.github.composefluent.component.TextField
+import ui.VersionInfo
 
 @Composable
 fun SettingsScreen(component: SettingsComponent) {
@@ -54,6 +55,19 @@ fun SettingsScreen(component: SettingsComponent) {
                 },
                 modifier = Modifier.fillMaxWidth(),
                 onValueChange = { component.updateApplicationDataPath(it) }
+            )
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Version display at the bottom
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Version: ${VersionInfo.version}",
+                style = io.github.composefluent.FluentTheme.typography.caption
             )
         }
     }

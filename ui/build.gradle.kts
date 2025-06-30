@@ -17,6 +17,32 @@ val appVersion = when {
     else -> "1.0.0"
 }
 
+// Task to generate version properties file
+val generateVersionProperties by tasks.registering {
+    val outputDir = file("${layout.buildDirectory.get()}/generated/resources")
+    outputs.dir(outputDir)
+
+    doLast {
+        outputDir.mkdirs()
+        val propsFile = File(outputDir, "version.properties")
+        propsFile.writeText("version=$appVersion\n")
+    }
+}
+
+// Make sure the task runs before processing resources
+tasks.named("processResources") {
+    dependsOn(generateVersionProperties)
+}
+
+// Add the generated resources to the source set
+sourceSets {
+    main {
+        resources {
+            srcDir(generateVersionProperties.map { it.outputs.files.singleFile })
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
