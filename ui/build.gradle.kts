@@ -1,4 +1,10 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.provider.Property
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.TaskAction
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -18,15 +24,25 @@ val appVersion = when {
 }
 
 // Task to generate version properties file
-val generateVersionProperties by tasks.registering {
-    val outputDir = file("${layout.buildDirectory.get()}/generated/resources")
-    outputs.dir(outputDir)
+abstract class GenerateVersionPropertiesTask : DefaultTask() {
+    @get:Input
+    abstract val version: Property<String>
 
-    doLast {
+    @get:OutputDirectory
+    abstract val outputDirectory: DirectoryProperty
+
+    @TaskAction
+    fun generateProperties() {
+        val outputDir = outputDirectory.get().asFile
         outputDir.mkdirs()
         val propsFile = File(outputDir, "version.properties")
-        propsFile.writeText("version=$appVersion\n")
+        propsFile.writeText("version=${version.get()}\n")
     }
+}
+
+val generateVersionProperties = tasks.register<GenerateVersionPropertiesTask>("generateVersionProperties") {
+    version.set(appVersion)
+    outputDirectory.set(layout.buildDirectory.dir("generated/resources"))
 }
 
 // Make sure the task runs before processing resources
@@ -38,7 +54,7 @@ tasks.named("processResources") {
 sourceSets {
     main {
         resources {
-            srcDir(generateVersionProperties.map { it.outputs.files.singleFile })
+            srcDir(generateVersionProperties.map { it.outputDirectory.get() })
         }
     }
 }
