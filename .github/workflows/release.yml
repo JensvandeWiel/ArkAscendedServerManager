@@ -1,0 +1,43 @@
+name: Build and Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'corretto'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v3
+
+      - name: Build MSI package
+        run: ./gradlew :ui:packageMsi
+
+      - name: Find MSI file
+        id: find-msi
+        run: |
+          $msiPath = Get-ChildItem -Path "ui/build/compose/binaries/main/msi" -Filter "*.msi" | Select-Object -First 1
+          echo "msi-path=$($msiPath.FullName)" >> $env:GITHUB_OUTPUT
+          echo "msi-name=$($msiPath.Name)" >> $env:GITHUB_OUTPUT
+        shell: powershell
+
+      - name: Upload MSI to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ steps.find-msi.outputs.msi-path }}
+          asset_name: ${{ steps.find-msi.outputs.msi-name }}
+          asset_content_type: application/x-msi
