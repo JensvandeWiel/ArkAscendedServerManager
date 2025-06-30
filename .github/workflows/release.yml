@@ -30,7 +30,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
 
       - name: Build MSI package
-        run: ./gradlew :ui:packageMsi -Pversion="${{ steps.version.outputs.version }}"
+        run: ./gradlew :ui:packageReleaseMsi -Pversion="${{ steps.version.outputs.version }}"
         env:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
