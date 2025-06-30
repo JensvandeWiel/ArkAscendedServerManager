@@ -39,7 +39,7 @@ jobs:
       - name: Find MSI file
         id: find-msi
         run: |
-          $msiPath = Get-ChildItem -Path "ui/build/compose/binaries/main/msi-release" -Filter "*.msi" | Select-Object -First 1
+          $msiPath = Get-ChildItem -Path "ui/build/compose/binaries/main-release/msi" -Filter "*.msi" | Select-Object -First 1
           echo "msi-path=$($msiPath.FullName)" >> $env:GITHUB_OUTPUT
           echo "msi-name=$($msiPath.Name)" >> $env:GITHUB_OUTPUT
         shell: powershell
