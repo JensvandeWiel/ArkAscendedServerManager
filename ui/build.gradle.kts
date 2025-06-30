@@ -38,9 +38,22 @@ compose.desktop {
         mainClass = "ui.MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Msi)
             packageName = "ArkAscendedServerManager"
             packageVersion = "1.0.0"
+
+            windows {
+                menu = true
+                shortcut = true
+                includeAllModules = true
+            }
+
+            modules("java.base", "java.desktop", "java.logging")
         }
+
+        buildTypes.release.proguard {
+            configurationFiles.from("proguard-rules.pro")
+        }
+
     }
 }
