@@ -1,0 +1,37 @@
+[versions]
+androidx-lifecycle = "2.9.6"
+composeHotReload = "1.0.0"
+composeMultiplatform = "1.10.0"
+junit = "4.13.2"
+kotlin = "2.3.0"
+kotlinx-coroutines = "1.10.2"
+nucleus = "1.6.5"
+jewel = "0.34.0-253.31033.149"
+jna = "5.18.1"
+
+[libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit = { module = "junit:junit", version.ref = "junit" }
+androidx-lifecycle-viewmodelCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtimeCompose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "composeMultiplatform" }
+compose-foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "composeMultiplatform" }
+compose-ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "composeMultiplatform" }
+compose-components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "composeMultiplatform" }
+compose-uiToolingPreview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "composeMultiplatform" }
+kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+jewel-intUiStandalone = { module = "org.jetbrains.jewel:jewel-int-ui-standalone", version.ref = "jewel" }
+jewel-intUiDecoratedWindow = { module = "org.jetbrains.jewel:jewel-int-ui-decorated-window", version.ref = "jewel" }
+nucleus-jewelDecoratedWindow = { module = "io.github.kdroidfilter:nucleus.decorated-window-jewel", version.ref = "nucleus" }
+nucleus-decoratedWindowJbr = { module = "io.github.kdroidfilter:nucleus.decorated-window-jbr", version.ref = "nucleus" }
+nucleus-darkModeDetector = { module = "io.github.kdroidfilter:nucleus.darkmode-detector" , version.ref = "nucleus" }
+jna-jpms = { module = "net.java.dev.jna:jna-jpms", version.ref = "jna" }
+
+
+[plugins]
+composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
+composeMultiplatform = { id = "org.jetbrains.compose", version.ref = "composeMultiplatform" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+nucleus = { id = "io.github.kdroidfilter.nucleus", version.ref = "nucleus" }
