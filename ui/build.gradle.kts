@@ -27,6 +27,8 @@ dependencies {
     implementation(libs.nucleus.jewelDecoratedWindow)
     implementation(libs.nucleus.darkModeDetector)
     implementation(libs.nucleus.decoratedWindowJbr)
+    implementation(libs.nucleus.systemColor)
+    implementation(libs.intellij.icons)
     implementation(libs.jna.jpms)
 
     testImplementation(libs.kotlin.test)
@@ -40,7 +42,6 @@ nucleus.application {
         targetFormats(TargetFormat.Nsis)
         packageName = "ArkAscendedServerManager"
         packageVersion = "0.0.0"
-
     }
 }
 

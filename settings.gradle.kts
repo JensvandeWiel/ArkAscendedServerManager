@@ -25,6 +25,7 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        maven("https://www.jetbrains.com/intellij-repository/releases")
     }
 }
 
