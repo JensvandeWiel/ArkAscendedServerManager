@@ -4,6 +4,7 @@ package ui.features.root
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipPlacement
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,7 +32,7 @@ import ui.utils.AccentColor
 fun RootScreen(component: RootComponent) {
     Children(component.stack) { child ->
         Row(modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp, vertical = 4.dp)) {
-            Column(Modifier.padding(vertical = 4.dp).fillMaxHeight()) {
+            Column(Modifier.padding(vertical = 4.dp).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                 component.topPages.forEach { page ->
                     NavigationButton(page = page, component = component)
                 }
