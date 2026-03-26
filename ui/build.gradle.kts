@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.nucleus)
+    alias(libs.plugins.serialization)
 }
 
 dependencies {
@@ -30,6 +31,9 @@ dependencies {
     implementation(libs.nucleus.systemColor)
     implementation(libs.intellij.icons)
     implementation(libs.jna.jpms)
+    implementation(libs.decompose.core)
+    implementation(libs.decompose.extensions)
+    implementation(libs.serialization.json)
 
     testImplementation(libs.kotlin.test)
 }
