@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.slf4jApi)
     implementation(libs.logbackClassic)
     implementation(libs.logbackCore)
+    implementation(libs.exposed.core)
+    implementation(libs.exposed.jdbc)
     testImplementation(libs.kotlin.test)
     implementation(project(":core"))
 }

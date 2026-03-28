@@ -14,6 +14,9 @@ decompose = "3.5.0"
 kotlinLogging = "8.0.01"
 slf4j = "2.0.17"
 logback = "1.5.32"
+exposed = "1.1.1"
+h2 = "2.4.240"
+flyway = "12.2.0"
 
 
 [libraries]
@@ -43,6 +46,10 @@ kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "
 slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 logbackCore = { module = "ch.qos.logback:logback-core", version.ref = "logback" }
 logbackClassic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
+exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+h2 = { module = "com.h2database:h2", version.ref = "h2" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 
 [plugins]
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }

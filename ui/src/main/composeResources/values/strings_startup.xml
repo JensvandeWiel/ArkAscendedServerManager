@@ -1,0 +1,9 @@
+<resources>
+    <string name="startup_dialog_title">Starting app</string>
+    <string name="startup_step_preparing">Preparing startup</string>
+    <string name="startup_step_configuring_logging">Configuring logging</string>
+    <string name="startup_step_migrating_database">Migrating database</string>
+    <string name="startup_step_connecting_database">Connecting database</string>
+    <string name="startup_step_initializing_ui">Initializing UI</string>
+</resources>
+
