@@ -17,7 +17,7 @@ object DatabaseHelper {
     }
 
     fun getDbConnectionString(): String {
-        val base = "jdbc:h2:${PathHelper.getDbFilePath()};DB_CLOSE_DELAY=-1"
+        val base = "jdbc:h2:${PathHelper.getDbFilePath()};DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE"
         val autoServerEnabled = isAutoServerEnabled()
         if (autoServerEnabled) _logger.info { "Auto server enabled" }
         return if (autoServerEnabled) "$base;AUTO_SERVER=TRUE" else base

@@ -48,6 +48,7 @@ logbackCore = { module = "ch.qos.logback:logback-core", version.ref = "logback" 
 logbackClassic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 exposed-core = { module = "org.jetbrains.exposed:exposed-core", version.ref = "exposed" }
 exposed-jdbc = { module = "org.jetbrains.exposed:exposed-jdbc", version.ref = "exposed" }
+exposed-dao = { module = "org.jetbrains.exposed:exposed-dao", version.ref = "exposed" }
 h2 = { module = "com.h2database:h2", version.ref = "h2" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 
