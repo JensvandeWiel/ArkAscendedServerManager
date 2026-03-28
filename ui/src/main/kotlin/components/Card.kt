@@ -1,4 +1,4 @@
-package ui.components
+package eu.wynq.arkascendedservermanager.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

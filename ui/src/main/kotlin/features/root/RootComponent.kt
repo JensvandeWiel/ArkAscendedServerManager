@@ -1,5 +1,9 @@
-package ui.features.root
+package eu.wynq.arkascendedservermanager.ui.features.root
 
+import arkascendedservermanager.ui.generated.resources.Res
+import arkascendedservermanager.ui.generated.resources.page_info
+import arkascendedservermanager.ui.generated.resources.page_servers
+import arkascendedservermanager.ui.generated.resources.page_settings
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
@@ -7,14 +11,13 @@ import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
-import org.jetbrains.jewel.ui.component.Text
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
-import ui.features.info.InfoComponent
-import ui.features.info.InfoScreen
-import ui.features.servers.ServersComponent
-import ui.features.servers.ServersScreen
-import ui.features.settings.SettingsComponent
-import ui.features.settings.SettingsScreen
+import eu.wynq.arkascendedservermanager.ui.features.info.InfoComponent
+import eu.wynq.arkascendedservermanager.ui.features.info.InfoScreen
+import eu.wynq.arkascendedservermanager.ui.features.servers.ServersComponent
+import eu.wynq.arkascendedservermanager.ui.features.servers.ServersScreen
+import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsComponent
+import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsScreen
 
 class RootComponent(context: ComponentContext) : ComponentContext by context {
     sealed class Child {
@@ -42,21 +45,21 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
 
     val pages: List<Page<out Child>> = listOf(
         Page<Child.Servers>(
-            title = "Servers",
+            title = Res.string.page_servers,
             config = Config.Servers,
             iconKey = AllIconsKeys.Toolwindows.ToolWindowServer,
             section = PageSection.TOP,
             content = { child -> ServersScreen(child.component) }
         ),
         Page<Child.Info>(
-            title = "Info",
+            title = Res.string.page_info,
             config = Config.Info,
             iconKey = AllIconsKeys.General.ShowInfos,
             section = PageSection.BOTTOM,
             content = { child -> InfoScreen(child.component) }
         ),
         Page<Child.Settings>(
-            title = "Settings",
+            title = Res.string.page_settings,
             config = Config.Settings,
             iconKey = AllIconsKeys.General.Settings,
             section = PageSection.BOTTOM,

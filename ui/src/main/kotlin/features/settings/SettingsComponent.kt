@@ -1,4 +1,4 @@
-package ui.features.settings
+package eu.wynq.arkascendedservermanager.ui.features.settings
 
 import com.arkivanov.decompose.ComponentContext
 

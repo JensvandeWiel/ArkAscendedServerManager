@@ -1,6 +1,7 @@
-package ui.features.root
+package eu.wynq.arkascendedservermanager.ui.features.root
 
 import androidx.compose.runtime.Composable
+import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.jewel.ui.icon.IconKey
 
 enum class PageSection {
@@ -9,7 +10,7 @@ enum class PageSection {
 }
 
 data class Page<T : RootComponent.Child>(
-    val title: String,
+    val title: StringResource,
     val config: RootComponent.Config,
     val iconKey: IconKey,
     val section: PageSection,

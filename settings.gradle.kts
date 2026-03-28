@@ -34,3 +34,4 @@ plugins {
 }
 rootProject.name = "ArkAscendedServerManager"
 include("ui")
+include("core")

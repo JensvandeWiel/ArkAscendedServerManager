@@ -34,13 +34,17 @@ dependencies {
     implementation(libs.decompose.core)
     implementation(libs.decompose.extensions)
     implementation(libs.serialization.json)
-
+    implementation(libs.kotlinLogging)
+    implementation(libs.slf4jApi)
+    implementation(libs.logbackClassic)
+    implementation(libs.logbackCore)
     testImplementation(libs.kotlin.test)
+    implementation(project(":core"))
 }
 
 
 nucleus.application {
-    mainClass = "ui.MainKt"
+    mainClass = "eu.wynq.arkascendedservermanager.ui.MainKt"
 
     nativeDistributions {
         targetFormats(TargetFormat.Nsis)

@@ -1,7 +1,9 @@
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package ui.features.root
+package eu.wynq.arkascendedservermanager.ui.features.root
 
+import arkascendedservermanager.ui.generated.resources.Res
+import arkascendedservermanager.ui.generated.resources.error_unknown_page
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipPlacement
 import androidx.compose.foundation.layout.Arrangement
@@ -20,13 +22,14 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.stack.Children
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.ui.component.SelectableIconActionButton
 import org.jetbrains.jewel.ui.component.Text
 import org.jetbrains.jewel.ui.painter.hints.Size
-import ui.components.Card
-import ui.components.ZeroDelayNeverHideTooltips
-import ui.theme.ThemeUtils.isDarkTheme
-import ui.utils.AccentColor
+import eu.wynq.arkascendedservermanager.ui.components.Card
+import eu.wynq.arkascendedservermanager.ui.components.ZeroDelayNeverHideTooltips
+import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.isDarkTheme
+import eu.wynq.arkascendedservermanager.ui.utils.AccentColor
 
 @Composable
 fun RootScreen(component: RootComponent) {
@@ -50,7 +53,7 @@ fun RootScreen(component: RootComponent) {
                 if (page != null) {
                     page.render(child.instance)
                 } else {
-                    Text("Unknown page")
+                    Text(stringResource(Res.string.error_unknown_page))
                 }
             }
         }
@@ -60,12 +63,14 @@ fun RootScreen(component: RootComponent) {
 @Composable
 private fun NavigationButton(page: Page<out RootComponent.Child>, component: RootComponent) {
     ZeroDelayNeverHideTooltips {
+        val title = stringResource(page.title)
+
         SelectableIconActionButton(
             page.iconKey,
-            page.title,
+            title,
             onClick = { component.navigateTo(page.config) },
             selected = component.currentActive(page.config),
-            tooltip = { Text(page.title) },
+            tooltip = { Text(title) },
             tooltipPlacement = TooltipPlacement.ComponentRect(
                 Alignment.CenterEnd,
                 Alignment.CenterEnd,

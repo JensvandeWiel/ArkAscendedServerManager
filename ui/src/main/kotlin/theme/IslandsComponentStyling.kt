@@ -1,4 +1,4 @@
-package ui.utils
+package eu.wynq.arkascendedservermanager.ui.utils
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.shape.CornerSize

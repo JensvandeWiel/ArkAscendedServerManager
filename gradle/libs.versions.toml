@@ -11,6 +11,10 @@ jewel = "0.34.0-253.31033.149"
 jna = "5.18.1"
 intellij = "261.22158.277"
 decompose = "3.5.0"
+kotlinLogging = "8.0.01"
+slf4j = "2.0.17"
+logback = "1.5.32"
+
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -35,7 +39,10 @@ jna-jpms = { module = "net.java.dev.jna:jna-jpms", version.ref = "jna" }
 decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose-experimental", version.ref = "decompose" }
 serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
-
+kotlinLogging = { module = "io.github.oshai:kotlin-logging-jvm", version.ref = "kotlinLogging" }
+slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+logbackCore = { module = "ch.qos.logback:logback-core", version.ref = "logback" }
+logbackClassic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 
 [plugins]
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }

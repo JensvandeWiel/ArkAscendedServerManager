@@ -1,4 +1,4 @@
-package ui.utils
+package eu.wynq.arkascendedservermanager.ui.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

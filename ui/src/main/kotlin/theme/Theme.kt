@@ -1,4 +1,4 @@
-package ui.theme
+package eu.wynq.arkascendedservermanager.ui.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -22,8 +22,8 @@ import org.jetbrains.jewel.intui.standalone.theme.darkThemeDefinition
 import org.jetbrains.jewel.intui.standalone.theme.light
 import org.jetbrains.jewel.intui.standalone.theme.lightThemeDefinition
 import org.jetbrains.jewel.ui.ComponentStyling
-import ui.utils.AccentColor
-import ui.utils.islandsComponentStyling
+import eu.wynq.arkascendedservermanager.ui.utils.AccentColor
+import eu.wynq.arkascendedservermanager.ui.utils.islandsComponentStyling
 
 object ThemeUtils {
     /**

@@ -1,0 +1,5 @@
+<resources>
+    <string name="page_servers">Servers</string>
+    <string name="page_info">Info</string>
+    <string name="page_settings">Settings</string>
+</resources>
