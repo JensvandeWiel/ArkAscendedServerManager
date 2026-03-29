@@ -10,6 +10,7 @@ dependencies {
     implementation(libs.exposed.core)
     implementation(libs.exposed.jdbc)
     implementation(libs.exposed.dao)
+    implementation(libs.nomenEstOmen)
     implementation(libs.h2)
     implementation(libs.flyway.core)
 }

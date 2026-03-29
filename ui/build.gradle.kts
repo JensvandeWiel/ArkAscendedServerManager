@@ -42,6 +42,9 @@ dependencies {
     implementation(libs.exposed.jdbc)
     testImplementation(libs.kotlin.test)
     implementation(project(":core"))
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
+    implementation(libs.koin.compose)
 }
 
 

@@ -17,12 +17,16 @@ import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.decompose.extensions.compose.lifecycle.LifecycleController
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import eu.wynq.arkascendedservermanager.core.db.repositories.SettingsRepository.createDefaultSettings
 import eu.wynq.arkascendedservermanager.core.db.DatabaseHelper.connect
 import eu.wynq.arkascendedservermanager.core.db.DatabaseHelper.migrate
+import eu.wynq.arkascendedservermanager.core.server.ServerManager
 import eu.wynq.arkascendedservermanager.core.support.LoggerConfigurator.configureLogging
 import eu.wynq.arkascendedservermanager.core.support.PathHelper.getLogFilePath
 import eu.wynq.arkascendedservermanager.ui.features.root.RootComponent
 import eu.wynq.arkascendedservermanager.ui.features.root.RootScreen
+import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
+import eu.wynq.arkascendedservermanager.ui.stores.SettingsStoreImpl
 import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils
 import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.buildComponentStyling
 import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.buildThemeDefinition
@@ -42,6 +46,8 @@ import org.jetbrains.jewel.ui.component.InlineErrorBanner
 import org.jetbrains.jewel.ui.component.Text
 import org.jetbrains.jewel.ui.theme.inlineBannerStyle
 import org.jetbrains.jewel.window.newFullscreenControls
+import org.koin.compose.KoinApplication
+import org.koin.dsl.module
 import kotlin.system.measureTimeMillis
 
 private val startupLogger = KotlinLogging.logger {}
@@ -72,7 +78,7 @@ private suspend fun runStartupSequence(
 
     onProgress(StartupState.Starting(step = Res.string.startup_step_connecting_database, percent = 80))
     val connectMs = withContext(Dispatchers.IO) {
-        measureTimeMillis { connect() }
+        measureTimeMillis { connect(); createDefaultSettings() }
     }
 
     startupLogger.info {
@@ -221,8 +227,18 @@ fun main() {
                 )
 
                 is StartupState.Ready -> {
-                    LifecycleController(lifecycle, windowState)
-                    MainWindow(windowState = windowState, rootComponent = currentState.rootComponent, ::exitApplication)
+                    val appModule = module {
+                        single { ServerManager() }
+                        single<SettingsStore> { SettingsStoreImpl() }
+                    }
+
+                    // Resolve DI only after startup is complete
+                    KoinApplication(application = {
+                        modules(appModule)
+                    }) {
+                        LifecycleController(lifecycle, windowState)
+                        MainWindow(windowState = windowState, rootComponent = currentState.rootComponent, ::exitApplication)
+                    }
                 }
 
                 is StartupState.Failed -> StartupErrorDialog(

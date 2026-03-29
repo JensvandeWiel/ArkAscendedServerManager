@@ -1,3 +1,4 @@
 <resources>
     <string name="action_add_server">Add server</string>
+    <string name="action_save_settings">Save settings</string>
 </resources>

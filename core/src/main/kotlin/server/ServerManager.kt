@@ -1,18 +1,33 @@
 package eu.wynq.arkascendedservermanager.core.server
 
-import eu.wynq.arkascendedservermanager.core.db.ServerEntity
-import io.github.oshai.kotlinlogging.KotlinLogging
+import com.oblac.nomen.Casing
+import com.oblac.nomen.Nomen
+import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.db.models.ServerEntity
+import eu.wynq.arkascendedservermanager.core.db.repositories.SettingsRepository
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 
 class ServerManager {
-    private val _logger = KotlinLogging.logger {}
-    fun createServer() {
-        val server = ServerEntity.Companion.new {
-            profile_name = "Test"
-            server_name = "Test"
-            installation_location = "C:\\aasm\test"
+    fun createServer(): Result<Server> {
+        val snakeCaseName = Nomen.est().adjective().noun().get()
+        val name = snakeCaseName
+            .split('_')
+            .joinToString(" ") { it.replaceFirstChar(Char::uppercaseChar) }
+
+
+        val dataPath = SettingsRepository.getDataPath().getOrElse {
+            return Result.failure(it)
         }
 
-        _logger.info { "Created server: $server" }
+        return runCatching {
+            Server.fromEntity(transaction {
+                ServerEntity.new {
+                    profile_name = name
+                    server_name = "$name Server hosted by JensvandeWiel/ArkAscendedServerManager"
+                    installation_location = "$dataPath\\${snakeCaseName}"
+                }
+            })
+        }
 
     }
 }
