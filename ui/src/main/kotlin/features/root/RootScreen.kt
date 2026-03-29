@@ -7,6 +7,7 @@ import arkascendedservermanager.ui.generated.resources.error_unknown_page
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipPlacement
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,8 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import org.jetbrains.compose.resources.stringResource
@@ -28,34 +29,42 @@ import org.jetbrains.jewel.ui.component.Text
 import org.jetbrains.jewel.ui.painter.hints.Size
 import eu.wynq.arkascendedservermanager.ui.components.Card
 import eu.wynq.arkascendedservermanager.ui.components.ZeroDelayNeverHideTooltips
-import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.isDarkTheme
-import eu.wynq.arkascendedservermanager.ui.utils.AccentColor
+import eu.wynq.arkascendedservermanager.ui.notifications.InlineToastBannerHost
 
 @Composable
 fun RootScreen(component: RootComponent) {
     Children(component.stack) { child ->
-        Row(modifier = Modifier.fillMaxSize().padding(horizontal = 4.dp, vertical = 4.dp)) {
-            Column(Modifier.padding(vertical = 4.dp).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                component.topPages.forEach { page ->
-                    NavigationButton(page = page, component = component)
+        Box(modifier = Modifier.fillMaxSize().padding(4.dp)) {
+            Row(modifier = Modifier.fillMaxSize()) {
+                Column(Modifier.padding(vertical = 4.dp).fillMaxHeight(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    component.topPages.forEach { page ->
+                        NavigationButton(page = page, component = component)
+                    }
+
+                    Spacer(Modifier.weight(1f))
+
+                    component.bottomPages.forEach { page ->
+                        NavigationButton(page = page, component = component)
+                    }
                 }
 
-                Spacer(Modifier.weight(1f))
+                Spacer(Modifier.width(4.dp))
+                Card(modifier = Modifier.weight(1f).fillMaxHeight()) {
+                    val config = child.configuration as? RootComponent.Config
+                    val page = if (config != null) component.pageFor(config) else null
+                    if (page != null) {
+                        page.render(child.instance)
+                    } else {
+                        Text(stringResource(Res.string.error_unknown_page))
+                    }
+                }
+            }
 
-                component.bottomPages.forEach { page ->
-                    NavigationButton(page = page, component = component)
-                }
-            }
-            Spacer(Modifier.width(4.dp))
-            Card(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                val config = child.configuration as? RootComponent.Config
-                val page = if (config != null) component.pageFor(config) else null
-                if (page != null) {
-                    page.render(child.instance)
-                } else {
-                    Text(stringResource(Res.string.error_unknown_page))
-                }
-            }
+            InlineToastBannerHost(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(12.dp)
+            )
         }
     }
 }
