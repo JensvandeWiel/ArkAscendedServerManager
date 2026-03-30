@@ -78,7 +78,7 @@ object ToastBannerManager {
         iconKey: IconKey? = null,
         linkActions: List<ToastLinkAction> = emptyList(),
         iconActions: List<ToastIconAction> = emptyList(),
-        timeoutMillis: Long? = 4_000L,
+        timeoutMillis: Long? = 3_000L,
     ): Long = show(
         ToastBanner(
             id = 0L,
@@ -434,10 +434,3 @@ private fun ToastInlineBanner(
         }
     }
 }
-
-
-
-
-
-
-
