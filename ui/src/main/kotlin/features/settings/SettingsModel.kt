@@ -1,6 +1,6 @@
 package eu.wynq.arkascendedservermanager.ui.features.settings
 
-import eu.wynq.arkascendedservermanager.ui.helpers.isValidPath
+import eu.wynq.arkascendedservermanager.core.support.isValidPath
 
 data class SettingsModel(
     val dataPath: String = "",

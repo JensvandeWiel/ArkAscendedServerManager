@@ -1,8 +1,11 @@
+@file:OptIn(ExperimentalUuidApi::class)
+
 package eu.wynq.arkascendedservermanager.ui.features.server
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -18,36 +21,39 @@ import arkascendedservermanager.ui.generated.resources.server_details_info_tab
 import arkascendedservermanager.ui.generated.resources.server_details_installation_location
 import arkascendedservermanager.ui.generated.resources.server_details_not_found
 import arkascendedservermanager.ui.generated.resources.server_details_profile_name
-import arkascendedservermanager.ui.generated.resources.server_details_profile_tab
+import arkascendedservermanager.ui.generated.resources.server_details_general_tab
 import arkascendedservermanager.ui.generated.resources.server_details_server_name
 import arkascendedservermanager.ui.generated.resources.server_details_title
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import eu.wynq.arkascendedservermanager.ui.components.FormField
+import eu.wynq.arkascendedservermanager.ui.components.LabelPosition
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
-import org.jetbrains.jewel.ui.Orientation
-import org.jetbrains.jewel.ui.component.Divider
+import org.jetbrains.jewel.ui.component.DefaultButton
+import org.jetbrains.jewel.ui.component.DefaultSplitButton
+import org.jetbrains.jewel.ui.component.GroupHeader
+import org.jetbrains.jewel.ui.component.SelectableIconActionButton
 import org.jetbrains.jewel.ui.component.SimpleTabContent
 import org.jetbrains.jewel.ui.component.TabData
 import org.jetbrains.jewel.ui.component.TabStrip
 import org.jetbrains.jewel.ui.component.Text
 import org.jetbrains.jewel.ui.theme.defaultTabStyle
-import org.jetbrains.jewel.ui.theme.editorTabStyle
 import org.jetbrains.jewel.ui.typography
+import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 fun ServerScreen(component: ServerComponent) {
     val title = stringResource(Res.string.server_details_title)
     val profileNameLabel = stringResource(Res.string.server_details_profile_name)
-    val serverNameLabel = stringResource(Res.string.server_details_server_name)
-    val installationLocationLabel = stringResource(Res.string.server_details_installation_location)
     val notFoundLabel = stringResource(Res.string.server_details_not_found)
     val errorLabel = stringResource(Res.string.server_details_error)
     val infoTabLabel = stringResource(Res.string.server_details_info_tab)
-    val profileTabLabel = stringResource(Res.string.server_details_profile_tab)
-    val server by component.server.collectAsState()
+    val generalTabLabel = stringResource(Res.string.server_details_general_tab)
+    val model by component.model.subscribeAsState()
     val error by component.error.collectAsState()
-    val selectedTab by component.selectedTab.collectAsState()
+    val selectedTab by component.selectedTab.subscribeAsState()
     val tabs =
-        remember(selectedTab, infoTabLabel, profileTabLabel) {
+        remember(selectedTab, infoTabLabel, generalTabLabel) {
             listOf(
                 TabData.Default(
                     selected = selectedTab == ServerDetailsTab.INFO,
@@ -58,11 +64,11 @@ fun ServerScreen(component: ServerComponent) {
                     closable = false,
                 ),
                 TabData.Default(
-                    selected = selectedTab == ServerDetailsTab.PROFILE,
+                    selected = selectedTab == ServerDetailsTab.GENERAL,
                     content = { tabState ->
-                        SimpleTabContent(label = profileTabLabel, state = tabState)
+                        SimpleTabContent(label = generalTabLabel, state = tabState)
                     },
-                    onClick = component::selectProfileTab,
+                    onClick = component::selectGeneralTab,
                     closable = false,
                 ),
             )
@@ -72,31 +78,29 @@ fun ServerScreen(component: ServerComponent) {
         Row(Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(2.dp)) {
             Text(title, style = JewelTheme.typography.h2TextStyle)
             Text("/", style = JewelTheme.typography.h2TextStyle)
-            Text(server?.profileName ?: "", style = JewelTheme.typography.h2TextStyle)
+            Text(model.initialServer?.profileName ?: "", style = JewelTheme.typography.h2TextStyle)
+            Spacer(Modifier.weight(1f))
+            DefaultButton(onClick = component::saveServer, enabled = model.isDirty()) {
+                Text("Save server")
+            }
         }
         TabStrip(
             tabs = tabs,
             style = JewelTheme.defaultTabStyle,
             modifier = Modifier.fillMaxWidth(),
         )
-        Divider(
-            Orientation.Horizontal, Modifier
-                .fillMaxWidth()
-        )
         Column(
             modifier = Modifier.padding(8.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            val loadedServer = server
+            val loadedServer = model.initialServer
             if (loadedServer != null) {
                 when (selectedTab) {
                     ServerDetailsTab.INFO -> {
-                        Text("$serverNameLabel: ${loadedServer.serverName}")
-                        Text("$installationLocationLabel: ${loadedServer.installationLocation}")
+                        InfoTabContent(component)
                     }
-
-                    ServerDetailsTab.PROFILE -> {
-                        Text("$profileNameLabel: ${loadedServer.profileName}")
+                    ServerDetailsTab.GENERAL -> {
+                        GeneralTabContent(component)
                     }
                 }
             } else if (error != null) {
@@ -108,3 +112,52 @@ fun ServerScreen(component: ServerComponent) {
     }
 }
 
+@Composable
+fun InfoTabContent(component: ServerComponent) {
+    val serverNameLabel = stringResource(Res.string.server_details_server_name)
+    val installationLocationLabel = stringResource(Res.string.server_details_installation_location)
+    val model by component.model.subscribeAsState()
+    Text("Info tab: ${model.server?.serverName}")
+}
+
+@Composable
+fun GeneralTabContent(component: ServerComponent) {
+    val model by component.model.subscribeAsState()
+    GroupHeader("Profile")
+    FormField(
+        value = model.server?.profileName ?: "",
+        onValueChange = { newValue ->
+            component.updateServer { it ->
+                it.copy(profileName = newValue)
+            }
+        },
+        label = "Profile name:",
+        error = model.server?.validateProfileName() == false,
+        labelPosition = LabelPosition.Above,
+    )
+    FormField(
+        value = model.server?.installationLocation ?: "",
+        onValueChange = { newValue ->
+            component.updateServer { it ->
+                it.copy(installationLocation = newValue)
+            }
+        },
+        label = "Installation path:",
+        error = model.server?.validateInstallationLocation() == false,
+        hint = "Path to the server installation folder, changing this will not move the existing installation.",
+        labelPosition = LabelPosition.Above,
+    )
+    GroupHeader("Server")
+    FormField(
+        value = model.server?.serverName ?: "",
+        onValueChange = { newValue ->
+            component.updateServer { it ->
+                it.copy(serverName = newValue)
+            }
+        },
+        label = "Server name:",
+        error = model.server?.validateServerName() == false,
+        labelPosition = LabelPosition.Above,
+        hint = "Public name of the server",
+    )
+}

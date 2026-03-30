@@ -2,6 +2,7 @@
 
 package eu.wynq.arkascendedservermanager.core.db.models
 
+import eu.wynq.arkascendedservermanager.core.support.isValidPath
 import org.jetbrains.exposed.v1.core.dao.id.EntityID
 import org.jetbrains.exposed.v1.core.dao.id.UuidTable
 import org.jetbrains.exposed.v1.dao.UuidEntity
@@ -23,7 +24,7 @@ class ServerEntity(id: EntityID<Uuid>) : UuidEntity(id) {
     var installation_location by ServersTable.installation_location
 }
 
-class Server(
+data class Server(
     val id: Uuid,
     val profileName: String,
     val serverName: String,
@@ -37,4 +38,10 @@ class Server(
             installationLocation = entity.installation_location,
         )
     }
+
+    fun validate() = validateProfileName() && validateServerName() && validateInstallationLocation()
+
+    fun validateProfileName() = profileName.isNotBlank()
+    fun validateServerName() = serverName.isNotBlank()
+    fun validateInstallationLocation() = isValidPath(installationLocation)
 }

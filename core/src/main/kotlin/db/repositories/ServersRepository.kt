@@ -12,7 +12,7 @@ import kotlin.uuid.Uuid
 
 object ServersRepository {
     fun createServer(): Result<Server> {
-        val snakeCaseName = Nomen.est().adjective().noun().get()
+        val snakeCaseName = Nomen.est().adjective().color().get()
         val name = snakeCaseName
             .split('_')
             .joinToString(" ") { it.replaceFirstChar(Char::uppercaseChar) }
@@ -34,9 +34,9 @@ object ServersRepository {
 
     }
 
-    fun getServer(serverId: Uuid): Result<Server?> = runCatching {
+    fun getServer(serverId: Uuid): Result<Server> = runCatching {
         transaction {
-            ServerEntity.findById(serverId)?.let(Server::fromEntity)
+            ServerEntity.findById(serverId)!!.let(Server::fromEntity)
         }
     }
 

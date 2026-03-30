@@ -3,6 +3,7 @@
 package eu.wynq.arkascendedservermanager.ui.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,11 @@ import org.jetbrains.jewel.ui.component.TextField
 import org.jetbrains.jewel.ui.component.Tooltip
 import org.jetbrains.jewel.ui.typography
 
+enum class LabelPosition {
+    Inline,
+    Above,
+}
+
 @Composable
 fun FormField(
     value: String,
@@ -30,6 +36,7 @@ fun FormField(
     label: String,
     hint: String? = null,
     error: Boolean = false,
+    labelPosition: LabelPosition = LabelPosition.Inline,
 ) {
     val state = remember { TextFieldState(value) }
     val currentValue = rememberUpdatedState(value)
@@ -52,19 +59,39 @@ fun FormField(
             }
     }
 
-    FormField(state, label, hint, error)
+    FormField(state, label, hint, error, labelPosition)
 }
 
 @Composable
-fun FormField(state: TextFieldState, label: String, hint: String? = null, error: Boolean = false) {
+fun FormField(
+    state: TextFieldState,
+    label: String,
+    hint: String? = null,
+    error: Boolean = false,
+    labelPosition: LabelPosition = LabelPosition.Inline,
+) {
     val fullContent = @Composable {
-        Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(label, style = JewelTheme.typography.labelTextStyle)
-            TextField(
-                state,
-                Modifier.fillMaxWidth(),
-                outline = if (error) Outline.Error else Outline.None,
-            )
+        when (labelPosition) {
+            LabelPosition.Inline -> {
+                Row(horizontalArrangement = Arrangement.spacedBy(4.dp), verticalAlignment = Alignment.CenterVertically) {
+                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    TextField(
+                        state,
+                        Modifier.fillMaxWidth(),
+                        outline = if (error) Outline.Error else Outline.None,
+                    )
+                }
+            }
+            LabelPosition.Above -> {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    TextField(
+                        state,
+                        Modifier.fillMaxWidth(),
+                        outline = if (error) Outline.Error else Outline.None,
+                    )
+                }
+            }
         }
     }
 

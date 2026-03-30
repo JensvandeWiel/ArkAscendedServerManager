@@ -1,4 +1,4 @@
-package eu.wynq.arkascendedservermanager.ui.helpers
+package eu.wynq.arkascendedservermanager.core.support
 
 import java.nio.file.InvalidPathException
 import java.nio.file.Paths
@@ -8,7 +8,7 @@ data class ValidationResult(
     val reason: String? = null,
 )
 
-private const val MAX_DEFAULT_PATH_LENGTH = 255
+const val MAX_DEFAULT_PATH_LENGTH = 255
 
 fun validatePath(path: String, maxLength: Int = MAX_DEFAULT_PATH_LENGTH): ValidationResult {
     if (path.isBlank()) {

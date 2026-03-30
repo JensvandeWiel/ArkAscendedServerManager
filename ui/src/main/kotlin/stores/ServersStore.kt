@@ -15,7 +15,7 @@ interface ServersStore {
     val error: StateFlow<String?>
     fun loadServers()
     fun createServer(): Server?
-    fun loadServer(serverId: Uuid): Server?
+    fun getServer(serverId: Uuid): Result<Server>
     fun deleteServer(server: Server)
     fun updateServer(server: Server)
 }
@@ -54,19 +54,9 @@ class ServersStoreImpl: ServersStore {
         }
     }
 
-    override fun loadServer(serverId: Uuid): Server? {
-        val dbServer = ServersRepository.getServer(serverId)
-        return if (dbServer.isSuccess) {
-            val loadedServer = dbServer.getOrThrow()
-            if (loadedServer != null) {
-                _servers.value = _servers.value + (loadedServer.id to loadedServer)
-            }
-            _error.value = null
-            loadedServer
-        } else {
-            _error.value = dbServer.exceptionOrNull()?.message
-            null
-        }
+    override fun getServer(serverId: Uuid): Result<Server> {
+        servers.value[serverId]?.let { return Result.success(it) }
+        return Result.failure(IllegalStateException("Server not found"))
     }
 
     override fun deleteServer(server: Server) {
