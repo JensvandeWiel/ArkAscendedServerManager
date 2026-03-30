@@ -20,8 +20,10 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import eu.wynq.arkascendedservermanager.core.db.repositories.SettingsRepository.createDefaultSettings
 import eu.wynq.arkascendedservermanager.core.db.DatabaseHelper.connect
 import eu.wynq.arkascendedservermanager.core.db.DatabaseHelper.migrate
+import eu.wynq.arkascendedservermanager.core.db.repositories.SettingsRepository
 import eu.wynq.arkascendedservermanager.core.support.LoggerConfigurator.configureLogging
 import eu.wynq.arkascendedservermanager.core.support.PathHelper.getLogFilePath
+import eu.wynq.arkascendedservermanager.core.support.SteamCMDHelper
 import eu.wynq.arkascendedservermanager.ui.features.root.RootComponent
 import eu.wynq.arkascendedservermanager.ui.features.root.RootScreen
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
@@ -72,18 +74,27 @@ private suspend fun runStartupSequence(
         measureTimeMillis { configureLogging(getLogFilePath()) }
     }
 
-    onProgress(StartupState.Starting(step = Res.string.startup_step_migrating_database, percent = 55))
+    onProgress(StartupState.Starting(step = Res.string.startup_step_migrating_database, percent = 40))
     val migrateMs = withContext(Dispatchers.IO) {
         measureTimeMillis { migrate() }
     }
 
-    onProgress(StartupState.Starting(step = Res.string.startup_step_connecting_database, percent = 80))
+    onProgress(StartupState.Starting(step = Res.string.startup_step_connecting_database, percent = 60))
     val connectMs = withContext(Dispatchers.IO) {
         measureTimeMillis { connect(); createDefaultSettings() }
     }
 
+    onProgress(StartupState.Starting(step = Res.string.startup_step_steamcmd, percent = 80))
+    val steamCmdMs = withContext(Dispatchers.IO) {
+        measureTimeMillis {
+            val settings = SettingsRepository.getSettings().getOrThrow()
+            val helper = SteamCMDHelper(settings)
+            helper.installSteamCMD().getOrThrow()
+        }
+    }
+
     startupLogger.info {
-        "Startup DB timings: configureLogging=${loggingMs}ms, migrate=${migrateMs}ms, connect=${connectMs}ms"
+        "Startup DB timings: configureLogging=${loggingMs}ms, migrate=${migrateMs}ms, steamcmd=${steamCmdMs}ms, connect=${connectMs}ms"
     }
 
     onProgress(StartupState.Starting(step = Res.string.startup_step_initializing_ui, percent = 95))

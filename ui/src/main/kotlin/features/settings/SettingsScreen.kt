@@ -44,6 +44,13 @@ fun SettingsScreen(component: SettingsComponent) {
                 hint = stringResource(Res.string.settings_data_path_hint),
                 error = model.dataPathError,
             )
+            FormField(
+                value = model.steamCmdPath,
+                onValueChange = component::onSteamCmdPathChanged,
+                label = "SteamCMD path:",
+                hint = "Path to steamcmd executable, used for downloading and updating the server",
+                error = model.dataPathError,
+            )
         }
     }
 }

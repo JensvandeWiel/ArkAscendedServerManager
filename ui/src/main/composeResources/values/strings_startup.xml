@@ -4,6 +4,7 @@
     <string name="startup_step_configuring_logging">Configuring logging</string>
     <string name="startup_step_migrating_database">Migrating database</string>
     <string name="startup_step_connecting_database">Connecting database</string>
+    <string name="startup_step_steamcmd">Installing/Updating SteamCMD</string>
     <string name="startup_step_initializing_ui">Initializing UI</string>
 </resources>
 

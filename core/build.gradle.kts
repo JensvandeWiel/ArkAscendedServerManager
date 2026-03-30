@@ -13,4 +13,5 @@ dependencies {
     implementation(libs.nomenEstOmen)
     implementation(libs.h2)
     implementation(libs.flyway.core)
+    implementation(libs.steamCmd)
 }

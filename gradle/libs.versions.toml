@@ -19,6 +19,7 @@ h2 = "2.4.240"
 flyway = "12.2.0"
 nomenEstOmen = "2.2.1"
 koin-bom = "4.1.1"
+steamCmd = "0.2.0"
 
 
 [libraries]
@@ -57,6 +58,8 @@ nomenEstOmen = { module = "com.oblac:nomen-est-omen", version.ref = "nomenEstOme
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
+steamCmd = { module = "eu.wynq:kotlin-steamcmd", version.ref = "steamCmd" }
+
 
 [plugins]
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }

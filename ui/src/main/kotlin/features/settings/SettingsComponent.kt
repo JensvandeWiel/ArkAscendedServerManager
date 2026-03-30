@@ -5,6 +5,8 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
 import eu.wynq.arkascendedservermanager.core.db.models.Settings
+import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
+import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -19,7 +21,9 @@ class SettingsComponent(componentContext: ComponentContext) : ComponentContext b
         _model = MutableValue(
             SettingsModel(
                 dataPath = initialSettings?.dataPath ?: "",
-                initialDataPath = initialSettings?.dataPath ?: ""
+                initialDataPath = initialSettings?.dataPath ?: "",
+                steamCmdPath = initialSettings?.steamcmdPath ?: "",
+                initialSteamCmdPath = initialSettings?.steamcmdPath ?: ""
             )
         )
     }
@@ -29,6 +33,11 @@ class SettingsComponent(componentContext: ComponentContext) : ComponentContext b
         _model.value = updatedModel.copy(dataPathError = !updatedModel.isDataPathValid())
     }
 
+    fun onSteamCmdPathChanged(value: String) {
+        val updatedModel = _model.value.copy(steamCmdPath = value)
+        _model.value = updatedModel.copy(steamCmdPathError = !updatedModel.isSteamCmdPathValid())
+    }
+
     fun saveSettings() {
         val currentModel = _model.value
         if (!currentModel.isDataPathValid()) {
@@ -36,17 +45,25 @@ class SettingsComponent(componentContext: ComponentContext) : ComponentContext b
             return
         }
 
+        if (!currentModel.isSteamCmdPathValid()) {
+            _model.value = currentModel.copy(steamCmdPathError = true)
+            return
+        }
+
         if (!currentModel.isDirty()) return
 
-        settingsStore.updateSettings(Settings(dataPath = currentModel.dataPath))
+        settingsStore.updateSettings(Settings(dataPath = currentModel.dataPath, steamcmdPath = currentModel.steamCmdPath))
 
         val hasSaveError = settingsStore.error.value != null
         _model.value = if (hasSaveError) {
-            currentModel.copy(dataPathError = false)
+            ToastBannerManager.show(ToastBannerType.ERROR, "Failed to save settings")
+            currentModel.copy(dataPathError = true, steamCmdPathError = true)
         } else {
             currentModel.copy(
                 dataPathError = false,
+                steamCmdPathError = false,
                 initialDataPath = currentModel.dataPath,
+                initialSteamCmdPath = currentModel.steamCmdPath
             )
         }
     }
