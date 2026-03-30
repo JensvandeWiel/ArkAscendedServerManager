@@ -10,7 +10,7 @@ data class SettingsModel(
     val initialSteamCmdPath: String = "",
     val initialDataPath: String = ""
 ) {
-    fun isDirty() = dataPath != initialDataPath
+    fun isDirty() = dataPath != initialDataPath || steamCmdPath != initialSteamCmdPath
     fun isDataPathValid() = isValidPath(dataPath)
 
     fun isSteamCmdPathValid() = isValidPath(steamCmdPath)
