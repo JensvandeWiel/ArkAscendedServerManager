@@ -1,6 +1,7 @@
 package eu.wynq.arkascendedservermanager.ui.theme
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -26,6 +27,12 @@ import eu.wynq.arkascendedservermanager.ui.utils.AccentColor
 import eu.wynq.arkascendedservermanager.ui.utils.islandsComponentStyling
 
 object ThemeUtils {
+    enum class ThemeMode {
+        System,
+        Light,
+        Dark,
+    }
+
     /**
      * Provides the app's default text style (centralized so callers don't repeat it).
      */
@@ -39,7 +46,18 @@ object ThemeUtils {
         )
 
     @Composable
-    fun isDarkTheme(): Boolean = isSystemInDarkMode()
+    fun isDarkTheme(): Boolean {
+        if (LocalInspectionMode.current) return false
+        return isSystemInDarkMode()
+    }
+
+    @Composable
+    private fun resolveIsDark(mode: ThemeMode): Boolean =
+        when (mode) {
+            ThemeMode.System -> isDarkTheme()
+            ThemeMode.Light -> false
+            ThemeMode.Dark -> true
+        }
 
     /**
      * Jewel's primary accent color blended at 25% over the panel background,
@@ -60,9 +78,9 @@ object ThemeUtils {
 
     /** Builds the Islands-based Jewel theme definition for the active light/dark mode. */
     @Composable
-    fun buildThemeDefinition() =
+    fun buildThemeDefinition(mode: ThemeMode = ThemeMode.System) =
         run {
-            val isDark = isDarkTheme()
+            val isDark = resolveIsDark(mode)
             val accent = AccentColor.Default.resolveColor(isDark)
             val disabledValues = if (isDark) DisabledAppearanceValues.dark() else DisabledAppearanceValues.light()
             val iconData = accentIconData(accent, isDark)
@@ -84,8 +102,8 @@ object ThemeUtils {
 
     /** Builds the Islands component styling for the current mode and accent color. */
     @Composable
-    fun buildComponentStyling(): ComponentStyling {
-        val isDark = isDarkTheme()
+    fun buildComponentStyling(mode: ThemeMode = ThemeMode.System): ComponentStyling {
+        val isDark = resolveIsDark(mode)
         val accent = AccentColor.Default.resolveColor(isDark)
         return islandsComponentStyling(isDark, accent)
     }

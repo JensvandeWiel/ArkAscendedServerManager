@@ -20,11 +20,12 @@ import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import eu.wynq.arkascendedservermanager.core.db.repositories.SettingsRepository.createDefaultSettings
 import eu.wynq.arkascendedservermanager.core.db.DatabaseHelper.connect
 import eu.wynq.arkascendedservermanager.core.db.DatabaseHelper.migrate
-import eu.wynq.arkascendedservermanager.core.server.ServerManager
 import eu.wynq.arkascendedservermanager.core.support.LoggerConfigurator.configureLogging
 import eu.wynq.arkascendedservermanager.core.support.PathHelper.getLogFilePath
 import eu.wynq.arkascendedservermanager.ui.features.root.RootComponent
 import eu.wynq.arkascendedservermanager.ui.features.root.RootScreen
+import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
+import eu.wynq.arkascendedservermanager.ui.stores.ServersStoreImpl
 import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
 import eu.wynq.arkascendedservermanager.ui.stores.SettingsStoreImpl
 import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils
@@ -228,7 +229,7 @@ fun main() {
 
                 is StartupState.Ready -> {
                     val appModule = module {
-                        single { ServerManager() }
+                        single<ServersStore> { ServersStoreImpl() }
                         single<SettingsStore> { SettingsStoreImpl() }
                     }
 

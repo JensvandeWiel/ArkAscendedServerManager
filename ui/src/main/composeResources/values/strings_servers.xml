@@ -1,0 +1,9 @@
+<resources>
+    <string name="server_details_title">Server</string>
+    <string name="server_details_profile_name">Profile name</string>
+    <string name="server_details_server_name">Server name</string>
+    <string name="server_details_installation_location">Installation location</string>
+    <string name="server_details_not_found">Server not found.</string>
+    <string name="server_details_error">Failed to load server</string>
+</resources>
+

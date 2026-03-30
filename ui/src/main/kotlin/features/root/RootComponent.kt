@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalUuidApi::class)
+
 package eu.wynq.arkascendedservermanager.ui.features.root
 
 import arkascendedservermanager.ui.generated.resources.Res
@@ -18,6 +20,9 @@ import eu.wynq.arkascendedservermanager.ui.features.servers.ServersComponent
 import eu.wynq.arkascendedservermanager.ui.features.servers.ServersScreen
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsComponent
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsScreen
+import eu.wynq.arkascendedservermanager.ui.features.server.ServerComponent
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
 class RootComponent(context: ComponentContext) : ComponentContext by context {
     sealed class Child {
@@ -30,6 +35,9 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
         class Info(
             val component: InfoComponent
         ) : Child()
+        class Server(
+            val component: ServerComponent
+        ) : Child()
     }
 
     // 4. The Type-Safe Configuration
@@ -41,6 +49,8 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
         object Settings : Config()
         @Serializable
         object Info : Config()
+        @Serializable
+        data class Server(val serverId: String) : Config()
     }
 
     val pages: List<Page<out Child>> = listOf(
@@ -84,7 +94,10 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
     private fun createChild(config: Config, context: ComponentContext): Child =
         when (config) {
             is Config.Servers -> Child.Servers(
-                component = ServersComponent(context)
+                component = ServersComponent(
+                    componentContext = context,
+                    onOpenServer = ::openServer,
+                )
             )
             is Config.Settings -> Child.Settings(
                 component = SettingsComponent(context)
@@ -92,11 +105,27 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
             is Config.Info -> Child.Info(
                 component = InfoComponent(context)
             )
+            is Config.Server -> {
+                val parsedServerId = try {
+                    Uuid.parse(config.serverId)
+                } catch (_: IllegalArgumentException) {
+                    return Child.Info(component = InfoComponent(context))
+                }
+
+                Child.Server(
+                    component = ServerComponent(
+                        componentContext = context,
+                        serverId = parsedServerId,
+                    )
+                )
+            }
         }
 
     fun pageFor(config: Config): Page<out Child>? = pagesByConfig[config]
 
     fun navigateTo(config: Config) = navigation.bringToFront(config)
+
+    fun openServer(serverId: Uuid) = navigation.bringToFront(Config.Server(serverId.toString()))
 
     fun currentActive(config: Config) = stack.value.active.configuration == config
 }

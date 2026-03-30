@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import org.jetbrains.compose.resources.stringResource
@@ -30,6 +29,7 @@ import org.jetbrains.jewel.ui.painter.hints.Size
 import eu.wynq.arkascendedservermanager.ui.components.Card
 import eu.wynq.arkascendedservermanager.ui.components.ZeroDelayNeverHideTooltips
 import eu.wynq.arkascendedservermanager.ui.notifications.InlineToastBannerHost
+import eu.wynq.arkascendedservermanager.ui.features.server.ServerScreen
 
 @Composable
 fun RootScreen(component: RootComponent) {
@@ -55,7 +55,10 @@ fun RootScreen(component: RootComponent) {
                     if (page != null) {
                         page.render(child.instance)
                     } else {
-                        Text(stringResource(Res.string.error_unknown_page))
+                        when (val instance = child.instance) {
+                            is RootComponent.Child.Server -> ServerScreen(instance.component)
+                            else -> Text(stringResource(Res.string.error_unknown_page))
+                        }
                     }
                 }
             }
