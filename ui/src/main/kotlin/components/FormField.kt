@@ -36,7 +36,7 @@ fun FormField(
     label: String,
     hint: String? = null,
     error: Boolean = false,
-    labelPosition: LabelPosition = LabelPosition.Inline,
+    labelPosition: LabelPosition = LabelPosition.Above,
 ) {
     val state = remember { TextFieldState(value) }
     val currentValue = rememberUpdatedState(value)
