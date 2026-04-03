@@ -11,10 +11,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import arkascendedservermanager.ui.generated.resources.Res
+import arkascendedservermanager.ui.generated.resources.toast_action_close_content_description
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.Icon
 import org.jetbrains.jewel.ui.component.InlineErrorBanner
@@ -143,10 +146,11 @@ private fun ToastInlineBanner(
     toast: ToastBanner,
     onDismiss: () -> Unit,
 ) {
+    val closeDescription = stringResource(Res.string.toast_action_close_content_description)
     val defaultIconActions = listOf(
         ToastIconAction(
             iconKey = AllIconsKeys.General.Close,
-            contentDescription = "Close",
+            contentDescription = closeDescription,
             dismissOnClick = true,
         )
     )

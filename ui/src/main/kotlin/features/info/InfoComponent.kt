@@ -9,31 +9,37 @@ import org.jetbrains.jewel.ui.icons.AllIconsKeys
 
 class InfoComponent(componentContext: ComponentContext) : ComponentContext by componentContext {
 
-	fun showSampleInfoToast() {
+	fun showSampleInfoToast(
+		title: String,
+		text: String,
+		actionALabel: String,
+		actionBLabel: String,
+		settingsContentDescription: String,
+	) {
 		ToastBannerManager.show(
 			type = ToastBannerType.INFO,
-			title = "Heads up",
-			text = "This is an info toast with actions and a 5 second timeout.",
+			title = title,
+			text = text,
 			timeoutMillis = 5_000L,
 			linkActions = listOf(
-				ToastLinkAction(label = "Action A", onClick = {}),
-				ToastLinkAction(label = "Action B", dismissOnClick = false, onClick = {}),
+				ToastLinkAction(label = actionALabel, onClick = {}),
+				ToastLinkAction(label = actionBLabel, dismissOnClick = false, onClick = {}),
 			),
 			iconActions = listOf(
 				ToastIconAction(
 					iconKey = AllIconsKeys.General.Gear,
-					contentDescription = "Settings",
+					contentDescription = settingsContentDescription,
 					onClick = {},
 				)
 			),
 		)
 	}
 
-	fun showPersistentErrorToast() {
+	fun showPersistentErrorToast(title: String, text: String) {
 		ToastBannerManager.show(
 			type = ToastBannerType.ERROR,
-			title = "Persistent error",
-			text = "This one does not auto-dismiss. Use the close button.",
+			title = title,
+			text = text,
 			timeoutMillis = null,
 		)
 	}

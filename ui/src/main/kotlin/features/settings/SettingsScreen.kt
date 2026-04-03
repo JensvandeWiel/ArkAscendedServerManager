@@ -10,6 +10,8 @@ import arkascendedservermanager.ui.generated.resources.action_save_settings
 import arkascendedservermanager.ui.generated.resources.page_settings
 import arkascendedservermanager.ui.generated.resources.settings_data_path
 import arkascendedservermanager.ui.generated.resources.settings_data_path_hint
+import arkascendedservermanager.ui.generated.resources.settings_steamcmd_path
+import arkascendedservermanager.ui.generated.resources.settings_steamcmd_path_hint
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.ui.components.FormField
 import org.jetbrains.compose.resources.stringResource
@@ -47,8 +49,8 @@ fun SettingsScreen(component: SettingsComponent) {
             FormField(
                 value = model.steamCmdPath,
                 onValueChange = component::onSteamCmdPathChanged,
-                label = "SteamCMD path:",
-                hint = "Path to steamcmd executable, used for downloading and updating the server",
+                label = stringResource(Res.string.settings_steamcmd_path),
+                hint = stringResource(Res.string.settings_steamcmd_path_hint),
                 error = model.dataPathError,
             )
         }

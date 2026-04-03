@@ -26,6 +26,7 @@ import eu.wynq.arkascendedservermanager.core.support.PathHelper.getLogFilePath
 import eu.wynq.arkascendedservermanager.core.support.SteamCMDHelper
 import eu.wynq.arkascendedservermanager.ui.features.root.RootComponent
 import eu.wynq.arkascendedservermanager.ui.features.root.RootScreen
+import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStoreImpl
 import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
@@ -38,7 +39,9 @@ import io.github.kdroidfilter.nucleus.window.jewel.JewelDecoratedWindow
 import io.github.kdroidfilter.nucleus.window.jewel.JewelDialogTitleBar
 import io.github.kdroidfilter.nucleus.window.jewel.JewelTitleBar
 import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
@@ -90,6 +93,7 @@ private suspend fun runStartupSequence(
             val settings = SettingsRepository.getSettings().getOrThrow()
             val helper = SteamCMDHelper(settings)
             helper.installSteamCMD().getOrThrow()
+            helper.updateSteamCMD().getOrThrow()
         }
     }
 
@@ -240,8 +244,10 @@ fun main() {
 
                 is StartupState.Ready -> {
                     val appModule = module {
+                        single { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
                         single<ServersStore> { ServersStoreImpl() }
                         single<SettingsStore> { SettingsStoreImpl() }
+                        single { InstallStore(get(), get()) }
                     }
 
                     // Resolve DI only after startup is complete

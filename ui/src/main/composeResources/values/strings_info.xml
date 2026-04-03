@@ -1,0 +1,13 @@
+<resources>
+    <string name="info_toast_playground_title">Toast playground</string>
+
+    <string name="info_toast_sample_title">Heads up</string>
+    <string name="info_toast_sample_text">This is an info toast with actions and a 5 second timeout.</string>
+    <string name="info_toast_action_a">Action A</string>
+    <string name="info_toast_action_b">Action B</string>
+    <string name="info_toast_settings_content_description">Settings</string>
+
+    <string name="info_toast_persistent_error_title">Persistent error</string>
+    <string name="info_toast_persistent_error_text">This one does not auto-dismiss. Use the close button.</string>
+</resources>
+

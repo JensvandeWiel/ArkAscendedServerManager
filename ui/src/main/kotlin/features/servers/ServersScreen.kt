@@ -22,6 +22,7 @@ import arkascendedservermanager.ui.generated.resources.Res
 import arkascendedservermanager.ui.generated.resources.action_add_server
 import arkascendedservermanager.ui.generated.resources.page_servers
 import arkascendedservermanager.ui.generated.resources.page_servers_empty_state
+import arkascendedservermanager.ui.generated.resources.server_details_go_to_server
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.ui.helpers.PreviewWrapper
 import org.jetbrains.compose.resources.stringResource
@@ -95,6 +96,7 @@ fun ServerCard(server: Server, onClick: () -> Unit) {
     } else {
         JewelTheme.globalColors.panelBackground
     }
+    val goToServerDescription = stringResource(Res.string.server_details_go_to_server)
 
     Row(
         Modifier
@@ -117,7 +119,7 @@ fun ServerCard(server: Server, onClick: () -> Unit) {
         Spacer(Modifier.weight(1f))
         Icon(
             AllIconsKeys.General.ArrowRight,
-            contentDescription = "Go to server",
+            contentDescription = goToServerDescription,
             modifier = Modifier.size(24.dp),
         )
     }

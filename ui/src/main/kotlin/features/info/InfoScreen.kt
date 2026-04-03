@@ -1,6 +1,17 @@
 package eu.wynq.arkascendedservermanager.ui.features.info
 
 import arkascendedservermanager.ui.generated.resources.Res
+import arkascendedservermanager.ui.generated.resources.action_clear_all
+import arkascendedservermanager.ui.generated.resources.action_show_persistent_toast
+import arkascendedservermanager.ui.generated.resources.action_show_timed_toast
+import arkascendedservermanager.ui.generated.resources.info_toast_action_a
+import arkascendedservermanager.ui.generated.resources.info_toast_action_b
+import arkascendedservermanager.ui.generated.resources.info_toast_persistent_error_text
+import arkascendedservermanager.ui.generated.resources.info_toast_persistent_error_title
+import arkascendedservermanager.ui.generated.resources.info_toast_playground_title
+import arkascendedservermanager.ui.generated.resources.info_toast_sample_text
+import arkascendedservermanager.ui.generated.resources.info_toast_sample_title
+import arkascendedservermanager.ui.generated.resources.info_toast_settings_content_description
 import arkascendedservermanager.ui.generated.resources.page_info
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,19 +28,44 @@ import org.jetbrains.jewel.ui.component.Text
 
 @Composable
 fun InfoScreen(component: InfoComponent) {
+    val pageInfo = stringResource(Res.string.page_info)
+    val toastPlaygroundTitle = stringResource(Res.string.info_toast_playground_title)
+    val timedToastLabel = stringResource(Res.string.action_show_timed_toast)
+    val persistentToastLabel = stringResource(Res.string.action_show_persistent_toast)
+    val clearAllLabel = stringResource(Res.string.action_clear_all)
+
+    val sampleToastTitle = stringResource(Res.string.info_toast_sample_title)
+    val sampleToastText = stringResource(Res.string.info_toast_sample_text)
+    val sampleToastActionA = stringResource(Res.string.info_toast_action_a)
+    val sampleToastActionB = stringResource(Res.string.info_toast_action_b)
+    val sampleToastSettingsDescription = stringResource(Res.string.info_toast_settings_content_description)
+
+    val persistentErrorTitle = stringResource(Res.string.info_toast_persistent_error_title)
+    val persistentErrorText = stringResource(Res.string.info_toast_persistent_error_text)
+
     Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(stringResource(Res.string.page_info))
-        Text("Toast playground")
+        Text(pageInfo)
+        Text(toastPlaygroundTitle)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            DefaultButton(onClick = component::showSampleInfoToast) {
-                Text("Show timed toast")
+            DefaultButton(
+                onClick = {
+                    component.showSampleInfoToast(
+                        title = sampleToastTitle,
+                        text = sampleToastText,
+                        actionALabel = sampleToastActionA,
+                        actionBLabel = sampleToastActionB,
+                        settingsContentDescription = sampleToastSettingsDescription,
+                    )
+                }
+            ) {
+                Text(timedToastLabel)
             }
-            DefaultButton(onClick = component::showPersistentErrorToast) {
-                Text("Show persistent toast")
+            DefaultButton(onClick = { component.showPersistentErrorToast(persistentErrorTitle, persistentErrorText) }) {
+                Text(persistentToastLabel)
             }
             Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::clearToasts) {
-                Text("Clear all")
+                Text(clearAllLabel)
             }
         }
     }

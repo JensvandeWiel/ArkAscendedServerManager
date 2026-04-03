@@ -1,6 +1,8 @@
 <resources>
     <string name="settings_data_path">Data path:</string>
     <string name="settings_data_path_hint">The path where data and new servers get stored</string>
+    <string name="settings_steamcmd_path">SteamCMD path:</string>
+    <string name="settings_steamcmd_path_hint">Path to steamcmd executable, used for downloading and updating the server</string>
     <string name="settings_save_failed">Failed to save settings</string>
     <string name="settings_steamcmd_path_changed_restart_required">SteamCMD path changed. Restart the app to apply the change.</string>
 </resources>

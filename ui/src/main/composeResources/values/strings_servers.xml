@@ -7,5 +7,36 @@
     <string name="server_details_general_tab">General</string>
     <string name="server_details_not_found">Server not found.</string>
     <string name="server_details_error">Failed to load server</string>
-</resources>
 
+    <string name="server_details_installation_info_group">Installation info</string>
+    <string name="server_details_installation_status_label">Installation status:</string>
+    <string name="server_details_installation_status_installed">Installed</string>
+    <string name="server_details_installation_status_not_installed">Not installed</string>
+    <string name="server_details_version_label">Version:</string>
+    <string name="server_details_version_placeholder">Placeholder version</string>
+
+    <string name="server_details_progress_preparing">Preparing</string>
+    <string name="server_details_progress_installing_api">Installing Ark API</string>
+    <string name="server_details_progress_updating_steamcmd">Updating SteamCMD</string>
+    <string name="server_details_progress_installing_steamcmd">Installing SteamCMD</string>
+    <string name="server_details_progress_downloading">Downloading</string>
+    <string name="server_details_progress_validating">Validating</string>
+    <string name="server_details_progress_reconfiguring">Reconfiguring</string>
+    <string name="server_details_progress_preallocating">Preallocating</string>
+    <string name="server_details_progress_committing">Committing</string>
+    <string name="server_details_progress_busy">Busy</string>
+    <string name="server_details_progress_format">%1$s - %2$d%</string>
+
+    <string name="server_details_group_profile">Profile</string>
+    <string name="server_details_group_server">Server</string>
+    <string name="server_details_profile_name_label">Profile name:</string>
+    <string name="server_details_installation_path_label">Installation path:</string>
+    <string name="server_details_installation_path_hint">Path to the server installation folder, changing this will not move the existing installation.</string>
+    <string name="server_details_server_name_label">Server name:</string>
+    <string name="server_details_server_name_hint">Public name of the server</string>
+    <string name="server_details_go_to_server">Go to server</string>
+
+    <string name="server_install_error_steamcmd_path_not_configured">SteamCMD path not configured in settings.</string>
+    <string name="server_install_toast_success">Server '%1$s' installed successfully!</string>
+    <string name="server_install_toast_failed">Failed to install server '%1$s': %2$s</string>
+</resources>
