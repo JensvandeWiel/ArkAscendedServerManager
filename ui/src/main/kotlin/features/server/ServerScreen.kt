@@ -12,6 +12,7 @@ import SteamCMDUpdating
 import Validating
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -157,12 +158,24 @@ fun InstallationInfo(component: ServerComponent) {
         Row {
             Text(installationStatusLabel)
             Spacer(Modifier.weight(1f))
-            Text(if (model.isActuallyInstalled()) installedStatus else notInstalledStatus)
+            Text(
+                when (model.isInstalled) {
+                    true -> installedStatus
+                    false -> notInstalledStatus
+                    null -> "…"
+                }
+            )
         }
         Row {
             Text(versionLabel)
             Spacer(Modifier.weight(1f))
-            Text(versionPlaceholder)
+            Text(
+                when (model.isInstalled) {
+                    true -> (if (model.version != null) "v${model.version}" else versionPlaceholder)
+                    false -> notInstalledStatus
+                    null -> "…"
+                }
+            )
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -257,8 +270,13 @@ fun InstallationInfo(component: ServerComponent) {
                     }
                 }
             }
+            LaunchedEffect(status) {
+                if (status is InstallDone) {
+                    component.refreshInstallationInfo()
+                }
+            }
             DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
-                Text(if (model.isActuallyInstalled()) updateLabel else installLabel)
+                Text(if (model.isInstalled == true) updateLabel else installLabel)
             }
         }
     }

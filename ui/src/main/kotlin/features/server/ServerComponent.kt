@@ -6,11 +6,16 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
+import eu.wynq.arkascendedservermanager.core.InstallManager
 import eu.wynq.arkascendedservermanager.core.InstallStatus
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.uuid.ExperimentalUuidApi
@@ -25,6 +30,7 @@ class ServerComponent(
     componentContext: ComponentContext,
     private val serverId: Uuid,
 ) : ComponentContext by componentContext, KoinComponent {
+    private val appScope: CoroutineScope by inject()
     private val serversStore: ServersStore by inject()
     private val installStore: InstallStore by inject()
     val installStatus: StateFlow<InstallStatus> = installStore.getProgress(serverId)
@@ -37,6 +43,7 @@ class ServerComponent(
     init {
         serversStore.getServer(serverId).onSuccess { loadedServer ->
             _model.update { it.copy(server = loadedServer, initialServer = loadedServer) }
+            refreshInstallationInfo(loadedServer)
         }
     }
 
@@ -60,9 +67,46 @@ class ServerComponent(
     }
 
     fun saveServer() {
-        _model.value.server?.let {
-            serversStore.updateServer(it)
-            _model.update { state -> state.copy(initialServer = it) }
+        _model.value.server?.let { currentServer ->
+            serversStore.updateServer(currentServer)
+            _model.update { state -> state.copy(initialServer = currentServer) }
+            refreshInstallationInfo(currentServer)
+        }
+    }
+
+    fun refreshInstallationInfo() {
+        _model.value.initialServer?.let { refreshInstallationInfo(it) }
+    }
+
+    private fun refreshInstallationInfo(server: Server) {
+        if (_model.value.initialServer != server) return
+
+        appScope.launch {
+            _model.update { state ->
+                if (state.initialServer == server) {
+                    state.copy(isInstalled = null, version = null)
+                } else {
+                    state
+                }
+            }
+
+            val installationInfo = withContext(Dispatchers.IO) {
+                ServerInstallationInfo(
+                    isInstalled = InstallManager.isInstalled(server),
+                    version = InstallManager.getServerVersion(server),
+                )
+            }
+
+            _model.update { state ->
+                if (state.initialServer == server) {
+                    state.copy(
+                        isInstalled = installationInfo.isInstalled,
+                        version = installationInfo.version,
+                    )
+                } else {
+                    state
+                }
+            }
         }
     }
 
@@ -71,5 +115,10 @@ class ServerComponent(
             state.server?.let { state.copy(server = closure(it)) } ?: state
         }
     }
+
+    private data class ServerInstallationInfo(
+        val isInstalled: Boolean,
+        val version: String?,
+    )
 }
 

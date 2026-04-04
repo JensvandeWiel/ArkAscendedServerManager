@@ -13,7 +13,7 @@
     <string name="server_details_installation_status_installed">Installed</string>
     <string name="server_details_installation_status_not_installed">Not installed</string>
     <string name="server_details_version_label">Version:</string>
-    <string name="server_details_version_placeholder">Placeholder version</string>
+    <string name="server_details_version_placeholder">Unknown version</string>
 
     <string name="server_details_progress_preparing">Preparing</string>
     <string name="server_details_progress_installing_api">Installing Ark API</string>

@@ -14,4 +14,5 @@ dependencies {
     implementation(libs.h2)
     implementation(libs.flyway.core)
     implementation(libs.steamCmd)
+    implementation(project(":core-native"))
 }

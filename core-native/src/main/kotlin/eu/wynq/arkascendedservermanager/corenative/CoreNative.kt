@@ -33,7 +33,7 @@ interface CoreNativeLibrary : Library {
 object CoreNative {
     private val nativeLibrary: CoreNativeLibrary by lazy { CoreNativeBindings.load() }
 
-    fun getAsaVersionNative(execPath: Path): String? {
+    fun getAsaVersion(execPath: Path): String? {
         val nativeString = nativeLibrary.core_native_get_asa_version(execPath.toAbsolutePath().toString())
             ?: return null
 
