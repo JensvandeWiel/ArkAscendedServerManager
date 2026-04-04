@@ -1,0 +1,13 @@
+[package]
+name = "core-native"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[lib]
+name = "core_native"
+path = "src/main/rust/src/lib.rs"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+anyhow = "1.0.102"

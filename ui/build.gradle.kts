@@ -56,6 +56,7 @@ nucleus.application {
         targetFormats(TargetFormat.Nsis)
         packageName = "ArkAscendedServerManager"
         packageVersion = "0.0.0"
+        modules("java.sql")
     }
 }
 
