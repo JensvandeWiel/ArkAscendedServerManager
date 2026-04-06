@@ -48,10 +48,8 @@ object ServersRepository {
 
     fun saveServer(server: Server) = runCatching {
         transaction {
-            ServerEntity.findByIdAndUpdate(server.id) {
-                it.profile_name = server.profileName
-                it.server_name = server.serverName
-                it.installation_location = server.installationLocation
+            ServerEntity.findById(server.id)?.let { entity ->
+                Server.applyToEntity(server, entity)
             }
         }
     }

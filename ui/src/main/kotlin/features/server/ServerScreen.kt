@@ -25,7 +25,8 @@ import eu.wynq.arkascendedservermanager.core.Idle
 import eu.wynq.arkascendedservermanager.core.InstallDone
 import eu.wynq.arkascendedservermanager.core.InstallingAPI
 import eu.wynq.arkascendedservermanager.core.InstallingGame
-import eu.wynq.arkascendedservermanager.ui.components.FormField
+import eu.wynq.arkascendedservermanager.ui.components.FormTextField
+import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
 import eu.wynq.arkascendedservermanager.ui.components.LabelPosition
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
@@ -292,9 +293,11 @@ fun GeneralTabContent(component: ServerComponent) {
     val installationPathHint = stringResource(Res.string.server_details_installation_path_hint)
     val serverNameLabel = stringResource(Res.string.server_details_server_name_label)
     val serverNameHint = stringResource(Res.string.server_details_server_name_hint)
+    val asaApiLabel = stringResource(Res.string.server_details_asa_api_label)
+    val asaApiHint = stringResource(Res.string.server_details_asa_api_hint)
 
     GroupHeader(profileGroupLabel)
-    FormField(
+    FormTextField(
         value = model.server?.profileName ?: "",
         onValueChange = { newValue ->
             component.updateServer {
@@ -305,7 +308,7 @@ fun GeneralTabContent(component: ServerComponent) {
         error = model.server?.validateProfileName() == false,
         labelPosition = LabelPosition.Above,
     )
-    FormField(
+    FormTextField(
         value = model.server?.installationLocation ?: "",
         onValueChange = { newValue ->
             component.updateServer {
@@ -318,7 +321,17 @@ fun GeneralTabContent(component: ServerComponent) {
         labelPosition = LabelPosition.Above,
     )
     GroupHeader(serverGroupLabel)
-    FormField(
+    FormCheckboxField(
+        model.server?.asaApi ?: false,
+        onCheckedChange = { newValue ->
+            component.updateServer {
+                it.copy(asaApi = newValue)
+            }
+        },
+        label = asaApiLabel,
+        hint = asaApiHint,
+    )
+    FormTextField(
         value = model.server?.serverName ?: "",
         onValueChange = { newValue ->
             component.updateServer {

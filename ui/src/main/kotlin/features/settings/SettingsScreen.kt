@@ -13,7 +13,7 @@ import arkascendedservermanager.ui.generated.resources.settings_data_path_hint
 import arkascendedservermanager.ui.generated.resources.settings_steamcmd_path
 import arkascendedservermanager.ui.generated.resources.settings_steamcmd_path_hint
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import eu.wynq.arkascendedservermanager.ui.components.FormField
+import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.Orientation
@@ -39,14 +39,14 @@ fun SettingsScreen(component: SettingsComponent) {
                 .fillMaxWidth()
         )
         Column(Modifier.padding(6.dp, 10.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            FormField(
+            FormTextField(
                 value = model.dataPath,
                 onValueChange = component::onDataPathChanged,
                 label = stringResource(Res.string.settings_data_path),
                 hint = stringResource(Res.string.settings_data_path_hint),
                 error = model.dataPathError,
             )
-            FormField(
+            FormTextField(
                 value = model.steamCmdPath,
                 onValueChange = component::onSteamCmdPathChanged,
                 label = stringResource(Res.string.settings_steamcmd_path),

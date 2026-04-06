@@ -32,6 +32,8 @@
     <string name="server_details_profile_name_label">Profile name:</string>
     <string name="server_details_installation_path_label">Installation path:</string>
     <string name="server_details_installation_path_hint">Path to the server installation folder, changing this will not move the existing installation.</string>
+    <string name="server_details_asa_api_label">Enable ASA API</string>
+    <string name="server_details_asa_api_hint">Enables Ark Ascended Server API, which allows the use of plugins. These are not the same as mods. Requires reinstall.</string>
     <string name="server_details_server_name_label">Server name:</string>
     <string name="server_details_server_name_hint">Public name of the server</string>
     <string name="server_details_go_to_server">Go to server</string>

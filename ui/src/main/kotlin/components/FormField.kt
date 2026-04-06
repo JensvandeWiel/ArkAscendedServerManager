@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.drop
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.Outline
+import org.jetbrains.jewel.ui.component.Checkbox
 import org.jetbrains.jewel.ui.component.Text
 import org.jetbrains.jewel.ui.component.TextField
 import org.jetbrains.jewel.ui.component.Tooltip
@@ -30,7 +31,7 @@ enum class LabelPosition {
 }
 
 @Composable
-fun FormField(
+fun FormTextField(
     value: String,
     onValueChange: (String) -> Unit,
     label: String,
@@ -59,11 +60,11 @@ fun FormField(
             }
     }
 
-    FormField(state, label, hint, error, labelPosition)
+    FormTextField(state, label, hint, error, labelPosition)
 }
 
 @Composable
-fun FormField(
+fun FormTextField(
     state: TextFieldState,
     label: String,
     hint: String? = null,
@@ -100,6 +101,32 @@ fun FormField(
             Text(hint, style = JewelTheme.typography.labelTextStyle)
         })
         {
+            fullContent()
+        }
+    } else {
+        fullContent()
+    }
+}
+
+@Composable
+fun FormCheckboxField(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    label: String,
+    hint: String? = null,
+    error: Boolean = false,
+) {
+    val fullContent = @Composable {
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+            Checkbox(checked = checked, onCheckedChange = onCheckedChange, outline = if (error) Outline.Error else Outline.None)
+            Text(label, style = JewelTheme.typography.labelTextStyle)
+        }
+    }
+
+    if (hint != null) {
+        Tooltip(tooltip = {
+            Text(hint, style = JewelTheme.typography.labelTextStyle)
+        }) {
             fullContent()
         }
     } else {
