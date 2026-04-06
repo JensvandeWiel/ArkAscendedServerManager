@@ -9,6 +9,7 @@ import com.arkivanov.decompose.value.update
 import eu.wynq.arkascendedservermanager.core.InstallManager
 import eu.wynq.arkascendedservermanager.core.InstallStatus
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.support.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
 import kotlinx.coroutines.CoroutineScope
@@ -94,6 +95,8 @@ class ServerComponent(
                 ServerInstallationInfo(
                     isInstalled = InstallManager.isInstalled(server),
                     version = InstallManager.getServerVersion(server),
+                    apiVersion = if (server.asaApi) AsaApiInstallManager.getApiVersionAsString(server) else null,
+                    apiIsInstalled = AsaApiInstallManager.isInstalled(server),
                 )
             }
 
@@ -102,6 +105,8 @@ class ServerComponent(
                     state.copy(
                         isInstalled = installationInfo.isInstalled,
                         version = installationInfo.version,
+                        apiIsInstalled = installationInfo.apiIsInstalled,
+                        apiVersion = installationInfo.apiVersion,
                     )
                 } else {
                     state
@@ -118,6 +123,8 @@ class ServerComponent(
 
     private data class ServerInstallationInfo(
         val isInstalled: Boolean,
+        val apiIsInstalled: Boolean,
+        val apiVersion: String?,
         val version: String?,
     )
 }

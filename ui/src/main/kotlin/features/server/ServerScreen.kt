@@ -102,7 +102,7 @@ fun ServerScreen(component: ServerComponent) {
                     }
                 }
             } else if (error != null) {
-                Text("$errorLabel: $error")
+                Text(stringResource(Res.string.server_details_error_format, errorLabel, error ?: ""))
             } else {
                 Text(notFoundLabel)
             }
@@ -135,12 +135,18 @@ fun InstallProgress(
 fun InstallationInfo(component: ServerComponent) {
     val model by component.model.subscribeAsState()
     val status by component.installStatus.collectAsState()
+    val isAsaApiEnabled = model.server?.asaApi ?: model.initialServer?.asaApi ?: false
     val installationInfoGroup = stringResource(Res.string.server_details_installation_info_group)
     val installationStatusLabel = stringResource(Res.string.server_details_installation_status_label)
     val installedStatus = stringResource(Res.string.server_details_installation_status_installed)
     val notInstalledStatus = stringResource(Res.string.server_details_installation_status_not_installed)
     val versionLabel = stringResource(Res.string.server_details_version_label)
+    val apiVersionLabel = stringResource(Res.string.server_details_api_version_label)
     val versionPlaceholder = stringResource(Res.string.server_details_version_placeholder)
+    val versionValueFormat = stringResource(Res.string.server_details_version_value_format)
+    val apiNotInstalledStatus = stringResource(Res.string.server_details_api_not_installed)
+    val notEnabledStatus = stringResource(Res.string.server_details_not_enabled)
+    val unknownStatus = stringResource(Res.string.server_details_unknown_short)
     val preparingLabel = stringResource(Res.string.server_details_progress_preparing)
     val installingApiLabel = stringResource(Res.string.server_details_progress_installing_api)
     val updatingSteamCmdLabel = stringResource(Res.string.server_details_progress_updating_steamcmd)
@@ -161,9 +167,19 @@ fun InstallationInfo(component: ServerComponent) {
             Spacer(Modifier.weight(1f))
             Text(
                 when (model.isInstalled) {
-                    true -> installedStatus
+                    true -> {
+                        if (isAsaApiEnabled) {
+                            when (model.apiIsInstalled) {
+                                true -> installedStatus
+                                false -> apiNotInstalledStatus
+                                else -> unknownStatus
+                            }
+                        } else {
+                            installedStatus
+                        }
+                    }
                     false -> notInstalledStatus
-                    null -> "…"
+                    null -> unknownStatus
                 }
             )
         }
@@ -172,9 +188,24 @@ fun InstallationInfo(component: ServerComponent) {
             Spacer(Modifier.weight(1f))
             Text(
                 when (model.isInstalled) {
-                    true -> (if (model.version != null) "v${model.version}" else versionPlaceholder)
+                    true -> (if (model.version != null) versionValueFormat.format(model.version) else versionPlaceholder)
                     false -> notInstalledStatus
-                    null -> "…"
+                    null -> unknownStatus
+                }
+            )
+        }
+        Row {
+            Text(apiVersionLabel)
+            Spacer(Modifier.weight(1f))
+            Text(
+                if (!isAsaApiEnabled) {
+                    notEnabledStatus
+                } else {
+                    when (model.apiIsInstalled) {
+                        true -> (if (model.apiVersion != null) versionValueFormat.format(model.apiVersion) else versionPlaceholder)
+                        false -> notInstalledStatus
+                        null -> unknownStatus
+                    }
                 }
             )
         }
@@ -261,7 +292,6 @@ fun InstallationInfo(component: ServerComponent) {
                     is InstallDone -> {
                         // Don't show any progress, finish is reflected using popup.
                     }
-
                     is Idle -> {
                         // Don't show any progress.
                     }

@@ -6,6 +6,7 @@ import Installed
 import Status
 import SteamCMD
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.support.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.corenative.CoreNative
 import kotlinx.coroutines.flow.Flow
@@ -62,17 +63,23 @@ object InstallManager {
 
         if (failed) return@flow
 
-        emit(InstallingAPI())
-        try {
-            installAPI()
-            emit(InstallDone())
-        } catch (e: Exception) {
-            emit(InstallError("API Installation failed: ${e.message}"))
+        if (server.asaApi) {
+            emit(InstallingAPI())
+            try {
+                installAPI(server)
+            } catch (e: Exception) {
+                emit(InstallError("API Installation failed: ${e.message}"))
+                return@flow
+            }
         }
+        emit(InstallDone())
     }
 
-    private suspend fun installAPI() {
-
+    private suspend fun installAPI(server: Server) {
+        val latest = AsaApiInstallManager.getLatestRelease().getOrThrow()
+        val currentVersion = AsaApiInstallManager.getApiVersion(server)
+        if (currentVersion == latest.version) return
+        AsaApiInstallManager.install(server, latest).getOrThrow()
     }
 
     fun getServerVersionFromExecutable(server: Server): String? {

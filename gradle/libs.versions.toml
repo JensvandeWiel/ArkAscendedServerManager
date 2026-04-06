@@ -20,6 +20,7 @@ flyway = "12.2.0"
 nomenEstOmen = "2.2.1"
 koin-bom = "4.1.1"
 steamCmd = "0.2.0"
+ktor-version ="3.4.1"
 
 
 [libraries]
@@ -59,7 +60,11 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin-bom" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-compose = { module = "io.insert-koin:koin-compose" }
 steamCmd = { module = "eu.wynq:kotlin-steamcmd", version.ref = "steamCmd" }
-
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor-version" }
+ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor-version" }
+ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-version" }
+ktor-serialization-kotlinxJson = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-version" }
+semver = { module = "io.github.z4kn4fein:semver", version = "3.0.0" }
 
 [plugins]
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }

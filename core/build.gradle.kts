@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.kotlinJvm)
+    alias(libs.plugins.serialization)
 }
 
 dependencies {
@@ -15,4 +16,9 @@ dependencies {
     implementation(libs.flyway.core)
     implementation(libs.steamCmd)
     implementation(project(":core-native"))
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.contentNegotiation)
+    implementation(libs.ktor.serialization.kotlinxJson)
+    implementation(libs.semver)
 }

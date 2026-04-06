@@ -67,8 +67,7 @@ class InstallStore(private val settingsStore: SettingsStore, private val appScop
     private fun runAsFlow(server: Server, steamCMD: SteamCMD): Flow<InstallStatus> = flow {
         emit(Preparing())
         InstallManager.install(server, steamCMD).collect { status ->
-            emit(status)
-            val statusMessage = when (status) {
+            when (status) {
                 is InstallDone -> {
                     withContext(Dispatchers.Main) {
                         ToastBannerManager.show(
@@ -76,21 +75,29 @@ class InstallStore(private val settingsStore: SettingsStore, private val appScop
                             getString(Res.string.server_install_toast_success, server.profileName),
                         )
                     }
-                    "Done"
+                    emit(status)
+                    _logger.info { "Installation status update for server ${server.profileName} (${server.id}): Done" }
                 }
                 is InstallError -> {
                     withContext(Dispatchers.Main) {
                         ToastBannerManager.show(
                             ToastBannerType.ERROR,
                             getString(Res.string.server_install_toast_failed, server.profileName, status.error),
+                            timeoutMillis = null,
                         )
                     }
-                    "Error: ${status.error}"
+                    emit(Idle())
+                    _logger.info { "Installation status update for server ${server.profileName} (${server.id}): Error: ${status.error}" }
                 }
-                is InstallingGame -> "Installing: ${status.status}"
-                else -> status::class.simpleName ?: "Unknown"
+                is InstallingGame -> {
+                    emit(status)
+                    _logger.info { "Installation status update for server ${server.profileName} (${server.id}): Installing Game - ${status.status}" }
+                }
+                else -> {
+                    emit(status)
+                    _logger.info { "Installation status update for server ${server.profileName} (${server.id}): ${status::class.simpleName ?: "Unknown"}" }
+                }
             }
-            _logger.info { "Installation status update for server ${server.profileName} (${server.id}): $statusMessage" }
         }
     }
 }

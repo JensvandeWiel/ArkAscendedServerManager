@@ -6,7 +6,9 @@ data class ServerModel(
     val server: Server? = null,
     val initialServer: Server? = null,
     val isInstalled: Boolean? = null,
+    val apiIsInstalled: Boolean? = null,
     val version: String? = null,
+    val apiVersion: String? = null,
 ) {
     fun isDirty() = server != initialServer
 }
