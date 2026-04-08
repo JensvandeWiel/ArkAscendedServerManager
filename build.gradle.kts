@@ -10,4 +10,5 @@ plugins {
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.serialization) apply false
     alias(libs.plugins.nucleus) apply false
+    alias(libs.plugins.rust) apply false
 }

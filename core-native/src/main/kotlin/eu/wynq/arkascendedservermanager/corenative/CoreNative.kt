@@ -11,7 +11,7 @@ import java.nio.file.Path
  */
 object CoreNativeBindings {
     const val RUST_LIBRARY_NAME: String = "core_native"
-    private const val SEARCH_PATH_PROPERTY = "core.native.library.path"
+    private const val SEARCH_PATH_PROPERTY = "jna.library.path"
 
     fun load(searchPath: Path? = null): CoreNativeLibrary {
         val path = searchPath?.toAbsolutePath()?.toString()

@@ -74,3 +74,4 @@ composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "k
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 nucleus = { id = "io.github.kdroidfilter.nucleus", version.ref = "nucleus" }
 serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+rust = { id = "eu.wynq.rust" }

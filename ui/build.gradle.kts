@@ -1,4 +1,10 @@
+import org.gradle.api.attributes.Usage
 import io.github.kdroidfilter.nucleus.desktop.application.dsl.TargetFormat
+import org.gradle.api.tasks.Sync
+import org.gradle.api.tasks.JavaExec
+import org.gradle.api.tasks.testing.Test
+import org.gradle.internal.os.OperatingSystem
+import org.gradle.nativeplatform.OperatingSystemFamily
 
 plugins {
     alias(libs.plugins.kotlinJvm)
@@ -7,6 +13,20 @@ plugins {
     alias(libs.plugins.composeHotReload)
     alias(libs.plugins.nucleus)
     alias(libs.plugins.serialization)
+}
+
+fun operatingSystemFamilyName(): String = OperatingSystem.current().familyName
+
+val nativeRuntimeConfig = configurations.create("nativeRuntime") {
+    isCanBeConsumed = false
+    isCanBeResolved = true
+    attributes {
+        attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage::class.java, Usage.NATIVE_RUNTIME))
+        attribute(
+            OperatingSystemFamily.OPERATING_SYSTEM_ATTRIBUTE,
+            objects.named(OperatingSystemFamily::class.java, operatingSystemFamilyName())
+        )
+    }
 }
 
 dependencies {
@@ -42,10 +62,27 @@ dependencies {
     implementation(libs.exposed.jdbc)
     testImplementation(libs.kotlin.test)
     implementation(project(":core"))
+    add("nativeRuntime", project(":core-native"))
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
     implementation(libs.steamCmd)
+}
+
+val nativeLibsDir = layout.buildDirectory.dir("native-libs")
+val syncNativeLibs = tasks.register<Sync>("syncNativeLibs") {
+    from(nativeRuntimeConfig)
+    into(nativeLibsDir)
+}
+
+tasks.withType<JavaExec>().configureEach {
+    dependsOn(syncNativeLibs)
+    systemProperty("jna.library.path", nativeLibsDir.get().asFile.absolutePath)
+}
+
+tasks.withType<Test>().configureEach {
+    dependsOn(syncNativeLibs)
+    systemProperty("jna.library.path", nativeLibsDir.get().asFile.absolutePath)
 }
 
 
