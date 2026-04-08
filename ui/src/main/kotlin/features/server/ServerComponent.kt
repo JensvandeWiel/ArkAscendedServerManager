@@ -72,6 +72,7 @@ class ServerComponent(
     fun saveServer() {
         _model.value.server?.let { currentServer ->
             serversStore.updateServer(currentServer)
+            InstallManager.createStartupScript(currentServer)
             _model.update { state -> state.copy(initialServer = currentServer) }
             refreshInstallationInfo(currentServer)
         }

@@ -11,4 +11,7 @@ object Constants {
     const val ASA_API_VERSION_FILE = "api_version.txt"
     const val SERVER_VERSION_PATH = "$SERVER_BINARY_PATH\\$SERVER_VERSION_FILE"
     const val ASA_API_VERSION_PATH = "$SERVER_BINARY_PATH\\$ASA_API_VERSION_FILE"
+    const val STARTUP_SCRIPT_FILE = "startup.bat"
+    const val STARTUP_SCRIPT_PATH = "$SERVER_BINARY_PATH\\$STARTUP_SCRIPT_FILE"
+    const val ASA_API_EXECUTABLE_NAME = "AsaApiLoader.exe"
 }

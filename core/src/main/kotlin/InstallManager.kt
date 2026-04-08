@@ -72,6 +72,11 @@ object InstallManager {
                 return@flow
             }
         }
+
+        createStartupScript(server).onFailure {
+            emit(InstallError("Failed to create startup script: ${it.message}"))
+            return@flow
+        }
         emit(InstallDone())
     }
 
@@ -102,6 +107,16 @@ object InstallManager {
         storeServerVersion(server, version)
 
         return version
+    }
+
+    fun createStartupScript(server: Server): Result<Unit> {
+        val content = server.makeStartupScriptString()
+
+        val scriptFile = Path.of(server.installationLocation, Constants.STARTUP_SCRIPT_PATH).normalize().toFile()
+        scriptFile.writeText(content)
+        scriptFile.setExecutable(true)
+
+        return Result.success(Unit)
     }
 
     fun getAndStoreServerVersion(server: Server) {

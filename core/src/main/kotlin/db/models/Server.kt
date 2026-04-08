@@ -3,6 +3,7 @@
 package eu.wynq.arkascendedservermanager.core.db.models
 
 import eu.wynq.arkascendedservermanager.core.server.Settings
+import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.isValidPath
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.v1.core.dao.id.EntityID
@@ -10,6 +11,7 @@ import org.jetbrains.exposed.v1.core.dao.id.UuidTable
 import org.jetbrains.exposed.v1.dao.UuidEntity
 import org.jetbrains.exposed.v1.dao.UuidEntityClass
 import org.jetbrains.exposed.v1.json.json
+import java.nio.file.Path
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -62,4 +64,32 @@ data class Server(
 
     fun validateProfileName() = profileName.isNotBlank()
     fun validateInstallationLocation() = isValidPath(installationLocation)
+
+    fun makeStartupScriptString(): String {
+        val administration = settings.administration
+        val executableName = if (asaApi) Constants.ASA_API_EXECUTABLE_NAME else Constants.SERVER_EXECUTABLE_NAME
+        val sb = StringBuilder()
+        sb.append("start ")
+        sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString())
+        sb.append(" ")
+        sb.append(administration.map)
+        // TODO: Place session name in ini files instead of here since now we can't use spaces in the name
+        sb.append("?SessionName=${administration.serverName}")
+        sb.append("?Port=${administration.serverPort}")
+        sb.append("?QueryPort=${administration.queryPort}")
+        if (administration.rconEnabled) {
+            sb.append("?RCONEnabled=True")
+            sb.append("?RCONPort=${administration.rconPort}")
+        }
+        if (!administration.serverPassword.isNullOrBlank()) {
+            sb.append("?ServerPassword=${administration.serverPassword}")
+        }
+        sb.append("?ServerAdminPassword=${administration.adminPassword}")
+        sb.append(" -WinLiveMaxPlayers=" + administration.slots)
+        if (administration.mods.isNotEmpty()) {
+            sb.append(" -mods=" + administration.mods.joinToString(","))
+        }
+        sb.append(" -OldConsole")
+        return sb.toString()
+    }
 }
