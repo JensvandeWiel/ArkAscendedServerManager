@@ -362,14 +362,14 @@ fun GeneralTabContent(component: ServerComponent) {
         hint = asaApiHint,
     )
     FormTextField(
-        value = model.server?.serverName ?: "",
+        value = model.server?.settings?.serverName ?: "",
         onValueChange = { newValue ->
-            component.updateServer {
+            component.updateServerSettings {
                 it.copy(serverName = newValue)
             }
         },
         label = serverNameLabel,
-        error = model.server?.validateServerName() == false,
+        error = model.server?.settings?.validateServerName() == false,
         labelPosition = LabelPosition.Above,
         hint = serverNameHint,
     )

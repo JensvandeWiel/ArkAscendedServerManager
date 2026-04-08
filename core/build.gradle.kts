@@ -21,4 +21,7 @@ dependencies {
     implementation(libs.ktor.client.contentNegotiation)
     implementation(libs.ktor.serialization.kotlinxJson)
     implementation(libs.semver)
+    implementation(libs.exposed.json)
+    implementation(libs.serialization.json)
+
 }

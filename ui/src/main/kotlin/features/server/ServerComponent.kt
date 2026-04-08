@@ -9,6 +9,7 @@ import com.arkivanov.decompose.value.update
 import eu.wynq.arkascendedservermanager.core.InstallManager
 import eu.wynq.arkascendedservermanager.core.InstallStatus
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
@@ -118,6 +119,12 @@ class ServerComponent(
     fun updateServer(closure: (server: Server) -> Server) {
         _model.update { state ->
             state.server?.let { state.copy(server = closure(it)) } ?: state
+        }
+    }
+
+    fun updateServerSettings(closure: (server: Settings) -> Settings) {
+        _model.update { state ->
+            state.server?.let { state.copy(server = state.server.copy(settings = closure(state.server.settings))) } ?: state
         }
     }
 

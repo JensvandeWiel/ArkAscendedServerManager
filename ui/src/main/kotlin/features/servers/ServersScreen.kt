@@ -24,6 +24,7 @@ import arkascendedservermanager.ui.generated.resources.page_servers
 import arkascendedservermanager.ui.generated.resources.page_servers_empty_state
 import arkascendedservermanager.ui.generated.resources.server_details_go_to_server
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.ui.helpers.PreviewWrapper
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
@@ -129,7 +130,8 @@ fun ServerCard(server: Server, onClick: () -> Unit) {
 @Preview
 private fun ServerCardPreview() {
     val server = Server(
-        Uuid.random(), "Profile Name", "Server Name", "Installation Location"
+        Uuid.random(), "Profile Name", "Installation Location",
+        settings = Settings("Server Name")
     )
     PreviewWrapper {
         ServerCard(server = server, onClick = {})

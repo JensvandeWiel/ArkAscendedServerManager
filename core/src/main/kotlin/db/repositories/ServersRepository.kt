@@ -5,6 +5,7 @@ package eu.wynq.arkascendedservermanager.core.db.repositories
 import com.oblac.nomen.Nomen
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.db.models.ServerEntity
+import eu.wynq.arkascendedservermanager.core.server.Settings
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import kotlin.text.split
 import kotlin.uuid.ExperimentalUuidApi
@@ -26,7 +27,7 @@ object ServersRepository {
             Server.fromEntity(transaction {
                 ServerEntity.new {
                     profile_name = name
-                    server_name = "$name Server hosted by JensvandeWiel/ArkAscendedServerManager"
+                    settings = Settings.createForNewServer(name)
                     installation_location = "$dataPath\\${snakeCaseName}"
                 }
             })
