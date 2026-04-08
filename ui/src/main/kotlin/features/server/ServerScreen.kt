@@ -23,6 +23,7 @@ import eu.wynq.arkascendedservermanager.core.InstallingAPI
 import eu.wynq.arkascendedservermanager.core.InstallingGame
 import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
+import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
@@ -506,6 +507,21 @@ fun GeneralTabContent(component: ServerComponent) {
                     label = "Mods (comma separated):",
                     hint = "A comma-separated list of mod ids, in the order in which they should be applied.",
                     error = !settings.administration.validateMods(),
+                )
+                GroupHeader("Server options")
+                FormSliderField(
+                    value = settings.administration.slots,
+                    onValueChange = { newValue ->
+                        component.updateServerAdministrationSettings {
+                            it.copy(slots = newValue)
+                        }
+                    },
+                    label = "Slots:",
+                    valueRange = 1..250,
+                    error = !settings.administration.validateSlots(),
+                    hint = "Sets the maximum number of players which can join this server.",
+                    allowOutsideRange = true,
+                    showManualInput = true,
                 )
             }
         }
