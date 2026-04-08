@@ -11,11 +11,7 @@ import SteamCMDInstalling
 import SteamCMDUpdating
 import Validating
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,9 +21,9 @@ import eu.wynq.arkascendedservermanager.core.Idle
 import eu.wynq.arkascendedservermanager.core.InstallDone
 import eu.wynq.arkascendedservermanager.core.InstallingAPI
 import eu.wynq.arkascendedservermanager.core.InstallingGame
-import eu.wynq.arkascendedservermanager.ui.components.FormTextField
+import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
-import eu.wynq.arkascendedservermanager.ui.components.LabelPosition
+import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
@@ -78,7 +74,7 @@ fun ServerScreen(component: ServerComponent) {
             Text("/", style = JewelTheme.typography.h2TextStyle)
             Text(model.initialServer?.profileName ?: "", style = JewelTheme.typography.h2TextStyle)
             Spacer(Modifier.weight(1f))
-            DefaultButton(onClick = component::saveServer, enabled = model.isDirty()) {
+            DefaultButton(onClick = component::saveServer, enabled = model.canSave()) {
                 Text(saveServerLabel)
             }
         }
@@ -178,6 +174,7 @@ fun InstallationInfo(component: ServerComponent) {
                             installedStatus
                         }
                     }
+
                     false -> notInstalledStatus
                     null -> unknownStatus
                 }
@@ -221,14 +218,24 @@ fun InstallationInfo(component: ServerComponent) {
                     }
 
                     is InstallingAPI -> {
-                        InstallProgress(installingApiLabel, 0f, indeterminate = true, modifier = Modifier.fillMaxWidth())
+                        InstallProgress(
+                            installingApiLabel,
+                            0f,
+                            indeterminate = true,
+                            modifier = Modifier.fillMaxWidth()
+                        )
                     }
 
                     is InstallingGame -> {
                         val gameStatus = status as InstallingGame
                         when (gameStatus.status) {
                             is Preparing -> {
-                                InstallProgress(preparingLabel, 0f, indeterminate = true, modifier = Modifier.fillMaxWidth())
+                                InstallProgress(
+                                    preparingLabel,
+                                    0f,
+                                    indeterminate = true,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
                             }
 
                             is SteamCMDUpdating -> {
@@ -240,7 +247,12 @@ fun InstallationInfo(component: ServerComponent) {
                             }
 
                             is SteamCMDInstalling -> {
-                                InstallProgress(installingSteamCmdLabel, 0f, indeterminate = true, modifier = Modifier.fillMaxWidth())
+                                InstallProgress(
+                                    installingSteamCmdLabel,
+                                    0f,
+                                    indeterminate = true,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
                             }
 
                             is Downloading -> {
@@ -292,6 +304,7 @@ fun InstallationInfo(component: ServerComponent) {
                     is InstallDone -> {
                         // Don't show any progress, finish is reflected using popup.
                     }
+
                     is Idle -> {
                         // Don't show any progress.
                     }
@@ -317,7 +330,7 @@ fun InstallationInfo(component: ServerComponent) {
 fun GeneralTabContent(component: ServerComponent) {
     val model by component.model.subscribeAsState()
     val profileGroupLabel = stringResource(Res.string.server_details_group_profile)
-    val serverGroupLabel = stringResource(Res.string.server_details_group_server)
+    stringResource(Res.string.server_details_group_server)
     val profileNameLabel = stringResource(Res.string.server_details_profile_name_label)
     val installationPathLabel = stringResource(Res.string.server_details_installation_path_label)
     val installationPathHint = stringResource(Res.string.server_details_installation_path_hint)
@@ -326,51 +339,175 @@ fun GeneralTabContent(component: ServerComponent) {
     val asaApiLabel = stringResource(Res.string.server_details_asa_api_label)
     val asaApiHint = stringResource(Res.string.server_details_asa_api_hint)
 
-    GroupHeader(profileGroupLabel)
-    FormTextField(
-        value = model.server?.profileName ?: "",
-        onValueChange = { newValue ->
-            component.updateServer {
-                it.copy(profileName = newValue)
+    VerticallyScrollableContainer {
+        Column(
+            modifier = Modifier.padding(8.dp).padding(end = scrollbarContentSafePadding()),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            model.server?.run {
+                GroupHeader(profileGroupLabel)
+                FormTextField(
+                    value = profileName,
+                    onValueChange = { newValue ->
+                        component.updateServer {
+                            it.copy(profileName = newValue)
+                        }
+                    },
+                    label = profileNameLabel,
+                    error = !validateProfileName(),
+                )
+                FormTextField(
+                    value = installationLocation,
+                    onValueChange = { newValue ->
+                        component.updateServer {
+                            it.copy(installationLocation = newValue)
+                        }
+                    },
+                    label = installationPathLabel,
+                    hint = installationPathHint,
+                    error = !validateInstallationLocation(),
+                )
+                FormCheckboxField(
+                    asaApi,
+                    onCheckedChange = { newValue ->
+                        component.updateServer {
+                            it.copy(asaApi = newValue)
+                        }
+                    },
+                    label = asaApiLabel,
+                    hint = asaApiHint,
+                )
+                GroupHeader("Name and passwords")
+                FormTextField(
+                    value = settings.administration.serverName,
+                    onValueChange = { newValue ->
+                        component.updateServerAdministrationSettings {
+                            it.copy(serverName = newValue)
+                        }
+                    },
+                    label = serverNameLabel,
+                    hint = serverNameHint,
+                    error = !settings.administration.validateServerName(),
+                )
+                FormTextField(
+                    value = settings.administration.serverPassword ?: "",
+                    onValueChange = { newValue ->
+                        val normalizedPassword = newValue.trim().takeIf { it.isNotEmpty() }
+                        component.updateServerAdministrationSettings {
+                            it.copy(serverPassword = normalizedPassword)
+                        }
+                    },
+                    label = "Server password:",
+                    hint = "The password users must enter in order to access the server. If this is set, only people who know the password can access your server.",
+                    error = !settings.administration.validateServerPassword(),
+                )
+                FormTextField(
+                    value = settings.administration.adminPassword,
+                    onValueChange = { newValue ->
+                        component.updateServerAdministrationSettings {
+                            it.copy(adminPassword = newValue.trim())
+                        }
+                    },
+                    label = "Admin password:",
+                    hint = "The password users must enter to execute admin/cheat commands on the server. If this is not set, anyone can use cheats.",
+                    error = !settings.administration.validateAdminPassword(),
+                )
+                GroupHeader("Ports")
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    FormTextField(
+                        value = settings.administration.serverPort.toString(),
+                        onValueChange = { newValue ->
+                            val port = newValue.toIntOrNull()
+                            if (port != null) {
+                                component.updateServerAdministrationSettings {
+                                    it.copy(serverPort = port, peerPort = port + 1)
+                                }
+                            }
+                        },
+                        label = "Server port:",
+                        modifier = Modifier.weight(1f),
+                        hint = "The port users will use to connect to your server. Default is 7777. Change this and Query Port if you wish to host multiple servers on one machine.",
+                        error = !settings.administration.validateServerPort(),
+                    )
+                    FormTextField(
+                        value = settings.administration.peerPort.toString(),
+                        onValueChange = { /* Peer port is always server port +1, so it is not editable. */ },
+                        label = "Peer port:",
+                        modifier = Modifier.weight(1f),
+                        hint = "Peer port (always Game port +1), used for connecting to the server from the client.",
+                        error = !settings.administration.validatePeerPort(),
+                        readOnly = true,
+                    )
+                    FormTextField(
+                        value = settings.administration.queryPort.toString(),
+                        onValueChange = { newValue ->
+                            val port = newValue.toIntOrNull()
+                            if (port != null) {
+                                component.updateServerAdministrationSettings {
+                                    it.copy(queryPort = port)
+                                }
+                            }
+                        },
+                        label = "Query port:",
+                        modifier = Modifier.weight(1f),
+                        hint = "The port Steam uses to communicate with your server. Default is 27015. Change this and Server Port if you wish to host multiple servers on one machine.",
+                        error = !settings.administration.validateQueryPort(),
+                    )
+                }
+                CheckboxSectionHeader(
+                    checked = settings.administration.rconEnabled,
+                    onCheckedChange = { enabled ->
+                        component.updateServerAdministrationSettings {
+                            it.copy(rconEnabled = enabled)
+                        }
+                    },
+                    label = "RCON",
+                    hint = "Enable RCON (Remote Console) for this server. This allows you to execute admin/cheat commands on the server.",
+                )
+                FormTextField(
+                    value = settings.administration.rconPort.toString(),
+                    onValueChange = { newValue ->
+                        val port = newValue.toIntOrNull()
+                        if (port != null) {
+                            component.updateServerAdministrationSettings {
+                                it.copy(rconPort = port)
+                            }
+                        }
+                    },
+                    label = "RCON port:",
+                    hint = "The port that RCON will use on your server.",
+                    error = if (settings.administration.rconEnabled)
+                        !settings.administration.validateRconPort() else false,
+                    enabled = settings.administration.rconEnabled
+                )
+                GroupHeader("Map and Mods")
+                FormTextField(
+                    value = settings.administration.map,
+                    onValueChange = { newValue ->
+                        component.updateServerAdministrationSettings {
+                            it.copy(map = newValue)
+                        }
+                    },
+                    label = "Map:",
+                    hint = "The map your server will load. Make sure to use the correct map name, otherwise your server might not start.",
+                    error = !settings.administration.validateMap(),
+                )
+                FormTextField(
+                    value = settings.administration.mods.joinToString(","),
+                    onValueChange = { newValue ->
+                        val mods = newValue.split(",").mapNotNull { rawValue -> rawValue.trim().takeIf { it.isNotEmpty() } }
+                        component.updateServerAdministrationSettings {
+                            it.copy(mods = mods)
+                        }
+                    },
+                    label = "Mods (comma separated):",
+                    hint = "A comma-separated list of mod ids, in the order in which they should be applied.",
+                    error = !settings.administration.validateMods(),
+                )
             }
-        },
-        label = profileNameLabel,
-        error = model.server?.validateProfileName() == false,
-        labelPosition = LabelPosition.Above,
-    )
-    FormTextField(
-        value = model.server?.installationLocation ?: "",
-        onValueChange = { newValue ->
-            component.updateServer {
-                it.copy(installationLocation = newValue)
-            }
-        },
-        label = installationPathLabel,
-        error = model.server?.validateInstallationLocation() == false,
-        hint = installationPathHint,
-        labelPosition = LabelPosition.Above,
-    )
-    GroupHeader(serverGroupLabel)
-    FormCheckboxField(
-        model.server?.asaApi ?: false,
-        onCheckedChange = { newValue ->
-            component.updateServer {
-                it.copy(asaApi = newValue)
-            }
-        },
-        label = asaApiLabel,
-        hint = asaApiHint,
-    )
-    FormTextField(
-        value = model.server?.settings?.serverName ?: "",
-        onValueChange = { newValue ->
-            component.updateServerSettings {
-                it.copy(serverName = newValue)
-            }
-        },
-        label = serverNameLabel,
-        error = model.server?.settings?.validateServerName() == false,
-        labelPosition = LabelPosition.Above,
-        hint = serverNameHint,
-    )
+        }
+    }
 }

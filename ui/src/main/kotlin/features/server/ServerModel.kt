@@ -11,5 +11,7 @@ data class ServerModel(
     val apiVersion: String? = null,
 ) {
     fun isDirty() = server != initialServer
+    fun isValid() = server != null && server.validate()
+    fun canSave() = isValid() && isDirty()
 }
 

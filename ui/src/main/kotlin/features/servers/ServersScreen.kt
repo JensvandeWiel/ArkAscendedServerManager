@@ -131,7 +131,7 @@ fun ServerCard(server: Server, onClick: () -> Unit) {
 private fun ServerCardPreview() {
     val server = Server(
         Uuid.random(), "Profile Name", "Installation Location",
-        settings = Settings("Server Name")
+        settings = Settings.createForNewServer("Server Name")
     )
     PreviewWrapper {
         ServerCard(server = server, onClick = {})
