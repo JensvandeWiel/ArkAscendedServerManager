@@ -11,6 +11,12 @@
 
     <string name="server_details_installation_info_group">Installation info</string>
     <string name="server_details_installation_status_label">Installation status:</string>
+    <string name="server_details_power_state_label">Status:</string>
+    <string name="server_details_power_state_running">Running</string>
+    <string name="server_details_power_state_starting">Starting</string>
+    <string name="server_details_power_state_stopping">Stopping</string>
+    <string name="server_details_power_state_stopped">Stopped</string>
+    <string name="server_details_power_state_unknown">Unknown</string>
     <string name="server_details_installation_status_installed">Installed</string>
     <string name="server_details_installation_status_not_installed">Not installed</string>
     <string name="server_details_api_not_installed">API not installed</string>

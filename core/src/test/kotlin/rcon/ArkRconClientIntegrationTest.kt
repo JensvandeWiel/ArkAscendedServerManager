@@ -9,10 +9,9 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
-class SourceRconClientIntegrationTest {
-
+class ArkRconClientIntegrationTest {
     @Test
-    fun `authenticates and combines multi packet response`() {
+    fun `returns first response packet without terminator request`() {
         runBlocking {
             FakeSourceRconServer(password = "secret") { command ->
                 when (command) {
@@ -20,8 +19,8 @@ class SourceRconClientIntegrationTest {
                     else -> listOf("unknown\n")
                 }
             }.use { server ->
-                val client = SourceRconClient(
-                    config = RconConfig(
+                val client = ArkRconClient(
+                    config = ArkRconConfig(
                         host = "127.0.0.1",
                         port = server.port,
                         password = "secret"
@@ -31,8 +30,35 @@ class SourceRconClientIntegrationTest {
                 client.use {
                     it.connectAndAuthenticate()
                     val response = it.execute("status")
-                    assertEquals("line-1\nline-2\n", response.output)
-                    assertEquals(2, response.packetsReceived)
+                    assertEquals("line-1\n", response.output)
+                    assertEquals(1, response.packetsReceived)
+                }
+            }
+        }
+    }
+
+    @Test
+    fun `completes command without terminator request like rcon-node`() {
+        runBlocking {
+            FakeSourceRconServer(password = "secret") { command ->
+                when (command) {
+                    "status" -> listOf("line-1\n", "line-2\n")
+                    else -> listOf("unknown\n")
+                }
+            }.use { server ->
+                val client = ArkRconClient(
+                    config = ArkRconConfig(
+                        host = "127.0.0.1",
+                        port = server.port,
+                        password = "secret"
+                    )
+                )
+
+                client.use {
+                    it.connectAndAuthenticate()
+                    val response = it.execute("status")
+                    assertEquals("line-1\n", response.output)
+                    assertEquals(1, response.packetsReceived)
                 }
             }
         }
@@ -42,8 +68,8 @@ class SourceRconClientIntegrationTest {
     fun `throws authentication exception for wrong password`() {
         runBlocking {
             FakeSourceRconServer(password = "secret") { listOf("ok") }.use { server ->
-                val client = SourceRconClient(
-                    config = RconConfig(
+                val client = ArkRconClient(
+                    config = ArkRconConfig(
                         host = "127.0.0.1",
                         port = server.port,
                         password = "wrong"
@@ -51,7 +77,7 @@ class SourceRconClientIntegrationTest {
                 )
 
                 client.use {
-                    assertFailsWith<RconAuthenticationException> {
+                    assertFailsWith<ArkRconAuthenticationException> {
                         it.connectAndAuthenticate()
                     }
                 }
@@ -146,3 +172,5 @@ private class FakeSourceRconServer(
         }
     }
 }
+
+

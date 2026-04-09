@@ -83,7 +83,7 @@ dependencies {
     implementation(libs.exposed.json)
     implementation(libs.serialization.json)
     implementation(libs.kotlinx.coroutinesCore)
-
+    implementation(libs.oshi)
     testImplementation(libs.kotlin.test)
     add("overseerRuntime", project(":overseer"))
 }

@@ -14,30 +14,30 @@ import java.net.Socket
 import java.net.SocketTimeoutException
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
-data class RconConfig(
+data class ArkRconConfig(
     val host: String,
     val port: Int = 27015,
     val password: String,
-    val connectTimeout: Duration = 5.seconds,
-    val readTimeout: Duration = 5.seconds,
-    val useTerminatorRequest: Boolean = true
+    val connectTimeout: Duration = 10.seconds,
+    val readTimeout: Duration = 200.milliseconds
 )
 
-data class RconCommandResponse(
+data class ArkRconCommandResponse(
     val requestId: Int,
     val output: String,
     val packetsReceived: Int
 )
 
-sealed class RconException(message: String, cause: Throwable? = null) : RuntimeException(message, cause)
-class RconAuthenticationException(message: String) : RconException(message)
-class RconProtocolException(message: String, cause: Throwable? = null) : RconException(message, cause)
-class RconConnectionException(message: String, cause: Throwable? = null) : RconException(message, cause)
+sealed class ArkRconException(message: String, cause: Throwable? = null) : RuntimeException(message, cause)
+class ArkRconAuthenticationException(message: String) : ArkRconException(message)
+class ArkRconProtocolException(message: String, cause: Throwable? = null) : ArkRconException(message, cause)
+class ArkRconConnectionException(message: String, cause: Throwable? = null) : ArkRconException(message, cause)
 
-class SourceRconClient(
-    private val config: RconConfig,
+class ArkRconClient(
+    private val config: ArkRconConfig,
     private val socketFactory: () -> Socket = { Socket() }
 ) : Closeable {
     private val requestId = AtomicInteger(1)
@@ -71,7 +71,7 @@ class SourceRconClient(
                 client.connect(InetSocketAddress(config.host, config.port), connectTimeoutMillis)
             } catch (error: Exception) {
                 client.close()
-                throw RconConnectionException(
+                throw ArkRconConnectionException(
                     "Failed to connect to RCON at ${config.host}:${config.port}",
                     error
                 )
@@ -99,7 +99,6 @@ class SourceRconClient(
                 )
             )
 
-            // Servers usually respond with an empty RESPONSE_VALUE before AUTH_RESPONSE.
             while (true) {
                 val packet = readPacket()
                 if (packet.type != SourceRconPacketType.SERVERDATA_AUTH_RESPONSE) {
@@ -108,11 +107,11 @@ class SourceRconClient(
 
                 if (packet.id == -1) {
                     authenticated = false
-                    throw RconAuthenticationException("RCON authentication failed")
+                    throw ArkRconAuthenticationException("RCON authentication failed")
                 }
 
                 if (packet.id != authRequestId) {
-                    throw RconProtocolException(
+                    throw ArkRconProtocolException(
                         "Unexpected auth response id ${packet.id}, expected $authRequestId"
                     )
                 }
@@ -123,8 +122,10 @@ class SourceRconClient(
         }
     }
 
-    suspend fun execute(command: String): RconCommandResponse = withContext(Dispatchers.IO) {
+    suspend fun execute(command: String): ArkRconCommandResponse = withContext(Dispatchers.IO) {
         require(command.isNotBlank()) { "RCON command must not be blank" }
+
+        var response: ArkRconCommandResponse? = null
 
         mutex.withLock {
             ensureConnected()
@@ -139,49 +140,21 @@ class SourceRconClient(
                 )
             )
 
-            val terminatorRequestId = if (config.useTerminatorRequest) nextRequestId() else null
-            if (terminatorRequestId != null) {
-                writePacket(
-                    SourceRconPacket(
-                        id = terminatorRequestId,
-                        type = SourceRconPacketType.SERVERDATA_RESPONSE_VALUE,
-                        body = byteArrayOf()
-                    )
-                )
-            }
-
-            val outputBuilder = StringBuilder()
-            var packetsReceived = 0
-            var response: RconCommandResponse? = null
-
-            while (response == null) {
+            while (true) {
                 val packet = readPacket()
                 when {
                     packet.type == SourceRconPacketType.SERVERDATA_RESPONSE_VALUE && packet.id == commandRequestId -> {
-                        outputBuilder.append(packet.bodyAsAscii())
-                        packetsReceived += 1
-
-                        if (terminatorRequestId == null) {
-                            response = RconCommandResponse(
-                                requestId = commandRequestId,
-                                output = outputBuilder.toString(),
-                                packetsReceived = packetsReceived
-                            )
-                        }
-                    }
-
-                    packet.type == SourceRconPacketType.SERVERDATA_RESPONSE_VALUE && packet.id == terminatorRequestId -> {
-                        // Marker packet means the command response stream is complete.
-                        response = RconCommandResponse(
+                        response = ArkRconCommandResponse(
                             requestId = commandRequestId,
-                            output = outputBuilder.toString(),
-                            packetsReceived = packetsReceived
+                            output = packet.bodyAsAscii(),
+                            packetsReceived = 1
                         )
+                        return@withLock
                     }
 
                     packet.type == SourceRconPacketType.SERVERDATA_AUTH_RESPONSE && packet.id == -1 -> {
                         authenticated = false
-                        throw RconAuthenticationException(
+                        throw ArkRconAuthenticationException(
                             "RCON authentication expired. Reconnect and authenticate again."
                         )
                     }
@@ -189,10 +162,9 @@ class SourceRconClient(
                     else -> Unit
                 }
             }
-
-            response
-                ?: throw RconProtocolException("RCON response stream ended unexpectedly")
         }
+
+        response ?: throw ArkRconProtocolException("RCON response stream ended unexpectedly")
     }
 
     override fun close() {
@@ -205,35 +177,35 @@ class SourceRconClient(
 
     private fun ensureConnected() {
         if (socket?.isConnected != true || socket?.isClosed == true || input == null || output == null) {
-            throw RconConnectionException("RCON client is not connected")
+            throw ArkRconConnectionException("RCON client is not connected")
         }
     }
 
     private fun ensureAuthenticated() {
         if (!authenticated) {
-            throw RconAuthenticationException("RCON client is not authenticated")
+            throw ArkRconAuthenticationException("RCON client is not authenticated")
         }
     }
 
     private fun readPacket(): SourceRconPacket {
-        val inputStream = input ?: throw RconConnectionException("RCON input stream is not available")
+        val inputStream = input ?: throw ArkRconConnectionException("RCON input stream is not available")
         return try {
             SourceRconPacket.readFrom(inputStream)
-                ?: throw RconConnectionException("RCON connection was closed by the server")
+                ?: throw ArkRconConnectionException("RCON connection was closed by the server")
         } catch (timeout: SocketTimeoutException) {
-            throw RconConnectionException("RCON read timed out", timeout)
+            throw ArkRconConnectionException("RCON read timed out", timeout)
         } catch (error: IllegalArgumentException) {
-            throw RconProtocolException("Malformed RCON packet", error)
+            throw ArkRconProtocolException("Malformed RCON packet", error)
         }
     }
 
     private fun writePacket(packet: SourceRconPacket) {
-        val outputStream = output ?: throw RconConnectionException("RCON output stream is not available")
+        val outputStream = output ?: throw ArkRconConnectionException("RCON output stream is not available")
         try {
             outputStream.write(packet.encode())
             outputStream.flush()
         } catch (error: Exception) {
-            throw RconConnectionException("Failed to write RCON packet", error)
+            throw ArkRconConnectionException("Failed to write RCON packet", error)
         }
     }
 
@@ -254,8 +226,8 @@ private fun String.requireAscii(fieldName: String): ByteArray {
     return toByteArray(Charsets.US_ASCII)
 }
 
-suspend fun <T> withSourceRcon(config: RconConfig, block: suspend SourceRconClient.() -> T): T {
-    val client = SourceRconClient(config)
+suspend fun <T> withArkRcon(config: ArkRconConfig, block: suspend ArkRconClient.() -> T): T {
+    val client = ArkRconClient(config)
     return client.use {
         it.connectAndAuthenticate()
         it.block()

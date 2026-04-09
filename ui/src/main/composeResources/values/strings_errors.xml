@@ -3,4 +3,7 @@
     <string name="error_startup_title">AASM Startup failed</string>
     <string name="error_startup_body">The app could not start.</string>
     <string name="error_unknown">Unknown error</string>
+    <string name="server_power_start_failed">Failed to start server '%1$s': %2$s</string>
+    <string name="server_power_stop_failed">Failed to stop server '%1$s': %2$s</string>
+    <string name="server_power_kill_failed">Failed to kill server '%1$s': %2$s</string>
 </resources>

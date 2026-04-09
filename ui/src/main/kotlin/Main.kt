@@ -27,6 +27,8 @@ import eu.wynq.arkascendedservermanager.core.support.SteamCMDHelper
 import eu.wynq.arkascendedservermanager.ui.features.root.RootComponent
 import eu.wynq.arkascendedservermanager.ui.features.root.RootScreen
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
+import eu.wynq.arkascendedservermanager.ui.stores.PowerStore
+import eu.wynq.arkascendedservermanager.ui.stores.PowerStoreImpl
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStoreImpl
 import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
@@ -248,6 +250,7 @@ fun main() {
                         single<ServersStore> { ServersStoreImpl() }
                         single<SettingsStore> { SettingsStoreImpl() }
                         single { InstallStore(get(), get()) }
+                        single<PowerStore> { PowerStoreImpl(get()) }
                     }
 
                     // Resolve DI only after startup is complete

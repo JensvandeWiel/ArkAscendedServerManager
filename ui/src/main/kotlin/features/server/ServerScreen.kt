@@ -21,6 +21,7 @@ import eu.wynq.arkascendedservermanager.core.Idle
 import eu.wynq.arkascendedservermanager.core.InstallDone
 import eu.wynq.arkascendedservermanager.core.InstallingAPI
 import eu.wynq.arkascendedservermanager.core.InstallingGame
+import eu.wynq.arkascendedservermanager.core.support.PowerState
 import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
 import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
@@ -132,11 +133,18 @@ fun InstallProgress(
 fun InstallationInfo(component: ServerComponent) {
     val model by component.model.subscribeAsState()
     val status by component.installStatus.collectAsState()
+    val powerState by component.serverPowerState.collectAsState()
     val isAsaApiEnabled = model.server?.asaApi ?: model.initialServer?.asaApi ?: false
     val installationInfoGroup = stringResource(Res.string.server_details_installation_info_group)
     val installationStatusLabel = stringResource(Res.string.server_details_installation_status_label)
+    val powerStateLabel = stringResource(Res.string.server_details_power_state_label)
     val installedStatus = stringResource(Res.string.server_details_installation_status_installed)
     val notInstalledStatus = stringResource(Res.string.server_details_installation_status_not_installed)
+    val powerStateRunning = stringResource(Res.string.server_details_power_state_running)
+    val powerStateStarting = stringResource(Res.string.server_details_power_state_starting)
+    val powerStateStopping = stringResource(Res.string.server_details_power_state_stopping)
+    val powerStateStopped = stringResource(Res.string.server_details_power_state_stopped)
+    val powerStateUnknown = stringResource(Res.string.server_details_power_state_unknown)
     val versionLabel = stringResource(Res.string.server_details_version_label)
     val apiVersionLabel = stringResource(Res.string.server_details_api_version_label)
     val versionPlaceholder = stringResource(Res.string.server_details_version_placeholder)
@@ -156,6 +164,13 @@ fun InstallationInfo(component: ServerComponent) {
     val busyLabel = stringResource(Res.string.server_details_progress_busy)
     val installLabel = stringResource(Res.string.action_install_server)
     val updateLabel = stringResource(Res.string.action_update_server)
+    val startServerLabel = stringResource(Res.string.action_start_server)
+    val stopServerLabel = stringResource(Res.string.action_stop_server)
+    val killServerLabel = stringResource(Res.string.action_kill_server)
+
+    val canStartServer = !status.isInstalling() && (powerState == PowerState.Stopped)
+    val canStopServer = !status.isInstalling() && powerState == PowerState.Running
+    val canKillServer = !status.isInstalling() && (powerState == PowerState.Running || powerState == PowerState.Starting || powerState == PowerState.Stopping)
 
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         GroupHeader(installationInfoGroup)
@@ -204,6 +219,19 @@ fun InstallationInfo(component: ServerComponent) {
                         false -> notInstalledStatus
                         null -> unknownStatus
                     }
+                }
+            )
+        }
+        Row {
+            Text(powerStateLabel)
+            Spacer(Modifier.weight(1f))
+            Text(
+                when (powerState) {
+                    PowerState.Running -> powerStateRunning
+                    PowerState.Starting -> powerStateStarting
+                    PowerState.Stopping -> powerStateStopping
+                    PowerState.Stopped -> powerStateStopped
+                    PowerState.Unknown -> powerStateUnknown
                 }
             )
         }
@@ -320,6 +348,17 @@ fun InstallationInfo(component: ServerComponent) {
                     component.refreshInstallationInfo()
                 }
             }
+            DefaultButton(onClick = component::startServer, enabled = canStartServer) {
+                Text(startServerLabel)
+            }
+            DefaultButton(onClick = component::stopServer, enabled = canStopServer) {
+                Text(stopServerLabel)
+            }
+            DefaultButton(onClick = component::killServer, enabled = canKillServer) {
+                Text(killServerLabel)
+            }
+
+            Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
                 Text(if (model.isInstalled == true) updateLabel else installLabel)
             }

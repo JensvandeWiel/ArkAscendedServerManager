@@ -21,6 +21,7 @@ nomenEstOmen = "2.2.1"
 koin-bom = "4.1.1"
 steamCmd = "0.2.0"
 ktor-version ="3.4.1"
+oshi = "6.11.1"
 
 
 [libraries]
@@ -67,6 +68,7 @@ ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor-vers
 ktor-client-contentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor-version" }
 ktor-serialization-kotlinxJson = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor-version" }
 semver = { module = "io.github.z4kn4fein:semver", version = "3.0.0" }
+oshi = { module = "com.github.oshi:oshi-core-java25", version.ref = "oshi" }
 
 [plugins]
 composeHotReload = { id = "org.jetbrains.compose.hot-reload", version.ref = "composeHotReload" }
