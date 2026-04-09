@@ -23,5 +23,7 @@ dependencies {
     implementation(libs.semver)
     implementation(libs.exposed.json)
     implementation(libs.serialization.json)
+    implementation(libs.kotlinx.coroutinesCore)
 
+    testImplementation(libs.kotlin.test)
 }
