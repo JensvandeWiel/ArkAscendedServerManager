@@ -11,7 +11,12 @@ import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.corenative.CoreNative
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.AtomicMoveNotSupportedException
+import java.nio.file.StandardCopyOption
+import java.security.MessageDigest
 
 sealed class InstallStatus {
     fun isInstalling() = !(this is Idle || this is InstallDone || this is InstallError)
@@ -73,6 +78,11 @@ object InstallManager {
             }
         }
 
+        copyOverseerExecutable(server).onFailure {
+            emit(InstallError("Failed to install overseer executable: ${it.message}"))
+            return@flow
+        }
+
         createStartupScript(server).onFailure {
             emit(InstallError("Failed to create startup script: ${it.message}"))
             return@flow
@@ -117,6 +127,52 @@ object InstallManager {
         scriptFile.setExecutable(true)
 
         return Result.success(Unit)
+    }
+
+    fun copyOverseerExecutable(server: Server): Result<Unit> = runCatching {
+        val installDirectory = Path.of(server.installationLocation, Constants.SERVER_BINARY_PATH)
+        Files.createDirectories(installDirectory)
+
+        val targetPath = installDirectory.resolve(Constants.OVERSEER_EXECUTABLE_NAME)
+        val resourcePath = Constants.OVERSEER_RESOURCE_PATH
+        val checksumResourcePath = Constants.OVERSEER_CHECKSUM_RESOURCE_PATH
+        val tempPath = installDirectory.resolve("${Constants.OVERSEER_EXECUTABLE_NAME}.tmp")
+
+        val resourceStream = InstallManager::class.java.classLoader.getResourceAsStream(resourcePath)
+            ?: error("Missing resource: $resourcePath")
+
+        resourceStream.use { input ->
+            Files.copy(input, tempPath, StandardCopyOption.REPLACE_EXISTING)
+        }
+
+        val expectedChecksum = InstallManager::class.java.classLoader.getResourceAsStream(checksumResourcePath)
+            ?.use { input -> input.readBytes().toString(StandardCharsets.UTF_8).trim().lowercase() }
+            ?: error("Missing resource: $checksumResourcePath")
+
+        val actualChecksum = sha256Hex(tempPath)
+        if (actualChecksum != expectedChecksum) {
+            Files.deleteIfExists(tempPath)
+            error("Checksum mismatch for ${Constants.OVERSEER_EXECUTABLE_NAME}")
+        }
+
+        try {
+            Files.move(tempPath, targetPath, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE)
+        } catch (_: AtomicMoveNotSupportedException) {
+            Files.move(tempPath, targetPath, StandardCopyOption.REPLACE_EXISTING)
+        }
+    }
+
+    private fun sha256Hex(path: Path): String {
+        val digest = MessageDigest.getInstance("SHA-256")
+        Files.newInputStream(path).use { input ->
+            val buffer = ByteArray(8192)
+            while (true) {
+                val read = input.read(buffer)
+                if (read <= 0) break
+                digest.update(buffer, 0, read)
+            }
+        }
+        return digest.digest().joinToString("") { "%02x".format(it) }
     }
 
     fun getAndStoreServerVersion(server: Server) {

@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core-native" />
+            <option value="$PROJECT_DIR$/overseer" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>

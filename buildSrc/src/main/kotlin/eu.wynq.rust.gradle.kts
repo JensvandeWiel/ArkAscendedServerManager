@@ -122,17 +122,36 @@ abstract class CargoBuildTask @Inject constructor(
     }
 }
 
-private fun readLibName(cargoToml: File): String {
-    var inLibSection = false
+private fun hasCargoSection(cargoToml: File, section: String): Boolean {
+    val sectionHeader = "[$section]"
+    return cargoToml.readLines().any { it.trim() == sectionHeader }
+}
+
+private fun readSectionName(cargoToml: File, section: String): String? {
+    var inSection = false
+    val sectionHeader = "[$section]"
     for (line in cargoToml.readLines()) {
         val trimmed = line.trim()
         when {
-            trimmed == "[lib]" -> inLibSection = true
-            trimmed.startsWith("[") -> inLibSection = false
-            inLibSection && trimmed.startsWith("name") -> return trimmed.substringAfter('=').trim().trim('"')
+            trimmed == sectionHeader -> inSection = true
+            trimmed.startsWith("[") -> inSection = false
+            inSection && trimmed.startsWith("name") -> return trimmed.substringAfter('=').trim().trim('"')
         }
     }
-    error("Unable to determine [lib] name from ${cargoToml.absolutePath}")
+    return null
+}
+
+private fun inferCrateName(cargoToml: File, isLibrary: Boolean): String {
+    val packageName = readSectionName(cargoToml, "package")
+    if (isLibrary) {
+        return readSectionName(cargoToml, "lib")
+            ?: packageName?.replace('-', '_')
+            ?: error("Unable to determine crate name from ${cargoToml.absolutePath}")
+    }
+
+    return packageName
+        ?: readSectionName(cargoToml, "lib")
+        ?: error("Unable to determine crate name from ${cargoToml.absolutePath}")
 }
 
 fun operatingSystemFamilyName(): String = OperatingSystem.current().familyName
@@ -173,8 +192,9 @@ tasks.named("assemble") {
 }
 
 val cargoToml = layout.projectDirectory.file("Cargo.toml").asFile
-rustExtension.crateName.set(readLibName(cargoToml))
-rustExtension.isLibrary.set(true)
+val inferredLibrary = hasCargoSection(cargoToml, "lib")
+rustExtension.isLibrary.convention(inferredLibrary)
+rustExtension.crateName.convention(inferCrateName(cargoToml, inferredLibrary))
 
 
 

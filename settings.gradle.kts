@@ -78,3 +78,4 @@ rootProject.name = "ArkAscendedServerManager"
 include("ui")
 include("core")
 include("core-native")
+include("overseer")

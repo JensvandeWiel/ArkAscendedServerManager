@@ -2,6 +2,9 @@ package eu.wynq.arkascendedservermanager.core.support
 
 object Constants {
     const val SERVER_EXECUTABLE_NAME = "ArkAscendedServer.exe"
+    const val OVERSEER_EXECUTABLE_NAME = "Overseer.exe"
+    const val OVERSEER_RESOURCE_PATH = "overseer/$OVERSEER_EXECUTABLE_NAME"
+    const val OVERSEER_CHECKSUM_RESOURCE_PATH = "$OVERSEER_RESOURCE_PATH.sha256"
     const val SERVER_BINARY_PATH = "ShooterGame\\Binaries\\Win64"
     const val ARK_APP_ID = 2430930
     const val CONFIG_PATH = "ShooterGame\\Saved\\Config\\WindowsServer"

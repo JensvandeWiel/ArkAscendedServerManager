@@ -1,0 +1,15 @@
+[package]
+name = "overseer"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[[bin]]
+name = "overseer"
+path = "src/main/rust/src/main.rs"
+
+[dependencies]
+ctrlc = "3"
+
+[target.'cfg(windows)'.dependencies]
+portable-pty = "0.8"
