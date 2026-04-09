@@ -67,7 +67,7 @@ data class Server(
 
     fun makeStartupScriptString(): String {
         val administration = settings.administration
-        val executableName = if (asaApi) Constants.ASA_API_EXECUTABLE_NAME else Constants.SERVER_EXECUTABLE_NAME
+        val executableName = if (asaApi) Constants.OVERSEER_EXECUTABLE_NAME else Constants.SERVER_EXECUTABLE_NAME
         val sb = StringBuilder()
         sb.append("start ")
         sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString())
