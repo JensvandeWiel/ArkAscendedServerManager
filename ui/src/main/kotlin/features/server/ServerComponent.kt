@@ -6,13 +6,13 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
-import eu.wynq.arkascendedservermanager.core.InstallManager
-import eu.wynq.arkascendedservermanager.core.InstallStatus
+import eu.wynq.arkascendedservermanager.core.managers.InstallManager
+import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Settings
-import eu.wynq.arkascendedservermanager.core.support.AsaApiInstallManager
-import eu.wynq.arkascendedservermanager.core.support.PowerState
+import eu.wynq.arkascendedservermanager.core.managers.AsaApiInstallManager
+import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.PowerStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore

@@ -8,8 +8,8 @@ import arkascendedservermanager.ui.generated.resources.server_power_kill_failed
 import arkascendedservermanager.ui.generated.resources.server_power_start_failed
 import arkascendedservermanager.ui.generated.resources.server_power_stop_failed
 import eu.wynq.arkascendedservermanager.core.db.models.Server
-import eu.wynq.arkascendedservermanager.core.support.PowerManager
-import eu.wynq.arkascendedservermanager.core.support.PowerState
+import eu.wynq.arkascendedservermanager.core.managers.PowerManager
+import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
 import kotlinx.coroutines.CoroutineScope

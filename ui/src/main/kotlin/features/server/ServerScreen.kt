@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import eu.wynq.arkascendedservermanager.core.Idle
-import eu.wynq.arkascendedservermanager.core.InstallDone
-import eu.wynq.arkascendedservermanager.core.InstallingAPI
-import eu.wynq.arkascendedservermanager.core.InstallingGame
-import eu.wynq.arkascendedservermanager.core.support.PowerState
+import eu.wynq.arkascendedservermanager.core.managers.Idle
+import eu.wynq.arkascendedservermanager.core.managers.InstallDone
+import eu.wynq.arkascendedservermanager.core.managers.InstallingAPI
+import eu.wynq.arkascendedservermanager.core.managers.InstallingGame
+import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
 import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
@@ -242,7 +242,7 @@ fun InstallationInfo(component: ServerComponent) {
         ) {
             Box(Modifier.weight(1f)) {
                 when (status) {
-                    is eu.wynq.arkascendedservermanager.core.Preparing -> {
+                    is eu.wynq.arkascendedservermanager.core.managers.Preparing -> {
                         InstallProgress(preparingLabel, 0f, indeterminate = true, modifier = Modifier.fillMaxWidth())
                     }
 

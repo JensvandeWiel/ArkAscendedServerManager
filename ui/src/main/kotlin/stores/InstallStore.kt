@@ -7,8 +7,14 @@ import arkascendedservermanager.ui.generated.resources.Res
 import arkascendedservermanager.ui.generated.resources.server_install_error_steamcmd_path_not_configured
 import arkascendedservermanager.ui.generated.resources.server_install_toast_failed
 import arkascendedservermanager.ui.generated.resources.server_install_toast_success
-import eu.wynq.arkascendedservermanager.core.*
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.managers.Idle
+import eu.wynq.arkascendedservermanager.core.managers.InstallDone
+import eu.wynq.arkascendedservermanager.core.managers.InstallError
+import eu.wynq.arkascendedservermanager.core.managers.InstallManager
+import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
+import eu.wynq.arkascendedservermanager.core.managers.InstallingGame
+import eu.wynq.arkascendedservermanager.core.managers.Preparing
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
 import io.github.oshai.kotlinlogging.KotlinLogging

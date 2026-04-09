@@ -1,6 +1,8 @@
-package eu.wynq.arkascendedservermanager.core.support
+package eu.wynq.arkascendedservermanager.core.managers
 
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.support.Constants
+import eu.wynq.arkascendedservermanager.core.support.GithubRelease
 import io.github.z4kn4fein.semver.Version
 import io.github.z4kn4fein.semver.toVersion
 import io.ktor.client.*
@@ -13,9 +15,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.utils.io.jvm.javaio.toInputStream
 import kotlinx.serialization.json.Json
-import java.io.ByteArrayInputStream
 import kotlin.io.path.Path
-import java.io.File
 import java.util.zip.ZipInputStream
 import kotlin.io.path.isSymbolicLink
 
