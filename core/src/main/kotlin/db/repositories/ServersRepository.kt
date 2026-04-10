@@ -25,15 +25,17 @@ object ServersRepository {
         }
 
         return runCatching {
-            Server.fromEntity(transaction {
+            val server = Server.fromEntity(transaction {
                 ServerEntity.new {
                     profile_name = name
-                    settings = Settings.createForNewServer(name)
+                    settings = Settings.createForNewServer()
                     installation_location = "$dataPath\\${snakeCaseName}"
                     asa_api = false
-                    game_user_settings = GameUserSettings()
+                    game_user_settings = GameUserSettings.createForNewServer(name)
                 }
             })
+            server.saveGusToInstall().getOrThrow()
+            server
         }
 
     }

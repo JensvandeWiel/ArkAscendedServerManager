@@ -459,15 +459,15 @@ fun GeneralTabContent(component: ServerComponent) {
                 )
                 GroupHeader(nameAndPasswordsGroupLabel)
                 FormTextField(
-                    value = settings.administration.serverName,
+                    value = gameUserSettings.sessionSettings.sessionName,
                     onValueChange = { newValue ->
-                        component.updateServerAdministrationSettings {
-                            it.copy(serverName = newValue)
+                        component.updateServerGameUserSettings {
+                            it.copy(sessionSettings = it.sessionSettings.copy(sessionName = newValue))
                         }
                     },
                     label = serverNameLabel,
                     hint = serverNameHint,
-                    error = !settings.administration.validateServerName(),
+                    error = !gameUserSettings.sessionSettings.validateSessionName(),
                 )
                 FormTextField(
                     value = settings.administration.serverPassword ?: "",

@@ -132,8 +132,8 @@ fun ServerCard(server: Server, onClick: () -> Unit) {
 private fun ServerCardPreview() {
     val server = Server(
         Uuid.random(), "Profile Name", "Installation Location",
-        settings = Settings.createForNewServer("Server Name"),
-        gameUserSettings = GameUserSettings()
+        settings = Settings.createForNewServer(),
+        gameUserSettings = GameUserSettings.createForNewServer("Profile Name"),
     )
     PreviewWrapper {
         ServerCard(server = server, onClick = {})

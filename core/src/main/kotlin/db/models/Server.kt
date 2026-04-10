@@ -67,7 +67,7 @@ data class Server(
         }
     }
 
-    fun validate() = validateProfileName() && settings.validate() && validateInstallationLocation()
+    fun validate() = validateProfileName() && settings.validate() && validateInstallationLocation() && gameUserSettings.validate()
 
     fun validateProfileName() = profileName.isNotBlank()
     fun validateInstallationLocation() = isValidPath(installationLocation)
@@ -80,8 +80,6 @@ data class Server(
         sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString())
         sb.append(" ")
         sb.append(administration.map)
-        // TODO: Place session name in ini files instead of here since now we can't use spaces in the name
-        sb.append("?SessionName=${administration.serverName}")
         sb.append("?Port=${administration.serverPort}")
         sb.append("?QueryPort=${administration.queryPort}")
         if (administration.rconEnabled) {

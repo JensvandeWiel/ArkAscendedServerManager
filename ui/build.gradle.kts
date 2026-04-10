@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
     implementation(libs.steamCmd)
+    implementation(libs.inisaur)
 }
 
 val nativeLibsDir = layout.buildDirectory.dir("native-libs")

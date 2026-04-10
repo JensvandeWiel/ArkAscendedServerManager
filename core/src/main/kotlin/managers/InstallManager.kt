@@ -121,9 +121,15 @@ object InstallManager {
     fun createStartupScript(server: Server): Result<Unit> {
         val content = server.makeStartupScriptString()
 
-        val scriptFile = Path.of(server.installationLocation, Constants.STARTUP_SCRIPT_PATH).normalize().toFile()
-        scriptFile.writeText(content)
-        scriptFile.setExecutable(true)
+        val scriptPath = Path.of(server.installationLocation, Constants.STARTUP_SCRIPT_PATH).normalize()
+        if (!scriptPath.parent.toFile().exists()) {
+            scriptPath.parent.toFile().mkdirs()
+        }
+
+        scriptPath.toFile().let {
+            it.writeText(content)
+            it.setExecutable(true)
+        }
 
         return Result.success(Unit)
     }

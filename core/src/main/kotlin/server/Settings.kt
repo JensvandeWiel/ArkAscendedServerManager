@@ -10,11 +10,9 @@ data class Settings(
     fun validate() = administration.validate()
 
     companion object {
-        fun createForNewServer(name: String): Settings {
+        fun createForNewServer(): Settings {
             return Settings(
-                Administration(
-                    serverName = "$name Server hosted by JensvandeWiel/ArkAscendedServerManager"
-                )
+                Administration()
             )
         }
     }
@@ -22,7 +20,6 @@ data class Settings(
 
 @Serializable
 data class Administration(
-    val serverName: String = "Server hosted by JensvandeWiel/ArkAscendedServerManager",
     val serverPassword: String? = null,
     val adminPassword: String = getRandomString(16),
     val serverPort: Int = 7777,
@@ -34,8 +31,7 @@ data class Administration(
     val slots: Int = 70,
     val mods: List<String> = emptyList()
 ) {
-    fun validate() = validateServerName()
-            && validateServerPassword()
+    fun validate() = validateServerPassword()
             && validateAdminPassword()
             && validateSlots()
             && validateMods()
@@ -45,7 +41,6 @@ data class Administration(
             && validateRconPort()
             && validateServerPort()
 
-    fun validateServerName() = serverName.isNotBlank()
     fun validateServerPassword() = serverPassword == null || serverPassword.isNotBlank()
     fun validateAdminPassword() = adminPassword.isNotBlank()
     fun validateSlots() = slots > 0
