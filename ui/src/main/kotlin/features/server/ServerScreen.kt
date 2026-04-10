@@ -38,6 +38,7 @@ import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
 import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextField
+import eu.wynq.arkascendedservermanager.ui.components.FormTextarea
 import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.buildThemeDefinition
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
@@ -422,6 +423,14 @@ fun GeneralTabContent(component: ServerComponent) {
     val mapHint = stringResource(Res.string.server_details_map_hint)
     val modsLabel = stringResource(Res.string.server_details_mods_label)
     val modsHint = stringResource(Res.string.server_details_mods_hint)
+    val savesGroupLabel = stringResource(Res.string.server_details_group_saves)
+    val autoSavePeriodLabel = stringResource(Res.string.server_details_auto_save_period_label)
+    val autoSavePeriodHint = stringResource(Res.string.server_details_auto_save_period_hint)
+    val motdGroupLabel = stringResource(Res.string.server_details_group_motd)
+    val motdMessageLabel = stringResource(Res.string.server_details_motd_message_label)
+    val motdMessageHint = stringResource(Res.string.server_details_motd_message_hint)
+    val motdDurationLabel = stringResource(Res.string.server_details_motd_duration_label)
+    val motdDurationHint = stringResource(Res.string.server_details_motd_duration_hint)
     val slotsLabel = stringResource(Res.string.server_details_slots_label)
     val slotsHint = stringResource(Res.string.server_details_slots_hint)
 
@@ -592,6 +601,49 @@ fun GeneralTabContent(component: ServerComponent) {
                     label = modsLabel,
                     hint = modsHint,
                     error = !settings.administration.validateMods(),
+                )
+                GroupHeader(savesGroupLabel)
+                FormSliderField(
+                    value = gameUserSettings.sessionSettings.autoSavePeriodMinutes,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(sessionSettings = it.sessionSettings.copy(autoSavePeriodMinutes = newValue))
+                        }
+                    },
+                    label = autoSavePeriodLabel,
+                    valueRange = 0..240,
+                    hint = autoSavePeriodHint,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    error = !gameUserSettings.sessionSettings.validateAutoSavePeriodMinutes(),
+
+                )
+                GroupHeader(motdGroupLabel)
+                FormTextarea(
+                    value = gameUserSettings.messageOfTheDay.message,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(messageOfTheDay = it.messageOfTheDay.copy(message = newValue))
+                        }
+                    },
+                    label = motdMessageLabel,
+                    modifier = Modifier.fillMaxWidth().height(150.dp),
+                    hint = motdMessageHint,
+                    error = !gameUserSettings.messageOfTheDay.validate()
+                )
+                FormSliderField(
+                    value = gameUserSettings.messageOfTheDay.duration,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(messageOfTheDay = it.messageOfTheDay.copy(duration = newValue))
+                        }
+                    },
+                    label = motdDurationLabel,
+                    valueRange = 0..120,
+                    hint = motdDurationHint,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    error = !gameUserSettings.messageOfTheDay.validate()
                 )
                 GroupHeader(serverOptionsGroupLabel)
                 FormSliderField(

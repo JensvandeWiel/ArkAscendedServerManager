@@ -69,6 +69,14 @@
     <string name="server_details_map_hint">The map your server will load. Make sure to use the correct map name, otherwise your server might not start.</string>
     <string name="server_details_mods_label">Mods (comma separated):</string>
     <string name="server_details_mods_hint">A comma-separated list of mod ids, in the order in which they should be applied.</string>
+    <string name="server_details_group_saves">Saves</string>
+    <string name="server_details_auto_save_period_label">Auto save period (minutes)</string>
+    <string name="server_details_auto_save_period_hint">Set how often the server will automatically save the game. Setting it to a very low value may impact performance, setting this to 0 will cause constant saving.</string>
+    <string name="server_details_group_motd">Message of the Day</string>
+    <string name="server_details_motd_message_label">Message</string>
+    <string name="server_details_motd_message_hint">This message will be shown to players as a welcome message when they join the server.</string>
+    <string name="server_details_motd_duration_label">Duration (seconds)</string>
+    <string name="server_details_motd_duration_hint">Set how long the Message of the Day will be shown to players.</string>
     <string name="server_details_group_server_options">Server options</string>
     <string name="server_details_slots_label">Slots:</string>
     <string name="server_details_slots_hint">Sets the maximum number of players which can join this server.</string>

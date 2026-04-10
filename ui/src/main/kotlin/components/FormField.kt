@@ -3,11 +3,16 @@
 package eu.wynq.arkascendedservermanager.ui.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
+import androidx.compose.foundation.text.input.KeyboardActionHandler
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.drop
 import org.jetbrains.jewel.foundation.theme.JewelTheme
@@ -15,6 +20,8 @@ import org.jetbrains.jewel.ui.Orientation
 import org.jetbrains.jewel.ui.Outline
 import org.jetbrains.jewel.ui.component.*
 import org.jetbrains.jewel.ui.component.styling.LocalGroupHeaderStyle
+import org.jetbrains.jewel.ui.component.styling.TextAreaStyle
+import org.jetbrains.jewel.ui.theme.textAreaStyle
 import org.jetbrains.jewel.ui.typography
 
 enum class LabelPosition {
@@ -449,6 +456,143 @@ fun FormFloatSliderField(
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
             }) {
+                fullContent()
+            }
+        } else {
+            fullContent()
+        }
+    }
+}
+
+@Composable
+fun FormTextarea(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    error: Boolean = false,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
+    labelPosition: LabelPosition = LabelPosition.Above,
+    inputTransformation: InputTransformation? = null,
+    textStyle: TextStyle = JewelTheme.defaultTextStyle,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onKeyboardAction: KeyboardActionHandler? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    style: TextAreaStyle = JewelTheme.textAreaStyle,
+) {
+    val state = remember { TextFieldState(value) }
+    val currentValue = rememberUpdatedState(value)
+
+    LaunchedEffect(value) {
+        if (state.text.toString() != value) {
+            state.edit {
+                replace(0, length, value)
+            }
+        }
+    }
+
+    LaunchedEffect(state) {
+        snapshotFlow { state.text.toString() }
+            .drop(1)
+            .collect { nextValue ->
+                if (nextValue != currentValue.value) {
+                    onValueChange(nextValue)
+                }
+            }
+    }
+
+    FormTextarea(
+        state = state,
+        label = label,
+        modifier = modifier,
+        hint = hint,
+        error = error,
+        readOnly = readOnly,
+        enabled = enabled,
+        labelPosition = labelPosition,
+        inputTransformation = inputTransformation,
+        textStyle = textStyle,
+        keyboardOptions = keyboardOptions,
+        onKeyboardAction = onKeyboardAction,
+        placeholder = placeholder,
+        style = style,
+    )
+}
+
+@Composable
+fun FormTextarea(
+    state: TextFieldState,
+    label: String,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    error: Boolean = false,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
+    labelPosition: LabelPosition = LabelPosition.Above,
+    inputTransformation: InputTransformation? = null,
+    textStyle: TextStyle = JewelTheme.defaultTextStyle,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    onKeyboardAction: KeyboardActionHandler? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    style: TextAreaStyle = JewelTheme.textAreaStyle,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) {
+    val fullContent = @Composable {
+        when (labelPosition) {
+            LabelPosition.Inline -> {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
+                    Text(label, style = JewelTheme.typography.labelTextStyle, modifier = Modifier.widthIn(min = 80.dp))
+                    TextArea(
+                        state,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        enabled = enabled,
+                        readOnly = readOnly,
+                        inputTransformation = inputTransformation,
+                        textStyle = textStyle,
+                        keyboardOptions = keyboardOptions,
+                        onKeyboardAction = onKeyboardAction,
+                        interactionSource = interactionSource,
+                        style = style,
+                        outline = if (error) Outline.Error else Outline.None,
+                        placeholder = placeholder,
+                    )
+                }
+            }
+
+            LabelPosition.Above -> {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    TextArea(
+                        state,
+                        Modifier.fillMaxSize(),
+                        enabled = enabled,
+                        readOnly = readOnly,
+                        inputTransformation = inputTransformation,
+                        textStyle = textStyle,
+                        keyboardOptions = keyboardOptions,
+                        onKeyboardAction = onKeyboardAction,
+                        interactionSource = interactionSource,
+                        style = style,
+                        outline = if (error) Outline.Error else Outline.None,
+                        placeholder = placeholder,
+                    )
+                }
+            }
+        }
+    }
+
+    Row(modifier) {
+        if (hint != null) {
+            Tooltip(tooltip = {
+                Text(hint, style = JewelTheme.typography.labelTextStyle)
+            })
+            {
                 fullContent()
             }
         } else {
