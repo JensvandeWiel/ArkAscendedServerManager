@@ -90,6 +90,7 @@ data class Server(
             sb.append(" -mods=" + administration.mods.joinToString(","))
         }
         sb.append(" -OldConsole")
+        sb.append(" -NoGameAnalytics")
         return sb.toString()
     }
 }

@@ -158,7 +158,7 @@ private fun StartupProgressDialog(
                     .wrapContentHeight(),
                 verticalArrangement = Arrangement.spacedBy(10.dp),
             ) {
-                Text("${state.percent}% - ${stringResource(state.step)}")
+                Text(stringResource(Res.string.startup_progress_format, state.percent, stringResource(state.step)))
                 HorizontalProgressBar(
                     modifier = Modifier.fillMaxWidth(),
                     progress = state.percent.toFloat() / 100f,

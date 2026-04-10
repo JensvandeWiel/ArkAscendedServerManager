@@ -10,11 +10,23 @@ import Reconfiguring
 import SteamCMDInstalling
 import SteamCMDUpdating
 import Validating
+import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollbarAdapter
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.v2.maxScrollOffset
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.managers.Idle
@@ -26,6 +38,7 @@ import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
 import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextField
+import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.buildThemeDefinition
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
@@ -110,7 +123,11 @@ fun ServerScreen(component: ServerComponent) {
 
 @Composable
 fun InfoTabContent(component: ServerComponent) {
+    val model by component.model.subscribeAsState()
     InstallationInfo(component)
+    if (model.server?.asaApi == true) {
+        LogsSection(component)
+    }
 }
 
 @Composable
@@ -370,7 +387,10 @@ fun InstallationInfo(component: ServerComponent) {
 fun GeneralTabContent(component: ServerComponent) {
     val model by component.model.subscribeAsState()
     val profileGroupLabel = stringResource(Res.string.server_details_group_profile)
-    stringResource(Res.string.server_details_group_server)
+    val nameAndPasswordsGroupLabel = stringResource(Res.string.server_details_group_name_and_passwords)
+    val portsGroupLabel = stringResource(Res.string.server_details_group_ports)
+    val mapAndModsGroupLabel = stringResource(Res.string.server_details_group_map_and_mods)
+    val serverOptionsGroupLabel = stringResource(Res.string.server_details_group_server_options)
     val profileNameLabel = stringResource(Res.string.server_details_profile_name_label)
     val installationPathLabel = stringResource(Res.string.server_details_installation_path_label)
     val installationPathHint = stringResource(Res.string.server_details_installation_path_hint)
@@ -378,6 +398,26 @@ fun GeneralTabContent(component: ServerComponent) {
     val serverNameHint = stringResource(Res.string.server_details_server_name_hint)
     val asaApiLabel = stringResource(Res.string.server_details_asa_api_label)
     val asaApiHint = stringResource(Res.string.server_details_asa_api_hint)
+    val serverPasswordLabel = stringResource(Res.string.server_details_server_password_label)
+    val serverPasswordHint = stringResource(Res.string.server_details_server_password_hint)
+    val adminPasswordLabel = stringResource(Res.string.server_details_admin_password_label)
+    val adminPasswordHint = stringResource(Res.string.server_details_admin_password_hint)
+    val serverPortLabel = stringResource(Res.string.server_details_server_port_label)
+    val serverPortHint = stringResource(Res.string.server_details_server_port_hint)
+    val peerPortLabel = stringResource(Res.string.server_details_peer_port_label)
+    val peerPortHint = stringResource(Res.string.server_details_peer_port_hint)
+    val queryPortLabel = stringResource(Res.string.server_details_query_port_label)
+    val queryPortHint = stringResource(Res.string.server_details_query_port_hint)
+    val rconLabel = stringResource(Res.string.server_details_rcon_label)
+    val rconHint = stringResource(Res.string.server_details_rcon_hint)
+    val rconPortLabel = stringResource(Res.string.server_details_rcon_port_label)
+    val rconPortHint = stringResource(Res.string.server_details_rcon_port_hint)
+    val mapLabel = stringResource(Res.string.server_details_map_label)
+    val mapHint = stringResource(Res.string.server_details_map_hint)
+    val modsLabel = stringResource(Res.string.server_details_mods_label)
+    val modsHint = stringResource(Res.string.server_details_mods_hint)
+    val slotsLabel = stringResource(Res.string.server_details_slots_label)
+    val slotsHint = stringResource(Res.string.server_details_slots_hint)
 
     VerticallyScrollableContainer {
         Column(
@@ -417,7 +457,7 @@ fun GeneralTabContent(component: ServerComponent) {
                     label = asaApiLabel,
                     hint = asaApiHint,
                 )
-                GroupHeader("Name and passwords")
+                GroupHeader(nameAndPasswordsGroupLabel)
                 FormTextField(
                     value = settings.administration.serverName,
                     onValueChange = { newValue ->
@@ -437,8 +477,8 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(serverPassword = normalizedPassword)
                         }
                     },
-                    label = "Server password:",
-                    hint = "The password users must enter in order to access the server. If this is set, only people who know the password can access your server.",
+                    label = serverPasswordLabel,
+                    hint = serverPasswordHint,
                     error = !settings.administration.validateServerPassword(),
                 )
                 FormTextField(
@@ -448,11 +488,11 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(adminPassword = newValue.trim())
                         }
                     },
-                    label = "Admin password:",
-                    hint = "The password users must enter to execute admin/cheat commands on the server. If this is not set, anyone can use cheats.",
+                    label = adminPasswordLabel,
+                    hint = adminPasswordHint,
                     error = !settings.administration.validateAdminPassword(),
                 )
-                GroupHeader("Ports")
+                GroupHeader(portsGroupLabel)
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
@@ -467,17 +507,17 @@ fun GeneralTabContent(component: ServerComponent) {
                                 }
                             }
                         },
-                        label = "Server port:",
+                        label = serverPortLabel,
                         modifier = Modifier.weight(1f),
-                        hint = "The port users will use to connect to your server. Default is 7777. Change this and Query Port if you wish to host multiple servers on one machine.",
+                        hint = serverPortHint,
                         error = !settings.administration.validateServerPort(),
                     )
                     FormTextField(
                         value = settings.administration.peerPort.toString(),
                         onValueChange = { /* Peer port is always server port +1, so it is not editable. */ },
-                        label = "Peer port:",
+                        label = peerPortLabel,
                         modifier = Modifier.weight(1f),
-                        hint = "Peer port (always Game port +1), used for connecting to the server from the client.",
+                        hint = peerPortHint,
                         error = !settings.administration.validatePeerPort(),
                         readOnly = true,
                     )
@@ -491,9 +531,9 @@ fun GeneralTabContent(component: ServerComponent) {
                                 }
                             }
                         },
-                        label = "Query port:",
+                        label = queryPortLabel,
                         modifier = Modifier.weight(1f),
-                        hint = "The port Steam uses to communicate with your server. Default is 27015. Change this and Server Port if you wish to host multiple servers on one machine.",
+                        hint = queryPortHint,
                         error = !settings.administration.validateQueryPort(),
                     )
                 }
@@ -504,8 +544,8 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(rconEnabled = enabled)
                         }
                     },
-                    label = "RCON",
-                    hint = "Enable RCON (Remote Console) for this server. This allows you to execute admin/cheat commands on the server.",
+                    label = rconLabel,
+                    hint = rconHint,
                 )
                 FormTextField(
                     value = settings.administration.rconPort.toString(),
@@ -517,13 +557,13 @@ fun GeneralTabContent(component: ServerComponent) {
                             }
                         }
                     },
-                    label = "RCON port:",
-                    hint = "The port that RCON will use on your server.",
+                    label = rconPortLabel,
+                    hint = rconPortHint,
                     error = if (settings.administration.rconEnabled)
                         !settings.administration.validateRconPort() else false,
                     enabled = settings.administration.rconEnabled
                 )
-                GroupHeader("Map and Mods")
+                GroupHeader(mapAndModsGroupLabel)
                 FormTextField(
                     value = settings.administration.map,
                     onValueChange = { newValue ->
@@ -531,8 +571,8 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(map = newValue)
                         }
                     },
-                    label = "Map:",
-                    hint = "The map your server will load. Make sure to use the correct map name, otherwise your server might not start.",
+                    label = mapLabel,
+                    hint = mapHint,
                     error = !settings.administration.validateMap(),
                 )
                 FormTextField(
@@ -543,11 +583,11 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(mods = mods)
                         }
                     },
-                    label = "Mods (comma separated):",
-                    hint = "A comma-separated list of mod ids, in the order in which they should be applied.",
+                    label = modsLabel,
+                    hint = modsHint,
                     error = !settings.administration.validateMods(),
                 )
-                GroupHeader("Server options")
+                GroupHeader(serverOptionsGroupLabel)
                 FormSliderField(
                     value = settings.administration.slots,
                     onValueChange = { newValue ->
@@ -555,13 +595,60 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(slots = newValue)
                         }
                     },
-                    label = "Slots:",
+                    label = slotsLabel,
                     valueRange = 1..250,
                     error = !settings.administration.validateSlots(),
-                    hint = "Sets the maximum number of players which can join this server.",
+                    hint = slotsHint,
                     allowOutsideRange = true,
                     showManualInput = true,
                 )
+            }
+        }
+    }
+}
+
+@Composable
+fun LogsSection(component: ServerComponent) {
+    val logs by component.logs.collectAsState()
+    val powerState by component.serverPowerState.collectAsState()
+    val logsLabel = stringResource(Res.string.server_details_logs_group)
+
+    GroupHeader(logsLabel)
+    val listState = rememberLazyListState()
+    var viewportHeightPx by remember { mutableIntStateOf(0) }
+    Column(Modifier.fillMaxSize()) {
+        Box(
+            Modifier
+                .fillMaxSize()
+                .onSizeChanged { viewportHeightPx = it.height }
+                .background(
+                    if (isSystemInDarkTheme()) Color(0xff000000) else Color(0xffffffff),
+                    shape = RoundedCornerShape(8.dp)
+                )
+                .padding(8.dp)
+        ) {
+            LazyColumn(
+                state = listState,
+                userScrollEnabled = false,
+                modifier = Modifier.fillMaxSize(),
+            ) {
+                items(logs) { line ->
+                    Text(
+                        line,
+                        Modifier.fillMaxWidth(),
+                        style = JewelTheme.typography.consoleTextStyle
+                    )
+                }
+            }
+        }
+        LaunchedEffect(logs.lastOrNull(), viewportHeightPx) {
+            if (logs.isNotEmpty()) {
+                listState.scrollToItem(logs.lastIndex)
+            }
+        }
+        LaunchedEffect(powerState) {
+            if (powerState == PowerState.Stopped) {
+                component.clearLogs()
             }
         }
     }

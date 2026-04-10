@@ -17,4 +17,6 @@ object Constants {
     const val STARTUP_SCRIPT_FILE = "startup.bat"
     const val STARTUP_SCRIPT_PATH = "$SERVER_BINARY_PATH\\$STARTUP_SCRIPT_FILE"
     const val ASA_API_EXECUTABLE_NAME = "AsaApiLoader.exe"
+    const val OVERSEER_SERVER_LOG_FILE = "ark_server.log"
+    const val OVERSEER_SERVER_LOG_PATH = "$SERVER_BINARY_PATH\\logs\\$OVERSEER_SERVER_LOG_FILE"
 }

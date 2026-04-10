@@ -6,5 +6,6 @@
     <string name="startup_step_connecting_database">Connecting database</string>
     <string name="startup_step_steamcmd">Installing/Updating SteamCMD</string>
     <string name="startup_step_initializing_ui">Initializing UI</string>
+    <string name="startup_progress_format">%1$d%% - %2$s</string>
 </resources>
 

@@ -13,15 +13,19 @@ import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.managers.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
+import eu.wynq.arkascendedservermanager.core.support.Constants
+import eu.wynq.arkascendedservermanager.core.support.watchFileContent
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.PowerStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.uuid.ExperimentalUuidApi
@@ -48,12 +52,18 @@ class ServerComponent(
     val selectedTab: Value<ServerDetailsTab> get() = _selectedTab
     private var _serverPowerState: StateFlow<PowerState> = MutableStateFlow(PowerState.Unknown)
     val serverPowerState: StateFlow<PowerState> get() = _serverPowerState
+    private val _logs = MutableStateFlow<List<String>>(emptyList())
+    val logs: StateFlow<List<String>> = _logs
+    private var logJob: Job? = null
 
     init {
         serversStore.getServer(serverId).onSuccess { loadedServer ->
             _model.update { it.copy(server = loadedServer, initialServer = loadedServer) }
             refreshInstallationInfo(loadedServer)
             bindPowerState(loadedServer)
+            if (loadedServer.asaApi) {
+                startLogWatching(loadedServer)
+            }
         }
     }
 
@@ -160,6 +170,20 @@ class ServerComponent(
         _serverPowerState = powerStore.getPowerState(server)
     }
 
+    private fun startLogWatching(server: Server) {
+        logJob?.cancel()
+        logJob = appScope.launch {
+            val logFile = java.io.File(server.installationLocation, Constants.OVERSEER_SERVER_LOG_PATH)
+            watchFileContent(logFile).collect { line ->
+                _logs.update { (it + line).takeLast(100) }
+            }
+        }
+    }
+
+    fun clearLogs() {
+        _logs.value = emptyList()
+    }
+
     private data class ServerInstallationInfo(
         val isInstalled: Boolean,
         val apiIsInstalled: Boolean,
@@ -168,4 +192,3 @@ class ServerComponent(
     )
 
 }
-

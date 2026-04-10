@@ -138,7 +138,7 @@ fn run_server_with_pty(
     let pair = pty_system
         .openpty(PtySize {
             rows: 40,
-            cols: 120,
+            cols: 512,
             pixel_width: 0,
             pixel_height: 0,
         })
