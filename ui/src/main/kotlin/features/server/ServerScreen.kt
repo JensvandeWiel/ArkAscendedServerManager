@@ -365,6 +365,17 @@ fun InstallationInfo(component: ServerComponent) {
                     component.refreshInstallationInfo()
                 }
             }
+            Spacer(Modifier.weight(1f))
+            DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
+                Text(if (model.isInstalled == true) updateLabel else installLabel)
+            }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::startServer, enabled = canStartServer) {
                 Text(startServerLabel)
             }
@@ -373,11 +384,6 @@ fun InstallationInfo(component: ServerComponent) {
             }
             DefaultButton(onClick = component::killServer, enabled = canKillServer) {
                 Text(killServerLabel)
-            }
-
-            Spacer(Modifier.weight(1f))
-            DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
-                Text(if (model.isInstalled == true) updateLabel else installLabel)
             }
         }
     }
