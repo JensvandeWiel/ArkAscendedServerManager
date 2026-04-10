@@ -5,6 +5,7 @@ package eu.wynq.arkascendedservermanager.core.db.repositories
 import com.oblac.nomen.Nomen
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.db.models.ServerEntity
+import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import kotlin.text.split
@@ -29,6 +30,8 @@ object ServersRepository {
                     profile_name = name
                     settings = Settings.createForNewServer(name)
                     installation_location = "$dataPath\\${snakeCaseName}"
+                    asa_api = false
+                    game_user_settings = GameUserSettings()
                 }
             })
         }
@@ -43,13 +46,25 @@ object ServersRepository {
 
     fun getServers(): Result<List<Server>> = runCatching {
         transaction {
-            ServerEntity.all().map { Server.fromEntity(it) }
+            ServerEntity.all().map {
+                val server = Server.fromEntity(it)
+                val installGus = server.getGusFromInstall().getOrThrow()
+                if (installGus != null) {
+                    val server = server.copy(gameUserSettings = installGus)
+                    saveServer(server).getOrThrow()
+                    server
+                } else {
+                    server.saveGusToInstall().getOrThrow()
+                    server
+                }
+            }
         }
     }
 
     fun saveServer(server: Server) = runCatching {
         transaction {
             ServerEntity.findById(server.id)?.let { entity ->
+                server.saveGusToInstall().getOrThrow()
                 Server.applyToEntity(server, entity)
             }
         }

@@ -2,6 +2,7 @@
 
 package eu.wynq.arkascendedservermanager.core.db.models
 
+import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.isValidPath
@@ -11,6 +12,7 @@ import org.jetbrains.exposed.v1.core.dao.id.UuidTable
 import org.jetbrains.exposed.v1.dao.UuidEntity
 import org.jetbrains.exposed.v1.dao.UuidEntityClass
 import org.jetbrains.exposed.v1.json.json
+import serialization.IniSerializer
 import java.nio.file.Path
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -25,6 +27,7 @@ object ServersTable : UuidTable("servers") {
     val installation_location = varchar("installation_location", 255)
     val asa_api = bool("asa_api").default(false)
     val settings = json<Settings>("settings",format)
+    val game_user_settings = json<GameUserSettings>("game_user_settings",format)
 }
 
 class ServerEntity(id: EntityID<Uuid>) : UuidEntity(id) {
@@ -34,6 +37,7 @@ class ServerEntity(id: EntityID<Uuid>) : UuidEntity(id) {
     var installation_location by ServersTable.installation_location
     var asa_api by ServersTable.asa_api
     var settings by ServersTable.settings
+    var game_user_settings by ServersTable.game_user_settings
 }
 
 data class Server(
@@ -41,7 +45,8 @@ data class Server(
     val profileName: String,
     val installationLocation: String,
     val asaApi: Boolean = false,
-    val settings: Settings
+    val settings: Settings,
+    val gameUserSettings: GameUserSettings
 ) {
     companion object {
         fun fromEntity(entity: ServerEntity) = Server(
@@ -49,7 +54,8 @@ data class Server(
             profileName = entity.profile_name,
             installationLocation = entity.installation_location,
             settings = entity.settings,
-            asaApi = entity.asa_api
+            asaApi = entity.asa_api,
+            gameUserSettings = entity.game_user_settings
         )
 
         fun applyToEntity(server: Server, entity: ServerEntity) {
@@ -57,6 +63,7 @@ data class Server(
             entity.settings = server.settings
             entity.installation_location = server.installationLocation
             entity.asa_api = server.asaApi
+            entity.game_user_settings = server.gameUserSettings
         }
     }
 
@@ -92,5 +99,23 @@ data class Server(
         sb.append(" -OldConsole")
         sb.append(" -NoGameAnalytics")
         return sb.toString()
+    }
+
+    fun getGusFromInstall(): Result<GameUserSettings?> = runCatching {
+        val path = Path.of(installationLocation, Constants.GAME_USER_SETTINGS_PATH)
+        if (path.toFile().exists()) {
+            IniSerializer.deserialize<GameUserSettings>(path.toFile().readText())
+        } else {
+            null
+        }
+    }
+
+    fun saveGusToInstall(): Result<Unit> = runCatching {
+        val iniContent = IniSerializer.serialize(gameUserSettings)
+        val path = Path.of(installationLocation, Constants.GAME_USER_SETTINGS_PATH)
+        if (!path.parent.toFile().exists()) {
+            path.parent.toFile().mkdirs()
+        }
+        path.toFile().writeText(iniContent)
     }
 }

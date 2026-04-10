@@ -22,9 +22,10 @@ koin-bom = "4.1.1"
 steamCmd = "0.2.0"
 ktor-version ="3.4.1"
 oshi = "6.11.1"
-
+inisaur = "0.2.3"
 
 [libraries]
+inisaur = { module = "eu.wynq:inisaur", version.ref = "inisaur" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-testJunit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { module = "junit:junit", version.ref = "junit" }

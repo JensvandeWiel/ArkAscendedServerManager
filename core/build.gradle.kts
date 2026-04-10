@@ -85,5 +85,6 @@ dependencies {
     implementation(libs.kotlinx.coroutinesCore)
     implementation(libs.oshi)
     testImplementation(libs.kotlin.test)
+    implementation(libs.inisaur)
     add("overseerRuntime", project(":overseer"))
 }
