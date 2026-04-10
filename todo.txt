@@ -1,2 +1,3 @@
 todo: Fix overseer launching opens window
 todo: Fix asa api oldconsole not exiting gracefully
+todo: Send MOTD on interval, using rcon? (build a system for tasks like this)

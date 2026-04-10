@@ -36,9 +36,11 @@ import eu.wynq.arkascendedservermanager.core.managers.InstallingGame
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
+import eu.wynq.arkascendedservermanager.ui.components.FormFloatSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextarea
+import eu.wynq.arkascendedservermanager.ui.components.LabelPosition
 import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.buildThemeDefinition
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
@@ -604,10 +606,10 @@ fun GeneralTabContent(component: ServerComponent) {
                 )
                 GroupHeader(savesGroupLabel)
                 FormSliderField(
-                    value = gameUserSettings.sessionSettings.autoSavePeriodMinutes,
+                    value = gameUserSettings.serverSettings.autoSavePeriodMinutes,
                     onValueChange = { newValue ->
                         component.updateServerGameUserSettings {
-                            it.copy(sessionSettings = it.sessionSettings.copy(autoSavePeriodMinutes = newValue))
+                            it.copy(serverSettings = it.serverSettings.copy(autoSavePeriodMinutes = newValue))
                         }
                     },
                     label = autoSavePeriodLabel,
@@ -615,7 +617,7 @@ fun GeneralTabContent(component: ServerComponent) {
                     hint = autoSavePeriodHint,
                     allowOutsideRange = true,
                     showManualInput = true,
-                    error = !gameUserSettings.sessionSettings.validateAutoSavePeriodMinutes(),
+                    error = !gameUserSettings.serverSettings.validateAutoSavePeriodMinutes(),
 
                 )
                 GroupHeader(motdGroupLabel)
@@ -643,9 +645,38 @@ fun GeneralTabContent(component: ServerComponent) {
                     hint = motdDurationHint,
                     allowOutsideRange = true,
                     showManualInput = true,
-                    error = !gameUserSettings.messageOfTheDay.validate()
+                    error = !gameUserSettings.messageOfTheDay.validate(),
                 )
                 GroupHeader(serverOptionsGroupLabel)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    FormCheckboxField(
+                        settings.options.enableIdlePlayerKick,
+                        onCheckedChange = { newValue ->
+                            component.updateServerOptions {
+                                it.copy(enableIdlePlayerKick = newValue)
+                            }
+                        },
+                        label = "",
+                        hint = "If enabled, idle players will be kicked from the server after a specified amount of time.",
+                    )
+                    FormSliderField(
+                        value = gameUserSettings.serverSettings.kickIdlePlayersPeriod,
+                        onValueChange = { newValue ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(kickIdlePlayersPeriod = newValue))
+                            }
+                        },
+                        label = "Idle player kick time (seconds):",
+                        valueRange = 0..7200,
+                        hint = "The amount of time (in seconds) after which idle players will be kicked from the server. This option is only relevant if idle player kick is enabled. (3600 seconds is one hour)",
+                        allowOutsideRange = true,
+                        showManualInput = true,
+                        enabled = settings.options.enableIdlePlayerKick,
+                        error = if (settings.options.enableIdlePlayerKick) !gameUserSettings.serverSettings.validateKickIdlePlayersPeriod() else false,
+                    )
+                }
                 FormSliderField(
                     value = settings.administration.slots,
                     onValueChange = { newValue ->

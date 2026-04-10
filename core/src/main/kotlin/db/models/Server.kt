@@ -96,6 +96,9 @@ data class Server(
         }
         sb.append(" -OldConsole")
         sb.append(" -NoGameAnalytics")
+        settings.options.getEnabledOptions().forEach { option ->
+            sb.append(" $option")
+        }
         return sb.toString()
     }
 

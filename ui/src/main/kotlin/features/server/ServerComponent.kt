@@ -14,6 +14,7 @@ import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.managers.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
+import eu.wynq.arkascendedservermanager.core.server.Options
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.watchFileContent
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
@@ -164,6 +165,12 @@ class ServerComponent(
     fun updateServerAdministrationSettings(closure: (administration: Administration) -> Administration) {
         _model.update { state ->
             state.server?.let { state.copy(server = state.server.copy(settings = state.server.settings.copy(administration = closure(state.server.settings.administration)))) } ?: state
+        }
+    }
+
+    fun updateServerOptions(closure: (options: Options) -> Options) {
+        _model.update { state ->
+            state.server?.let { state.copy(server = state.server.copy(settings = state.server.settings.copy(options = closure(state.server.settings.options)))) } ?: state
         }
     }
 

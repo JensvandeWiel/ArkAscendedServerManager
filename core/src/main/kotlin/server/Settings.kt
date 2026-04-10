@@ -5,14 +5,16 @@ import java.security.SecureRandom
 
 @Serializable
 data class Settings(
-    val administration: Administration = Administration()
+    val administration: Administration = Administration(),
+    val options: Options = Options()
 ) {
-    fun validate() = administration.validate()
+    fun validate() = administration.validate() && options.validate()
 
     companion object {
         fun createForNewServer(): Settings {
             return Settings(
-                Administration()
+                Administration(),
+                Options()
             )
         }
     }
@@ -65,3 +67,22 @@ private fun getRandomString(length: Int): String {
 }
 
 private fun String.isNumeric() = all { it.isDigit() }
+
+@Serializable
+data class Options(
+    @OptionName("EnableIdlePlayerKick")
+    val enableIdlePlayerKick: Boolean = false,
+) {
+    @Target(AnnotationTarget.PROPERTY)
+    private annotation class OptionName(val name: String)
+   fun validate() = true
+
+    fun getEnabledOptions(): List<String> {
+        return this::class.members.filter { member ->
+            member.annotations.any { it is OptionName } && (member.call(this) as? Boolean == true)
+        }.mapNotNull { member ->
+            val annotation = member.annotations.find { it is OptionName } as? OptionName
+            annotation?.let { "-${it.name}" }
+        }
+    }
+}

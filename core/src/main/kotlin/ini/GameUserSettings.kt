@@ -12,13 +12,10 @@ import kotlinx.serialization.Serializable
 data class SessionSettings(
     @IniProperty("SessionName")
     val sessionName: String = "Server hosted by JensvandeWiel/ArkAscendedServerManager",
-    @IniProperty("AutoSavePeriodMinutes")
-    val autoSavePeriodMinutes: Int = 15,
 
-) {
-    fun validate() = validateSessionName() && validateAutoSavePeriodMinutes()
+    ) {
+    fun validate() = validateSessionName()
     fun validateSessionName() = sessionName.isNotBlank()
-    fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
 }
 
 @IniSection("MessageOfTheDay")
@@ -32,6 +29,19 @@ data class MessageOfTheDay(
     fun validate() = duration >= 0 // Message is optional
 }
 
+@IniSection("ServerSettings")
+@Serializable
+data class ServerSettings(
+    @IniProperty("AutoSavePeriodMinutes")
+    val autoSavePeriodMinutes: Int = 15,
+    @IniProperty("KickIdlePlayersPeriod")
+    val kickIdlePlayersPeriod: Int = 3600,
+) {
+    fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
+    fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
+    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod()
+}
+
 @IniSerializable
 @Serializable
 data class GameUserSettings(
@@ -40,6 +50,8 @@ data class GameUserSettings(
     val sessionSettings: SessionSettings = SessionSettings(),
     @IniSection
     val messageOfTheDay: MessageOfTheDay = MessageOfTheDay(),
+    @IniSection
+    val serverSettings: ServerSettings = ServerSettings(),
 
     ) : WithIgnored {
     companion object {
@@ -48,5 +60,5 @@ data class GameUserSettings(
         )
     }
 
-    fun validate() = sessionSettings.validate() && messageOfTheDay.validate()
+    fun validate() = sessionSettings.validate() && messageOfTheDay.validate() && serverSettings.validate()
 }
