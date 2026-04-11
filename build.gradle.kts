@@ -1,5 +1,11 @@
 group = "eu.wynq.arkascendedservermanager"
-version = "0.0.0"
+
+val configuredVersion = providers.gradleProperty("releaseVersion")
+    .orElse(providers.environmentVariable("RELEASE_VERSION"))
+    .orElse("0.0.0")
+    .map { it.removePrefix("v") }
+
+version = configuredVersion.get()
 
 plugins {
     // this is necessary to avoid the plugins to be loaded multiple times

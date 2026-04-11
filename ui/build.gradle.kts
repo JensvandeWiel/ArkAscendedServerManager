@@ -2,6 +2,7 @@ import org.gradle.api.attributes.Usage
 import io.github.kdroidfilter.nucleus.desktop.application.dsl.TargetFormat
 import org.gradle.api.tasks.Sync
 import org.gradle.api.tasks.JavaExec
+import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.api.tasks.testing.Test
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.nativeplatform.OperatingSystemFamily
@@ -71,6 +72,31 @@ dependencies {
 }
 
 val nativeLibsDir = layout.buildDirectory.dir("native-libs")
+val appVersion = rootProject.version.toString()
+val installerVersion = appVersion.substringBefore('+').substringBefore('-').ifBlank { "0.0.0" }
+val generatedBuildInfoDir = layout.buildDirectory.dir("generated/resources/build-info")
+
+val generateBuildInfo = tasks.register("generateBuildInfo") {
+    val outputFile = generatedBuildInfoDir.map { it.file("app-build-info.properties") }
+    outputs.file(outputFile)
+
+    doLast {
+        val file = outputFile.get().asFile
+        file.parentFile.mkdirs()
+        file.writeText("version=$appVersion\n")
+    }
+}
+
+sourceSets {
+    named("main") {
+        resources.srcDir(generatedBuildInfoDir)
+    }
+}
+
+tasks.named<ProcessResources>("processResources") {
+    dependsOn(generateBuildInfo)
+}
+
 val syncNativeLibs = tasks.register<Sync>("syncNativeLibs") {
     from(nativeRuntimeConfig)
     into(nativeLibsDir)
@@ -93,10 +119,20 @@ nucleus.application {
     nativeDistributions {
         targetFormats(TargetFormat.Nsis)
         packageName = "ArkAscendedServerManager"
-        packageVersion = "0.0.0"
+        packageVersion = installerVersion
         modules("java.sql")
     }
+    buildTypes {
+        release {
+            proguard {
+                isEnabled = false
+            }
+        }
+    }
 }
+
+
+
 
 
 java {

@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.ui.component.DefaultButton
 import org.jetbrains.jewel.ui.component.Text
@@ -42,9 +43,11 @@ fun InfoScreen(component: InfoComponent) {
 
     val persistentErrorTitle = stringResource(Res.string.info_toast_persistent_error_title)
     val persistentErrorText = stringResource(Res.string.info_toast_persistent_error_text)
+    val appVersion = AppBuildInfo.version
 
     Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(pageInfo)
+        Text("Version: $appVersion")
         Text(toastPlaygroundTitle)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             DefaultButton(

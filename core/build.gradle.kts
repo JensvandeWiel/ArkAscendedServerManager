@@ -3,7 +3,7 @@ import org.gradle.api.tasks.Copy
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.nativeplatform.OperatingSystemFamily
-import java.security.MessageDigest
+import eu.wynq.build.WriteOverseerChecksumTask
 
 plugins {
     alias(libs.plugins.kotlinJvm)
@@ -31,28 +31,10 @@ val syncOverseerResource = tasks.register<Copy>("syncOverseerResource") {
     rename("overseer.exe", "Overseer.exe")
 }
 
-val writeOverseerChecksum = tasks.register("writeOverseerChecksum") {
+val writeOverseerChecksum = tasks.register<WriteOverseerChecksumTask>("writeOverseerChecksum") {
     dependsOn(syncOverseerResource)
-    inputs.dir(generatedOverseerResourceDir)
-    outputs.file(generatedOverseerResourceDir.map { it.file("Overseer.exe.sha256") })
-
-    doLast {
-        val resourceDir = generatedOverseerResourceDir.get().asFile
-        val executable = resourceDir.resolve("Overseer.exe")
-        check(executable.exists()) { "Expected overseer executable at ${executable.absolutePath}" }
-
-        val digest = MessageDigest.getInstance("SHA-256")
-        executable.inputStream().use { input ->
-            val buffer = ByteArray(8192)
-            while (true) {
-                val read = input.read(buffer)
-                if (read <= 0) break
-                digest.update(buffer, 0, read)
-            }
-        }
-        val checksum = digest.digest().joinToString("") { "%02x".format(it) }
-        resourceDir.resolve("Overseer.exe.sha256").writeText(checksum)
-    }
+    executableFile.set(generatedOverseerResourceDir.map { it.file("Overseer.exe") })
+    checksumFile.set(generatedOverseerResourceDir.map { it.file("Overseer.exe.sha256") })
 }
 
 tasks.named<ProcessResources>("processResources") {
