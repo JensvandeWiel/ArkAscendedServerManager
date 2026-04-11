@@ -87,6 +87,11 @@ val generateBuildInfo = tasks.register("generateBuildInfo") {
     }
 }
 
+// Mark the task as not compatible with configuration cache due to appVersion reference
+generateBuildInfo.configure {
+    notCompatibleWithConfigurationCache("Contains serialized Gradle objects")
+}
+
 sourceSets {
     named("main") {
         resources.srcDir(generatedBuildInfoDir)
