@@ -46,6 +46,7 @@ nucleus-jewelDecoratedWindow = { module = "io.github.kdroidfilter:nucleus.decora
 nucleus-decoratedWindowJbr = { module = "io.github.kdroidfilter:nucleus.decorated-window-jni", version.ref = "nucleus" }
 nucleus-darkModeDetector = { module = "io.github.kdroidfilter:nucleus.darkmode-detector" , version.ref = "nucleus" }
 nucleus-systemColor = { module = "io.github.kdroidfilter:nucleus.system-color", version.ref = "nucleus" }
+nucleus-updaterRuntime = { module = "io.github.kdroidfilter:nucleus.updater-runtime", version.ref = "nucleus" }
 jna-jpms = { module = "net.java.dev.jna:jna-jpms", version.ref = "jna" }
 decompose-core = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-extensions = { module = "com.arkivanov.decompose:extensions-compose-experimental", version.ref = "decompose" }

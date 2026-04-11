@@ -26,6 +26,7 @@ import eu.wynq.arkascendedservermanager.core.support.PathHelper.getLogFilePath
 import eu.wynq.arkascendedservermanager.core.support.SteamCMDHelper
 import eu.wynq.arkascendedservermanager.ui.features.root.RootComponent
 import eu.wynq.arkascendedservermanager.ui.features.root.RootScreen
+import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.PowerStore
 import eu.wynq.arkascendedservermanager.ui.stores.PowerStoreImpl
@@ -40,15 +41,20 @@ import io.github.kdroidfilter.nucleus.window.jewel.JewelDecoratedDialog
 import io.github.kdroidfilter.nucleus.window.jewel.JewelDecoratedWindow
 import io.github.kdroidfilter.nucleus.window.jewel.JewelDialogTitleBar
 import io.github.kdroidfilter.nucleus.window.jewel.JewelTitleBar
+import io.github.kdroidfilter.nucleus.updater.NucleusUpdater
+import io.github.kdroidfilter.nucleus.updater.UpdateResult
+import io.github.kdroidfilter.nucleus.updater.provider.GitHubProvider
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
+import org.jetbrains.jewel.ui.component.DefaultButton
 import org.jetbrains.jewel.ui.component.HorizontalProgressBar
 import org.jetbrains.jewel.ui.component.InlineErrorBanner
 import org.jetbrains.jewel.ui.component.Text
@@ -59,6 +65,29 @@ import org.koin.dsl.module
 import kotlin.system.measureTimeMillis
 
 private val startupLogger = KotlinLogging.logger {}
+private const val UPDATE_OWNER = "JensvandeWiel"
+private const val UPDATE_REPO = "ArkAscendedServerManager"
+
+private enum class UpdaterModeOverride {
+    AVAILABLE,
+    NOT_AVAILABLE,
+    ERROR,
+}
+
+private fun parseUpdaterModeOverride(): UpdaterModeOverride? {
+    val raw = System.getProperty("updater.mode")?.trim()?.lowercase() ?: return null
+    return when (raw) {
+        "available" -> UpdaterModeOverride.AVAILABLE
+        "not-available", "not_available", "notavailable" -> UpdaterModeOverride.NOT_AVAILABLE
+        "error" -> UpdaterModeOverride.ERROR
+        else -> {
+            startupLogger.warn {
+                "Unknown updater.mode='$raw'. Supported values: available, not-available, error. Falling back to live updater."
+            }
+            null
+        }
+    }
+}
 
 private sealed interface StartupState {
     data class Starting(
@@ -66,8 +95,17 @@ private sealed interface StartupState {
         val percent: Int,
     ) : StartupState
 
+    data class UpdateAvailable(
+        val latestVersion: String,
+        val update: UpdateResult.Available? = null,
+    ) : StartupState
+    data class DownloadingUpdate(val version: String, val percent: Int) : StartupState
     data class Ready(val rootComponent: RootComponent) : StartupState
     data class Failed(val throwable: Throwable) : StartupState
+}
+
+private fun buildUpdater(): NucleusUpdater = NucleusUpdater {
+    provider = GitHubProvider(owner = UPDATE_OWNER, repo = UPDATE_REPO)
 }
 
 private suspend fun runStartupSequence(
@@ -169,6 +207,75 @@ private fun StartupProgressDialog(
 }
 
 @Composable
+private fun UpdateAvailableDialog(
+    state: StartupState.UpdateAvailable,
+    onInstall: () -> Unit,
+    onSkip: () -> Unit,
+) {
+    val dialogState = rememberDialogState(size = DpSize(560.dp, 190.dp))
+    val title = stringResource(Res.string.startup_update_available_title)
+    val latestVersion = state.latestVersion
+
+    StartupDialogFrame(
+        title = title,
+        state = dialogState,
+        onCloseRequest = onSkip,
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+            Text(
+                stringResource(
+                    Res.string.startup_update_available_body,
+                    AppBuildInfo.version,
+                    latestVersion,
+                )
+            )
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+            ) {
+                DefaultButton(onClick = onSkip) {
+                    Text(stringResource(Res.string.action_skip_for_now))
+                }
+                Spacer(Modifier.width(8.dp))
+                DefaultButton(onClick = onInstall) {
+                    Text(stringResource(Res.string.action_update_now))
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun DownloadingUpdateDialog(
+    state: StartupState.DownloadingUpdate,
+    onCloseRequest: () -> Unit,
+) {
+    val dialogState = rememberDialogState(size = DpSize(520.dp, 150.dp))
+    val title = stringResource(Res.string.startup_update_downloading_title)
+
+    StartupDialogFrame(
+        title = title,
+        state = dialogState,
+        onCloseRequest = onCloseRequest,
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            Text(stringResource(Res.string.startup_update_downloading_format, state.version, state.percent))
+            HorizontalProgressBar(
+                modifier = Modifier.fillMaxWidth(),
+                progress = state.percent.toFloat() / 100f,
+            )
+        }
+    }
+}
+
+@Composable
 private fun StartupErrorDialog(
     throwable: Throwable,
     onCloseRequest: () -> Unit,
@@ -221,6 +328,9 @@ fun main() {
     application {
         val lifecycle = remember { LifecycleRegistry() }
         val windowState = rememberWindowState()
+        val updater = remember { buildUpdater() }
+        val updaterModeOverride = remember { parseUpdaterModeOverride() }
+        val scope = rememberCoroutineScope()
         var startupState by remember {
             mutableStateOf<StartupState>(
                 StartupState.Starting(step = Res.string.startup_step_preparing, percent = 0)
@@ -231,7 +341,40 @@ fun main() {
 
         LaunchedEffect(Unit) {
             startupState = try {
-                runStartupSequence(lifecycle) { startupState = it }
+                startupState = StartupState.Starting(step = Res.string.startup_step_checking_updates, percent = 10)
+                when (updaterModeOverride) {
+                    UpdaterModeOverride.AVAILABLE -> {
+                        startupLogger.info { "Using updater.mode=available (dev override)" }
+                        StartupState.UpdateAvailable(
+                            latestVersion = "test-${AppBuildInfo.version}",
+                            update = null,
+                        )
+                    }
+
+                    UpdaterModeOverride.NOT_AVAILABLE -> {
+                        startupLogger.info { "Using updater.mode=not-available (dev override)" }
+                        runStartupSequence(lifecycle) { startupState = it }
+                    }
+
+                    UpdaterModeOverride.ERROR -> {
+                        startupLogger.info { "Using updater.mode=error (dev override)" }
+                        startupLogger.warn { "Simulated updater error, continuing startup" }
+                        runStartupSequence(lifecycle) { startupState = it }
+                    }
+
+                    null -> when (val updateResult = withContext(Dispatchers.IO) { updater.checkForUpdates() }) {
+                        is UpdateResult.Available -> StartupState.UpdateAvailable(
+                            latestVersion = updateResult.info.version,
+                            update = updateResult,
+                        )
+
+                        is UpdateResult.NotAvailable -> runStartupSequence(lifecycle) { startupState = it }
+                        is UpdateResult.Error -> {
+                            startupLogger.warn(updateResult.exception) { "Update check failed, continuing startup" }
+                            runStartupSequence(lifecycle) { startupState = it }
+                        }
+                    }
+                }
             } catch (t: Throwable) {
                 StartupState.Failed(t)
             }
@@ -240,6 +383,58 @@ fun main() {
         IntUiTheme(theme = themeDefinition, styling = styling) {
             when (val currentState = startupState) {
                 is StartupState.Starting -> StartupProgressDialog(
+                    state = currentState,
+                    onCloseRequest = ::exitApplication,
+                )
+
+                is StartupState.UpdateAvailable -> UpdateAvailableDialog(
+                    state = currentState,
+                    onInstall = {
+                        scope.launch {
+                            startupState = try {
+                                val updateResult = currentState.update
+                                if (updateResult == null) {
+                                    startupLogger.info {
+                                        "Install clicked while updater.mode=available is active; skipping install and continuing startup"
+                                    }
+                                    runStartupSequence(lifecycle) { startupState = it }
+                                }
+
+                                else {
+                                    val version = currentState.latestVersion
+                                    withContext(Dispatchers.IO) {
+                                        var installed = false
+                                        updater.downloadUpdate(updateResult.info).collect { progress ->
+                                            startupState = StartupState.DownloadingUpdate(
+                                                version = version,
+                                                percent = progress.percent.toInt().coerceIn(0, 100),
+                                            )
+                                            if (!installed && progress.file != null) {
+                                                installed = true
+                                                updater.installAndRestart(progress.file!!)
+                                            }
+                                        }
+                                    }
+
+                                    throw IllegalStateException("Update install did not start")
+                                }
+                            } catch (t: Throwable) {
+                                StartupState.Failed(t)
+                            }
+                        }
+                    },
+                    onSkip = {
+                        scope.launch {
+                            startupState = try {
+                                runStartupSequence(lifecycle) { startupState = it }
+                            } catch (t: Throwable) {
+                                StartupState.Failed(t)
+                            }
+                        }
+                    },
+                )
+
+                is StartupState.DownloadingUpdate -> DownloadingUpdateDialog(
                     state = currentState,
                     onCloseRequest = ::exitApplication,
                 )

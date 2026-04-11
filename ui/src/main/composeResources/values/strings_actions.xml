@@ -10,4 +10,6 @@
     <string name="action_show_timed_toast">Show timed toast</string>
     <string name="action_show_persistent_toast">Show persistent toast</string>
     <string name="action_clear_all">Clear all</string>
+    <string name="action_skip_for_now">Skip for now</string>
+    <string name="action_update_now">Update now</string>
 </resources>
