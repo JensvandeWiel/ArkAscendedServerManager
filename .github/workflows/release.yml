@@ -60,12 +60,10 @@ jobs:
         with:
           name: release-assets-${{ runner.os }}-${{ matrix.arch }}
           path: |
-            build/compose/binaries/**/*.exe
-            build/compose/binaries/**/*.blockmap
-            build/compose/binaries/**/signing-metadata.json
-            build/compose/binaries/**/packaging-metadata.json
-            !build/compose/binaries/**/app/**
-            !build/compose/binaries/**/runtime/**
+            ui/build/compose/binaries/main-release/nsis/*.exe
+            ui/build/compose/binaries/main-release/nsis/*.blockmap
+            ui/build/compose/binaries/main-release/nsis/signing-metadata.json
+            ui/build/compose/binaries/main-release/nsis/packaging-metadata.json
           if-no-files-found: error
 
   publish:
