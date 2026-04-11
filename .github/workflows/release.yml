@@ -4,6 +4,11 @@ on:
   push:
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release (e.g. v1.2.3). Defaults to latest tag when empty.'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -13,7 +18,66 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  release_meta:
+    name: Resolve Release Metadata
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.resolve.outputs.tag }}
+      version: ${{ steps.resolve.outputs.version }}
+      channel: ${{ steps.resolve.outputs.channel }}
+      release_type: ${{ steps.resolve.outputs.release_type }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve tag, version, channel and release type
+        id: resolve
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]; then
+            TAG_INPUT="${{ github.event.inputs.tag }}"
+            if [[ -n "$TAG_INPUT" ]]; then
+              TAG="$TAG_INPUT"
+            else
+              TAG="$(git describe --tags --abbrev=0)"
+            fi
+          else
+            TAG="${GITHUB_REF_NAME}"
+          fi
+
+          if [[ -z "$TAG" ]]; then
+            echo "::error::Unable to determine release tag"
+            exit 1
+          fi
+
+          if [[ "$TAG" != v* ]]; then
+            TAG="v$TAG"
+          fi
+
+          VERSION="${TAG#v}"
+
+          if [[ "$VERSION" == *"-alpha"* ]]; then
+            CHANNEL="alpha"
+            RELEASE_TYPE="prerelease"
+          elif [[ "$VERSION" == *"-beta"* ]]; then
+            CHANNEL="beta"
+            RELEASE_TYPE="prerelease"
+          else
+            CHANNEL="latest"
+            RELEASE_TYPE="release"
+          fi
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "channel=$CHANNEL" >> "$GITHUB_OUTPUT"
+          echo "release_type=$RELEASE_TYPE" >> "$GITHUB_OUTPUT"
+
   build:
+    needs: [release_meta]
     name: Build (${{ matrix.os }} / ${{ matrix.arch }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 120
@@ -29,20 +93,12 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GITHUB_USERNAME: ${{ github.actor }}
-      RELEASE_VERSION: ${{ github.ref_name }}
+      RELEASE_VERSION: ${{ needs.release_meta.outputs.tag }}
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Normalize version for manual runs
-        if: github.event_name == 'workflow_dispatch'
-        shell: bash
-        run: |
-          set -euo pipefail
-          tag="$(git describe --tags --abbrev=0)"
-          echo "RELEASE_VERSION=$tag" >> "$GITHUB_ENV"
 
       - name: Setup Nucleus
         uses: kdroidFilter/Nucleus/.github/actions/setup-nucleus@main
@@ -54,7 +110,11 @@ jobs:
 
       - name: Build packages
         shell: bash
-        run: ./gradlew packageReleaseDistributionForCurrentOS --stacktrace --no-daemon
+        run: >
+          ./gradlew packageReleaseDistributionForCurrentOS
+          -PreleaseChannel=${{ needs.release_meta.outputs.channel }}
+          -PreleaseType=${{ needs.release_meta.outputs.release_type }}
+          --stacktrace --no-daemon
 
       - uses: actions/upload-artifact@v4
         with:
@@ -68,8 +128,8 @@ jobs:
 
   publish:
     name: Publish Release
-    needs: [build]
-    if: ${{ !cancelled() && needs.build.result == 'success' }}
+    needs: [release_meta, build]
+    if: ${{ !cancelled() && needs.release_meta.result == 'success' && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -86,37 +146,16 @@ jobs:
           path: artifacts
           pattern: release-assets-*
 
-      - name: Determine version and channel
-        shell: bash
-        run: |
-          set -euo pipefail
-          TAG="${GITHUB_REF_NAME}"
-          VERSION="${TAG#v}"
-          echo "TAG=$TAG" >> "$GITHUB_ENV"
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
-
-          if [[ "$VERSION" == *"-alpha"* ]]; then
-            echo "CHANNEL=alpha" >> "$GITHUB_ENV"
-            echo "RELEASE_TYPE=prerelease" >> "$GITHUB_ENV"
-          elif [[ "$VERSION" == *"-beta"* ]]; then
-            echo "CHANNEL=beta" >> "$GITHUB_ENV"
-            echo "RELEASE_TYPE=prerelease" >> "$GITHUB_ENV"
-          else
-            echo "CHANNEL=latest" >> "$GITHUB_ENV"
-            echo "RELEASE_TYPE=release" >> "$GITHUB_ENV"
-          fi
-
       - name: Generate update YML files
         uses: kdroidFilter/Nucleus/.github/actions/generate-update-yml@main
         with:
           artifacts-path: artifacts
-          version: ${{ env.VERSION }}
-          channel: ${{ env.CHANNEL }}
+          version: ${{ needs.release_meta.outputs.version }}
+          channel: ${{ needs.release_meta.outputs.channel }}
 
       - name: Publish release
         uses: kdroidFilter/Nucleus/.github/actions/publish-release@main
         with:
           artifacts-path: artifacts
-          tag: ${{ env.TAG }}
-          release-type: ${{ env.RELEASE_TYPE }}
-
+          tag: ${{ needs.release_meta.outputs.tag }}
+          release-type: ${{ needs.release_meta.outputs.release_type }}

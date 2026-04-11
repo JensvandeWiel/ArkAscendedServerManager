@@ -1,3 +1,5 @@
+import io.github.kdroidfilter.nucleus.desktop.application.dsl.ReleaseChannel
+import io.github.kdroidfilter.nucleus.desktop.application.dsl.ReleaseType
 import org.gradle.api.attributes.Usage
 import io.github.kdroidfilter.nucleus.desktop.application.dsl.TargetFormat
 import org.gradle.api.tasks.Sync
@@ -17,6 +19,13 @@ plugins {
 }
 
 fun operatingSystemFamilyName(): String = OperatingSystem.current().familyName
+
+inline fun <reified T : Enum<T>> parseEnumOption(value: String, optionName: String): T {
+    val normalized = value.trim().lowercase().replace("-", "").replace("_", "")
+    return enumValues<T>().firstOrNull {
+        it.name.lowercase().replace("_", "") == normalized
+    } ?: error("Unsupported $optionName='$value'. Expected one of: ${enumValues<T>().joinToString { it.name }}")
+}
 
 val nativeRuntimeConfig = configurations.create("nativeRuntime") {
     isCanBeConsumed = false
@@ -75,6 +84,14 @@ val nativeLibsDir = layout.buildDirectory.dir("native-libs")
 val appVersion = rootProject.version.toString()
 val installerVersion = appVersion.substringBefore('+').substringBefore('-').ifBlank { "0.0.0" }
 val generatedBuildInfoDir = layout.buildDirectory.dir("generated/resources/build-info")
+val configuredReleaseChannel = parseEnumOption<ReleaseChannel>(
+    providers.gradleProperty("releaseChannel").orElse("latest").get(),
+    "releaseChannel"
+)
+val configuredReleaseType = parseEnumOption<ReleaseType>(
+    providers.gradleProperty("releaseType").orElse("release").get(),
+    "releaseType"
+)
 
 val generateBuildInfo = tasks.register("generateBuildInfo") {
     val outputFile = generatedBuildInfoDir.map { it.file("app-build-info.properties") }
@@ -126,6 +143,15 @@ nucleus.application {
         packageName = "ArkAscendedServerManager"
         packageVersion = installerVersion
         modules("java.sql")
+        publish {
+            github {
+                enabled = true
+                owner = "JensvandeWiel"
+                repo = "ArkAscendedServerManager"
+                channel = configuredReleaseChannel
+                releaseType = configuredReleaseType
+            }
+        }
     }
     buildTypes {
         release {
