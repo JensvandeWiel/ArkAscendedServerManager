@@ -11,6 +11,7 @@ import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.navigate
 import com.arkivanov.decompose.value.Value
 import kotlinx.serialization.Serializable
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
@@ -21,6 +22,7 @@ import eu.wynq.arkascendedservermanager.ui.features.servers.ServersScreen
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsComponent
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsScreen
 import eu.wynq.arkascendedservermanager.ui.features.server.ServerComponent
+import kotlin.toString
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -116,6 +118,7 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
                     component = ServerComponent(
                         componentContext = context,
                         serverId = parsedServerId,
+                        onServerDeleted = ::onServerDeleted
                     )
                 )
             }
@@ -124,6 +127,13 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
     fun pageFor(config: Config): Page<out Child>? = pagesByConfig[config]
 
     fun navigateTo(config: Config) = navigation.bringToFront(config)
+
+    fun onServerDeleted(uuid: Uuid) {
+        navigation.navigate { stack ->
+            stack.filterNot { it is Config.Server && it.serverId == uuid.toString() }
+        }
+        navigateTo(Config.Servers)
+    }
 
     fun openServer(serverId: Uuid) = navigation.bringToFront(Config.Server(serverId.toString()))
 

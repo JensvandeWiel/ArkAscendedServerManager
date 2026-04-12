@@ -40,6 +40,7 @@ enum class ServerDetailsTab {
 
 class ServerComponent(
     componentContext: ComponentContext,
+    private val onServerDeleted: (uuid: Uuid) -> Unit,
     private val serverId: Uuid,
 ) : ComponentContext by componentContext, KoinComponent {
     private val appScope: CoroutineScope by inject()
@@ -66,6 +67,26 @@ class ServerComponent(
             if (loadedServer.asaApi) {
                 startLogWatching(loadedServer)
             }
+        }
+    }
+
+    fun onDeletionDialogDismissed() {
+        _model.update {
+            it.copy(deleteDialogOpen = false)
+        }
+    }
+
+    fun onDeletionDialogConfirmed() {
+        _model.update {
+            it.copy(deleteDialogOpen = false)
+        }
+        serversStore.deleteServer(model.value.server!!)
+        onServerDeleted(serverId)
+    }
+
+    fun openDeleteDialog() {
+        _model.update {
+            it.copy(deleteDialogOpen = true)
         }
     }
 

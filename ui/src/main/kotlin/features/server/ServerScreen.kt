@@ -35,6 +35,7 @@ import eu.wynq.arkascendedservermanager.core.managers.InstallingAPI
 import eu.wynq.arkascendedservermanager.core.managers.InstallingGame
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
+import eu.wynq.arkascendedservermanager.ui.components.ConfirmationDialog
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
 import eu.wynq.arkascendedservermanager.ui.components.FormFloatSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
@@ -57,6 +58,10 @@ fun ServerScreen(component: ServerComponent) {
     val infoTabLabel = stringResource(Res.string.server_details_info_tab)
     val generalTabLabel = stringResource(Res.string.server_details_general_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
+    val deleteServerLabel = stringResource(Res.string.action_delete_server)
+    val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
+    val deleteDialogMessage = stringResource(Res.string.server_details_delete_dialog_message)
+    val deleteDialogDefaultTarget = stringResource(Res.string.server_details_delete_dialog_target_default)
     val model by component.model.subscribeAsState()
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
@@ -82,6 +87,16 @@ fun ServerScreen(component: ServerComponent) {
             )
         }
 
+    if (model.deleteDialogOpen) {
+        ConfirmationDialog(
+            onConfirm = component::onDeletionDialogConfirmed,
+            onDismiss = component::onDeletionDialogDismissed,
+            deleteDialogTitleFormat.format(model.initialServer?.profileName ?: deleteDialogDefaultTarget),
+            deleteDialogMessage,
+        )
+    }
+
+
     Column {
         Row(
             Modifier.fillMaxWidth().padding(8.dp),
@@ -94,6 +109,9 @@ fun ServerScreen(component: ServerComponent) {
             Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::saveServer, enabled = model.canSave()) {
                 Text(saveServerLabel)
+            }
+            DefaultButton(onClick = component::openDeleteDialog) {
+                Text(deleteServerLabel)
             }
         }
         TabStrip(

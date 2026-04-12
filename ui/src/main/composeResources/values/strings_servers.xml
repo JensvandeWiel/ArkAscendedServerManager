@@ -8,6 +8,9 @@
     <string name="server_details_not_found">Server not found.</string>
     <string name="server_details_error">Failed to load server</string>
     <string name="server_details_error_format">%1$s: %2$s</string>
+    <string name="server_details_delete_dialog_title_format">Delete %1$s?</string>
+    <string name="server_details_delete_dialog_message">Are you sure you want to delete this server? (This only deletes the server from the app, it does not delete the server files)</string>
+    <string name="server_details_delete_dialog_target_default">server</string>
 
     <string name="server_details_installation_info_group">Installation info</string>
     <string name="server_details_installation_status_label">Installation status:</string>

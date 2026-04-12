@@ -2,6 +2,7 @@
     <string name="action_add_server">Add server</string>
     <string name="action_save_settings">Save settings</string>
     <string name="action_save_server">Save server</string>
+    <string name="action_delete_server">Delete server</string>
     <string name="action_install_server">Install</string>
     <string name="action_update_server">Update</string>
     <string name="action_start_server">Start server</string>
