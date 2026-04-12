@@ -212,7 +212,7 @@ private fun UpdateAvailableDialog(
     onInstall: () -> Unit,
     onSkip: () -> Unit,
 ) {
-    val dialogState = rememberDialogState(size = DpSize(560.dp, 190.dp))
+    val dialogState = rememberDialogState(size = DpSize(460.dp, 190.dp))
     val title = stringResource(Res.string.startup_update_available_title)
     val latestVersion = state.latestVersion
 
