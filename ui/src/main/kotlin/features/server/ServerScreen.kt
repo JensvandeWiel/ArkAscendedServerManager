@@ -206,7 +206,7 @@ fun InstallationInfo(component: ServerComponent) {
     val stopServerLabel = stringResource(Res.string.action_stop_server)
     val killServerLabel = stringResource(Res.string.action_kill_server)
 
-    val canStartServer = !status.isInstalling() && (powerState == PowerState.Stopped)
+    val canStartServer = !status.isInstalling() && (powerState == PowerState.Stopped) && (model.isInstalled == true) && (if (model.initialServer?.asaApi == true) model.apiIsInstalled else true) == true
     val canStopServer = !status.isInstalling() && powerState == PowerState.Running
     val canKillServer = !status.isInstalling() && (powerState == PowerState.Running || powerState == PowerState.Starting || powerState == PowerState.Stopping)
 
@@ -388,7 +388,7 @@ fun InstallationInfo(component: ServerComponent) {
             }
             Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
-                Text(if (model.isInstalled == true) updateLabel else installLabel)
+                Text(if (model.isInstalled == true && (if (model.initialServer?.asaApi == true) model.apiIsInstalled else true) == true) updateLabel else installLabel)
             }
         }
         Row(
@@ -439,6 +439,8 @@ fun GeneralTabContent(component: ServerComponent) {
     val rconHint = stringResource(Res.string.server_details_rcon_hint)
     val rconPortLabel = stringResource(Res.string.server_details_rcon_port_label)
     val rconPortHint = stringResource(Res.string.server_details_rcon_port_hint)
+    val rconServerGameLogBufferLabel = stringResource(Res.string.server_details_rcon_server_game_log_buffer_label)
+    val rconServerGameLogBufferHint = stringResource(Res.string.server_details_rcon_server_game_log_buffer_hint)
     val mapLabel = stringResource(Res.string.server_details_map_label)
     val mapHint = stringResource(Res.string.server_details_map_hint)
     val modsLabel = stringResource(Res.string.server_details_mods_label)
@@ -453,6 +455,9 @@ fun GeneralTabContent(component: ServerComponent) {
     val motdDurationHint = stringResource(Res.string.server_details_motd_duration_hint)
     val slotsLabel = stringResource(Res.string.server_details_slots_label)
     val slotsHint = stringResource(Res.string.server_details_slots_hint)
+    val idlePlayerKickEnabledHint = stringResource(Res.string.server_details_idle_player_kick_enabled_hint)
+    val idlePlayerKickTimeLabel = stringResource(Res.string.server_details_idle_player_kick_time_label)
+    val idlePlayerKickTimeHint = stringResource(Res.string.server_details_idle_player_kick_time_hint)
 
     VerticallyScrollableContainer {
         Column(
@@ -538,7 +543,7 @@ fun GeneralTabContent(component: ServerComponent) {
                             val port = newValue.toIntOrNull()
                             if (port != null) {
                                 component.updateServerAdministrationSettings {
-                                    it.copy(serverPort = port, peerPort = port + 1)
+                                    it.copy(serverPort = port)
                                 }
                             }
                         },
@@ -608,8 +613,8 @@ fun GeneralTabContent(component: ServerComponent) {
                             }
                         }
                     },
-                    label = "RCON Server Game Log Buffer",
-                    hint = "Determines how many lines of game logs are send over the RCON.",
+                    label = rconServerGameLogBufferLabel,
+                    hint = rconServerGameLogBufferHint,
                     error = !gameUserSettings.serverSettings.validateRconServerGameLogBuffer(),
                     enabled = settings.administration.rconEnabled
                 )
@@ -692,7 +697,7 @@ fun GeneralTabContent(component: ServerComponent) {
                             }
                         },
                         label = "",
-                        hint = "If enabled, idle players will be kicked from the server after a specified amount of time.",
+                        hint = idlePlayerKickEnabledHint,
                     )
                     FormSliderField(
                         value = gameUserSettings.serverSettings.kickIdlePlayersPeriod,
@@ -701,9 +706,9 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(kickIdlePlayersPeriod = newValue))
                             }
                         },
-                        label = "Idle player kick time (seconds):",
+                        label = idlePlayerKickTimeLabel,
                         valueRange = 0..7200,
-                        hint = "The amount of time (in seconds) after which idle players will be kicked from the server. This option is only relevant if idle player kick is enabled. (3600 seconds is one hour)",
+                        hint = idlePlayerKickTimeHint,
                         allowOutsideRange = true,
                         showManualInput = true,
                         enabled = settings.options.enableIdlePlayerKick,

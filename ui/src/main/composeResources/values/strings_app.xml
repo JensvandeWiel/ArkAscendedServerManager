@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Ark Ascended Server Manager</string>
     <string name="app_short_name">AASM</string>
+    <string name="form_path_select_directory_title">Select a directory</string>
 </resources>

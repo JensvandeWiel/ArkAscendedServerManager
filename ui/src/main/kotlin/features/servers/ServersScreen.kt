@@ -9,30 +9,39 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
-import arkascendedservermanager.ui.generated.resources.Res
-import arkascendedservermanager.ui.generated.resources.action_add_server
-import arkascendedservermanager.ui.generated.resources.page_servers
-import arkascendedservermanager.ui.generated.resources.page_servers_empty_state
-import arkascendedservermanager.ui.generated.resources.server_details_go_to_server
+import androidx.compose.ui.window.rememberDialogState
+import arkascendedservermanager.ui.generated.resources.*
+import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
+import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.server.Settings
+import eu.wynq.arkascendedservermanager.ui.components.FormPathField
 import eu.wynq.arkascendedservermanager.ui.helpers.PreviewWrapper
+import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
+import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
+import io.github.kdroidfilter.nucleus.window.jewel.JewelDecoratedDialog
+import io.github.kdroidfilter.nucleus.window.jewel.JewelDialogTitleBar
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.Orientation
 import org.jetbrains.jewel.ui.component.*
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
 import org.jetbrains.jewel.ui.typography
+import java.nio.file.Path
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -42,7 +51,16 @@ fun ServersScreen(component: ServersComponent) {
     val pageServers = stringResource(Res.string.page_servers)
     val pageServersEmptyState = stringResource(Res.string.page_servers_empty_state)
     val actionAddServer = stringResource(Res.string.action_add_server)
+    val actionImportServer = stringResource(Res.string.action_import_server)
     val servers = component.servers.collectAsState()
+    val model by component.model.subscribeAsState()
+
+    if (model.importServersDialogOpen) {
+        ImportServerDialog(
+            onImport = component::importServer,
+            onDismiss = component::onImportServersDialogDismissed,
+        )
+    }
 
     Column {
         Row(Modifier.fillMaxWidth().padding(8.dp)) {
@@ -54,6 +72,18 @@ fun ServersScreen(component: ServersComponent) {
                 onClick = component::onServerAddClicked,
                 focusable = false,
                 tooltip = { Text(actionAddServer) },
+                tooltipPlacement = TooltipPlacement.ComponentRect(
+                    Alignment.CenterStart,
+                    Alignment.CenterStart,
+                    offset = DpOffset((-6).dp, 0.dp)
+                ),
+            )
+            IconActionButton(
+                key = AllIconsKeys.ToolbarDecorator.Import,
+                contentDescription = actionImportServer,
+                onClick = component::onImportServerClicked,
+                focusable = false,
+                tooltip = { Text(actionImportServer) },
                 tooltipPlacement = TooltipPlacement.ComponentRect(
                     Alignment.CenterStart,
                     Alignment.CenterStart,
@@ -137,5 +167,72 @@ private fun ServerCardPreview() {
     )
     PreviewWrapper {
         ServerCard(server = server, onClick = {})
+    }
+}
+
+@Composable
+fun ImportServerDialog(
+    onImport: (path: String) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    val importDialogState = rememberDialogState(size = DpSize(460.dp, 250.dp))
+    val importServerTitle = stringResource(Res.string.server_import_dialog_title)
+    val selectRootFolder = stringResource(Res.string.server_import_select_root_folder)
+    val installationPathLabel = stringResource(Res.string.server_import_installation_path_label)
+    val installationPathHint = stringResource(Res.string.server_import_installation_path_hint)
+    val invalidInstallationPath = stringResource(Res.string.server_import_invalid_installation_path)
+    val cancelLabel = stringResource(Res.string.action_cancel)
+    val importLabel = stringResource(Res.string.action_import)
+    var path by remember { mutableStateOf<String?>(null) }
+    val pathIsInvalid by remember {
+        derivedStateOf {
+            path.isNullOrBlank() || !InstallManager.isInstalled(Path.of(path))
+        }
+    }
+    JewelDecoratedDialog(
+        onCloseRequest = onDismiss,
+        title = importServerTitle,
+        resizable = false,
+        state = importDialogState,
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(JewelTheme.globalColors.panelBackground),
+        ) {
+            JewelDialogTitleBar {
+                Text(title)
+            }
+            Row(Modifier.fillMaxWidth().padding(8.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(selectRootFolder)
+                    FormPathField(
+                        value = path ?: "",
+                        onValueChange = {
+                            val isInstalled = InstallManager.isInstalled(Path.of(it))
+                            if (!isInstalled) {
+                                ToastBannerManager.show(ToastBannerType.ERROR, invalidInstallationPath)
+                            } else {
+                                path = it
+                                onImport(it)
+                            }
+                        },
+                        label = installationPathLabel,
+                        hint = installationPathHint,
+                        error = path != null && pathIsInvalid,
+                    )
+                }
+            }
+            Spacer(Modifier.weight(1f))
+            Row(Modifier.fillMaxWidth().padding(8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Spacer(Modifier.weight(1f))
+                OutlinedButton(onClick = onDismiss) {
+                    Text(cancelLabel)
+                }
+                DefaultButton(onClick = {onImport(path!!)}, enabled = path != null && !pathIsInvalid) {
+                    Text(importLabel)
+                }
+            }
+        }
     }
 }

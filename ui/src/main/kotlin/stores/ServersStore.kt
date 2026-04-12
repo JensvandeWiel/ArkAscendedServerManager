@@ -18,6 +18,7 @@ interface ServersStore {
     fun getServer(serverId: Uuid): Result<Server>
     fun deleteServer(server: Server)
     fun updateServer(server: Server)
+    fun importServer(path: String): Result<Server>
 }
 
 
@@ -51,6 +52,17 @@ class ServersStoreImpl: ServersStore {
         } else {
             _error.value = newServer.exceptionOrNull()?.message
             null
+        }
+    }
+
+    override fun importServer(path: String): Result<Server> {
+        val importedServer = ServersRepository.importServer(path)
+        return if (importedServer.isSuccess) {
+            _servers.value = _servers.value + (importedServer.getOrThrow().id to importedServer.getOrThrow())
+            Result.success(importedServer.getOrThrow())
+        } else {
+            _error.value = importedServer.exceptionOrNull()?.message
+            Result.failure(importedServer.exceptionOrNull() ?: IllegalStateException("Unknown error during server import"))
         }
     }
 

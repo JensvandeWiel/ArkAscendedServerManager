@@ -6,8 +6,11 @@ import com.oblac.nomen.Nomen
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.db.models.ServerEntity
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
+import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.server.Settings
+import eu.wynq.arkascendedservermanager.core.support.Constants
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
+import java.nio.file.Path
 import kotlin.text.split
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
@@ -35,9 +38,60 @@ object ServersRepository {
                 }
             })
             server.saveGusToInstall().getOrThrow()
+            InstallManager.createStartupScript(server).getOrThrow()
             server
         }
 
+    }
+
+    fun importServer(path: String): Result<Server> = runCatching {
+        val installPath = Path.of(path).normalize()
+        if (!installPath.toFile().exists()) {
+            return Result.failure(IllegalArgumentException("Server installation path does not exist"))
+        }
+
+        val name = installPath.fileName.toString()
+
+        var server = Server.fromEntity(transaction {
+            ServerEntity.new {
+                profile_name = name
+                settings = Settings.createForNewServer()
+                installation_location = path
+                asa_api = false
+                game_user_settings = GameUserSettings.createForNewServer(name)
+            }
+        })
+
+        val existingGus = server.getGusFromInstall().getOrThrow()
+        val existingSettings = server.getSettingsFromInstall().getOrThrow()
+        val existingAsaApi = {
+            val serverExecutable = Path.of(path, Constants.STARTUP_SCRIPT_PATH).toFile()
+            if (serverExecutable.exists()) {
+                serverExecutable.readText().contains("AsaApiLoader") ||
+                        serverExecutable.readText().contains("Overseer")
+            } else {
+                false
+            }
+        }
+
+        if (existingAsaApi()) {
+            server = server.copy(asaApi = true)
+        }
+
+        if (existingGus != null) {
+            server = server.copy(gameUserSettings = existingGus)
+        } else {
+            server.saveGusToInstall().getOrThrow()
+        }
+
+        if (existingSettings != null) {
+            server = server.copy(settings = existingSettings)
+        }
+
+        InstallManager.createStartupScript(server).getOrThrow()
+
+        saveServer(server).getOrThrow()
+        return@runCatching server
     }
 
     fun getServer(serverId: Uuid): Result<Server> = runCatching {

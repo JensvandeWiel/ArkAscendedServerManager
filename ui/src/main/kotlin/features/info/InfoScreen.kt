@@ -4,6 +4,7 @@ import arkascendedservermanager.ui.generated.resources.Res
 import arkascendedservermanager.ui.generated.resources.action_clear_all
 import arkascendedservermanager.ui.generated.resources.action_show_persistent_toast
 import arkascendedservermanager.ui.generated.resources.action_show_timed_toast
+import arkascendedservermanager.ui.generated.resources.info_app_version_format
 import arkascendedservermanager.ui.generated.resources.info_toast_action_a
 import arkascendedservermanager.ui.generated.resources.info_toast_action_b
 import arkascendedservermanager.ui.generated.resources.info_toast_persistent_error_text
@@ -34,6 +35,7 @@ fun InfoScreen(component: InfoComponent) {
     val timedToastLabel = stringResource(Res.string.action_show_timed_toast)
     val persistentToastLabel = stringResource(Res.string.action_show_persistent_toast)
     val clearAllLabel = stringResource(Res.string.action_clear_all)
+    val appVersionLabel = stringResource(Res.string.info_app_version_format, AppBuildInfo.version)
 
     val sampleToastTitle = stringResource(Res.string.info_toast_sample_title)
     val sampleToastText = stringResource(Res.string.info_toast_sample_text)
@@ -43,11 +45,10 @@ fun InfoScreen(component: InfoComponent) {
 
     val persistentErrorTitle = stringResource(Res.string.info_toast_persistent_error_title)
     val persistentErrorText = stringResource(Res.string.info_toast_persistent_error_text)
-    val appVersion = AppBuildInfo.version
 
     Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(pageInfo)
-        Text("Version: $appVersion")
+        Text(appVersionLabel)
         Text(toastPlaygroundTitle)
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             DefaultButton(

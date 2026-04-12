@@ -31,8 +31,12 @@ data class InstallingGame(val status: Status) : InstallStatus()
 object InstallManager {
 
     fun isInstalled(server: Server): Boolean {
-        val installationPath = Path
-            .of(server.installationLocation, Constants.SERVER_BINARY_PATH)
+        return isInstalled(Path.of(server.installationLocation))
+    }
+
+    fun isInstalled(path: Path): Boolean {
+        val installationPath = path
+            .resolve(Constants.SERVER_BINARY_PATH)
             .resolve("ArkAscendedServer.exe")
         return installationPath.toFile().exists()
     }

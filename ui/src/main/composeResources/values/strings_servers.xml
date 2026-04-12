@@ -40,7 +40,7 @@
     <string name="server_details_progress_preallocating">Preallocating</string>
     <string name="server_details_progress_committing">Committing</string>
     <string name="server_details_progress_busy">Busy</string>
-    <string name="server_details_progress_format">%1$s - %2$d%%</string>
+    <string name="server_details_progress_format">%1$s - %2$d%</string>
 
     <string name="server_details_group_profile">Profile</string>
     <string name="server_details_group_server">Server</string>
@@ -83,8 +83,19 @@
     <string name="server_details_group_server_options">Server options</string>
     <string name="server_details_slots_label">Slots:</string>
     <string name="server_details_slots_hint">Sets the maximum number of players which can join this server.</string>
+    <string name="server_details_rcon_server_game_log_buffer_label">RCON Server Game Log Buffer</string>
+    <string name="server_details_rcon_server_game_log_buffer_hint">Determines how many lines of game logs are send over the RCON.</string>
+    <string name="server_details_idle_player_kick_enabled_hint">If enabled, idle players will be kicked from the server after a specified amount of time.</string>
+    <string name="server_details_idle_player_kick_time_label">Idle player kick time (seconds):</string>
+    <string name="server_details_idle_player_kick_time_hint">The amount of time (in seconds) after which idle players will be kicked from the server. This option is only relevant if idle player kick is enabled. (3600 seconds is one hour)</string>
     <string name="server_details_go_to_server">Go to server</string>
     <string name="server_details_logs_group">Server Logs</string>
+
+    <string name="server_import_dialog_title">Import Server</string>
+    <string name="server_import_select_root_folder">Select the root folder of the server installation:</string>
+    <string name="server_import_installation_path_label">Installation Path</string>
+    <string name="server_import_installation_path_hint">The root folder of the server installation. You can identify the installation path by looking for the 'ShooterGame' and 'Engine' folder in the server installation directory.</string>
+    <string name="server_import_invalid_installation_path">The selected path is not a valid server installation.</string>
 
     <string name="server_install_error_steamcmd_path_not_configured">SteamCMD path not configured in settings.</string>
     <string name="server_install_toast_success">Server '%1$s' installed successfully!</string>

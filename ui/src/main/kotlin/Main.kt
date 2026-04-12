@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.application
@@ -298,6 +299,10 @@ private fun StartupErrorDialog(
     }
 }
 
+val LocalAppWindow = staticCompositionLocalOf<ComposeWindow?> {
+    null
+}
+
 @Composable
 private fun MainWindow(
     windowState: androidx.compose.ui.window.WindowState,
@@ -309,17 +314,19 @@ private fun MainWindow(
         onCloseRequest = { exitApplication()},
         title = stringResource(Res.string.app_short_name),
     ) {
-        Column(Modifier.fillMaxSize().background(JewelTheme.globalColors.panelBackground)) {
-            JewelTitleBar(
-                Modifier.newFullscreenControls(),
-                gradientStartColor = ThemeUtils.titleBarGradientColor(),
-            ) {
-                Row(Modifier.align(Alignment.Start).padding(start = 8.dp)) {
-                    Text(stringResource(Res.string.app_name))
+        CompositionLocalProvider(LocalAppWindow provides window) {
+            Column(Modifier.fillMaxSize().background(JewelTheme.globalColors.panelBackground)) {
+                JewelTitleBar(
+                    Modifier.newFullscreenControls(),
+                    gradientStartColor = ThemeUtils.titleBarGradientColor(),
+                ) {
+                    Row(Modifier.align(Alignment.Start).padding(start = 8.dp)) {
+                        Text(stringResource(Res.string.app_name))
+                    }
                 }
-            }
 
-            RootScreen(rootComponent)
+                RootScreen(rootComponent)
+            }
         }
     }
 }

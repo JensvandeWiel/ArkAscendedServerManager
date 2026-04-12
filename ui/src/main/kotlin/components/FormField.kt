@@ -2,7 +2,10 @@
 
 package eu.wynq.arkascendedservermanager.ui.components
 
+import arkascendedservermanager.ui.generated.resources.Res
+import arkascendedservermanager.ui.generated.resources.form_path_select_directory_title
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,7 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import eu.wynq.arkascendedservermanager.ui.LocalAppWindow
+import io.github.vinceglb.filekit.absolutePath
+import io.github.vinceglb.filekit.dialogs.FileKitDialogSettings
+import io.github.vinceglb.filekit.dialogs.compose.rememberDirectoryPickerLauncher
 import kotlinx.coroutines.flow.drop
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.Orientation
 import org.jetbrains.jewel.ui.Outline
@@ -23,6 +31,7 @@ import org.jetbrains.jewel.ui.component.styling.LocalGroupHeaderStyle
 import org.jetbrains.jewel.ui.component.styling.TextAreaStyle
 import org.jetbrains.jewel.ui.theme.textAreaStyle
 import org.jetbrains.jewel.ui.typography
+
 
 enum class LabelPosition {
     Inline,
@@ -582,6 +591,146 @@ fun FormTextarea(
                         outline = if (error) Outline.Error else Outline.None,
                         placeholder = placeholder,
                     )
+                }
+            }
+        }
+    }
+
+    Row(modifier) {
+        if (hint != null) {
+            Tooltip(tooltip = {
+                Text(hint, style = JewelTheme.typography.labelTextStyle)
+            })
+            {
+                fullContent()
+            }
+        } else {
+            fullContent()
+        }
+    }
+}
+
+@Composable
+fun FormPathField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    error: Boolean = false,
+    enabled: Boolean = true,
+    labelPosition: LabelPosition = LabelPosition.Above,
+) {
+    val selectDirectoryTitle = stringResource(Res.string.form_path_select_directory_title)
+    val interactionSource = remember { MutableInteractionSource() }
+    val state = remember { TextFieldState(value) }
+    val currentValue = rememberUpdatedState(value)
+    val fileLauncher = rememberDirectoryPickerLauncher(
+        dialogSettings = FileKitDialogSettings(
+            title = selectDirectoryTitle,
+            parentWindow = LocalAppWindow.current
+        )
+    ) { directory ->
+        val path = directory?.absolutePath()
+        if (path != null) {
+            onValueChange(path)
+        }
+    }
+
+    LaunchedEffect(value) {
+        if (state.text.toString() != value) {
+            state.edit {
+                replace(0, length, value)
+            }
+        }
+    }
+
+    LaunchedEffect(state) {
+        snapshotFlow { state.text.toString() }
+            .drop(1)
+            .collect { nextValue ->
+                if (nextValue != currentValue.value) {
+                    onValueChange(nextValue)
+                }
+            }
+    }
+
+    val fullContent = @Composable {
+        when (labelPosition) {
+            LabelPosition.Inline -> {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        label,
+                        style = JewelTheme.typography.labelTextStyle,
+                        modifier = Modifier.clickable(
+                            interactionSource = interactionSource,
+                            indication = null,
+                            onClick = fileLauncher::launch,
+                            enabled = enabled,
+                        ),
+                    )
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        TextField(
+                            state,
+                            Modifier.fillMaxWidth(),
+                            outline = if (error) Outline.Error else Outline.None,
+                            readOnly = true,
+                            interactionSource = interactionSource,
+                            enabled = enabled,
+                        )
+                        Box(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null,
+                                    onClick = fileLauncher::launch,
+                                    enabled = enabled,
+                                )
+                        )
+                    }
+                }
+            }
+
+            LabelPosition.Above -> {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        label,
+                        style = JewelTheme.typography.labelTextStyle,
+                        modifier = Modifier.clickable(
+                            interactionSource = interactionSource,
+                            indication = null,
+                            onClick = fileLauncher::launch,
+                            enabled = enabled,
+                        ),
+                    )
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        TextField(
+                            state,
+                            Modifier.fillMaxWidth(),
+                            outline = if (error) Outline.Error else Outline.None,
+                            interactionSource = interactionSource,
+                            readOnly = true,
+                            enabled = enabled
+                        )
+                        Box(
+                            modifier = Modifier
+                                .matchParentSize()
+                                .clickable(
+                                    interactionSource = interactionSource,
+                                    indication = null,
+                                    onClick = fileLauncher::launch,
+                                    enabled = enabled,
+                                )
+                        )
+                    }
                 }
             }
         }

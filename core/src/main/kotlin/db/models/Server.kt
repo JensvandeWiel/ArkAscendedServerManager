@@ -73,32 +73,12 @@ data class Server(
     fun validateInstallationLocation() = isValidPath(installationLocation)
 
     fun makeStartupScriptString(): String {
-        val administration = settings.administration
         val executableName = if (asaApi) Constants.OVERSEER_EXECUTABLE_NAME else Constants.SERVER_EXECUTABLE_NAME
         val sb = StringBuilder()
         sb.append("start ")
         sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString())
         sb.append(" ")
-        sb.append(administration.map)
-        sb.append("?Port=${administration.serverPort}")
-        sb.append("?QueryPort=${administration.queryPort}")
-        if (administration.rconEnabled) {
-            sb.append("?RCONEnabled=True")
-            sb.append("?RCONPort=${administration.rconPort}")
-        }
-        if (!administration.serverPassword.isNullOrBlank()) {
-            sb.append("?ServerPassword=${administration.serverPassword}")
-        }
-        sb.append("?ServerAdminPassword=${administration.adminPassword}")
-        sb.append(" -WinLiveMaxPlayers=" + administration.slots)
-        if (administration.mods.isNotEmpty()) {
-            sb.append(" -mods=" + administration.mods.joinToString(","))
-        }
-        sb.append(" -OldConsole")
-        sb.append(" -NoGameAnalytics")
-        settings.options.getEnabledOptions().forEach { option ->
-            sb.append(" $option")
-        }
+        sb.append(settings.toStartupScriptArguments().joinToString(" "))
         return sb.toString()
     }
 
@@ -106,6 +86,15 @@ data class Server(
         val path = Path.of(installationLocation, Constants.GAME_USER_SETTINGS_PATH)
         if (path.toFile().exists()) {
             IniSerializer.deserialize<GameUserSettings>(path.toFile().readText())
+        } else {
+            null
+        }
+    }
+
+    fun getSettingsFromInstall(): Result<Settings?> = runCatching {
+        val path = Path.of(installationLocation, Constants.STARTUP_SCRIPT_PATH)
+        if (path.toFile().exists()) {
+            Settings.fromStartupScriptString(path.toFile().readText())
         } else {
             null
         }

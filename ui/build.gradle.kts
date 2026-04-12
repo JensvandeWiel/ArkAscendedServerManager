@@ -79,6 +79,7 @@ dependencies {
     implementation(libs.steamCmd)
     implementation(libs.inisaur)
     implementation(libs.nucleus.updaterRuntime)
+    implementation(libs.filekit.dialogs.compose)
 }
 
 val nativeLibsDir = layout.buildDirectory.dir("native-libs")

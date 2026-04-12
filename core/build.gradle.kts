@@ -45,6 +45,7 @@ tasks.named<ProcessResources>("processResources") {
 }
 
 dependencies {
+    implementation(libs.kotlin.reflect)
     implementation(libs.kotlinLogging)
     implementation(libs.slf4jApi)
     implementation(libs.logbackClassic)
