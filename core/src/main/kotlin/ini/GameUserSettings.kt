@@ -36,10 +36,13 @@ data class ServerSettings(
     val autoSavePeriodMinutes: Int = 15,
     @IniProperty("KickIdlePlayersPeriod")
     val kickIdlePlayersPeriod: Int = 3600,
+    @IniProperty("RCONServerGameLogBuffer")
+    val rconServerGameLogBuffer: Int = 600,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod()
+    fun validateRconServerGameLogBuffer() = rconServerGameLogBuffer >= 0
+    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer()
 }
 
 @IniSerializable

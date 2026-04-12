@@ -580,6 +580,21 @@ fun GeneralTabContent(component: ServerComponent) {
                         !settings.administration.validateRconPort() else false,
                     enabled = settings.administration.rconEnabled
                 )
+                FormTextField(
+                    value = gameUserSettings.serverSettings.rconServerGameLogBuffer.toString(),
+                    onValueChange = { newValue: String ->
+                        val buffer = newValue.toIntOrNull()
+                        if (buffer != null) {
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(rconServerGameLogBuffer = buffer))
+                            }
+                        }
+                    },
+                    label = "RCON Server Game Log Buffer",
+                    hint = "Determines how many lines of game logs are send over the RCON.",
+                    error = !gameUserSettings.serverSettings.validateRconServerGameLogBuffer(),
+                    enabled = settings.administration.rconEnabled
+                )
                 GroupHeader(mapAndModsGroupLabel)
                 FormTextField(
                     value = settings.administration.map,
