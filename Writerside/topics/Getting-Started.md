@@ -7,7 +7,7 @@ This quickstart guides you through:
 * [Installing Prerequisites](#installing-prerequisites)
 * [Installing the Manager](#installing-the-manager)
 
-It is intended for server owners starting to use this app. It assumes that you have basic knowledge of:
+This is intended for server owners starting to use this app. It assumes that you have basic knowledge of:
 
 * [Setting up Ark Servers](https://ark.wiki.gg/wiki/Dedicated_server_setup)
 * [Configuring Ark Servers](https://ark.wiki.gg/wiki/Server_Configuration)
