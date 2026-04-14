@@ -114,23 +114,9 @@ jobs:
           set -euo pipefail
 
           TAG="${{ needs.release_meta.outputs.tag }}"
-          PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
+          bash ./changelog.sh "$TAG" > RELEASE_CHANGELOG.md
 
-          if [[ -n "$PREVIOUS_TAG" && "$PREVIOUS_TAG" != "$TAG" ]]; then
-            FROM_REF="$PREVIOUS_TAG"
-          else
-            FROM_REF="$(git rev-list --max-parents=0 "$TAG" | head -n 1)"
-          fi
-
-          npx changelogen@latest --from "$FROM_REF" --to "$TAG" --output CHANGELOG.md
-
-          awk 'BEGIN { in_section=0 } /^## / { if (in_section) exit; in_section=1 } in_section { print }' CHANGELOG.md > RELEASE_CHANGELOG.md
-
-          if [[ ! -s RELEASE_CHANGELOG.md ]]; then
-            echo "## ${TAG}" > RELEASE_CHANGELOG.md
-            echo "" >> RELEASE_CHANGELOG.md
-            echo "No changelog entries available for this release." >> RELEASE_CHANGELOG.md
-          fi
+          cp RELEASE_CHANGELOG.md CHANGELOG.md
 
       - name: Build packages
         shell: bash
@@ -171,10 +157,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-
       - name: Regenerate and commit CHANGELOG.md
         shell: bash
         run: |
@@ -187,14 +169,28 @@ jobs:
           git fetch origin "$DEFAULT_BRANCH"
           git checkout -B "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
 
-          PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
-          if [[ -n "$PREVIOUS_TAG" && "$PREVIOUS_TAG" != "$TAG" ]]; then
-            FROM_REF="$PREVIOUS_TAG"
+          HEADER="## ${TAG}"
+          SECTION_FILE="$(mktemp)"
+          EXISTING_FILE="$(mktemp)"
+          bash ./changelog.sh "$TAG" > "$SECTION_FILE"
+
+          if [[ -f CHANGELOG.md ]]; then
+            awk -v heading="$HEADER" '
+              $0 == heading { skip=1; next }
+              skip && /^## / { skip=0 }
+              !skip { print }
+            ' CHANGELOG.md > "$EXISTING_FILE"
           else
-            FROM_REF="$(git rev-list --max-parents=0 "$TAG" | head -n 1)"
+            : > "$EXISTING_FILE"
           fi
 
-          npx changelogen@latest --from "$FROM_REF" --to "$TAG" --output CHANGELOG.md
+          {
+            cat "$SECTION_FILE"
+            if [[ -s "$EXISTING_FILE" ]]; then
+              echo ""
+              cat "$EXISTING_FILE"
+            fi
+          } > CHANGELOG.md
 
           if git diff --quiet -- CHANGELOG.md; then
             echo "No CHANGELOG.md changes to commit."

@@ -18,9 +18,9 @@ object AppChangelog {
             return "No changelog entries found for this version."
         }
 
-        val heading = "## v$normalizedVersion"
+        val headingCandidates = listOf("## v$normalizedVersion", "## $normalizedVersion")
         val lines = markdown.lines()
-        val startIndex = lines.indexOfFirst { it.trim() == heading }
+        val startIndex = lines.indexOfFirst { line -> headingCandidates.any { it == line.trim() } }
         if (startIndex == -1) {
             return "No changelog entries found for v$normalizedVersion."
         }
