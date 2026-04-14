@@ -117,10 +117,12 @@ jobs:
           PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
 
           if [[ -n "$PREVIOUS_TAG" && "$PREVIOUS_TAG" != "$TAG" ]]; then
-            npx changelogen@latest --from "$PREVIOUS_TAG" --to "$TAG" --output CHANGELOG.md
+            FROM_REF="$PREVIOUS_TAG"
           else
-            npx changelogen@latest --to "$TAG" --output CHANGELOG.md
+            FROM_REF="$(git rev-list --max-parents=0 "$TAG" | head -n 1)"
           fi
+
+          npx changelogen@latest --from "$FROM_REF" --to "$TAG" --output CHANGELOG.md
 
           awk 'BEGIN { in_section=0 } /^## / { if (in_section) exit; in_section=1 } in_section { print }' CHANGELOG.md > RELEASE_CHANGELOG.md
 
@@ -187,10 +189,12 @@ jobs:
 
           PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
           if [[ -n "$PREVIOUS_TAG" && "$PREVIOUS_TAG" != "$TAG" ]]; then
-            npx changelogen@latest --from "$PREVIOUS_TAG" --to "$TAG" --output CHANGELOG.md
+            FROM_REF="$PREVIOUS_TAG"
           else
-            npx changelogen@latest --to "$TAG" --output CHANGELOG.md
+            FROM_REF="$(git rev-list --max-parents=0 "$TAG" | head -n 1)"
           fi
+
+          npx changelogen@latest --from "$FROM_REF" --to "$TAG" --output CHANGELOG.md
 
           if git diff --quiet -- CHANGELOG.md; then
             echo "No CHANGELOG.md changes to commit."
