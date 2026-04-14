@@ -13,6 +13,7 @@ import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.navigate
 import com.arkivanov.decompose.value.Value
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.serialization.Serializable
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
 import eu.wynq.arkascendedservermanager.ui.features.info.InfoComponent
@@ -22,11 +23,11 @@ import eu.wynq.arkascendedservermanager.ui.features.servers.ServersScreen
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsComponent
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsScreen
 import eu.wynq.arkascendedservermanager.ui.features.server.ServerComponent
-import kotlin.toString
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
 class RootComponent(context: ComponentContext) : ComponentContext by context {
+    private val logger = KotlinLogging.logger {}
     sealed class Child {
         class Servers(
             val component: ServersComponent
@@ -111,6 +112,7 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
                 val parsedServerId = try {
                     Uuid.parse(config.serverId)
                 } catch (_: IllegalArgumentException) {
+                    logger.warn { "Invalid server UUID in navigation config: ${config.serverId}" }
                     return Child.Info(component = InfoComponent(context))
                 }
 

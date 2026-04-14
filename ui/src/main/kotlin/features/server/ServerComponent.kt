@@ -20,6 +20,7 @@ import eu.wynq.arkascendedservermanager.core.support.watchFileContent
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.PowerStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -43,6 +44,7 @@ class ServerComponent(
     private val onServerDeleted: (uuid: Uuid) -> Unit,
     private val serverId: Uuid,
 ) : ComponentContext by componentContext, KoinComponent {
+    private val logger = KotlinLogging.logger {}
     private val appScope: CoroutineScope by inject()
     private val serversStore: ServersStore by inject()
     private val installStore: InstallStore by inject()
@@ -67,6 +69,8 @@ class ServerComponent(
             if (loadedServer.asaApi) {
                 startLogWatching(loadedServer)
             }
+        }.onFailure {
+            logger.warn(it) { "Server missing during component init: $serverId" }
         }
     }
 
@@ -80,7 +84,11 @@ class ServerComponent(
         _model.update {
             it.copy(deleteDialogOpen = false)
         }
-        serversStore.deleteServer(model.value.server!!)
+        val currentServer = model.value.server ?: run {
+            logger.warn { "Delete confirmed without loaded server: $serverId" }
+            return
+        }
+        serversStore.deleteServer(currentServer)
         onServerDeleted(serverId)
     }
 
@@ -112,7 +120,10 @@ class ServerComponent(
     fun saveServer() {
         _model.value.server?.let { currentServer ->
             serversStore.updateServer(currentServer)
-            InstallManager.createStartupScript(currentServer)
+            runCatching { InstallManager.createStartupScript(currentServer) }
+                .onFailure { throwable ->
+                    logger.error(throwable) { "Failed to create startup script for ${currentServer.profileName} (${currentServer.id})" }
+                }
             _model.update { state -> state.copy(initialServer = currentServer) }
             refreshInstallationInfo(currentServer)
             bindPowerState(currentServer)
@@ -139,34 +150,38 @@ class ServerComponent(
         if (_model.value.initialServer != server) return
 
         appScope.launch {
-            _model.update { state ->
-                if (state.initialServer == server) {
-                    state.copy(isInstalled = null, version = null)
-                } else {
-                    state
+            try {
+                _model.update { state ->
+                    if (state.initialServer == server) {
+                        state.copy(isInstalled = null, version = null)
+                    } else {
+                        state
+                    }
                 }
-            }
 
-            val installationInfo = withContext(Dispatchers.IO) {
-                ServerInstallationInfo(
-                    isInstalled = InstallManager.isInstalled(server),
-                    version = InstallManager.getServerVersion(server),
-                    apiVersion = if (server.asaApi) AsaApiInstallManager.getApiVersionAsString(server) else null,
-                    apiIsInstalled = AsaApiInstallManager.isInstalled(server),
-                )
-            }
-
-            _model.update { state ->
-                if (state.initialServer == server) {
-                    state.copy(
-                        isInstalled = installationInfo.isInstalled,
-                        version = installationInfo.version,
-                        apiIsInstalled = installationInfo.apiIsInstalled,
-                        apiVersion = installationInfo.apiVersion,
+                val installationInfo = withContext(Dispatchers.IO) {
+                    ServerInstallationInfo(
+                        isInstalled = InstallManager.isInstalled(server),
+                        version = InstallManager.getServerVersion(server),
+                        apiVersion = if (server.asaApi) AsaApiInstallManager.getApiVersionAsString(server) else null,
+                        apiIsInstalled = AsaApiInstallManager.isInstalled(server),
                     )
-                } else {
-                    state
                 }
+
+                _model.update { state ->
+                    if (state.initialServer == server) {
+                        state.copy(
+                            isInstalled = installationInfo.isInstalled,
+                            version = installationInfo.version,
+                            apiIsInstalled = installationInfo.apiIsInstalled,
+                            apiVersion = installationInfo.apiVersion,
+                        )
+                    } else {
+                        state
+                    }
+                }
+            } catch (t: Throwable) {
+                logger.error(t) { "Failed to refresh installation info for ${server.profileName} (${server.id})" }
             }
         }
     }
@@ -208,9 +223,13 @@ class ServerComponent(
     private fun startLogWatching(server: Server) {
         logJob?.cancel()
         logJob = appScope.launch {
-            val logFile = java.io.File(server.installationLocation, Constants.OVERSEER_SERVER_LOG_PATH)
-            watchFileContent(logFile).collect { line ->
-                _logs.update { (it + line).takeLast(100) }
+            try {
+                val logFile = java.io.File(server.installationLocation, Constants.OVERSEER_SERVER_LOG_PATH)
+                watchFileContent(logFile).collect { line ->
+                    _logs.update { (it + line).takeLast(100) }
+                }
+            } catch (t: Throwable) {
+                logger.error(t) { "Log watcher failed for ${server.profileName} (${server.id})" }
             }
         }
     }

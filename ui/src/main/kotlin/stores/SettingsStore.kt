@@ -2,6 +2,7 @@ package eu.wynq.arkascendedservermanager.ui.stores
 
 import eu.wynq.arkascendedservermanager.core.db.models.Settings
 import eu.wynq.arkascendedservermanager.core.db.repositories.SettingsRepository
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -13,6 +14,7 @@ interface SettingsStore {
 }
 
 class SettingsStoreImpl : SettingsStore {
+    private val logger = KotlinLogging.logger {}
     private val _settings = MutableStateFlow<Settings?>(null)
     override val settings = _settings.asStateFlow()
     private val _error = MutableStateFlow<String?>(null)
@@ -27,6 +29,7 @@ class SettingsStoreImpl : SettingsStore {
             _settings.value = it
             _error.value = null
         }.onFailure {
+            logger.error(it) { "Failed to load settings" }
             _error.value = it.message
             _settings.value = null
         }
@@ -37,6 +40,7 @@ class SettingsStoreImpl : SettingsStore {
         SettingsRepository.saveSettings(settings).onSuccess {
             _error.value = null
         }.onFailure {
+            logger.error(it) { "Failed to save settings" }
             _error.value = it.message
         }
     }

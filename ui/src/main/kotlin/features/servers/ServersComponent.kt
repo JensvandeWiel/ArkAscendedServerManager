@@ -61,8 +61,8 @@ class ServersComponent(
             )
         }
         val server = serversStore.importServer(path)
-        if (server.isFailure) return _logger.error {
-            "Failed to import server from path $path: ${server.exceptionOrNull()?.message}"
+        if (server.isFailure) return _logger.error(server.exceptionOrNull()) {
+            "Failed to import server from path $path"
         }
         onOpenServer(server.getOrThrow().id)
     }

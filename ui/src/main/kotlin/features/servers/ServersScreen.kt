@@ -35,6 +35,7 @@ import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
 import io.github.kdroidfilter.nucleus.window.jewel.JewelDecoratedDialog
 import io.github.kdroidfilter.nucleus.window.jewel.JewelDialogTitleBar
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.Orientation
@@ -44,6 +45,8 @@ import org.jetbrains.jewel.ui.typography
 import java.nio.file.Path
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
+
+private val logger = KotlinLogging.logger {}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -119,6 +122,13 @@ fun ServersScreen(component: ServersComponent) {
     }
 }
 
+private fun isInstalledPath(path: String?): Boolean {
+    val normalizedPath = path?.takeIf { it.isNotBlank() } ?: return false
+    return runCatching { InstallManager.isInstalled(Path.of(normalizedPath)) }
+        .onFailure { logger.warn(it) { "Invalid installation path input: $normalizedPath" } }
+        .getOrDefault(false)
+}
+
 @Composable
 fun ServerCard(server: Server, onClick: () -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -186,7 +196,7 @@ fun ImportServerDialog(
     var path by remember { mutableStateOf<String?>(null) }
     val pathIsInvalid by remember {
         derivedStateOf {
-            path.isNullOrBlank() || !InstallManager.isInstalled(Path.of(path))
+            !isInstalledPath(path)
         }
     }
     JewelDecoratedDialog(
@@ -201,7 +211,7 @@ fun ImportServerDialog(
                 .background(JewelTheme.globalColors.panelBackground),
         ) {
             JewelDialogTitleBar {
-                Text(title)
+                    Text(importServerTitle)
             }
             Row(Modifier.fillMaxWidth().padding(8.dp)) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -209,7 +219,7 @@ fun ImportServerDialog(
                     FormPathField(
                         value = path ?: "",
                         onValueChange = {
-                            val isInstalled = InstallManager.isInstalled(Path.of(it))
+                            val isInstalled = isInstalledPath(it)
                             if (!isInstalled) {
                                 ToastBannerManager.show(ToastBannerType.ERROR, invalidInstallationPath)
                             } else {
@@ -229,7 +239,7 @@ fun ImportServerDialog(
                 OutlinedButton(onClick = onDismiss) {
                     Text(cancelLabel)
                 }
-                DefaultButton(onClick = {onImport(path!!)}, enabled = path != null && !pathIsInvalid) {
+                DefaultButton(onClick = { path?.let(onImport) }, enabled = path != null && !pathIsInvalid) {
                     Text(importLabel)
                 }
             }

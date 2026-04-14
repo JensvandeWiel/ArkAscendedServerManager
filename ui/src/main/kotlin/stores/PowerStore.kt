@@ -12,6 +12,7 @@ import eu.wynq.arkascendedservermanager.core.managers.PowerManager
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
+import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,6 +33,7 @@ interface PowerStore {
 }
 
 class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
+    private val logger = KotlinLogging.logger {}
     private val powerStates = mutableMapOf<Uuid, MutableStateFlow<PowerState>>()
     private val servers = mutableMapOf<Uuid, Server>()
     private val pollingJobs = mutableMapOf<Uuid, Job>()
@@ -63,11 +65,19 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
         servers[server.id] = server
 
         pollingJobs[server.id] = appScope.launch {
-            PowerManager.pollPowerState(server).collect { state.value = it }
+            try {
+                PowerManager.pollPowerState(server).collect { state.value = it }
+            } catch (t: Throwable) {
+                logger.error(t) { "Power polling failed for ${server.profileName} (${server.id})" }
+            }
         }
 
         appScope.launch(Dispatchers.IO) {
-            state.value = PowerManager.getPowerState(server)
+            try {
+                state.value = PowerManager.getPowerState(server)
+            } catch (t: Throwable) {
+                logger.error(t) { "Failed to read power state for ${server.profileName} (${server.id})" }
+            }
         }
     }
 
@@ -90,6 +100,7 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
 
             state.value = withContext(Dispatchers.IO) { PowerManager.getPowerState(server) }
             if (result.isFailure) {
+                logger.error(result.exceptionOrNull()) { "Power operation $operation failed for ${server.profileName} (${server.id})" }
                 showPowerOperationFailedToast(operation, server, result.exceptionOrNull())
             }
         }

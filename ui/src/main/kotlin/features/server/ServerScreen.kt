@@ -43,12 +43,15 @@ import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextarea
 import eu.wynq.arkascendedservermanager.ui.components.LabelPosition
 import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.buildThemeDefinition
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
 import org.jetbrains.jewel.ui.theme.defaultTabStyle
 import org.jetbrains.jewel.ui.typography
 import kotlin.uuid.ExperimentalUuidApi
+
+private val logger = KotlinLogging.logger {}
 
 @Composable
 fun ServerScreen(component: ServerComponent) {
@@ -377,6 +380,7 @@ fun InstallationInfo(component: ServerComponent) {
                     }
 
                     else -> {
+                        logger.error { "Unexpected install status in UI: $status" }
                         throw IllegalStateException("Status should be handled before it reaches the ui: $status")
                     }
                 }

@@ -46,6 +46,7 @@ import io.github.kdroidfilter.nucleus.updater.NucleusUpdater
 import io.github.kdroidfilter.nucleus.updater.UpdateResult
 import io.github.kdroidfilter.nucleus.updater.provider.GitHubProvider
 import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -332,6 +333,12 @@ private fun MainWindow(
 }
 
 fun main() {
+    val previousUncaughtExceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
+        startupLogger.error(throwable) { "Uncaught UI exception on thread ${thread.name}" }
+        previousUncaughtExceptionHandler?.uncaughtException(thread, throwable)
+    }
+
     application {
         val lifecycle = remember { LifecycleRegistry() }
         val windowState = rememberWindowState()
@@ -383,6 +390,7 @@ fun main() {
                     }
                 }
             } catch (t: Throwable) {
+                startupLogger.error(t) { "Startup failed" }
                 StartupState.Failed(t)
             }
         }
@@ -426,6 +434,7 @@ fun main() {
                                     throw IllegalStateException("Update install did not start")
                                 }
                             } catch (t: Throwable) {
+                                startupLogger.error(t) { "Update install failed" }
                                 StartupState.Failed(t)
                             }
                         }
@@ -435,6 +444,7 @@ fun main() {
                             startupState = try {
                                 runStartupSequence(lifecycle) { startupState = it }
                             } catch (t: Throwable) {
+                                startupLogger.error(t) { "Startup resume after update skip failed" }
                                 StartupState.Failed(t)
                             }
                         }
@@ -448,7 +458,12 @@ fun main() {
 
                 is StartupState.Ready -> {
                     val appModule = module {
-                        single { CoroutineScope(SupervisorJob() + Dispatchers.Main) }
+                        single {
+                            val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+                                startupLogger.error(throwable) { "Unhandled UI coroutine failure" }
+                            }
+                            CoroutineScope(SupervisorJob() + Dispatchers.Main + exceptionHandler)
+                        }
                         single<ServersStore> { ServersStoreImpl() }
                         single<SettingsStore> { SettingsStoreImpl() }
                         single { InstallStore(get(), get()) }
