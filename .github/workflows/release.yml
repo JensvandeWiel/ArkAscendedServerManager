@@ -116,7 +116,7 @@ jobs:
           TAG="${{ needs.release_meta.outputs.tag }}"
           PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
 
-          if [[ -n "$PREVIOUS_TAG" ]]; then
+          if [[ -n "$PREVIOUS_TAG" && "$PREVIOUS_TAG" != "$TAG" ]]; then
             npx changelogen@latest --from "$PREVIOUS_TAG" --to "$TAG" --output CHANGELOG.md
           else
             npx changelogen@latest --to "$TAG" --output CHANGELOG.md
@@ -186,7 +186,7 @@ jobs:
           git checkout -B "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
 
           PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
-          if [[ -n "$PREVIOUS_TAG" ]]; then
+          if [[ -n "$PREVIOUS_TAG" && "$PREVIOUS_TAG" != "$TAG" ]]; then
             npx changelogen@latest --from "$PREVIOUS_TAG" --to "$TAG" --output CHANGELOG.md
           else
             npx changelogen@latest --to "$TAG" --output CHANGELOG.md
