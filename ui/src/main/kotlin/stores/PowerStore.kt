@@ -66,7 +66,9 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
 
         pollingJobs[server.id] = appScope.launch {
             try {
-                PowerManager.pollPowerState(server).collect { state.value = it }
+                PowerManager.pollPowerState(server, oldStateProvider = { state.value }).collect { polledState ->
+                    state.value = mergePolledState(state.value, polledState)
+                }
             } catch (t: Throwable) {
                 logger.error(t) { "Power polling failed for ${server.profileName} (${server.id})" }
             }
@@ -74,7 +76,7 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
 
         appScope.launch(Dispatchers.IO) {
             try {
-                state.value = PowerManager.getPowerState(server)
+                state.value = PowerManager.getPowerState(server, state.value)
             } catch (t: Throwable) {
                 logger.error(t) { "Failed to read power state for ${server.profileName} (${server.id})" }
             }
@@ -98,7 +100,7 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
                 return@launch
             }
 
-            state.value = withContext(Dispatchers.IO) { PowerManager.getPowerState(server) }
+            state.value = withContext(Dispatchers.IO) { PowerManager.getPowerState(server, state.value) }
             if (result.isFailure) {
                 logger.error(result.exceptionOrNull()) { "Power operation $operation failed for ${server.profileName} (${server.id})" }
                 showPowerOperationFailedToast(operation, server, result.exceptionOrNull())
@@ -125,6 +127,14 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
                 timeoutMillis = null,
             )
         }
+    }
+
+    private fun mergePolledState(currentState: PowerState, polledState: PowerState): PowerState {
+        if (currentState == PowerState.Stopping && polledState == PowerState.Starting) {
+            return PowerState.Stopping
+        }
+
+        return polledState
     }
 
     private enum class PowerOperation {

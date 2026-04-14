@@ -26,7 +26,7 @@ enum class PowerState {
 }
 
 object PowerManager {
-    suspend fun getPowerState(server: Server): PowerState = withContext(Dispatchers.IO) {
+    suspend fun getPowerState(server: Server, oldState: PowerState = PowerState.Unknown): PowerState = withContext(Dispatchers.IO) {
         val process = getProcess(server).getOrElse {
             return@withContext PowerState.Unknown
         }
@@ -38,13 +38,17 @@ object PowerManager {
         if (isAvailable(server)) {
             PowerState.Running
         } else {
-            PowerState.Starting
+            if (oldState == PowerState.Stopping) PowerState.Stopping else PowerState.Starting
         }
     }
 
-    fun pollPowerState(server: Server, interval: Duration = 10.seconds): Flow<PowerState> = flow {
+    fun pollPowerState(
+        server: Server,
+        interval: Duration = 10.seconds,
+        oldStateProvider: () -> PowerState = { PowerState.Unknown },
+    ): Flow<PowerState> = flow {
         while (true) {
-            emit(getPowerState(server))
+            emit(getPowerState(server, oldStateProvider()))
             delay(interval)
         }
     }
