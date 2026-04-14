@@ -108,6 +108,28 @@ jobs:
           setup-gradle: 'true'
           setup-node: 'true'
 
+      - name: Generate changelog and release notes
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TAG="${{ needs.release_meta.outputs.tag }}"
+          PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
+
+          if [[ -n "$PREVIOUS_TAG" ]]; then
+            npx changelogen@latest --from "$PREVIOUS_TAG" --to "$TAG" --output CHANGELOG.md
+          else
+            npx changelogen@latest --to "$TAG" --output CHANGELOG.md
+          fi
+
+          awk 'BEGIN { in_section=0 } /^## / { if (in_section) exit; in_section=1 } in_section { print }' CHANGELOG.md > RELEASE_CHANGELOG.md
+
+          if [[ ! -s RELEASE_CHANGELOG.md ]]; then
+            echo "## ${TAG}" > RELEASE_CHANGELOG.md
+            echo "" >> RELEASE_CHANGELOG.md
+            echo "No changelog entries available for this release." >> RELEASE_CHANGELOG.md
+          fi
+
       - name: Build packages
         shell: bash
         run: >
@@ -126,6 +148,12 @@ jobs:
             ui/build/compose/binaries/main-release/nsis/packaging-metadata.json
           if-no-files-found: error
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-notes-${{ runner.os }}-${{ matrix.arch }}
+          path: RELEASE_CHANGELOG.md
+          if-no-files-found: error
+
   publish:
     name: Publish Release
     needs: [release_meta, build]
@@ -141,10 +169,47 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Regenerate and commit CHANGELOG.md
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TAG="${{ needs.release_meta.outputs.tag }}"
+          DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
+
+          git fetch --tags --force
+          git fetch origin "$DEFAULT_BRANCH"
+          git checkout -B "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
+
+          PREVIOUS_TAG="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
+          if [[ -n "$PREVIOUS_TAG" ]]; then
+            npx changelogen@latest --from "$PREVIOUS_TAG" --to "$TAG" --output CHANGELOG.md
+          else
+            npx changelogen@latest --to "$TAG" --output CHANGELOG.md
+          fi
+
+          if git diff --quiet -- CHANGELOG.md; then
+            echo "No CHANGELOG.md changes to commit."
+            exit 0
+          fi
+
+          git add CHANGELOG.md
+          git commit -m "chore: update changelog for $TAG"
+          git push origin "HEAD:$DEFAULT_BRANCH"
+
       - uses: actions/download-artifact@v4
         with:
           path: artifacts
           pattern: release-assets-*
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-notes
+          pattern: release-notes-*
 
       - name: Generate update YML files
         uses: kdroidFilter/Nucleus/.github/actions/generate-update-yml@main
@@ -159,3 +224,17 @@ jobs:
           artifacts-path: artifacts
           tag: ${{ needs.release_meta.outputs.tag }}
           release-type: ${{ needs.release_meta.outputs.release_type }}
+
+      - name: Update release notes from changelog
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          NOTES_FILE="$(find release-notes -type f -name RELEASE_CHANGELOG.md | head -n 1)"
+          if [[ -z "$NOTES_FILE" ]]; then
+            echo "::error::RELEASE_CHANGELOG.md artifact not found"
+            exit 1
+          fi
+
+          gh release edit "${{ needs.release_meta.outputs.tag }}" --notes-file "$NOTES_FILE"
+

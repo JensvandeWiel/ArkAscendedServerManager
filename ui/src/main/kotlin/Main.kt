@@ -3,6 +3,7 @@
 package eu.wynq.arkascendedservermanager.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
@@ -53,6 +54,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
@@ -314,6 +316,7 @@ private fun MainWindow(
         state = windowState,
         onCloseRequest = { exitApplication()},
         title = stringResource(Res.string.app_short_name),
+        icon = painterResource(Res.drawable.aasm)
     ) {
         CompositionLocalProvider(LocalAppWindow provides window) {
             Column(Modifier.fillMaxSize().background(JewelTheme.globalColors.panelBackground)) {
@@ -321,7 +324,8 @@ private fun MainWindow(
                     Modifier.newFullscreenControls(),
                     gradientStartColor = ThemeUtils.titleBarGradientColor(),
                 ) {
-                    Row(Modifier.align(Alignment.Start).padding(start = 8.dp)) {
+                    Row(Modifier.align(Alignment.Start).padding(start = 8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                        Image(painterResource(Res.drawable.aasm), contentDescription = null, modifier = Modifier.size(30.dp))
                         Text(stringResource(Res.string.app_name))
                     }
                 }

@@ -80,12 +80,14 @@ dependencies {
     implementation(libs.inisaur)
     implementation(libs.nucleus.updaterRuntime)
     implementation(libs.filekit.dialogs.compose)
+    implementation(libs.jewel.intUiStandaloneMarkdownStyling)
 }
 
 val nativeLibsDir = layout.buildDirectory.dir("native-libs")
 val appVersion = rootProject.version.toString()
 val installerVersion = appVersion.substringBefore('+').substringBefore('-').ifBlank { "0.0.0" }
 val generatedBuildInfoDir = layout.buildDirectory.dir("generated/resources/build-info")
+val generatedChangelogDir = layout.buildDirectory.dir("generated/resources/changelog")
 val configuredReleaseChannel = parseEnumOption<ReleaseChannel>(
     providers.gradleProperty("releaseChannel").orElse("latest").get(),
     "releaseChannel"
@@ -106,6 +108,20 @@ val generateBuildInfo = tasks.register("generateBuildInfo") {
     }
 }
 
+val generateAppChangelog = tasks.register("generateAppChangelog") {
+    val changelogFile = rootProject.layout.projectDirectory.file("CHANGELOG.md")
+    val outputFile = generatedChangelogDir.map { it.file("app-changelog.md") }
+
+    inputs.file(changelogFile)
+    outputs.file(outputFile)
+
+    doLast {
+        val file = outputFile.get().asFile
+        file.parentFile.mkdirs()
+        file.writeText(changelogFile.asFile.readText())
+    }
+}
+
 // Mark the task as not compatible with configuration cache due to appVersion reference
 generateBuildInfo.configure {
     notCompatibleWithConfigurationCache("Contains serialized Gradle objects")
@@ -114,11 +130,13 @@ generateBuildInfo.configure {
 sourceSets {
     named("main") {
         resources.srcDir(generatedBuildInfoDir)
+        resources.srcDir(generatedChangelogDir)
     }
 }
 
 tasks.named<ProcessResources>("processResources") {
     dependsOn(generateBuildInfo)
+    dependsOn(generateAppChangelog)
 }
 
 val syncNativeLibs = tasks.register<Sync>("syncNativeLibs") {
@@ -144,7 +162,7 @@ nucleus.application {
         targetFormats(TargetFormat.Nsis)
         packageName = "ArkAscendedServerManager"
         packageVersion = installerVersion
-        modules("java.sql")
+        modules("java.instrument", "java.management", "java.sql", "jdk.security.auth", "jdk.unsupported")
         publish {
             github {
                 enabled = true
@@ -152,6 +170,20 @@ nucleus.application {
                 repo = "ArkAscendedServerManager"
                 channel = configuredReleaseChannel
                 releaseType = configuredReleaseType
+            }
+        }
+
+        windows {
+            iconFile.set(project.file("src/main/resources/images/aasm.ico"))
+            nsis {
+                oneClick = false
+                createDesktopShortcut = true
+                createStartMenuShortcut = true
+                installerIcon.set(project.file("packaging/aasm.ico"))
+                uninstallerIcon.set(project.file("packaging/aasm.ico"))
+                installerHeader.set(project.file("packaging/aasm_banner.png"))
+                allowToChangeInstallationDirectory = true
+                license.set(project.file("../LICENSE"))
             }
         }
     }

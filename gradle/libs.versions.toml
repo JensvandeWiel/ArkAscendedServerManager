@@ -44,6 +44,7 @@ kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-s
 kotlinx-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 jewel-intUiStandalone = { module = "org.jetbrains.jewel:jewel-int-ui-standalone", version.ref = "jewel" }
 jewel-intUiDecoratedWindow = { module = "org.jetbrains.jewel:jewel-int-ui-decorated-window", version.ref = "jewel" }
+jewel-intUiStandaloneMarkdownStyling = { module = "org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling", version.ref = "jewel" }
 intellij-icons = { module = "com.jetbrains.intellij.platform:icons", version.ref = "intellij" }
 nucleus-jewelDecoratedWindow = { module = "io.github.kdroidfilter:nucleus.decorated-window-jewel", version.ref = "nucleus" }
 nucleus-decoratedWindowJbr = { module = "io.github.kdroidfilter:nucleus.decorated-window-jni", version.ref = "nucleus" }
