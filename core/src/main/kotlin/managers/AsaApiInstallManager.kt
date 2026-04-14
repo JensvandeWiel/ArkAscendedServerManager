@@ -29,7 +29,7 @@ data class AsaApiRelease(
 
 
 object AsaApiInstallManager {
-    private val asaApiUrl = "https://api.github.com/repos/ArkServerApi/AsaApi/releases"
+    private val asaApiUrl = "https://api.github.com/repos/JensvandeWiel/AsaApi/releases"
 
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -56,7 +56,7 @@ object AsaApiInstallManager {
             ?: throw IllegalStateException("No releases found")
 
         val apiAsset = latest.assets.firstOrNull {
-            it.content_type == "application/x-zip-compressed" && it.name == "AsaApi_${latest.tag_name}.zip"
+            it.content_type == "application/x-zip-compressed" && it.name == "AsaApi_${latest.tag_name.trim('v')}.zip"
         } ?: throw IllegalStateException("No suitable asset found for latest release")
 
         return Result.success(
@@ -120,7 +120,7 @@ object AsaApiInstallManager {
 
     fun getApiVersionAsString(server: Server): String? {
         val version = getApiVersion(server) ?: return null
-        return "${version.major}.${version.minor}"
+        return "${version.major}.${version.minor}${if (version.buildMetadata !== null) "+${version.buildMetadata}" else null}"
     }
 
     fun isInstalled(server: Server): Boolean {
