@@ -84,6 +84,7 @@ dependencies {
 }
 
 val nativeLibsDir = layout.buildDirectory.dir("native-libs")
+val generatedNativeResourcesDir = layout.buildDirectory.dir("generated/resources/native")
 val appVersion = rootProject.version.toString()
 val installerVersion = appVersion.substringBefore('+').substringBefore('-').ifBlank { "0.0.0" }
 val generatedBuildInfoDir = layout.buildDirectory.dir("generated/resources/build-info")
@@ -131,12 +132,19 @@ sourceSets {
     named("main") {
         resources.srcDir(generatedBuildInfoDir)
         resources.srcDir(generatedChangelogDir)
+        resources.srcDir(generatedNativeResourcesDir)
     }
+}
+
+val generateNativeResources = tasks.register<Sync>("generateNativeResources") {
+    from(nativeRuntimeConfig)
+    into(generatedNativeResourcesDir)
 }
 
 tasks.named<ProcessResources>("processResources") {
     dependsOn(generateBuildInfo)
     dependsOn(generateAppChangelog)
+    dependsOn(generateNativeResources)
 }
 
 val syncNativeLibs = tasks.register<Sync>("syncNativeLibs") {
@@ -184,6 +192,7 @@ nucleus.application {
                 installerHeader.set(project.file("packaging/aasm_banner.png"))
                 allowToChangeInstallationDirectory = true
                 license.set(project.file("../LICENSE"))
+                deleteAppDataOnUninstall = true
             }
         }
     }
