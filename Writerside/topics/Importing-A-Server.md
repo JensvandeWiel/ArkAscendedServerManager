@@ -27,6 +27,11 @@ Select the server directory you want to import in the dialog by clicking the inp
 ## Step 4: Check configuration
 After you have selected the server directory, the manager will try to read the server configuration and fill in the fields in the configuration page. Make sure to check if all fields are filled in correctly, if not, you can fill in the missing fields manually.
 
+> Missing fields for other options?
+> Don't worry, the manage respects the imported ini values, so if you have custom ini values that are not supported by the manager, they will still be applied to the server and you can manage them by editing the ini files directly in the server directory.
+> Watch out, make sure the manager is not running when you edit the ini files.
+> More options will be added in the future.
+
 ## Step 5: (Re)Install the server
 > While the server may already be installed, the manager expects items to be in the correct location, also the server manager installs specific items to make features in the server manager work.
 {style="note"}
