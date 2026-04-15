@@ -157,6 +157,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/download-artifact@v4
+        with:
+          path: release-notes
+          pattern: release-notes-*
+
       - name: Regenerate and commit CHANGELOG.md
         shell: bash
         run: |
@@ -171,11 +176,19 @@ jobs:
           git fetch --tags --force
           git fetch origin "$DEFAULT_BRANCH"
           git checkout -B "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
+          git fetch origin "refs/tags/${TAG}:refs/tags/${TAG}"
 
           HEADER="## ${TAG}"
           SECTION_FILE="$(mktemp)"
           EXISTING_FILE="$(mktemp)"
-          bash ./changelog.sh "$TAG" > "$SECTION_FILE"
+
+          # Use pre-generated changelog from build step instead of regenerating
+          PREBUILT_NOTES="$(find release-notes -type f -name RELEASE_CHANGELOG.md | head -n 1)"
+          if [[ -n "$PREBUILT_NOTES" && -s "$PREBUILT_NOTES" ]]; then
+            cat "$PREBUILT_NOTES" > "$SECTION_FILE"
+          else
+            bash ./changelog.sh "$TAG" > "$SECTION_FILE"
+          fi
 
           if [[ -f CHANGELOG.md ]]; then
             awk -v heading="$HEADER" '
@@ -209,10 +222,6 @@ jobs:
           path: artifacts
           pattern: release-assets-*
 
-      - uses: actions/download-artifact@v4
-        with:
-          path: release-notes
-          pattern: release-notes-*
 
       - name: Generate update YML files
         uses: kdroidFilter/Nucleus/.github/actions/generate-update-yml@main

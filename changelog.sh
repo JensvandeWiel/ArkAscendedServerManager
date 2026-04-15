@@ -55,7 +55,7 @@ awk -F '\t' -v repo_url="$REPO_WEB_URL" '
     return "None"
   }
 
-  function is_allowed(x) { return (x=="feat" || x=="fix" || x=="chore" || x=="docs) }
+  function is_allowed(x) { return (x=="feat" || x=="fix" || x=="chore" || x=="docs") }
 
   {
     subject=$1
