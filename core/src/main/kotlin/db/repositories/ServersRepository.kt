@@ -32,7 +32,7 @@ object ServersRepository {
                 ServerEntity.new {
                     profile_name = name
                     settings = Settings.createForNewServer()
-                    installation_location = "$dataPath\\${snakeCaseName}"
+                    installation_location = "$dataPath\\servers\\${snakeCaseName}"
                     asa_api = false
                     game_user_settings = GameUserSettings.createForNewServer(name)
                 }
