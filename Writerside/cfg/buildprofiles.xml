@@ -3,10 +3,23 @@
 <buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <variables></variables>
+    <sitemap priority="0.35" change-frequency="monthly"/>
+    <variables>
+        <custom-favicons>
+            favicon-16x16.png,
+            favicon-32x32.png,
+            android-chrome-192x192.png,
+            android-chrome-512x512.png,
+        </custom-favicons>
+        <header-logo>
+            logo.png
+        </header-logo>
+
+    </variables>
     <build-profile instance="aasm">
         <variables>
             <noindex-content>false</noindex-content>
+            <offline-docs>true</offline-docs>
         </variables>
     </build-profile>
 

@@ -84,8 +84,3 @@ To install the manager, follow the following steps:
 Now that you've completed this quickstart, set up your first server!
 
 * Setting up a server: [](Setting-up-your-first-server.md)
-
----
-
-> Explore other templates from [The Good Docs Project](https://thegooddocsproject.dev/). Use
-> our [feedback form](https://thegooddocsproject.dev/feedback/?template=Quickstart) to give feedback on this template.

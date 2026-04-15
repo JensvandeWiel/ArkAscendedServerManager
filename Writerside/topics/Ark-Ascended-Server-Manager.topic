@@ -11,7 +11,10 @@
         <description>
             Welcome to the Ark Ascended Server Manager documentation.
         </description>
-
+        <spotlight>
+            <a href="https://discord.gg/wGYNHwkZxT" summary="Join the AASM Discord server to ask questions, share feedback, and connect with other users.">Discord</a>
+            <a href="https://github.com/JensvandeWiel/ArkAscendedServerManager" summary="The GitHub Repository">GitHub</a>
+        </spotlight>
         <!--    Add several topics that are most important for this section.    -->
         <primary>
             <title>Get started</title>
