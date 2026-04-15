@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.nucleus.updaterRuntime)
     implementation(libs.filekit.dialogs.compose)
     implementation(libs.jewel.intUiStandaloneMarkdownStyling)
+    implementation(libs.semver)
 }
 
 val nativeLibsDir = layout.buildDirectory.dir("native-libs")

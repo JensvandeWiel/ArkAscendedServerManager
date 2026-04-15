@@ -16,34 +16,20 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.v2.maxScrollOffset
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import eu.wynq.arkascendedservermanager.core.managers.Idle
-import eu.wynq.arkascendedservermanager.core.managers.InstallDone
-import eu.wynq.arkascendedservermanager.core.managers.InstallingAPI
-import eu.wynq.arkascendedservermanager.core.managers.InstallingGame
-import eu.wynq.arkascendedservermanager.core.managers.PowerState
-import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
-import eu.wynq.arkascendedservermanager.ui.components.ConfirmationDialog
-import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
-import eu.wynq.arkascendedservermanager.ui.components.FormFloatSliderField
-import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
-import eu.wynq.arkascendedservermanager.ui.components.FormTextField
-import eu.wynq.arkascendedservermanager.ui.components.FormTextarea
-import eu.wynq.arkascendedservermanager.ui.components.LabelPosition
-import eu.wynq.arkascendedservermanager.ui.theme.ThemeUtils.buildThemeDefinition
+import eu.wynq.arkascendedservermanager.core.managers.*
+import eu.wynq.arkascendedservermanager.ui.components.*
+import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
+import io.github.z4kn4fein.semver.Version
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
@@ -188,6 +174,7 @@ fun InstallationInfo(component: ServerComponent) {
     val powerStateUnknown = stringResource(Res.string.server_details_power_state_unknown)
     val versionLabel = stringResource(Res.string.server_details_version_label)
     val apiVersionLabel = stringResource(Res.string.server_details_api_version_label)
+    val overseerVersionLabel = stringResource(Res.string.server_details_overseer_version_label)
     val versionPlaceholder = stringResource(Res.string.server_details_version_placeholder)
     val versionValueFormat = stringResource(Res.string.server_details_version_value_format)
     val apiNotInstalledStatus = stringResource(Res.string.server_details_api_not_installed)
@@ -209,7 +196,19 @@ fun InstallationInfo(component: ServerComponent) {
     val stopServerLabel = stringResource(Res.string.action_stop_server)
     val killServerLabel = stringResource(Res.string.action_kill_server)
 
-    val canStartServer = !status.isInstalling() && (powerState == PowerState.Stopped) && (model.isInstalled == true) && (if (model.initialServer?.asaApi == true) model.apiIsInstalled else true) == true
+    fun overSeerIsSameVersion(): Boolean {
+        val currentVersion = Version.parse(model.overseerVersion ?: "69.69.69")
+        val currentAppVersion = Version.parse(AppBuildInfo.version)
+        return currentVersion == currentAppVersion
+    }
+
+    val canStartServer =
+        !status.isInstalling()
+                && (powerState == PowerState.Stopped)
+                && (model.isInstalled == true)
+                && (if (model.initialServer?.asaApi == true) model.apiIsInstalled == true
+                    && model.isOverseerInstalled == true else true)
+                && overSeerIsSameVersion()
     val canStopServer = !status.isInstalling() && powerState == PowerState.Running
     val canKillServer = !status.isInstalling() && (powerState == PowerState.Running || powerState == PowerState.Starting || powerState == PowerState.Stopping)
 
@@ -262,6 +261,19 @@ fun InstallationInfo(component: ServerComponent) {
                     }
                 }
             )
+        }
+        if (isAsaApiEnabled) {
+            Row {
+                Text(overseerVersionLabel)
+                Spacer(Modifier.weight(1f))
+                Text(
+                    when (model.isOverseerInstalled) {
+                        true -> (if (model.overseerVersion != null) versionValueFormat.format(model.overseerVersion) else versionPlaceholder)
+                        false -> notInstalledStatus
+                        null -> unknownStatus
+                    }
+                )
+            }
         }
         Row {
             Text(powerStateLabel)
@@ -637,7 +649,8 @@ fun GeneralTabContent(component: ServerComponent) {
                 FormTextField(
                     value = settings.administration.mods.joinToString(","),
                     onValueChange = { newValue ->
-                        val mods = newValue.split(",").mapNotNull { rawValue -> rawValue.trim().takeIf { it.isNotEmpty() } }
+                        val mods =
+                            newValue.split(",").mapNotNull { rawValue -> rawValue.trim().takeIf { it.isNotEmpty() } }
                         component.updateServerAdministrationSettings {
                             it.copy(mods = mods)
                         }
@@ -661,7 +674,7 @@ fun GeneralTabContent(component: ServerComponent) {
                     showManualInput = true,
                     error = !gameUserSettings.serverSettings.validateAutoSavePeriodMinutes(),
 
-                )
+                    )
                 GroupHeader(motdGroupLabel)
                 FormTextarea(
                     value = gameUserSettings.messageOfTheDay.message,

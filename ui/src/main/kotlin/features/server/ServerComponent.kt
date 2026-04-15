@@ -155,7 +155,14 @@ class ServerComponent(
             try {
                 _model.update { state ->
                     if (state.initialServer == server) {
-                        state.copy(isInstalled = null, version = null)
+                        state.copy(
+                            isInstalled = null,
+                            version = null,
+                            apiVersion = null,
+                            apiIsInstalled = null,
+                            isOverseerInstalled = null,
+                            overseerVersion = null,
+                        )
                     } else {
                         state
                     }
@@ -167,6 +174,8 @@ class ServerComponent(
                         version = InstallManager.getServerVersion(server),
                         apiVersion = if (server.asaApi) AsaApiInstallManager.getApiVersionAsString(server) else null,
                         apiIsInstalled = AsaApiInstallManager.isInstalled(server),
+                        overseerIsInstalled = AsaApiInstallManager.isOverseerInstalled(server),
+                        overseerVersion = AsaApiInstallManager.getOverseerVersionAsString(server),
                     )
                 }
 
@@ -177,6 +186,8 @@ class ServerComponent(
                             version = installationInfo.version,
                             apiIsInstalled = installationInfo.apiIsInstalled,
                             apiVersion = installationInfo.apiVersion,
+                            isOverseerInstalled = installationInfo.overseerIsInstalled,
+                            overseerVersion = installationInfo.overseerVersion,
                         )
                     } else {
                         state
@@ -245,6 +256,8 @@ class ServerComponent(
         val isInstalled: Boolean,
         val apiIsInstalled: Boolean,
         val apiVersion: String?,
+        val overseerIsInstalled: Boolean,
+        val overseerVersion: String?,
         val version: String?,
     )
 

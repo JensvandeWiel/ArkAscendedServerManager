@@ -10,6 +10,8 @@ data class ServerModel(
     val version: String? = null,
     val apiVersion: String? = null,
     val deleteDialogOpen: Boolean = false,
+    val isOverseerInstalled: Boolean? = null,
+    val overseerVersion: String? = null,
 ) {
     fun isDirty() = server != initialServer
     fun isValid() = server != null && server.validate()

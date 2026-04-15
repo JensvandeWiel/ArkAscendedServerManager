@@ -10,20 +10,21 @@ import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
-import io.ktor.client.statement.bodyAsChannel
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.utils.io.jvm.javaio.toInputStream
+import io.ktor.utils.io.jvm.javaio.*
 import kotlinx.serialization.json.Json
-import kotlin.io.path.Path
+import support.getExeVersion
 import java.util.zip.ZipInputStream
+import kotlin.io.path.Path
 import kotlin.io.path.isSymbolicLink
 
 
 data class AsaApiRelease(
     val version: Version,
     val downloadUrl: String,
-): Comparable<AsaApiRelease> {
+) : Comparable<AsaApiRelease> {
     override fun compareTo(other: AsaApiRelease): Int = version.compareTo(other.version)
 }
 
@@ -126,5 +127,24 @@ object AsaApiInstallManager {
     fun isInstalled(server: Server): Boolean {
         val versionFile = Path(server.installationLocation, Constants.ASA_API_VERSION_PATH).toFile()
         return versionFile.exists()
+    }
+
+    fun isOverseerInstalled(server: Server): Boolean {
+        val overseerFile =
+            Path(server.installationLocation, Constants.SERVER_BINARY_PATH, Constants.OVERSEER_EXECUTABLE_NAME).toFile()
+        return overseerFile.exists()
+    }
+
+    fun getOverseerVersion(server: Server): Version? {
+        val overseerFile =
+            Path(server.installationLocation, Constants.SERVER_BINARY_PATH, Constants.OVERSEER_EXECUTABLE_NAME).toFile()
+        if (!overseerFile.exists()) return null
+
+        return getExeVersion(overseerFile.toPath().toString())
+    }
+
+    fun getOverseerVersionAsString(server: Server): String? {
+        val version = getOverseerVersion(server) ?: return null
+        return "${version.major}.${version.minor}.${version.patch}"
     }
 }

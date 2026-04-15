@@ -14,6 +14,7 @@ import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
 import eu.wynq.arkascendedservermanager.core.managers.InstallingGame
 import eu.wynq.arkascendedservermanager.core.managers.Preparing
+import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -66,7 +67,7 @@ class InstallStore(private val settingsStore: SettingsStore, private val appScop
 
         appScope.launch {
             try {
-                runAsFlow(server, currentSteamCMD)
+                runAsFlow(server, currentSteamCMD, AppBuildInfo.version)
                     .flowOn(Dispatchers.IO)
                     .collect { status ->
                         state.value = status
@@ -85,9 +86,9 @@ class InstallStore(private val settingsStore: SettingsStore, private val appScop
         }
     }
 
-    private fun runAsFlow(server: Server, steamCMD: SteamCMD): Flow<InstallStatus> = flow {
+    private fun runAsFlow(server: Server, steamCMD: SteamCMD, currentAppVersion: String): Flow<InstallStatus> = flow {
         emit(Preparing())
-        InstallManager.install(server, steamCMD).collect { status ->
+        InstallManager.install(server, steamCMD, currentAppVersion).collect { status ->
             when (status) {
                 is InstallDone -> {
                     withContext(Dispatchers.Main) {

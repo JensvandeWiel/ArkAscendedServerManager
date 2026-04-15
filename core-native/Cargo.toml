@@ -3,7 +3,7 @@ name = "core-native"
 version = "0.1.0"
 edition = "2024"
 publish = false
-build = "src/main/rust/build.rs"
+build = "src/main/rust/src/build.rs"
 
 [lib]
 name = "core_native"

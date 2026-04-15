@@ -8,8 +8,10 @@ import SteamCMD
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.corenative.CoreNative
+import io.github.z4kn4fein.semver.Version
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import support.getExeVersion
 import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Path
@@ -41,7 +43,7 @@ object InstallManager {
         return installationPath.toFile().exists()
     }
 
-    fun install(server: Server, steamCMD: SteamCMD, validate: Boolean = true): Flow<InstallStatus> = flow {
+    fun install(server: Server, steamCMD: SteamCMD, currentAppVersion: String, validate: Boolean = true): Flow<InstallStatus> = flow {
         var failed = false
 
         installServer(server, steamCMD, validate).collect { status ->
@@ -81,7 +83,7 @@ object InstallManager {
             }
         }
 
-        copyOverseerExecutable(server).onFailure {
+        copyOverseerExecutable(server, currentAppVersion).onFailure {
             emit(InstallError("Failed to install overseer executable: ${it.message}"))
             return@flow
         }
@@ -138,11 +140,20 @@ object InstallManager {
         return Result.success(Unit)
     }
 
-    fun copyOverseerExecutable(server: Server): Result<Unit> = runCatching {
+    fun copyOverseerExecutable(server: Server, currentAppVersion: String): Result<Unit> = runCatching {
         val installDirectory = Path.of(server.installationLocation, Constants.SERVER_BINARY_PATH)
         Files.createDirectories(installDirectory)
 
         val targetPath = installDirectory.resolve(Constants.OVERSEER_EXECUTABLE_NAME)
+
+        val currentVersion = getExeVersion(targetPath.toString())
+        if (currentVersion != null) {
+            val expectedParsedVersion = Version.parse(currentAppVersion)
+            if (currentVersion == expectedParsedVersion) {
+                return@runCatching // Already up to date
+            }
+        }
+
         val resourcePath = Constants.OVERSEER_RESOURCE_PATH
         val checksumResourcePath = Constants.OVERSEER_CHECKSUM_RESOURCE_PATH
         val tempPath = installDirectory.resolve("${Constants.OVERSEER_EXECUTABLE_NAME}.tmp")
