@@ -52,7 +52,7 @@ fun InfoScreen(component: InfoComponent) {
                     )
                     ExternalLink(
                         "Docs",
-                        "https://example.com/"
+                        "https://jensvandewiel.github.io/ArkAscendedServerManager"
                     )
                 }
             }
