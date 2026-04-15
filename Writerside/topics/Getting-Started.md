@@ -17,7 +17,7 @@ This is intended for server owners starting to use this app. It assumes that you
 
 Before continuing, make sure you have the following prerequisites:
 
-* Windows 10 22H2 or later or Windows Server 2019 (with GUI) or later
+* Windows 10 22H2 or later or Windows Server 2019 (with GUI) or later (Windows 11 or server 2025 is recommended and tested)
 * Make sure your OS is 64-bit
 
 ## Recommendations

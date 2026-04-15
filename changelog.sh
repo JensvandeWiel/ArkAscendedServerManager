@@ -51,10 +51,11 @@ awk -F '\t' -v repo_url="$REPO_WEB_URL" '
     if (x == "feat") return "Feat"
     if (x == "fix") return "Fix"
     if (x == "chore") return "Chore"
+    if (x == "docs") return "Docs"
     return "None"
   }
 
-  function is_allowed(x) { return (x=="feat" || x=="fix" || x=="chore") }
+  function is_allowed(x) { return (x=="feat" || x=="fix" || x=="chore" || x=="docs) }
 
   {
     subject=$1
