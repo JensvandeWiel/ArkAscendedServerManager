@@ -3,6 +3,7 @@ name = "overseer"
 version = "0.1.0"
 edition = "2024"
 publish = false
+build = "src/main/rust/src/build.rs"
 
 [[bin]]
 name = "overseer"
@@ -13,3 +14,6 @@ ctrlc = "3"
 
 [target.'cfg(windows)'.dependencies]
 portable-pty = "0.8"
+
+[build-dependencies]
+winres = "0.1"

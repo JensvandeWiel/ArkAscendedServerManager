@@ -3,6 +3,7 @@ name = "core-native"
 version = "0.1.0"
 edition = "2024"
 publish = false
+build = "src/main/rust/build.rs"
 
 [lib]
 name = "core_native"
@@ -11,3 +12,6 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 anyhow = "1.0.102"
+
+[build-dependencies]
+winres = "0.1"
