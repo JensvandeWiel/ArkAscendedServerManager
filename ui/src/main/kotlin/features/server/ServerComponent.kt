@@ -61,6 +61,8 @@ class ServerComponent(
     val logs: StateFlow<List<String>> = _logs
     private var logJob: Job? = null
 
+    private val _logger = KotlinLogging.logger {}
+
     init {
         serversStore.getServer(serverId).onSuccess { loadedServer ->
             _model.update { it.copy(server = loadedServer, initialServer = loadedServer) }
@@ -225,11 +227,12 @@ class ServerComponent(
         logJob = appScope.launch {
             try {
                 val logFile = java.io.File(server.installationLocation, Constants.OVERSEER_SERVER_LOG_PATH)
+                _logger.info { "Starting log watcher for ${server.profileName} (${server.id} at ${logFile.absolutePath})" }
                 watchFileContent(logFile).collect { line ->
                     _logs.update { (it + line).takeLast(100) }
                 }
             } catch (t: Throwable) {
-                logger.error(t) { "Log watcher failed for ${server.profileName} (${server.id})" }
+                logger.error(t) { "Log watcher failed for ${server.profileName} (${server.id}): ${t.message}" }
             }
         }
     }
