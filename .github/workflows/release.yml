@@ -165,6 +165,9 @@ jobs:
           TAG="${{ needs.release_meta.outputs.tag }}"
           DEFAULT_BRANCH="${{ github.event.repository.default_branch }}"
 
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
           git fetch --tags --force
           git fetch origin "$DEFAULT_BRANCH"
           git checkout -B "$DEFAULT_BRANCH" "origin/$DEFAULT_BRANCH"
