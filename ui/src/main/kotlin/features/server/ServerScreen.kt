@@ -402,7 +402,6 @@ fun InstallationInfo(component: ServerComponent) {
                     component.refreshInstallationInfo()
                 }
             }
-            Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
                 Text(if (model.isInstalled == true && (if (model.initialServer?.asaApi == true) model.apiIsInstalled else true) == true) updateLabel else installLabel)
             }

@@ -7,6 +7,8 @@
                  start-page="Ark-Ascended-Server-Manager.topic">
 
     <toc-element topic="Ark-Ascended-Server-Manager.topic"/>
-    <toc-element topic="Getting-Started.md"/>
-    <toc-element topic="Setting-up-your-first-server.md"/>
+    <toc-element topic="Getting-Started.md">
+        <toc-element topic="Setting-up-your-first-server.md"/>
+        <toc-element topic="Importing-A-Server.md"/>
+    </toc-element>
 </instance-profile>

@@ -84,3 +84,4 @@ To install the manager, follow the following steps:
 Now that you've completed this quickstart, set up your first server!
 
 * Setting up a server: [](Setting-up-your-first-server.md)
+* Importing a server: [](Importing-A-Server.md)
