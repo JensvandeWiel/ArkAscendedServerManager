@@ -3,6 +3,7 @@
 package eu.wynq.arkascendedservermanager.ui.features.root
 
 import arkascendedservermanager.ui.generated.resources.Res
+import arkascendedservermanager.ui.generated.resources.page_clusters
 import arkascendedservermanager.ui.generated.resources.page_info
 import arkascendedservermanager.ui.generated.resources.page_servers
 import arkascendedservermanager.ui.generated.resources.page_settings
@@ -13,6 +14,8 @@ import com.arkivanov.decompose.router.stack.bringToFront
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.navigate
 import com.arkivanov.decompose.value.Value
+import eu.wynq.arkascendedservermanager.ui.features.clusters.ClustersComponent
+import eu.wynq.arkascendedservermanager.ui.features.clusters.ClustersScreen
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.serialization.Serializable
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
@@ -23,6 +26,8 @@ import eu.wynq.arkascendedservermanager.ui.features.servers.ServersScreen
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsComponent
 import eu.wynq.arkascendedservermanager.ui.features.settings.SettingsScreen
 import eu.wynq.arkascendedservermanager.ui.features.server.ServerComponent
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -41,6 +46,9 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
         class Server(
             val component: ServerComponent
         ) : Child()
+        class Clusters(
+            val component: ClustersComponent
+        ) : Child()
     }
 
     // 4. The Type-Safe Configuration
@@ -54,6 +62,7 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
         object Info : Config()
         @Serializable
         data class Server(val serverId: String) : Config()
+        object Clusters : Config()
     }
 
     val pages: List<Page<out Child>> = listOf(
@@ -63,6 +72,13 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
             iconKey = AllIconsKeys.Toolwindows.ToolWindowServer,
             section = PageSection.TOP,
             content = { child -> ServersScreen(child.component) }
+        ),
+        Page<Child.Clusters>(
+            title = Res.string.page_clusters,
+            config = Config.Clusters,
+            iconKey = AllIconsKeys.Javaee.WebModuleGroup,
+            section = PageSection.TOP,
+            content = { child -> ClustersScreen(child.component) }
         ),
         Page<Child.Info>(
             title = Res.string.page_info,
@@ -124,6 +140,9 @@ class RootComponent(context: ComponentContext) : ComponentContext by context {
                     )
                 )
             }
+            Config.Clusters -> Child.Clusters(
+                component = ClustersComponent(context)
+            )
         }
 
     fun pageFor(config: Config): Page<out Child>? = pagesByConfig[config]

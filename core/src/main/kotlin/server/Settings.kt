@@ -1,5 +1,6 @@
 package eu.wynq.arkascendedservermanager.core.server
 
+import eu.wynq.arkascendedservermanager.core.server.ArgOption
 import kotlinx.serialization.Serializable
 import java.lang.reflect.Field
 import kotlin.reflect.KParameter
@@ -79,7 +80,14 @@ data class Administration(
     val slots: Int = 70,
 
     @field:ArgOption(name = "mods", kind = ArgKind.LIST, order = 8)
-    val mods: List<String> = emptyList()
+    val mods: List<String> = emptyList(),
+
+    @field:ArgOption(name = "clusterid", kind = ArgKind.FLAG_VALUE, order = 9)
+    val clusterId: String? = null,
+
+    @field:ArgOption(name = "ClusterDirOverride", kind = ArgKind.FLAG_VALUE, order = 10)
+    val clusterDirOverride: String? = null,
+
 ) {
     fun validate() = validateServerPassword()
             && validateAdminPassword()
@@ -130,7 +138,12 @@ data class Administration(
                     val boolValue = value as? Boolean ?: return@forEach
                     head.append("?${argOption.name}=${if (boolValue) "True" else "False"}")
                 }
-                ArgKind.FLAG_VALUE -> (value as? Number)?.let { trailingArguments.add("-${argOption.name}=$it") }
+                ArgKind.FLAG_VALUE -> {
+                    when (value) {
+                        is String -> value.takeIf { it.isNotBlank() }?.let { trailingArguments.add("-${argOption.name}=$it") }
+                        else -> value?.let { trailingArguments.add("-${argOption.name}=$it") }
+                    }
+                }
                 ArgKind.FLAG -> if (argOption.force || value == true) trailingArguments.add("-${argOption.name}")
                 ArgKind.LIST -> {
                     val list = value as? List<*> ?: emptyList<Any?>()

@@ -30,6 +30,8 @@ import eu.wynq.arkascendedservermanager.ui.components.*
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.z4kn4fein.semver.Version
+import kotlinx.coroutines.runBlocking
+import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
@@ -42,6 +44,7 @@ private val logger = KotlinLogging.logger {}
 @Composable
 fun ServerScreen(component: ServerComponent) {
     val title = stringResource(Res.string.server_details_title)
+    val titleSeparator = stringResource(Res.string.server_details_title_separator)
     val notFoundLabel = stringResource(Res.string.server_details_not_found)
     val errorLabel = stringResource(Res.string.server_details_error)
     val infoTabLabel = stringResource(Res.string.server_details_info_tab)
@@ -93,7 +96,7 @@ fun ServerScreen(component: ServerComponent) {
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(title, style = JewelTheme.typography.h2TextStyle)
-            Text("/", style = JewelTheme.typography.h2TextStyle)
+            Text(titleSeparator, style = JewelTheme.typography.h2TextStyle)
             Text(model.initialServer?.profileName ?: "", style = JewelTheme.typography.h2TextStyle)
             Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::saveServer, enabled = model.canSave()) {
@@ -118,6 +121,7 @@ fun ServerScreen(component: ServerComponent) {
                     ServerDetailsTab.INFO -> {
                         InfoTabContent(component)
                     }
+
                     ServerDetailsTab.GENERAL -> {
                         GeneralTabContent(component)
                     }
@@ -207,10 +211,11 @@ fun InstallationInfo(component: ServerComponent) {
                 && (powerState == PowerState.Stopped)
                 && (model.isInstalled == true)
                 && (if (model.initialServer?.asaApi == true) model.apiIsInstalled == true
-                    && model.isOverseerInstalled == true else true)
+                && model.isOverseerInstalled == true else true)
                 && overSeerIsSameVersion()
     val canStopServer = !status.isInstalling() && powerState == PowerState.Running
-    val canKillServer = !status.isInstalling() && (powerState == PowerState.Running || powerState == PowerState.Starting || powerState == PowerState.Stopping)
+    val canKillServer =
+        !status.isInstalling() && (powerState == PowerState.Running || powerState == PowerState.Starting || powerState == PowerState.Stopping)
 
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         GroupHeader(installationInfoGroup)
@@ -428,7 +433,9 @@ fun InstallationInfo(component: ServerComponent) {
 @Composable
 fun GeneralTabContent(component: ServerComponent) {
     val model by component.model.subscribeAsState()
+    val clusters by component.clusters.collectAsState()
     val profileGroupLabel = stringResource(Res.string.server_details_group_profile)
+    val clusterLabel = stringResource(Res.string.server_details_cluster_label)
     val nameAndPasswordsGroupLabel = stringResource(Res.string.server_details_group_name_and_passwords)
     val portsGroupLabel = stringResource(Res.string.server_details_group_ports)
     val mapAndModsGroupLabel = stringResource(Res.string.server_details_group_map_and_mods)
@@ -470,9 +477,14 @@ fun GeneralTabContent(component: ServerComponent) {
     val motdDurationHint = stringResource(Res.string.server_details_motd_duration_hint)
     val slotsLabel = stringResource(Res.string.server_details_slots_label)
     val slotsHint = stringResource(Res.string.server_details_slots_hint)
-    val idlePlayerKickEnabledHint = stringResource(Res.string.server_details_idle_player_kick_enabled_hint)
     val idlePlayerKickTimeLabel = stringResource(Res.string.server_details_idle_player_kick_time_label)
     val idlePlayerKickTimeHint = stringResource(Res.string.server_details_idle_player_kick_time_hint)
+    val idlePlayerKickEnabledLabel = stringResource(Res.string.server_details_idle_player_kick_enabled_label)
+    val idlePlayerKickEnabledHint = stringResource(Res.string.server_details_idle_player_kick_enabled_hint)
+    val clusterIdLabel = stringResource(Res.string.server_details_cluster_id_label)
+    val clusterIdHint = stringResource(Res.string.server_details_cluster_id_hint)
+    val clusterDirOverrideLabel = stringResource(Res.string.server_details_cluster_dir_override_label)
+    val clusterDirOverrideHint = stringResource(Res.string.server_details_cluster_dir_override_hint)
 
     VerticallyScrollableContainer {
         Column(
@@ -701,6 +713,31 @@ fun GeneralTabContent(component: ServerComponent) {
                     showManualInput = true,
                     error = !gameUserSettings.messageOfTheDay.validate(),
                 )
+                GroupHeader(stringResource(Res.string.clusters_configuration_group))
+                FormSelectField(
+                    value = cluster,
+                    onValueChange = component::updateServerCluster,
+                    options = clusters.values.toList(),
+                    optionLabel = { clusterOption ->
+                        clusterOption?.name ?: runBlocking { getString(Res.string.clusters_none) }
+                    },
+                    label = clusterLabel,
+                    compareWith = { a, b -> a?.id == b?.id }
+                )
+                FormTextField(
+                    value = settings.administration.clusterId ?: "",
+                    onValueChange = {},
+                    label = clusterIdLabel,
+                    readOnly = true,
+                    hint = clusterIdHint,
+                )
+                FormTextField(
+                    value = settings.administration.clusterDirOverride ?: "",
+                    onValueChange = {},
+                    label = clusterDirOverrideLabel,
+                    readOnly = true,
+                    hint = clusterDirOverrideHint,
+                )
                 GroupHeader(serverOptionsGroupLabel)
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -712,7 +749,7 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(enableIdlePlayerKick = newValue)
                             }
                         },
-                        label = "",
+                        label = idlePlayerKickEnabledLabel,
                         hint = idlePlayerKickEnabledHint,
                     )
                     FormSliderField(

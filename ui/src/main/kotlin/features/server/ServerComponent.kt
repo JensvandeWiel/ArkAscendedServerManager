@@ -6,6 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
+import db.models.Cluster
 import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
 import eu.wynq.arkascendedservermanager.core.db.models.Server
@@ -17,9 +18,11 @@ import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.core.server.Options
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.watchFileContent
+import eu.wynq.arkascendedservermanager.ui.stores.ClustersStore
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
 import eu.wynq.arkascendedservermanager.ui.stores.PowerStore
 import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
+import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +34,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.nio.file.Path
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -49,10 +53,13 @@ class ServerComponent(
     private val serversStore: ServersStore by inject()
     private val installStore: InstallStore by inject()
     private val powerStore: PowerStore by inject()
+    private val clustersStore: ClustersStore by inject()
+    private val settingsStore: SettingsStore by inject()
     val installStatus: StateFlow<InstallStatus> = installStore.getProgress(serverId)
     private val _model = MutableValue(ServerModel())
     val model: Value<ServerModel> get() = _model
     val error: StateFlow<String?> = serversStore.error
+    val clusters = clustersStore.clusters
     private val _selectedTab = MutableValue(ServerDetailsTab.INFO)
     val selectedTab: Value<ServerDetailsTab> get() = _selectedTab
     private var _serverPowerState: StateFlow<PowerState> = MutableStateFlow(PowerState.Unknown)
@@ -79,6 +86,27 @@ class ServerComponent(
     fun onDeletionDialogDismissed() {
         _model.update {
             it.copy(deleteDialogOpen = false)
+        }
+    }
+
+    fun updateServerCluster(cluster: Cluster?) {
+        if (cluster == null) {
+            updateServer {
+                it.copy(cluster = null)
+            }
+            updateServerAdministrationSettings {
+                it.copy(clusterId = null, clusterDirOverride = null)
+            }
+        } else {
+            val dataPath = settingsStore.settings.value?.dataPath
+            val clusterDir = Path.of(dataPath, Constants.CLUSTERS_DIRECTORY, cluster.id.toString())
+
+            updateServer {
+                it.copy(cluster = cluster)
+            }
+            updateServerAdministrationSettings {
+                it.copy(clusterDirOverride = clusterDir.toString(), clusterId = cluster.id.toString())
+            }
         }
     }
 
@@ -126,6 +154,12 @@ class ServerComponent(
                 .onFailure { throwable ->
                     logger.error(throwable) { "Failed to create startup script for ${currentServer.profileName} (${currentServer.id})" }
                 }
+
+            if (currentServer.cluster != _model.value.initialServer?.cluster) {
+                logger.info { "Server ${currentServer.profileName} (${currentServer.id}) cluster changed, refreshing cluster list" }
+                clustersStore.loadClusters()
+            }
+
             _model.update { state -> state.copy(initialServer = currentServer) }
             refreshInstallationInfo(currentServer)
             bindPowerState(currentServer)

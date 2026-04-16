@@ -19,4 +19,5 @@ object Constants {
     const val ASA_API_EXECUTABLE_NAME = "AsaApiLoader.exe"
     const val OVERSEER_SERVER_LOG_FILE = "ark_server.log"
     const val OVERSEER_SERVER_LOG_PATH = "$SERVER_BINARY_PATH\\logs\\$OVERSEER_SERVER_LOG_FILE"
+    const val CLUSTERS_DIRECTORY = "clusters"
 }

@@ -3,12 +3,16 @@
 package eu.wynq.arkascendedservermanager.core.db.repositories
 
 import com.oblac.nomen.Nomen
+import db.models.Cluster
+import db.models.ClusterEntity
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.db.models.ServerEntity
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
+import org.jetbrains.exposed.v1.core.Op
+import org.jetbrains.exposed.v1.dao.with
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import java.nio.file.Path
 import kotlin.text.split
@@ -88,6 +92,15 @@ object ServersRepository {
             server = server.copy(settings = existingSettings)
         }
 
+        val clusterUuid = server.settings.administration.clusterId?.let { Uuid.parseOrNull(it) }
+        val existingCluster = transaction {
+            clusterUuid?.let { ClusterEntity.findById(it) }
+        }
+
+        if (existingCluster != null) {
+            server = server.copy(cluster = existingCluster.let { Cluster.fromEntity(it, includeServers = false) })
+        }
+
         InstallManager.createStartupScript(server).getOrThrow()
 
         saveServer(server).getOrThrow()
@@ -102,7 +115,7 @@ object ServersRepository {
 
     fun getServers(): Result<List<Server>> = runCatching {
         transaction {
-            ServerEntity.all().map {
+            ServerEntity.all().with(ServerEntity::cluster).map {
                 val server = Server.fromEntity(it)
                 val installGus = server.getGusFromInstall().getOrThrow()
                 if (installGus != null) {
