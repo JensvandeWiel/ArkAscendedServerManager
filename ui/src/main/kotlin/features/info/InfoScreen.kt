@@ -10,6 +10,9 @@ import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.Res
 import arkascendedservermanager.ui.generated.resources.aasm_sq_r
 import arkascendedservermanager.ui.generated.resources.info_app_version_format
+import arkascendedservermanager.ui.generated.resources.info_changelog_title
+import arkascendedservermanager.ui.generated.resources.info_docs_link_label
+import arkascendedservermanager.ui.generated.resources.info_github_link_label
 import arkascendedservermanager.ui.generated.resources.page_info
 import eu.wynq.arkascendedservermanager.ui.helpers.AppChangelog
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
@@ -29,6 +32,9 @@ import org.jetbrains.jewel.ui.typography
 fun InfoScreen(component: InfoComponent) {
     val pageInfo = stringResource(Res.string.page_info)
     val appVersionLabel = stringResource(Res.string.info_app_version_format, AppBuildInfo.version)
+    val githubLabel = stringResource(Res.string.info_github_link_label)
+    val docsLabel = stringResource(Res.string.info_docs_link_label)
+    val changelogLabel = stringResource(Res.string.info_changelog_title)
 
     Column(modifier = Modifier.padding(12.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
         Text(pageInfo, style = JewelTheme.typography.h2TextStyle)
@@ -47,17 +53,17 @@ fun InfoScreen(component: InfoComponent) {
                 Column {
                     Text(appVersionLabel, style = JewelTheme.typography.h4TextStyle)
                     ExternalLink(
-                        "Github",
+                        githubLabel,
                         "https://github.com/JensvandeWiel/ArkAscendedServerManager/releases/tag/v${AppBuildInfo.version}"
                     )
                     ExternalLink(
-                        "Docs",
+                        docsLabel,
                         "https://jensvandewiel.github.io/ArkAscendedServerManager"
                     )
                 }
             }
         }
-        Text("Changelog", style = JewelTheme.typography.h2TextStyle)
+        Text(changelogLabel, style = JewelTheme.typography.h2TextStyle)
         VerticallyScrollableContainer(
             modifier = Modifier.fillMaxSize().background(JewelTheme.globalColors.panelBackground, RoundedCornerShape(12.dp)).padding(12.dp)
         ) {

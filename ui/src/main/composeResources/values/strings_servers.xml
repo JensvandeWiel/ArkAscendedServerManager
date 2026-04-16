@@ -1,5 +1,6 @@
 <resources>
     <string name="server_details_title">Server</string>
+    <string name="server_details_title_separator">/</string>
     <string name="server_details_profile_name">Profile name</string>
     <string name="server_details_server_name">Server name</string>
     <string name="server_details_installation_location">Installation location</string>
@@ -50,6 +51,7 @@
     <string name="server_details_installation_path_hint">Path to the server installation folder, changing this will not move the existing installation.</string>
     <string name="server_details_asa_api_label">Enable ASA API</string>
     <string name="server_details_asa_api_hint">Enables Ark Ascended Server API, which allows the use of plugins. These are not the same as mods. Requires reinstall.</string>
+    <string name="server_details_cluster_label">Cluster:</string>
     <string name="server_details_server_name_label">Server name:</string>
     <string name="server_details_server_name_hint">Public name of the server</string>
     <string name="server_details_group_name_and_passwords">Name and passwords</string>
@@ -86,6 +88,7 @@
     <string name="server_details_slots_hint">Sets the maximum number of players which can join this server.</string>
     <string name="server_details_rcon_server_game_log_buffer_label">RCON Server Game Log Buffer</string>
     <string name="server_details_rcon_server_game_log_buffer_hint">Determines how many lines of game logs are send over the RCON.</string>
+    <string name="server_details_idle_player_kick_enabled_label">Enable idle player kick</string>
     <string name="server_details_idle_player_kick_enabled_hint">If enabled, idle players will be kicked from the server after a specified amount of time.</string>
     <string name="server_details_idle_player_kick_time_label">Idle player kick time (seconds):</string>
     <string name="server_details_idle_player_kick_time_hint">The amount of time (in seconds) after which idle players will be kicked from the server. This option is only relevant if idle player kick is enabled. (3600 seconds is one hour)</string>
@@ -101,4 +104,8 @@
     <string name="server_install_error_steamcmd_path_not_configured">SteamCMD path not configured in settings.</string>
     <string name="server_install_toast_success">Server '%1$s' installed successfully!</string>
     <string name="server_install_toast_failed">Failed to install server '%1$s': %2$s</string>
+    <string name="server_details_cluster_id_label">Cluster ID</string>
+    <string name="server_details_cluster_id_hint">Cluster ID is automatically set based on the selected cluster. (This field is used by ark to group servers together)</string>
+    <string name="server_details_cluster_dir_override_label">Cluster Directory Override</string>
+    <string name="server_details_cluster_dir_override_hint">The location where cluster data like player and item uploads are stored (This field is used by ark to group servers together)</string>
 </resources>

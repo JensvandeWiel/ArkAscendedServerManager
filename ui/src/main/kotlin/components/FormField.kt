@@ -749,3 +749,77 @@ fun FormPathField(
         }
     }
 }
+
+@Composable
+fun <T : Any> FormSelectField(
+    value: T?,
+    onValueChange: (T?) -> Unit,
+    options: List<T>,
+    optionLabel: (T?) -> String,
+    label: String,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    enabled: Boolean = true,
+    labelPosition: LabelPosition = LabelPosition.Above,
+    allowNone: Boolean = true,
+    compareWith: (current: T?, to: T?) -> Boolean = { current, to -> current == to}
+) {
+    val displayOptions = if (allowNone) listOf<T?>(null) + options else options
+    val displayLabels = displayOptions.map { optionLabel(it) }
+    val selectedIndex = displayOptions.indexOfFirst{ compareWith(value, it) }.takeIf { it >= 0 } ?: 0
+
+    val fullContent = @Composable {
+        when (labelPosition) {
+            LabelPosition.Inline -> {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    ListComboBox(
+                        items = displayLabels,
+                        selectedIndex = selectedIndex,
+                        onSelectedItemChange = { index ->
+                            if (index >= 0 && index < displayOptions.size) {
+                                onValueChange(displayOptions[index])
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = enabled,
+                        itemKeys = { _, item -> item }
+                    )
+                }
+            }
+            LabelPosition.Above -> {
+                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    ListComboBox(
+                        items = displayLabels,
+                        selectedIndex = selectedIndex,
+                        onSelectedItemChange = { index ->
+                            if (index >= 0 && index < displayOptions.size) {
+                                onValueChange(displayOptions[index])
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        enabled = enabled,
+                        itemKeys = { _, item -> item }
+                    )
+                }
+            }
+        }
+    }
+
+    Row(modifier) {
+        if (hint != null) {
+            Tooltip(tooltip = {
+                Text(hint, style = JewelTheme.typography.labelTextStyle)
+            }) {
+                fullContent()
+            }
+        } else {
+            fullContent()
+        }
+    }
+}

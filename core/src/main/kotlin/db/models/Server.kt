@@ -2,6 +2,9 @@
 
 package eu.wynq.arkascendedservermanager.core.db.models
 
+import db.models.Cluster
+import db.models.ClusterEntity
+import db.models.ClustersTable
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
@@ -11,6 +14,7 @@ import org.jetbrains.exposed.v1.core.dao.id.EntityID
 import org.jetbrains.exposed.v1.core.dao.id.UuidTable
 import org.jetbrains.exposed.v1.dao.UuidEntity
 import org.jetbrains.exposed.v1.dao.UuidEntityClass
+import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import org.jetbrains.exposed.v1.json.json
 import serialization.IniSerializer
 import java.nio.file.Path
@@ -28,6 +32,7 @@ object ServersTable : UuidTable("servers") {
     val asa_api = bool("asa_api").default(false)
     val settings = json<Settings>("settings",format)
     val game_user_settings = json<GameUserSettings>("game_user_settings",format)
+    val cluster = optReference("cluster", ClustersTable)
 }
 
 class ServerEntity(id: EntityID<Uuid>) : UuidEntity(id) {
@@ -38,6 +43,7 @@ class ServerEntity(id: EntityID<Uuid>) : UuidEntity(id) {
     var asa_api by ServersTable.asa_api
     var settings by ServersTable.settings
     var game_user_settings by ServersTable.game_user_settings
+    var cluster by ClusterEntity optionalReferencedOn ServersTable.cluster
 }
 
 data class Server(
@@ -46,24 +52,27 @@ data class Server(
     val installationLocation: String,
     val asaApi: Boolean = false,
     val settings: Settings,
-    val gameUserSettings: GameUserSettings
+    val gameUserSettings: GameUserSettings,
+    val cluster: Cluster? = null,
 ) {
     companion object {
-        fun fromEntity(entity: ServerEntity) = Server(
+        fun fromEntity(entity: ServerEntity): Server = transaction { Server(
             id = entity.id.value,
             profileName = entity.profile_name,
             installationLocation = entity.installation_location,
             settings = entity.settings,
             asaApi = entity.asa_api,
-            gameUserSettings = entity.game_user_settings
-        )
+            gameUserSettings = entity.game_user_settings,
+            cluster = entity.cluster?.let { Cluster.fromEntity(it, includeServers = false) }
+        ) }
 
-        fun applyToEntity(server: Server, entity: ServerEntity) {
+        fun applyToEntity(server: Server, entity: ServerEntity) = transaction {
             entity.profile_name = server.profileName
             entity.settings = server.settings
             entity.installation_location = server.installationLocation
             entity.asa_api = server.asaApi
             entity.game_user_settings = server.gameUserSettings
+            entity.cluster = server.cluster?.let { ClusterEntity.findById(it.id) }
         }
     }
 

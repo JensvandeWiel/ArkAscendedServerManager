@@ -4,6 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.jetbrains.jewel.intui.core.theme.IntUiDarkTheme
 import org.jetbrains.jewel.intui.core.theme.IntUiLightTheme
 import org.jetbrains.jewel.intui.standalone.styling.*
 import org.jetbrains.jewel.intui.standalone.theme.dark
@@ -77,7 +78,7 @@ fun islandsComponentStyling(
                 ),
             comboBoxStyle =
                 ComboBoxStyle.Default.dark(
-                    colors = ComboBoxColors.Default.dark(borderFocused = accent),
+                    colors = ComboBoxColors.Default.dark(borderFocused = accent, nonEditableBackground = IntUiDarkTheme.colors.gray(2)),
                     metrics = ComboBoxMetrics.default(cornerSize = roundedCorner),
                 ),
             simpleListItemStyle =
@@ -170,7 +171,7 @@ fun islandsComponentStyling(
                 ),
             comboBoxStyle =
                 ComboBoxStyle.Default.light(
-                    colors = ComboBoxColors.Default.light(borderFocused = accent),
+                    colors = ComboBoxColors.Default.light(borderFocused = accent, nonEditableBackground = IntUiLightTheme.colors.gray(14)),
                     metrics = ComboBoxMetrics.default(cornerSize = roundedCorner),
                 ),
             simpleListItemStyle =

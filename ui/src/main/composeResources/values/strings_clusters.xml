@@ -1,0 +1,14 @@
+<resources>
+    <string name="clusters_title">Clusters</string>
+    <string name="clusters_add_cluster">Add Cluster</string>
+    <string name="clusters_remove_cluster">Remove Cluster</string>
+    <string name="clusters_delete_dialog_title">Delete Cluster</string>
+    <string name="clusters_delete_dialog_message">Are you sure you want to delete the cluster %1$s?</string>
+    <string name="clusters_name_label">Cluster Name</string>
+    <string name="clusters_name_hint">The name of the cluster (purely for your own reference)</string>
+    <string name="clusters_configuration_group">Cluster Configuration</string>
+    <string name="clusters_none">None</string>
+    <string name="clusters_error_create_failed">Failed to create cluster: %1$s</string>
+    <string name="clusters_error_delete_failed">Failed to delete cluster: %1$s</string>
+    <string name="clusters_error_delete_has_servers">Cannot delete cluster with associated servers</string>
+</resources>

@@ -4,6 +4,8 @@ package eu.wynq.arkascendedservermanager.ui.stores
 
 import SteamCMD
 import arkascendedservermanager.ui.generated.resources.Res
+import arkascendedservermanager.ui.generated.resources.error_unknown
+import arkascendedservermanager.ui.generated.resources.server_install_error_steamcmd_path_not_configured
 import arkascendedservermanager.ui.generated.resources.server_install_toast_failed
 import arkascendedservermanager.ui.generated.resources.server_install_toast_success
 import eu.wynq.arkascendedservermanager.core.db.models.Server
@@ -22,6 +24,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.jetbrains.compose.resources.getString
 import java.nio.file.Path
@@ -58,7 +61,10 @@ class InstallStore(private val settingsStore: SettingsStore, private val appScop
     fun startInstall(server: Server) {
         val currentSteamCMD = steamCMD ?: run {
             _logger.warn { "SteamCMD path not configured for ${server.profileName} (${server.id})" }
-            _state[server.id]?.value = InstallError("SteamCMD path not configured")
+            val steamCmdNotConfigured = runBlocking {
+                getString(Res.string.server_install_error_steamcmd_path_not_configured)
+            }
+            _state[server.id]?.value = InstallError(steamCmdNotConfigured)
             return
         }
 
@@ -74,11 +80,12 @@ class InstallStore(private val settingsStore: SettingsStore, private val appScop
                     }
             } catch (t: Throwable) {
                 _logger.error(t) { "Install flow failed for ${server.profileName} (${server.id})" }
-                state.value = InstallError(t.message ?: t::class.simpleName ?: "Unknown install error")
+                val fallbackError = getString(Res.string.error_unknown)
+                state.value = InstallError(t.message ?: t::class.simpleName ?: fallbackError)
                 withContext(Dispatchers.Main) {
                     ToastBannerManager.show(
                         ToastBannerType.ERROR,
-                        getString(Res.string.server_install_toast_failed, server.profileName, t.message ?: "Unknown error"),
+                        getString(Res.string.server_install_toast_failed, server.profileName, t.message ?: fallbackError),
                         timeoutMillis = null,
                     )
                 }

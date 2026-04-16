@@ -1,6 +1,9 @@
 <resources>
     <string name="info_toast_playground_title">Toast playground</string>
     <string name="info_app_version_format">Version: %1$s</string>
+    <string name="info_github_link_label">Github</string>
+    <string name="info_docs_link_label">Docs</string>
+    <string name="info_changelog_title">Changelog</string>
 
     <string name="info_toast_sample_title">Heads up</string>
     <string name="info_toast_sample_text">This is an info toast with actions and a 5 second timeout.</string>
@@ -11,4 +14,3 @@
     <string name="info_toast_persistent_error_title">Persistent error</string>
     <string name="info_toast_persistent_error_text">This one does not auto-dismiss. Use the close button.</string>
 </resources>
-
