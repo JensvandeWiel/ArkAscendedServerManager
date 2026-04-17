@@ -99,13 +99,12 @@ class ServerComponent(
             }
         } else {
             val dataPath = settingsStore.settings.value?.dataPath
-            val clusterDir = Path.of(dataPath, Constants.CLUSTERS_DIRECTORY, cluster.id.toString())
 
             updateServer {
                 it.copy(cluster = cluster)
             }
             updateServerAdministrationSettings {
-                it.copy(clusterDirOverride = clusterDir.toString(), clusterId = cluster.id.toString())
+                it.copy(clusterDirOverride = dataPath, clusterId = cluster.id.toString())
             }
         }
     }
