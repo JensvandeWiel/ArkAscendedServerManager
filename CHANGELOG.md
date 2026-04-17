@@ -1,3 +1,23 @@
+## v0.1.0
+
+### Feat
+
+- Implement cluster management functionality ([ea23f31](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ea23f31))
+
+### Chore
+
+- Localize new strings ([9b3cb19](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/9b3cb19))
+- Make cluster directory override to base data path since ark servers already create clusters/<id> structure inside override ([a80f065](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/a80f065))
+- Backfill changelog ([e4d377c](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/e4d377c))
+- Remove stale changelog ([d5df677](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/d5df677))
+
+### None
+
+- feature: Add Tribute expiry settings ([1ccacbb](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/1ccacbb))
+- feature: Add Tribute upload/download settings ([52608e9](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/52608e9))
+- refactor: Place servers in servers directory by default ([56e4203](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/56e4203))
+
+
 ## v0.0.0
 
 ### Feat
