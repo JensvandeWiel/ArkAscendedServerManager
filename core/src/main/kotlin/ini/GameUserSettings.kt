@@ -1,6 +1,7 @@
 package eu.wynq.arkascendedservermanager.core.ini
 
 import IniFile
+import annotations.IniBoolean
 import annotations.IniProperty
 import annotations.IniSection
 import annotations.IniSerializable
@@ -38,6 +39,24 @@ data class ServerSettings(
     val kickIdlePlayersPeriod: Int = 3600,
     @IniProperty("RCONServerGameLogBuffer")
     val rconServerGameLogBuffer: Int = 600,
+    @IniProperty("CrossARKAllowForeignDinoDownloads")
+    val crossArkAllowForeignDinoDownloads: Boolean = false,
+    /*@IniProperty("MinimumDinoReuploadInterval")
+    val minimumDinoReuploadInterval: Int = 0,*/
+    @IniProperty("NoTributeDownloads")
+    val noTributeDownloads: Boolean = true,
+    @IniProperty("PreventDownloadDinos")
+    val preventDownloadDinos: Boolean = true,
+    @IniProperty("PreventDownloadItems")
+    val preventDownloadItems: Boolean = true,
+    @IniProperty("PreventDownloadSurvivors")
+    val preventDownloadSurvivors: Boolean = true,
+    @IniProperty("PreventUploadDinos")
+    val preventUploadDinos: Boolean = true,
+    @IniProperty("PreventUploadItems")
+    val preventUploadItems: Boolean = true,
+    @IniProperty("PreventUploadSurvivors")
+    val preventUploadSurvivors: Boolean = true,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
