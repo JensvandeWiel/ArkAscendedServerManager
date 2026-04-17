@@ -22,7 +22,7 @@ koin-bom = "4.1.1"
 steamCmd = "0.2.0"
 ktor-version ="3.4.1"
 oshi = "6.11.1"
-inisaur = "0.3.0"
+inisaur = "0.4.0"
 foundationDesktop = "1.7.0"
 filekit = "0.13.0"
 
