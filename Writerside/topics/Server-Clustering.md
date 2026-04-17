@@ -42,7 +42,10 @@ Inspect the cluster tribute configuration and change the values if needed.
 {style="warning"}
 
 ### Step 4: Save the server configuration
-Save the server configuration, and you are done!
+Save the server configuration, and you are done, you can now repeat step 2 and 3 for all servers in the cluster.
+
+> It is advised to keep cluster tribute configuration the same on all servers in the cluster.
+{style="warning"}
 
 
 ## What you've learned {id="what-learned"}
