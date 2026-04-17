@@ -347,6 +347,79 @@ fun FormSliderField(
 }
 
 @Composable
+fun FormOptionalSliderField(
+    value: Int?,
+    onValueChange: (Int?) -> Unit,
+    defaultValue: Int,
+    label: String,
+    valueRange: IntRange,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    error: Boolean = false,
+    enabled: Boolean = true,
+    labelPosition: LabelPosition = LabelPosition.Inline,
+    showManualInput: Boolean = false,
+    allowOutsideRange: Boolean = false,
+    steps: Int = 0,
+) {
+    require(!valueRange.isEmpty()) { "valueRange must not be empty" }
+
+    val minValue = valueRange.first
+    val maxValue = valueRange.last
+    val normalizedDefaultValue = if (allowOutsideRange) defaultValue else defaultValue.coerceIn(minValue, maxValue)
+    val isChecked = value != null
+    val effectiveValue = value ?: normalizedDefaultValue
+
+    val fullContent = @Composable {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Checkbox(
+                checked = isChecked,
+                onCheckedChange = { checked ->
+                    if (checked) {
+                        onValueChange(value ?: normalizedDefaultValue)
+                    } else {
+                        onValueChange(null)
+                    }
+                },
+                outline = if (error) Outline.Error else Outline.None,
+                enabled = enabled,
+            )
+
+            FormSliderField(
+                value = effectiveValue,
+                onValueChange = { nextValue -> onValueChange(nextValue) },
+                label = label,
+                valueRange = valueRange,
+                modifier = Modifier.weight(1f),
+                hint = null,
+                error = error,
+                enabled = enabled && isChecked,
+                labelPosition = labelPosition,
+                showManualInput = showManualInput,
+                allowOutsideRange = allowOutsideRange,
+                steps = steps,
+            )
+        }
+    }
+
+    Row(modifier) {
+        if (hint != null) {
+            Tooltip(tooltip = {
+                Text(hint, style = JewelTheme.typography.labelTextStyle)
+            }) {
+                fullContent()
+            }
+        } else {
+            fullContent()
+        }
+    }
+}
+
+@Composable
 fun FormFloatSliderField(
     value: Float,
     onValueChange: (Float) -> Unit,

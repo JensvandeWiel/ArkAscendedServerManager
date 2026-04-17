@@ -5,7 +5,9 @@ import annotations.IniBoolean
 import annotations.IniProperty
 import annotations.IniSection
 import annotations.IniSerializable
+import annotations.OmitIfNull
 import annotations.WithIgnored
+import eu.wynq.arkascendedservermanager.core.server.DefaultInt
 import kotlinx.serialization.Serializable
 
 @IniSection("SessionSettings")
@@ -41,8 +43,6 @@ data class ServerSettings(
     val rconServerGameLogBuffer: Int = 600,
     @IniProperty("CrossARKAllowForeignDinoDownloads")
     val crossArkAllowForeignDinoDownloads: Boolean = false,
-    /*@IniProperty("MinimumDinoReuploadInterval")
-    val minimumDinoReuploadInterval: Int = 0,*/
     @IniProperty("NoTributeDownloads")
     val noTributeDownloads: Boolean = true,
     @IniProperty("PreventDownloadDinos")
@@ -57,11 +57,34 @@ data class ServerSettings(
     val preventUploadItems: Boolean = true,
     @IniProperty("PreventUploadSurvivors")
     val preventUploadSurvivors: Boolean = true,
+    @IniProperty("MaxTributeDinos")
+    val maxTributeDinos: Int = 20,
+    @IniProperty("MaxTributeItems")
+    val maxTributeItems: Int = 50,
+    @IniProperty("MinimumDinoReuploadInterval")
+    @OmitIfNull
+    @field:DefaultInt(0)
+    val minimumDinoReuploadInterval: Int? = null,
+    @IniProperty("TributeCharacterExpirationSeconds")
+    @OmitIfNull
+    @field:DefaultInt(0)
+    val tributeCharacterExpirationSeconds: Int? = null,
+    @IniProperty("TributeDinoExpirationSeconds")
+    @OmitIfNull
+    @field:DefaultInt(86400)
+    val tributeDinoExpirationSeconds: Int? = null,
+    @IniProperty("TributeItemExpirationSeconds")
+    @OmitIfNull
+    @field:DefaultInt(86400)
+    val tributeItemExpirationSeconds: Int? = null,
+
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
     fun validateRconServerGameLogBuffer() = rconServerGameLogBuffer >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer()
+    fun validateMaxTributeDinos() = maxTributeDinos >= 20 && maxTributeDinos <= 100
+    fun validateMaxTributeItems() = maxTributeItems >= 50 && maxTributeItems <= 100
+    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems()
 }
 
 @IniSerializable

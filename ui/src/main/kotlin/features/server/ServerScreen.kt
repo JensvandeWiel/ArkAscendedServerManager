@@ -25,7 +25,9 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import eu.wynq.arkascendedservermanager.core.ini.ServerSettings
 import eu.wynq.arkascendedservermanager.core.managers.*
+import eu.wynq.arkascendedservermanager.core.server.defaultValueInt
 import eu.wynq.arkascendedservermanager.ui.components.*
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -828,6 +830,103 @@ fun GeneralTabContent(component: ServerComponent) {
                         hint = "If enabled, this will prevent uploading dinosaur"
                     )
                 }
+                GroupHeader("Cluster Tribute Options")
+                FormCheckboxField(
+                    settings.options.noTransferFromFiltering,
+                    onCheckedChange = { newValue ->
+                        component.updateServerOptions {
+                            it.copy(noTransferFromFiltering = newValue)
+                        }
+                    },
+                    label = "No Transfer From Filtering",
+                    hint = "Prevents ARK Data usage between single player and servers who do not have a cluster ID. Even with a cluster id set, it is suggested to keep this option to completely disable code path allowing it."
+                )
+                FormSliderField(
+                    gameUserSettings.serverSettings.maxTributeDinos,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(maxTributeDinos = newValue))
+                        }
+                    },
+                    label = "Max Tribute Dino Uploads",
+                    valueRange = 20..100,
+                    hint = "Limits the number of dinosaurs that can be uploaded in a tribute, default is 20. Range is 20-100, because outside of this server can corrupt",
+                    allowOutsideRange = false,
+                    showManualInput = true,
+                )
+                FormSliderField(
+                    gameUserSettings.serverSettings.maxTributeItems,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(maxTributeItems = newValue))
+                        }
+                    },
+                    label = "Max Tribute Item Uploads",
+                    valueRange = 50..100,
+                    hint = "Limits the number of items that can be uploaded in a tribute, default is 50. Range is 50-100, because outside of this server can corrupt",
+                    allowOutsideRange = false,
+                    showManualInput = true,
+                )
+                FormOptionalSliderField(
+                    value = gameUserSettings.serverSettings.tributeCharacterExpirationSeconds?.div(60),
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(
+                                serverSettings = it.serverSettings.copy(
+                                    tributeCharacterExpirationSeconds = newValue?.times(
+                                        60
+                                    )
+                                )
+                            )
+                        }
+                    },
+                    defaultValue = ServerSettings::tributeCharacterExpirationSeconds.defaultValueInt!! / 60,
+                    label = "Override Survivor Upload Expiration (minutes)",
+                    valueRange = 0..604_800 / 60,
+                    hint = "Enable to write tribute character expiration in minutes. Warning: do not set this option to an insane high value, this can result in overflow and may cause upload time checks to fail and ARK Data deleted.",
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                )
+                FormOptionalSliderField(
+                    value = gameUserSettings.serverSettings.tributeDinoExpirationSeconds?.div(60),
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(
+                                serverSettings = it.serverSettings.copy(
+                                    tributeDinoExpirationSeconds = newValue?.times(
+                                        60
+                                    )
+                                )
+                            )
+                        }
+                    },
+                    defaultValue = ServerSettings::tributeDinoExpirationSeconds.defaultValueInt!! / 60,
+                    hint = "Set in minutes the expiration timer for uploaded dinosaurs in ARK Data. If set to \"0\" or lower the server will revert it to default. Warning: do not set this option to an insane high value, this can result in overflow and may cause upload time checks to fail and ARK Data deleted.",
+                    label = "Override Dino Upload Expiration (minutes)",
+                    valueRange = 0..604_800 / 60,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                )
+                FormOptionalSliderField(
+                    value = gameUserSettings.serverSettings.tributeItemExpirationSeconds?.div(60),
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(
+                                serverSettings = it.serverSettings.copy(
+                                    tributeItemExpirationSeconds = newValue?.times(
+                                        60
+                                    )
+                                )
+                            )
+                        }
+                    },
+                    defaultValue = ServerSettings::tributeItemExpirationSeconds.defaultValueInt!! / 60,
+                    hint = "Set in minutes the expiration timer for uploaded items in ARK Data. If set to \"0\" or lower the server will revert it to default. Warning: do not set this option to an insane high value, this can result in overflow and may cause upload time checks to fail and ARK Data deleted.",
+                    valueRange = 0..604_800 / 60,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    label = "Override Item Upload Expiration (minutes)"
+                )
                 GroupHeader(serverOptionsGroupLabel)
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
