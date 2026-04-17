@@ -738,9 +738,100 @@ fun GeneralTabContent(component: ServerComponent) {
                     readOnly = true,
                     hint = clusterDirOverrideHint,
                 )
+                CheckboxSectionHeader(
+                    !gameUserSettings.serverSettings.noTributeDownloads,
+                    onCheckedChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(noTributeDownloads = !newValue))
+                        }
+                    },
+                    label = "Enable Tribute Downloads",
+                    hint = "If enabled, this will allow downloading external survivors/items/dinos into your server"
+                )
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    FormCheckboxField(
+                        gameUserSettings.serverSettings.preventDownloadSurvivors,
+                        onCheckedChange = { newValue ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(preventDownloadSurvivors = newValue))
+                            }
+                        },
+                        label = "No Survivor Downloads",
+                        hint = "If enabled, this will prevent downloading survivors from the server",
+                        enabled = !gameUserSettings.serverSettings.noTributeDownloads
+
+                    )
+                    FormCheckboxField(
+                        gameUserSettings.serverSettings.preventDownloadItems,
+                        onCheckedChange = { newValue ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(preventDownloadItems = newValue))
+                            }
+                        },
+                        label = "No Item Downloads",
+                        hint = "If enabled, this will prevent downloading items from the server",
+                        enabled = !gameUserSettings.serverSettings.noTributeDownloads
+                    )
+                    FormCheckboxField(
+                        gameUserSettings.serverSettings.preventDownloadDinos,
+                        onCheckedChange = { newValue ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(preventDownloadDinos = newValue))
+                            }
+                        },
+                        label = "No Dinosaur Downloads",
+                        hint = "If enabled, this will prevent downloading dinosaur from the server",
+                        enabled = !gameUserSettings.serverSettings.noTributeDownloads
+                    )
+                }
+                FormCheckboxField(
+                    gameUserSettings.serverSettings.crossArkAllowForeignDinoDownloads,
+                    onCheckedChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(crossArkAllowForeignDinoDownloads = newValue))
+                        }
+                    },
+                    label = "Foreign Dino Downloads",
+                    hint = "If enabled, enables non-native creatures tribute download on Aberration.",
+                    enabled = !gameUserSettings.serverSettings.noTributeDownloads
+                )
+                GroupHeader("Tribute Upload Options")
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                    FormCheckboxField(
+                        gameUserSettings.serverSettings.preventUploadSurvivors,
+                        onCheckedChange = { newValue ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(preventUploadSurvivors = newValue))
+                            }
+                        },
+                        label = "No Survivor Uploads",
+                        hint = "If enabled, this will prevent uploading survivors"
+                    )
+                    FormCheckboxField(
+                        gameUserSettings.serverSettings.preventUploadItems,
+                        onCheckedChange = { newValue ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(preventUploadItems = newValue))
+                            }
+                        },
+                        label = "No Item Uploads",
+                        hint = "If enabled, this will prevent uploading items"
+                    )
+                    FormCheckboxField(
+                        gameUserSettings.serverSettings.preventUploadDinos,
+                        onCheckedChange = { newValue ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(preventUploadDinos = newValue))
+                            }
+                        },
+                        label = "No Dinosaur Uploads",
+                        hint = "If enabled, this will prevent uploading dinosaur"
+                    )
+                }
                 GroupHeader(serverOptionsGroupLabel)
                 Row(
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     FormCheckboxField(
                         settings.options.enableIdlePlayerKick,

@@ -139,6 +139,7 @@ fun FormCheckboxField(
     label: String,
     hint: String? = null,
     error: Boolean = false,
+    enabled: Boolean = true,
     modifier: Modifier = Modifier,
 ) {
     val fullContent = @Composable {
@@ -146,7 +147,8 @@ fun FormCheckboxField(
             Checkbox(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
-                outline = if (error) Outline.Error else Outline.None
+                outline = if (error) Outline.Error else Outline.None,
+                enabled = enabled,
             )
             Text(label, style = JewelTheme.typography.labelTextStyle)
         }
