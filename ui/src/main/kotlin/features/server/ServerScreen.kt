@@ -477,6 +477,37 @@ fun GeneralTabContent(component: ServerComponent) {
     val motdMessageHint = stringResource(Res.string.server_details_motd_message_hint)
     val motdDurationLabel = stringResource(Res.string.server_details_motd_duration_label)
     val motdDurationHint = stringResource(Res.string.server_details_motd_duration_hint)
+    val tributeDownloadOptionsGroupLabel = stringResource(Res.string.server_details_group_tribute_download_options)
+    val enableTributeDownloadsLabel = stringResource(Res.string.server_details_enable_tribute_downloads_label)
+    val enableTributeDownloadsHint = stringResource(Res.string.server_details_enable_tribute_downloads_hint)
+    val noSurvivorDownloadsLabel = stringResource(Res.string.server_details_no_survivor_downloads_label)
+    val noSurvivorDownloadsHint = stringResource(Res.string.server_details_no_survivor_downloads_hint)
+    val noItemDownloadsLabel = stringResource(Res.string.server_details_no_item_downloads_label)
+    val noItemDownloadsHint = stringResource(Res.string.server_details_no_item_downloads_hint)
+    val noDinosaurDownloadsLabel = stringResource(Res.string.server_details_no_dinosaur_downloads_label)
+    val noDinosaurDownloadsHint = stringResource(Res.string.server_details_no_dinosaur_downloads_hint)
+    val foreignDinoDownloadsLabel = stringResource(Res.string.server_details_foreign_dino_downloads_label)
+    val foreignDinoDownloadsHint = stringResource(Res.string.server_details_foreign_dino_downloads_hint)
+    val tributeUploadOptionsGroupLabel = stringResource(Res.string.server_details_group_tribute_upload_options)
+    val noSurvivorUploadsLabel = stringResource(Res.string.server_details_no_survivor_uploads_label)
+    val noSurvivorUploadsHint = stringResource(Res.string.server_details_no_survivor_uploads_hint)
+    val noItemUploadsLabel = stringResource(Res.string.server_details_no_item_uploads_label)
+    val noItemUploadsHint = stringResource(Res.string.server_details_no_item_uploads_hint)
+    val noDinosaurUploadsLabel = stringResource(Res.string.server_details_no_dinosaur_uploads_label)
+    val noDinosaurUploadsHint = stringResource(Res.string.server_details_no_dinosaur_uploads_hint)
+    val clusterTributeOptionsGroupLabel = stringResource(Res.string.server_details_group_cluster_tribute_options)
+    val noTransferFromFilteringLabel = stringResource(Res.string.server_details_no_transfer_from_filtering_label)
+    val noTransferFromFilteringHint = stringResource(Res.string.server_details_no_transfer_from_filtering_hint)
+    val maxTributeDinoUploadsLabel = stringResource(Res.string.server_details_max_tribute_dino_uploads_label)
+    val maxTributeDinoUploadsHint = stringResource(Res.string.server_details_max_tribute_dino_uploads_hint)
+    val maxTributeItemUploadsLabel = stringResource(Res.string.server_details_max_tribute_item_uploads_label)
+    val maxTributeItemUploadsHint = stringResource(Res.string.server_details_max_tribute_item_uploads_hint)
+    val overrideSurvivorUploadExpirationLabel = stringResource(Res.string.server_details_override_survivor_upload_expiration_label)
+    val overrideSurvivorUploadExpirationHint = stringResource(Res.string.server_details_override_survivor_upload_expiration_hint)
+    val overrideDinoUploadExpirationLabel = stringResource(Res.string.server_details_override_dino_upload_expiration_label)
+    val overrideDinoUploadExpirationHint = stringResource(Res.string.server_details_override_dino_upload_expiration_hint)
+    val overrideItemUploadExpirationLabel = stringResource(Res.string.server_details_override_item_upload_expiration_label)
+    val overrideItemUploadExpirationHint = stringResource(Res.string.server_details_override_item_upload_expiration_hint)
     val slotsLabel = stringResource(Res.string.server_details_slots_label)
     val slotsHint = stringResource(Res.string.server_details_slots_hint)
     val idlePlayerKickTimeLabel = stringResource(Res.string.server_details_idle_player_kick_time_label)
@@ -747,8 +778,8 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(serverSettings = it.serverSettings.copy(noTributeDownloads = !newValue))
                         }
                     },
-                    label = "Enable Tribute Downloads",
-                    hint = "If enabled, this will allow downloading external survivors/items/dinos into your server"
+                    label = enableTributeDownloadsLabel,
+                    hint = enableTributeDownloadsHint,
                 )
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     FormCheckboxField(
@@ -758,8 +789,8 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(preventDownloadSurvivors = newValue))
                             }
                         },
-                        label = "No Survivor Downloads",
-                        hint = "If enabled, this will prevent downloading survivors from the server",
+                        label = noSurvivorDownloadsLabel,
+                        hint = noSurvivorDownloadsHint,
                         enabled = !gameUserSettings.serverSettings.noTributeDownloads
 
                     )
@@ -770,8 +801,8 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(preventDownloadItems = newValue))
                             }
                         },
-                        label = "No Item Downloads",
-                        hint = "If enabled, this will prevent downloading items from the server",
+                        label = noItemDownloadsLabel,
+                        hint = noItemDownloadsHint,
                         enabled = !gameUserSettings.serverSettings.noTributeDownloads
                     )
                     FormCheckboxField(
@@ -781,8 +812,8 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(preventDownloadDinos = newValue))
                             }
                         },
-                        label = "No Dinosaur Downloads",
-                        hint = "If enabled, this will prevent downloading dinosaur from the server",
+                        label = noDinosaurDownloadsLabel,
+                        hint = noDinosaurDownloadsHint,
                         enabled = !gameUserSettings.serverSettings.noTributeDownloads
                     )
                 }
@@ -793,11 +824,11 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(serverSettings = it.serverSettings.copy(crossArkAllowForeignDinoDownloads = newValue))
                         }
                     },
-                    label = "Foreign Dino Downloads",
-                    hint = "If enabled, enables non-native creatures tribute download on Aberration.",
+                    label = foreignDinoDownloadsLabel,
+                    hint = foreignDinoDownloadsHint,
                     enabled = !gameUserSettings.serverSettings.noTributeDownloads
                 )
-                GroupHeader("Tribute Upload Options")
+                GroupHeader(tributeUploadOptionsGroupLabel)
                 Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                     FormCheckboxField(
                         gameUserSettings.serverSettings.preventUploadSurvivors,
@@ -806,8 +837,8 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(preventUploadSurvivors = newValue))
                             }
                         },
-                        label = "No Survivor Uploads",
-                        hint = "If enabled, this will prevent uploading survivors"
+                        label = noSurvivorUploadsLabel,
+                        hint = noSurvivorUploadsHint,
                     )
                     FormCheckboxField(
                         gameUserSettings.serverSettings.preventUploadItems,
@@ -816,8 +847,8 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(preventUploadItems = newValue))
                             }
                         },
-                        label = "No Item Uploads",
-                        hint = "If enabled, this will prevent uploading items"
+                        label = noItemUploadsLabel,
+                        hint = noItemUploadsHint,
                     )
                     FormCheckboxField(
                         gameUserSettings.serverSettings.preventUploadDinos,
@@ -826,11 +857,11 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(preventUploadDinos = newValue))
                             }
                         },
-                        label = "No Dinosaur Uploads",
-                        hint = "If enabled, this will prevent uploading dinosaur"
+                        label = noDinosaurUploadsLabel,
+                        hint = noDinosaurUploadsHint,
                     )
                 }
-                GroupHeader("Cluster Tribute Options")
+                GroupHeader(clusterTributeOptionsGroupLabel)
                 FormCheckboxField(
                     settings.options.noTransferFromFiltering,
                     onCheckedChange = { newValue ->
@@ -838,8 +869,8 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(noTransferFromFiltering = newValue)
                         }
                     },
-                    label = "No Transfer From Filtering",
-                    hint = "Prevents ARK Data usage between single player and servers who do not have a cluster ID. Even with a cluster id set, it is suggested to keep this option to completely disable code path allowing it."
+                    label = noTransferFromFilteringLabel,
+                    hint = noTransferFromFilteringHint,
                 )
                 FormSliderField(
                     gameUserSettings.serverSettings.maxTributeDinos,
@@ -848,9 +879,9 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(serverSettings = it.serverSettings.copy(maxTributeDinos = newValue))
                         }
                     },
-                    label = "Max Tribute Dino Uploads",
+                    label = maxTributeDinoUploadsLabel,
                     valueRange = 20..100,
-                    hint = "Limits the number of dinosaurs that can be uploaded in a tribute, default is 20. Range is 20-100, because outside of this server can corrupt",
+                    hint = maxTributeDinoUploadsHint,
                     allowOutsideRange = false,
                     showManualInput = true,
                 )
@@ -861,9 +892,9 @@ fun GeneralTabContent(component: ServerComponent) {
                             it.copy(serverSettings = it.serverSettings.copy(maxTributeItems = newValue))
                         }
                     },
-                    label = "Max Tribute Item Uploads",
+                    label = maxTributeItemUploadsLabel,
                     valueRange = 50..100,
-                    hint = "Limits the number of items that can be uploaded in a tribute, default is 50. Range is 50-100, because outside of this server can corrupt",
+                    hint = maxTributeItemUploadsHint,
                     allowOutsideRange = false,
                     showManualInput = true,
                 )
@@ -881,9 +912,9 @@ fun GeneralTabContent(component: ServerComponent) {
                         }
                     },
                     defaultValue = ServerSettings::tributeCharacterExpirationSeconds.defaultValueInt!! / 60,
-                    label = "Override Survivor Upload Expiration (minutes)",
+                    label = overrideSurvivorUploadExpirationLabel,
                     valueRange = 0..604_800 / 60,
-                    hint = "Enable to write tribute character expiration in minutes. Warning: do not set this option to an insane high value, this can result in overflow and may cause upload time checks to fail and ARK Data deleted.",
+                    hint = overrideSurvivorUploadExpirationHint,
                     allowOutsideRange = true,
                     showManualInput = true,
                 )
@@ -901,8 +932,8 @@ fun GeneralTabContent(component: ServerComponent) {
                         }
                     },
                     defaultValue = ServerSettings::tributeDinoExpirationSeconds.defaultValueInt!! / 60,
-                    hint = "Set in minutes the expiration timer for uploaded dinosaurs in ARK Data. If set to \"0\" or lower the server will revert it to default. Warning: do not set this option to an insane high value, this can result in overflow and may cause upload time checks to fail and ARK Data deleted.",
-                    label = "Override Dino Upload Expiration (minutes)",
+                    hint = overrideDinoUploadExpirationHint,
+                    label = overrideDinoUploadExpirationLabel,
                     valueRange = 0..604_800 / 60,
                     allowOutsideRange = true,
                     showManualInput = true,
@@ -921,11 +952,11 @@ fun GeneralTabContent(component: ServerComponent) {
                         }
                     },
                     defaultValue = ServerSettings::tributeItemExpirationSeconds.defaultValueInt!! / 60,
-                    hint = "Set in minutes the expiration timer for uploaded items in ARK Data. If set to \"0\" or lower the server will revert it to default. Warning: do not set this option to an insane high value, this can result in overflow and may cause upload time checks to fail and ARK Data deleted.",
+                    hint = overrideItemUploadExpirationHint,
                     valueRange = 0..604_800 / 60,
                     allowOutsideRange = true,
                     showManualInput = true,
-                    label = "Override Item Upload Expiration (minutes)"
+                    label = overrideItemUploadExpirationLabel
                 )
                 GroupHeader(serverOptionsGroupLabel)
                 Row(
