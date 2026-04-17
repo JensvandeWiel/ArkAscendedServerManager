@@ -11,4 +11,7 @@
         <toc-element topic="Setting-up-your-first-server.md"/>
         <toc-element topic="Importing-A-Server.md"/>
     </toc-element>
+    <toc-element toc-title="Guides">
+        <toc-element topic="Server-Clustering.md"/>
+    </toc-element>
 </instance-profile>

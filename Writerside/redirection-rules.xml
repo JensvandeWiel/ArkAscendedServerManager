@@ -15,4 +15,8 @@
         <description>Created after removal of "Getting started" from Ark Ascended Server Manager</description>
         <accepts>Installing-the-manager.html</accepts>
     </rule>
+    <rule id="31108580">
+        <description>Created after removal of "Server Clustering" from Ark Ascended Server Manager</description>
+        <accepts>Server-Clustering.html</accepts>
+    </rule>
 </rules>
