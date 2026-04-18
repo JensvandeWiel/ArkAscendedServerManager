@@ -128,6 +128,8 @@
     <string name="server_details_use_dynamic_config_label">Use dynamic config</string>
     <string name="server_details_use_dynamic_config_hint">Enables the use of the dynamic config</string>
     <string name="server_details_custom_dynamic_config_url_hint">URL for the dynamic config.</string>
+    <string name="server_details_custom_live_tuning_url_label">Custom Live Tuning URL</string>
+    <string name="server_details_custom_live_tuning_url_hint">Direct link to the live tuning file.</string>
     <string name="server_details_go_to_server">Go to server</string>
     <string name="server_details_logs_group">Server Logs</string>
 

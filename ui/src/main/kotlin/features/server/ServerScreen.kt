@@ -525,6 +525,8 @@ fun GeneralTabContent(component: ServerComponent) {
     val useDynamicConfigLabel = stringResource(Res.string.server_details_use_dynamic_config_label)
     val useDynamicConfigHint = stringResource(Res.string.server_details_use_dynamic_config_hint)
     val customDynamicConfigUrlHint = stringResource(Res.string.server_details_custom_dynamic_config_url_hint)
+    val customLiveTuningUrlLabel = stringResource(Res.string.server_details_custom_live_tuning_url_label)
+    val customLiveTuningUrlHint = stringResource(Res.string.server_details_custom_live_tuning_url_hint)
 
     VerticallyScrollableContainer {
         Column(
@@ -1007,9 +1009,8 @@ fun GeneralTabContent(component: ServerComponent) {
                     label = banListUrlLabel,
                     hint = banListUrlHint,
                 )
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     FormCheckboxField(
                         settings.options.useDynamicConfig,
@@ -1040,6 +1041,17 @@ fun GeneralTabContent(component: ServerComponent) {
                         error = if (settings.options.useDynamicConfig) !gameUserSettings.serverSettings.validateCustomDynamicConfigUrl() else false,
                     )
                 }
+                FormOptionalTextField(
+                    value = gameUserSettings.serverSettings.customLiveTuningUrl,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(customLiveTuningUrl = newValue))
+                        }
+                    },
+                    defaultValue = ServerSettings::customLiveTuningUrl.defaultValueString!!,
+                    label = customLiveTuningUrlLabel,
+                    hint = customLiveTuningUrlHint,
+                )
                 FormSliderField(
                     value = settings.administration.slots,
                     onValueChange = { newValue ->

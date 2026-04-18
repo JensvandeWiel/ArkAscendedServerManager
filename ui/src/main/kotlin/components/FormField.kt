@@ -84,42 +84,84 @@ fun FormOptionalTextField(
     hint: String? = null,
     error: Boolean = false,
     enabled: Boolean = true,
-    labelPosition: LabelPosition = LabelPosition.Inline,
+    labelPosition: LabelPosition = LabelPosition.Above,
     readOnly: Boolean = false,
 ) {
     val isChecked = value != null
     val effectiveValue = value ?: defaultValue
 
     val fullContent = @Composable {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Checkbox(
-                checked = isChecked,
-                onCheckedChange = { checked ->
-                    if (checked) {
-                        onValueChange(value ?: defaultValue)
-                    } else {
-                        onValueChange(null)
-                    }
-                },
-                outline = if (error) Outline.Error else Outline.None,
-                enabled = enabled,
-            )
+        when (labelPosition) {
+            LabelPosition.Inline -> {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Checkbox(
+                        checked = isChecked,
+                        onCheckedChange = { checked ->
+                            if (checked) {
+                                onValueChange(value ?: defaultValue)
+                            } else {
+                                onValueChange(null)
+                            }
+                        },
+                        outline = if (error) Outline.Error else Outline.None,
+                        enabled = enabled,
+                    )
 
-            FormTextField(
-                value = effectiveValue,
-                onValueChange = { nextValue -> onValueChange(nextValue) },
-                label = label,
-                modifier = Modifier.weight(1f),
-                hint = null,
-                error = error,
-                enabled = enabled && isChecked,
-                labelPosition = labelPosition,
-                readOnly = readOnly,
-            )
+                    FormTextField(
+                        value = effectiveValue,
+                        onValueChange = { nextValue -> onValueChange(nextValue) },
+                        label = label,
+                        modifier = Modifier.weight(1f),
+                        hint = null,
+                        error = error,
+                        enabled = enabled && isChecked,
+                        labelPosition = LabelPosition.Inline,
+                        readOnly = readOnly,
+                    )
+                }
+            }
+
+            LabelPosition.Above -> {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Checkbox(
+                            checked = isChecked,
+                            onCheckedChange = { checked ->
+                                if (checked) {
+                                    onValueChange(value ?: defaultValue)
+                                } else {
+                                    onValueChange(null)
+                                }
+                            },
+                            outline = if (error) Outline.Error else Outline.None,
+                            enabled = enabled,
+                        )
+                        Text(label, style = JewelTheme.typography.labelTextStyle)
+                    }
+
+                    FormTextField(
+                        value = effectiveValue,
+                        onValueChange = { nextValue -> onValueChange(nextValue) },
+                        label = null,
+                        modifier = Modifier.fillMaxWidth(),
+                        hint = null,
+                        error = error,
+                        enabled = enabled && isChecked,
+                        labelPosition = LabelPosition.Above,
+                        readOnly = readOnly,
+                    )
+                }
+            }
         }
     }
 
@@ -385,14 +427,18 @@ fun FormSliderField(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    if (label.isNotEmpty()) {
+                        Text(label, style = JewelTheme.typography.labelTextStyle)
+                    }
                     sliderContent()
                 }
             }
 
             LabelPosition.Above -> {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    if (label.isNotEmpty()) {
+                        Text(label, style = JewelTheme.typography.labelTextStyle)
+                    }
                     sliderContent()
                 }
             }
@@ -437,38 +483,83 @@ fun FormOptionalSliderField(
     val effectiveValue = value ?: normalizedDefaultValue
 
     val fullContent = @Composable {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth(),
-        ) {
-            Checkbox(
-                checked = isChecked,
-                onCheckedChange = { checked ->
-                    if (checked) {
-                        onValueChange(value ?: normalizedDefaultValue)
-                    } else {
-                        onValueChange(null)
-                    }
-                },
-                outline = if (error) Outline.Error else Outline.None,
-                enabled = enabled,
-            )
+        when (labelPosition) {
+            LabelPosition.Inline -> {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Checkbox(
+                        checked = isChecked,
+                        onCheckedChange = { checked ->
+                            if (checked) {
+                                onValueChange(value ?: normalizedDefaultValue)
+                            } else {
+                                onValueChange(null)
+                            }
+                        },
+                        outline = if (error) Outline.Error else Outline.None,
+                        enabled = enabled,
+                    )
 
-            FormSliderField(
-                value = effectiveValue,
-                onValueChange = { nextValue -> onValueChange(nextValue) },
-                label = label,
-                valueRange = valueRange,
-                modifier = Modifier.weight(1f),
-                hint = null,
-                error = error,
-                enabled = enabled && isChecked,
-                labelPosition = labelPosition,
-                showManualInput = showManualInput,
-                allowOutsideRange = allowOutsideRange,
-                steps = steps,
-            )
+                    FormSliderField(
+                        value = effectiveValue,
+                        onValueChange = { nextValue -> onValueChange(nextValue) },
+                        label = label,
+                        valueRange = valueRange,
+                        modifier = Modifier.weight(1f),
+                        hint = null,
+                        error = error,
+                        enabled = enabled && isChecked,
+                        labelPosition = LabelPosition.Inline,
+                        showManualInput = showManualInput,
+                        allowOutsideRange = allowOutsideRange,
+                        steps = steps,
+                    )
+                }
+            }
+
+            LabelPosition.Above -> {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Checkbox(
+                            checked = isChecked,
+                            onCheckedChange = { checked ->
+                                if (checked) {
+                                    onValueChange(value ?: normalizedDefaultValue)
+                                } else {
+                                    onValueChange(null)
+                                }
+                            },
+                            outline = if (error) Outline.Error else Outline.None,
+                            enabled = enabled,
+                        )
+                        Text(label, style = JewelTheme.typography.labelTextStyle)
+                    }
+
+                    FormSliderField(
+                        value = effectiveValue,
+                        onValueChange = { nextValue -> onValueChange(nextValue) },
+                        label = "",
+                        valueRange = valueRange,
+                        modifier = Modifier.fillMaxWidth(),
+                        hint = null,
+                        error = error,
+                        enabled = enabled && isChecked,
+                        labelPosition = LabelPosition.Above,
+                        showManualInput = showManualInput,
+                        allowOutsideRange = allowOutsideRange,
+                        steps = steps,
+                    )
+                }
+            }
         }
     }
 

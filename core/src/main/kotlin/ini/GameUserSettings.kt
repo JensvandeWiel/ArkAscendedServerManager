@@ -92,7 +92,11 @@ data class ServerSettings(
     @Unsure
     @IniString(true)
     val customDynamicConfigUrl: String? = null,
-
+    @IniProperty("CustomLiveTuningUrl")
+    @OmitIfNull
+    @IniString(true)
+    @field:DefaultString("https://cdn2.arkdedicated.com/asa/livetuningoverloads.json")
+    val customLiveTuningUrl: String? = null,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
