@@ -27,7 +27,9 @@ import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.ini.ServerSettings
 import eu.wynq.arkascendedservermanager.core.managers.*
+import eu.wynq.arkascendedservermanager.core.server.defaultValue
 import eu.wynq.arkascendedservermanager.core.server.defaultValueInt
+import eu.wynq.arkascendedservermanager.core.server.defaultValueString
 import eu.wynq.arkascendedservermanager.ui.components.*
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -518,6 +520,11 @@ fun GeneralTabContent(component: ServerComponent) {
     val clusterIdHint = stringResource(Res.string.server_details_cluster_id_hint)
     val clusterDirOverrideLabel = stringResource(Res.string.server_details_cluster_dir_override_label)
     val clusterDirOverrideHint = stringResource(Res.string.server_details_cluster_dir_override_hint)
+    val banListUrlLabel = stringResource(Res.string.server_details_ban_list_url_label)
+    val banListUrlHint = stringResource(Res.string.server_details_ban_list_url_hint)
+    val useDynamicConfigLabel = stringResource(Res.string.server_details_use_dynamic_config_label)
+    val useDynamicConfigHint = stringResource(Res.string.server_details_use_dynamic_config_hint)
+    val customDynamicConfigUrlHint = stringResource(Res.string.server_details_custom_dynamic_config_url_hint)
 
     VerticallyScrollableContainer {
         Column(
@@ -987,6 +994,50 @@ fun GeneralTabContent(component: ServerComponent) {
                         showManualInput = true,
                         enabled = settings.options.enableIdlePlayerKick,
                         error = if (settings.options.enableIdlePlayerKick) !gameUserSettings.serverSettings.validateKickIdlePlayersPeriod() else false,
+                    )
+                }
+                FormOptionalTextField(
+                    value = gameUserSettings.serverSettings.banListUrl,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(banListUrl = newValue))
+                        }
+                    },
+                    defaultValue = ServerSettings::banListUrl.defaultValueString!!,
+                    label = banListUrlLabel,
+                    hint = banListUrlHint,
+                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    FormCheckboxField(
+                        settings.options.useDynamicConfig,
+                        onCheckedChange = { newValue ->
+                            component.updateServerOptions {
+                                it.copy(useDynamicConfig = newValue)
+                            }
+                            if (newValue) {
+                                component.updateServerGameUserSettings {
+                                    it.copy(serverSettings = it.serverSettings.copy(customDynamicConfigUrl = if (newValue) "" else null))
+                                }
+                            }
+                        },
+                        label = useDynamicConfigLabel,
+                        hint = useDynamicConfigHint,
+                    )
+                    FormTextField(
+                        value = gameUserSettings.serverSettings.customDynamicConfigUrl ?: "",
+                        onValueChange = { newValue: String ->
+                            component.updateServerGameUserSettings {
+                                it.copy(serverSettings = it.serverSettings.copy(customDynamicConfigUrl = newValue))
+                            }
+                        },
+                        labelPosition = LabelPosition.Inline,
+                        label = null,
+                        hint = customDynamicConfigUrlHint,
+                        enabled = settings.options.useDynamicConfig,
+                        error = if (settings.options.useDynamicConfig) !gameUserSettings.serverSettings.validateCustomDynamicConfigUrl() else false,
                     )
                 }
                 FormSliderField(

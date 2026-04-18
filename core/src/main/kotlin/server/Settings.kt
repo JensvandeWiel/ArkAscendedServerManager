@@ -367,6 +367,8 @@ data class Options(
     val noGameAnalytics: Boolean = true,
     @field:ArgOption(name = "NoTransferFromFiltering", kind = ArgKind.FLAG, order = 11)
     val noTransferFromFiltering: Boolean = true,
+    @field:ArgOption(name = "UseDynamicConfig", kind = ArgKind.FLAG, order = 12)
+    val useDynamicConfig: Boolean = false,
 ) {
    fun validate() = true
 

@@ -123,6 +123,11 @@
     <string name="server_details_idle_player_kick_enabled_hint">If enabled, idle players will be kicked from the server after a specified amount of time.</string>
     <string name="server_details_idle_player_kick_time_label">Idle player kick time (seconds):</string>
     <string name="server_details_idle_player_kick_time_hint">The amount of time (in seconds) after which idle players will be kicked from the server. This option is only relevant if idle player kick is enabled. (3600 seconds is one hour)</string>
+    <string name="server_details_ban_list_url_label">Ban list URL</string>
+    <string name="server_details_ban_list_url_hint">Ban list URL, sets the global ban list.</string>
+    <string name="server_details_use_dynamic_config_label">Use dynamic config</string>
+    <string name="server_details_use_dynamic_config_hint">Enables the use of the dynamic config</string>
+    <string name="server_details_custom_dynamic_config_url_hint">URL for the dynamic config.</string>
     <string name="server_details_go_to_server">Go to server</string>
     <string name="server_details_logs_group">Server Logs</string>
 

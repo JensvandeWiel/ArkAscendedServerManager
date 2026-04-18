@@ -42,7 +42,7 @@ enum class LabelPosition {
 fun FormTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    label: String,
+    label: String?,
     modifier: Modifier = Modifier,
     hint: String? = null,
     error: Boolean = false,
@@ -75,9 +75,71 @@ fun FormTextField(
 }
 
 @Composable
+fun FormOptionalTextField(
+    value: String?,
+    onValueChange: (String?) -> Unit,
+    defaultValue: String,
+    label: String,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    error: Boolean = false,
+    enabled: Boolean = true,
+    labelPosition: LabelPosition = LabelPosition.Inline,
+    readOnly: Boolean = false,
+) {
+    val isChecked = value != null
+    val effectiveValue = value ?: defaultValue
+
+    val fullContent = @Composable {
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Checkbox(
+                checked = isChecked,
+                onCheckedChange = { checked ->
+                    if (checked) {
+                        onValueChange(value ?: defaultValue)
+                    } else {
+                        onValueChange(null)
+                    }
+                },
+                outline = if (error) Outline.Error else Outline.None,
+                enabled = enabled,
+            )
+
+            FormTextField(
+                value = effectiveValue,
+                onValueChange = { nextValue -> onValueChange(nextValue) },
+                label = label,
+                modifier = Modifier.weight(1f),
+                hint = null,
+                error = error,
+                enabled = enabled && isChecked,
+                labelPosition = labelPosition,
+                readOnly = readOnly,
+            )
+        }
+    }
+
+    Row(modifier) {
+        if (hint != null) {
+            Tooltip(tooltip = {
+                Text(hint, style = JewelTheme.typography.labelTextStyle)
+            }) {
+                fullContent()
+            }
+        } else {
+            fullContent()
+        }
+    }
+}
+
+@Composable
 fun FormTextField(
     state: TextFieldState,
-    label: String,
+    label: String?,
     modifier: Modifier = Modifier,
     hint: String? = null,
     error: Boolean = false,
@@ -92,7 +154,9 @@ fun FormTextField(
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    if (label != null) {
+                        Text(label, style = JewelTheme.typography.labelTextStyle)
+                    }
                     TextField(
                         state,
                         Modifier.fillMaxWidth(),
@@ -105,7 +169,9 @@ fun FormTextField(
 
             LabelPosition.Above -> {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(label, style = JewelTheme.typography.labelTextStyle)
+                    if (label != null) {
+                        Text(label, style = JewelTheme.typography.labelTextStyle)
+                    }
                     TextField(
                         state,
                         Modifier.fillMaxWidth(),

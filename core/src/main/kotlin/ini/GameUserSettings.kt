@@ -6,9 +6,14 @@ import annotations.IniProperty
 import annotations.IniSection
 import annotations.IniSerializable
 import annotations.OmitIfNull
+import annotations.IniString
 import annotations.WithIgnored
 import eu.wynq.arkascendedservermanager.core.server.DefaultInt
+import eu.wynq.arkascendedservermanager.core.server.DefaultString
+import eu.wynq.arkascendedservermanager.core.support.isValidUrl
+import io.ktor.http.Url
 import kotlinx.serialization.Serializable
+import support.Unsure
 
 @IniSection("SessionSettings")
 @Serializable
@@ -77,6 +82,16 @@ data class ServerSettings(
     @OmitIfNull
     @field:DefaultInt(86400)
     val tributeItemExpirationSeconds: Int? = null,
+    @IniProperty("BanListURL")
+    @OmitIfNull
+    @IniString(true)
+    @field:DefaultString("https://cdn2.arkdedicated.com/asa/BanList.txt")
+    val banListUrl: String? = null,
+    @IniProperty("CustomDynamicConfigUrl")
+    @OmitIfNull
+    @Unsure
+    @IniString(true)
+    val customDynamicConfigUrl: String? = null,
 
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
@@ -84,7 +99,9 @@ data class ServerSettings(
     fun validateRconServerGameLogBuffer() = rconServerGameLogBuffer >= 0
     fun validateMaxTributeDinos() = maxTributeDinos >= 20 && maxTributeDinos <= 100
     fun validateMaxTributeItems() = maxTributeItems >= 50 && maxTributeItems <= 100
-    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems()
+    fun validateBanListUrl() = banListUrl == null || (banListUrl.isNotBlank() && banListUrl.isValidUrl())
+    fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
+    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateCustomDynamicConfigUrl()
 }
 
 @IniSerializable
