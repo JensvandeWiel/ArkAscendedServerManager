@@ -27,7 +27,6 @@ import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.ini.ServerSettings
 import eu.wynq.arkascendedservermanager.core.managers.*
-import eu.wynq.arkascendedservermanager.core.server.defaultValue
 import eu.wynq.arkascendedservermanager.core.server.defaultValueInt
 import eu.wynq.arkascendedservermanager.core.server.defaultValueString
 import eu.wynq.arkascendedservermanager.ui.components.*
@@ -504,12 +503,18 @@ fun GeneralTabContent(component: ServerComponent) {
     val maxTributeDinoUploadsHint = stringResource(Res.string.server_details_max_tribute_dino_uploads_hint)
     val maxTributeItemUploadsLabel = stringResource(Res.string.server_details_max_tribute_item_uploads_label)
     val maxTributeItemUploadsHint = stringResource(Res.string.server_details_max_tribute_item_uploads_hint)
-    val overrideSurvivorUploadExpirationLabel = stringResource(Res.string.server_details_override_survivor_upload_expiration_label)
-    val overrideSurvivorUploadExpirationHint = stringResource(Res.string.server_details_override_survivor_upload_expiration_hint)
-    val overrideDinoUploadExpirationLabel = stringResource(Res.string.server_details_override_dino_upload_expiration_label)
-    val overrideDinoUploadExpirationHint = stringResource(Res.string.server_details_override_dino_upload_expiration_hint)
-    val overrideItemUploadExpirationLabel = stringResource(Res.string.server_details_override_item_upload_expiration_label)
-    val overrideItemUploadExpirationHint = stringResource(Res.string.server_details_override_item_upload_expiration_hint)
+    val overrideSurvivorUploadExpirationLabel =
+        stringResource(Res.string.server_details_override_survivor_upload_expiration_label)
+    val overrideSurvivorUploadExpirationHint =
+        stringResource(Res.string.server_details_override_survivor_upload_expiration_hint)
+    val overrideDinoUploadExpirationLabel =
+        stringResource(Res.string.server_details_override_dino_upload_expiration_label)
+    val overrideDinoUploadExpirationHint =
+        stringResource(Res.string.server_details_override_dino_upload_expiration_hint)
+    val overrideItemUploadExpirationLabel =
+        stringResource(Res.string.server_details_override_item_upload_expiration_label)
+    val overrideItemUploadExpirationHint =
+        stringResource(Res.string.server_details_override_item_upload_expiration_hint)
     val slotsLabel = stringResource(Res.string.server_details_slots_label)
     val slotsHint = stringResource(Res.string.server_details_slots_hint)
     val idlePlayerKickTimeLabel = stringResource(Res.string.server_details_idle_player_kick_time_label)
@@ -989,7 +994,7 @@ fun GeneralTabContent(component: ServerComponent) {
                                 it.copy(serverSettings = it.serverSettings.copy(kickIdlePlayersPeriod = newValue))
                             }
                         },
-                        label = idlePlayerKickTimeLabel,
+                        label = null,
                         valueRange = 0..7200,
                         hint = idlePlayerKickTimeHint,
                         allowOutsideRange = true,
@@ -1009,38 +1014,24 @@ fun GeneralTabContent(component: ServerComponent) {
                     label = banListUrlLabel,
                     hint = banListUrlHint,
                 )
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(4.dp)
-                ) {
-                    FormCheckboxField(
-                        settings.options.useDynamicConfig,
-                        onCheckedChange = { newValue ->
-                            component.updateServerOptions {
-                                it.copy(useDynamicConfig = newValue)
-                            }
-                            if (newValue) {
-                                component.updateServerGameUserSettings {
-                                    it.copy(serverSettings = it.serverSettings.copy(customDynamicConfigUrl = if (newValue) "" else null))
-                                }
-                            }
-                        },
-                        label = useDynamicConfigLabel,
-                        hint = useDynamicConfigHint,
-                    )
-                    FormTextField(
-                        value = gameUserSettings.serverSettings.customDynamicConfigUrl ?: "",
-                        onValueChange = { newValue: String ->
-                            component.updateServerGameUserSettings {
-                                it.copy(serverSettings = it.serverSettings.copy(customDynamicConfigUrl = newValue))
-                            }
-                        },
-                        labelPosition = LabelPosition.Inline,
-                        label = null,
-                        hint = customDynamicConfigUrlHint,
-                        enabled = settings.options.useDynamicConfig,
-                        error = if (settings.options.useDynamicConfig) !gameUserSettings.serverSettings.validateCustomDynamicConfigUrl() else false,
-                    )
-                }
+                FormToggleableNullableTextField(
+                    value = gameUserSettings.serverSettings.customDynamicConfigUrl,
+                    onValueChange = { newValue: String? ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(customDynamicConfigUrl = newValue))
+                        }
+                    },
+                    enabled = settings.options.useDynamicConfig,
+                    onEnabledChange = { newValue ->
+                        component.updateServerOptions {
+                            it.copy(useDynamicConfig = newValue)
+                        }
+                    },
+                    label = useDynamicConfigLabel,
+                    hint = useDynamicConfigHint,
+                    fieldHint = customDynamicConfigUrlHint,
+                    error = !gameUserSettings.serverSettings.validateCustomDynamicConfigUrl(),
+                )
                 FormOptionalTextField(
                     value = gameUserSettings.serverSettings.customLiveTuningUrl,
                     onValueChange = { newValue ->

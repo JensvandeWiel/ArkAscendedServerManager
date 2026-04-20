@@ -75,6 +75,68 @@ fun FormTextField(
 }
 
 @Composable
+fun FormNullableTextField(
+    value: String?,
+    onValueChange: (String?) -> Unit,
+    label: String?,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    error: Boolean = false,
+    readOnly: Boolean = false,
+    enabled: Boolean = true,
+    labelPosition: LabelPosition = LabelPosition.Above,
+) {
+    FormTextField(
+        value = value ?: "",
+        onValueChange = { nextValue -> onValueChange(nextValue.ifEmpty { null }) },
+        label = label,
+        modifier = modifier,
+        hint = hint,
+        error = error,
+        readOnly = readOnly,
+        enabled = enabled,
+        labelPosition = labelPosition,
+    )
+}
+
+@Composable
+fun FormToggleableNullableTextField(
+    value: String?,
+    onValueChange: (String?) -> Unit,
+    enabled: Boolean,
+    onEnabledChange: (Boolean) -> Unit,
+    label: String,
+    modifier: Modifier = Modifier,
+    hint: String? = null,
+    fieldHint: String? = null,
+    error: Boolean = false,
+    readOnly: Boolean = false,
+) {
+    Column(
+        modifier,
+        verticalArrangement = Arrangement.spacedBy(2.dp)
+    ) {
+        FormCheckboxField(
+            checked = enabled,
+            onCheckedChange = onEnabledChange,
+            label = label,
+            hint = hint,
+            smallCheckbox = true,
+        )
+        FormNullableTextField(
+            value = value,
+            onValueChange = onValueChange,
+            labelPosition = LabelPosition.Inline,
+            label = null,
+            hint = fieldHint ?: hint,
+            enabled = enabled,
+            error = error,
+            readOnly = readOnly,
+        )
+    }
+}
+
+@Composable
 fun FormOptionalTextField(
     value: String?,
     onValueChange: (String?) -> Unit,
@@ -131,21 +193,23 @@ fun FormOptionalTextField(
                     modifier = Modifier.fillMaxWidth(),
                 ) {
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
+                        horizontalArrangement = Arrangement.spacedBy(2.dp),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
-                        Checkbox(
-                            checked = isChecked,
-                            onCheckedChange = { checked ->
-                                if (checked) {
-                                    onValueChange(value ?: defaultValue)
-                                } else {
-                                    onValueChange(null)
-                                }
-                            },
-                            outline = if (error) Outline.Error else Outline.None,
-                            enabled = enabled,
-                        )
+                        Box(Modifier.size(20.dp).offset(x = -2.dp)) {
+                            Checkbox(
+                                checked = isChecked,
+                                onCheckedChange = { checked ->
+                                    if (checked) {
+                                        onValueChange(value ?: defaultValue)
+                                    } else {
+                                        onValueChange(null)
+                                    }
+                                },
+                                outline = if (error) Outline.Error else Outline.None,
+                                enabled = enabled,
+                            )
+                        }
                         Text(label, style = JewelTheme.typography.labelTextStyle)
                     }
 
@@ -249,14 +313,17 @@ fun FormCheckboxField(
     error: Boolean = false,
     enabled: Boolean = true,
     modifier: Modifier = Modifier,
+    smallCheckbox: Boolean = false,
 ) {
+    val spacing = if(smallCheckbox) 2.dp else 6.dp
     val fullContent = @Composable {
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(horizontalArrangement = Arrangement.spacedBy(spacing), verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
                 checked = checked,
                 onCheckedChange = onCheckedChange,
                 outline = if (error) Outline.Error else Outline.None,
                 enabled = enabled,
+                modifier = if (smallCheckbox) Modifier.size(20.dp).offset(x = -2.dp) else Modifier
             )
             Text(label, style = JewelTheme.typography.labelTextStyle)
         }
@@ -314,7 +381,7 @@ fun CheckboxSectionHeader(
 fun FormSliderField(
     value: Int,
     onValueChange: (Int) -> Unit,
-    label: String,
+    label: String?,
     valueRange: IntRange,
     modifier: Modifier = Modifier,
     hint: String? = null,
@@ -427,7 +494,7 @@ fun FormSliderField(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    if (label.isNotEmpty()) {
+                    if (label.isNullOrEmpty().not()) {
                         Text(label, style = JewelTheme.typography.labelTextStyle)
                     }
                     sliderContent()
@@ -436,7 +503,7 @@ fun FormSliderField(
 
             LabelPosition.Above -> {
                 Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    if (label.isNotEmpty()) {
+                    if (label.isNullOrEmpty().not()) {
                         Text(label, style = JewelTheme.typography.labelTextStyle)
                     }
                     sliderContent()
@@ -486,7 +553,7 @@ fun FormOptionalSliderField(
         when (labelPosition) {
             LabelPosition.Inline -> {
                 Row(
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
