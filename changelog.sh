@@ -48,14 +48,16 @@ fi
 
 awk -F '\t' -v repo_url="$REPO_WEB_URL" '
   function heading_for(x) {
-    if (x == "feat") return "Feat"
+    if (x == "feat") return "Feature"
+    if (x == "feature") return "Feature"
     if (x == "fix") return "Fix"
     if (x == "chore") return "Chore"
     if (x == "docs") return "Docs"
+    if (x == "refactor") return "Refactor")
     return "None"
   }
 
-  function is_allowed(x) { return (x=="feat" || x=="fix" || x=="chore" || x=="docs") }
+  function is_allowed(x) { return (x=="feat" || x=="fix" || x=="chore" || x=="docs" || x=="feature" || x=="refactor") }
 
   {
     subject=$1
