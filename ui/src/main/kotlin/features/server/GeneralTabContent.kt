@@ -14,7 +14,6 @@ import eu.wynq.arkascendedservermanager.ui.features.server.general.MapAndModsSec
 import eu.wynq.arkascendedservermanager.ui.features.server.general.MotdSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.NameAndPasswordsSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.PortsSection
-import eu.wynq.arkascendedservermanager.ui.features.server.general.ProfileSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.SavesSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.ServerOptionsSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.TributeDownloadSection
@@ -27,10 +26,9 @@ import kotlin.uuid.ExperimentalUuidApi
 fun GeneralTabContent(component: ServerComponent) {
     VerticallyScrollableContainer {
         Column(
-            modifier = Modifier.padding(8.dp).padding(end = scrollbarContentSafePadding()),
+            modifier = Modifier.padding(end = scrollbarContentSafePadding()),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            ProfileSection(component)
             NameAndPasswordsSection(component)
             PortsSection(component)
             MapAndModsSection(component)

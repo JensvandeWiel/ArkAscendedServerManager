@@ -25,6 +25,7 @@ fun ServerScreen(component: ServerComponent) {
     val errorLabel = stringResource(Res.string.server_details_error)
     val infoTabLabel = stringResource(Res.string.server_details_info_tab)
     val generalTabLabel = stringResource(Res.string.server_details_general_tab)
+    val profileTabLabel = stringResource(Res.string.server_details_profile_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
     val deleteServerLabel = stringResource(Res.string.action_delete_server)
     val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
@@ -42,6 +43,14 @@ fun ServerScreen(component: ServerComponent) {
                         SimpleTabContent(label = infoTabLabel, state = tabState)
                     },
                     onClick = component::selectInfoTab,
+                    closable = false,
+                ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.PROFILE,
+                    content = { tabState ->
+                        SimpleTabContent(label = profileTabLabel, state = tabState)
+                    },
+                    onClick = component::selectProfileTab,
                     closable = false,
                 ),
                 TabData.Default(
@@ -100,6 +109,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.GENERAL -> {
                         GeneralTabContent(component)
+                    }
+
+                    ServerDetailsTab.PROFILE -> {
+                        ProfileTabContent(component)
                     }
                 }
             } else if (error != null) {
