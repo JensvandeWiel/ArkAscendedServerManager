@@ -103,22 +103,18 @@ fun InstallationInfo(component: ServerComponent) {
     val stopServerLabel = stringResource(Res.string.action_stop_server)
     val killServerLabel = stringResource(Res.string.action_kill_server)
 
-    fun overSeerIsSameVersion(): Boolean {
-        val currentVersion = Version.parse(model.overseerVersion ?: "69.69.69")
-        val currentAppVersion = Version.parse(AppBuildInfo.version)
-        return currentVersion == currentAppVersion
-    }
-
-    val canStartServer =
-        !status.isInstalling()
-                && (powerState == PowerState.Stopped || powerState == PowerState.Crashed)
-                && (model.isInstalled == true)
-                && (if (model.initialServer?.asaApi == true) model.apiIsInstalled == true
-                && model.isOverseerInstalled == true else true)
-                && overSeerIsSameVersion()
-    val canStopServer = !status.isInstalling() && powerState == PowerState.Running
-    val canKillServer =
-        !status.isInstalling() && (powerState == PowerState.Running || powerState == PowerState.Starting || powerState == PowerState.Stopping)
+    val canStartServer = PowerManager.canStartServer(
+        server = model.server ?: model.initialServer!!,
+        powerState = powerState,
+        installStatus = status,
+        isInstalled = model.isInstalled,
+        apiIsInstalled = model.apiIsInstalled,
+        isOverseerInstalled = model.isOverseerInstalled,
+        overseerVersion = model.overseerVersion,
+        currentAppVersion = AppBuildInfo.version
+    )
+    val canStopServer = PowerManager.canStopServer(powerState, status)
+    val canKillServer = PowerManager.canKillServer(powerState, status)
 
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         GroupHeader(installationInfoGroup)

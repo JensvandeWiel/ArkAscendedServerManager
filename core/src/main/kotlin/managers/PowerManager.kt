@@ -43,6 +43,7 @@ object PowerManager {
                     return@withContext PowerState.Crashed
                 }
             }
+            if (oldState == PowerState.Crashed) return@withContext PowerState.Crashed
             return@withContext PowerState.Stopped
         }
 
@@ -56,7 +57,7 @@ object PowerManager {
         val crashDir = Path.of(server.installationLocation, "ShooterGame", "Saved", "Crashes")
         if (!Files.exists(crashDir) || !Files.isDirectory(crashDir)) return false
         val now = System.currentTimeMillis()
-        val threshold = now - interval.inWholeMilliseconds
+        val threshold = now - (interval.inWholeMilliseconds * 2)
         return Files.list(crashDir).use { stream ->
             stream.filter { Files.isDirectory(it) }.anyMatch { path ->
                 try {
@@ -71,7 +72,7 @@ object PowerManager {
 
     fun pollPowerState(
         server: Server,
-        interval: Duration = 10.seconds,
+        interval: Duration = 15.seconds,
         oldStateProvider: () -> PowerState = { PowerState.Unknown },
     ): Flow<PowerState> = flow {
         var lastState = oldStateProvider()
@@ -149,6 +150,54 @@ object PowerManager {
             it.connectAndAuthenticate()
             it.execute("DoExit")
         }
+    }
+
+    fun canStartServer(
+        server: Server,
+        powerState: PowerState,
+        installStatus: InstallStatus,
+        isInstalled: Boolean?,
+        apiIsInstalled: Boolean?,
+        isOverseerInstalled: Boolean?,
+        overseerVersion: String?,
+        currentAppVersion: String
+    ): Boolean {
+        if (installStatus.isInstalling()) return false
+        if (powerState != PowerState.Stopped && powerState != PowerState.Crashed) return false
+        if (isInstalled != true) return false
+
+        if (server.asaApi) {
+            if (apiIsInstalled != true) return false
+            if (isOverseerInstalled != true) return false
+
+            val overseerVer = try {
+                io.github.z4kn4fein.semver.Version.parse(overseerVersion ?: "69.69.69")
+            } catch (_: Exception) {
+                return false
+            }
+            val appVer = try {
+                io.github.z4kn4fein.semver.Version.parse(currentAppVersion)
+            } catch (_: Exception) {
+                return false
+            }
+            if (overseerVer != appVer) return false
+        }
+
+        return true
+    }
+
+    fun canStopServer(
+        powerState: PowerState,
+        installStatus: InstallStatus
+    ): Boolean {
+        return !installStatus.isInstalling() && powerState == PowerState.Running
+    }
+
+    fun canKillServer(
+        powerState: PowerState,
+        installStatus: InstallStatus
+    ): Boolean {
+        return !installStatus.isInstalling() && (powerState == PowerState.Running || powerState == PowerState.Starting || powerState == PowerState.Stopping)
     }
 
     fun killServer(server: Server): Result<Unit> {

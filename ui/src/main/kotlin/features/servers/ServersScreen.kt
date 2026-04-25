@@ -16,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.PointerIcon
 import androidx.compose.ui.input.pointer.pointerHoverIcon
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,9 +29,13 @@ import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
+import eu.wynq.arkascendedservermanager.core.managers.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.core.managers.InstallManager
+import eu.wynq.arkascendedservermanager.core.managers.PowerManager
+import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.ui.components.FormPathField
+import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import eu.wynq.arkascendedservermanager.ui.helpers.PreviewWrapper
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
@@ -111,8 +117,27 @@ fun ServersScreen(component: ServersComponent) {
             } else {
                 Column(Modifier.padding(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     servers.value.values.forEach { server ->
+                        val powerState by component.getPowerState(server).collectAsState()
+                        val installStatus by component.getInstallStatus(server).collectAsState()
+
                         ServerCard(
                             server = server,
+                            powerState = powerState,
+                            canStart = PowerManager.canStartServer(
+                                server = server,
+                                powerState = powerState,
+                                installStatus = installStatus,
+                                isInstalled = InstallManager.isInstalled(server),
+                                apiIsInstalled = AsaApiInstallManager.isInstalled(server),
+                                isOverseerInstalled = AsaApiInstallManager.isOverseerInstalled(server),
+                                overseerVersion = AsaApiInstallManager.getOverseerVersionAsString(server),
+                                currentAppVersion = AppBuildInfo.version
+                            ),
+                            canStop = PowerManager.canStopServer(powerState, installStatus),
+                            canKill = PowerManager.canKillServer(powerState, installStatus),
+                            onStart = { component.startServer(server) },
+                            onStop = { component.stopServer(server) },
+                            onKill = { component.killServer(server) },
                             onClick = { component.onServerClicked(server) },
                         )
                     }
@@ -130,7 +155,17 @@ private fun isInstalledPath(path: String?): Boolean {
 }
 
 @Composable
-fun ServerCard(server: Server, onClick: () -> Unit) {
+fun ServerCard(
+    server: Server,
+    powerState: PowerState = PowerState.Unknown,
+    canStart: Boolean = false,
+    canStop: Boolean = false,
+    canKill: Boolean = false,
+    onStart: () -> Unit = {},
+    onStop: () -> Unit = {},
+    onKill: () -> Unit = {},
+    onClick: () -> Unit,
+) {
     val interactionSource = remember { MutableInteractionSource() }
     val isHovered by interactionSource.collectIsHoveredAsState()
     val backgroundColor = if (isHovered) {
@@ -139,6 +174,26 @@ fun ServerCard(server: Server, onClick: () -> Unit) {
         JewelTheme.globalColors.panelBackground
     }
     val goToServerDescription = stringResource(Res.string.server_details_go_to_server)
+
+    val startServerLabel = stringResource(Res.string.action_start_server)
+    val stopServerLabel = stringResource(Res.string.action_stop_server)
+    val killServerLabel = stringResource(Res.string.action_kill_server)
+
+    val powerStateRunning = stringResource(Res.string.server_details_power_state_running)
+    val powerStateStarting = stringResource(Res.string.server_details_power_state_starting)
+    val powerStateStopping = stringResource(Res.string.server_details_power_state_stopping)
+    val powerStateStopped = stringResource(Res.string.server_details_power_state_stopped)
+    val powerStateUnknown = stringResource(Res.string.server_details_power_state_unknown)
+    val powerStateCrashed = stringResource(Res.string.server_details_power_state_crashed)
+
+    val statusBarColor = when (powerState) {
+        PowerState.Running -> Color(0xFF4CAF50)
+        PowerState.Starting -> Color(0xFFFFEB3B)
+        PowerState.Stopping -> Color(0xFFFFC107)
+        PowerState.Stopped -> Color(0xFF607D8B)
+        PowerState.Crashed -> Color(0xFFF44336)
+        PowerState.Unknown -> Color.Gray
+    }
 
     Row(
         Modifier
@@ -154,16 +209,68 @@ fun ServerCard(server: Server, onClick: () -> Unit) {
                 color = backgroundColor,
                 shape = RoundedCornerShape(8.dp),
             )
-            .padding(horizontal = 8.dp, vertical = 8.dp)
+            .clip(RoundedCornerShape(8.dp))
             .height(94.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(server.profileName, style = JewelTheme.typography.h2TextStyle)
-        Spacer(Modifier.weight(1f))
-        Icon(
-            AllIconsKeys.General.ArrowRight,
-            contentDescription = goToServerDescription,
-            modifier = Modifier.size(24.dp),
+        Box(
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(6.dp)
+                .background(statusBarColor)
         )
+
+        Column(
+            Modifier
+                .weight(1f)
+                .fillMaxHeight()
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(server.profileName, style = JewelTheme.typography.h2TextStyle)
+                Icon(
+                    AllIconsKeys.General.ArrowRight,
+                    contentDescription = goToServerDescription,
+                    modifier = Modifier.size(24.dp),
+                )
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = when (powerState) {
+                        PowerState.Running -> powerStateRunning
+                        PowerState.Starting -> powerStateStarting
+                        PowerState.Stopping -> powerStateStopping
+                        PowerState.Stopped -> powerStateStopped
+                        PowerState.Unknown -> powerStateUnknown
+                        PowerState.Crashed -> powerStateCrashed
+                    },
+                    style = JewelTheme.typography.labelTextStyle,
+                    color = JewelTheme.globalColors.text.disabled
+                )
+
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    DefaultButton(onClick = onStart, enabled = canStart) {
+                        Text(startServerLabel)
+                    }
+                    DefaultButton(onClick = onStop, enabled = canStop) {
+                        Text(stopServerLabel)
+                    }
+                    DefaultButton(onClick = onKill, enabled = canKill) {
+                        Text(killServerLabel)
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -176,7 +283,14 @@ private fun ServerCardPreview() {
         gameUserSettings = GameUserSettings.createForNewServer("Profile Name"),
     )
     PreviewWrapper {
-        ServerCard(server = server, onClick = {})
+        ServerCard(
+            server = server,
+            powerState = PowerState.Running,
+            canStart = true,
+            canStop = true,
+            canKill = true,
+            onClick = {}
+        )
     }
 }
 
