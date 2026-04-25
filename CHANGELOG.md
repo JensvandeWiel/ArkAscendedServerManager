@@ -1,3 +1,22 @@
+## v0.2.0
+
+### Feature
+
+- add server locale and extra server options fields to general tab ([0c47061](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/0c47061))
+- Add FormToggleableNullableTextField and improve dynamic config URL field UX ([0e7bed1](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/0e7bed1))
+- Add custom live tuning field ([420be00](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/420be00))
+- Add banlist and custom dynamic config options ([47ab057](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/47ab057))
+
+### Fix
+
+- Typo in changelog generator ([e4ffc7c](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/e4ffc7c))
+
+### Chore
+
+- update changelog script to support 'feature' and 'refactor' types ([e8fa0a0](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/e8fa0a0))
+- update changelog for v0.1.0 ([e6d833e](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/e6d833e))
+
+
 ## v0.1.0
 
 ### Feat
