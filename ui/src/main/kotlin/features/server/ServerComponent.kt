@@ -10,6 +10,7 @@ import db.models.Cluster
 import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Settings
@@ -43,6 +44,7 @@ enum class ServerDetailsTab {
     GENERAL,
     PROFILE,
     MANAGEMENT,
+    ENVIRONMENT,
 }
 
 class ServerComponent(
@@ -150,6 +152,9 @@ class ServerComponent(
 
     fun selectManagementTab() {
         selectTab(ServerDetailsTab.MANAGEMENT)
+    }
+    fun selectEnvironmentTab() {
+        selectTab(ServerDetailsTab.ENVIRONMENT)
     }
     fun selectProfileTab() {
         selectTab(ServerDetailsTab.PROFILE)
@@ -268,6 +273,12 @@ class ServerComponent(
     fun updateServerGameUserSettings(closure: (server: GameUserSettings) -> GameUserSettings) {
         _model.update { state ->
             state.server?.let { state.copy(server = state.server.copy(gameUserSettings = closure(state.server.gameUserSettings))) } ?: state
+        }
+    }
+
+    fun updateServerGame(closure: (game: Game) -> Game) {
+        _model.update { state ->
+            state.server?.let { state.copy(server = state.server.copy(game = closure(state.server.game))) } ?: state
         }
     }
 

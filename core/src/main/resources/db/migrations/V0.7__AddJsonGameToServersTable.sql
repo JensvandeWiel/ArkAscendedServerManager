@@ -1,0 +1,2 @@
+ALTER TABLE "servers"
+    ADD COLUMN "game" JSON NOT NULL DEFAULT '{}' FORMAT JSON;

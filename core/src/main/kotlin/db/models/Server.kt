@@ -5,6 +5,7 @@ package eu.wynq.arkascendedservermanager.core.db.models
 import db.models.Cluster
 import db.models.ClusterEntity
 import db.models.ClustersTable
+import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
@@ -32,6 +33,7 @@ object ServersTable : UuidTable("servers") {
     val asa_api = bool("asa_api").default(false)
     val settings = json<Settings>("settings",format)
     val game_user_settings = json<GameUserSettings>("game_user_settings",format)
+    val game = json<Game>("game", format)
     val cluster = optReference("cluster", ClustersTable)
 }
 
@@ -43,6 +45,7 @@ class ServerEntity(id: EntityID<Uuid>) : UuidEntity(id) {
     var asa_api by ServersTable.asa_api
     var settings by ServersTable.settings
     var game_user_settings by ServersTable.game_user_settings
+    var game by ServersTable.game
     var cluster by ClusterEntity optionalReferencedOn ServersTable.cluster
 }
 
@@ -53,6 +56,7 @@ data class Server(
     val asaApi: Boolean = false,
     val settings: Settings,
     val gameUserSettings: GameUserSettings,
+    val game: Game,
     val cluster: Cluster? = null,
 ) {
     companion object {
@@ -63,6 +67,7 @@ data class Server(
             settings = entity.settings,
             asaApi = entity.asa_api,
             gameUserSettings = entity.game_user_settings,
+            game = entity.game,
             cluster = entity.cluster?.let { Cluster.fromEntity(it, includeServers = false) }
         ) }
 
@@ -72,11 +77,12 @@ data class Server(
             entity.installation_location = server.installationLocation
             entity.asa_api = server.asaApi
             entity.game_user_settings = server.gameUserSettings
+            entity.game = server.game
             entity.cluster = server.cluster?.let { ClusterEntity.findById(it.id) }
         }
     }
 
-    fun validate() = validateProfileName() && settings.validate() && validateInstallationLocation() && gameUserSettings.validate()
+    fun validate() = validateProfileName() && settings.validate() && validateInstallationLocation() && gameUserSettings.validate() && game.validate()
 
     fun validateProfileName() = profileName.isNotBlank()
     fun validateInstallationLocation() = isValidPath(installationLocation)
@@ -100,6 +106,15 @@ data class Server(
         }
     }
 
+    fun getGameFromInstall(): Result<Game?> = runCatching {
+        val path = Path.of(installationLocation, Constants.GAME_PATH)
+        if (path.toFile().exists()) {
+            IniSerializer.deserialize<Game>(path.toFile().readText())
+        } else {
+            null
+        }
+    }
+
     fun getSettingsFromInstall(): Result<Settings?> = runCatching {
         val path = Path.of(installationLocation, Constants.STARTUP_SCRIPT_PATH)
         if (path.toFile().exists()) {
@@ -112,6 +127,15 @@ data class Server(
     fun saveGusToInstall(): Result<Unit> = runCatching {
         val iniContent = IniSerializer.serialize(gameUserSettings)
         val path = Path.of(installationLocation, Constants.GAME_USER_SETTINGS_PATH)
+        if (!path.parent.toFile().exists()) {
+            path.parent.toFile().mkdirs()
+        }
+        path.toFile().writeText(iniContent)
+    }
+
+    fun saveGameToInstall(): Result<Unit> = runCatching {
+        val iniContent = IniSerializer.serialize(game)
+        val path = Path.of(installationLocation, Constants.GAME_PATH)
         if (!path.parent.toFile().exists()) {
             path.parent.toFile().mkdirs()
         }

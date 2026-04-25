@@ -22,6 +22,7 @@ import androidx.compose.ui.window.rememberDialogState
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.managers.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.core.managers.InstallManager
@@ -265,6 +266,7 @@ private fun ServerCardPreview() {
         Uuid.random(), "Profile Name", "Installation Location",
         settings = Settings.createForNewServer(),
         gameUserSettings = GameUserSettings.createForNewServer("Profile Name"),
+        game = Game.createForNewServer(),
     )
     PreviewWrapper {
         ServerCard(

@@ -27,6 +27,7 @@ fun ServerScreen(component: ServerComponent) {
     val generalTabLabel = stringResource(Res.string.server_details_general_tab)
     val profileTabLabel = stringResource(Res.string.server_details_profile_tab)
     val managementTabLabel = stringResource(Res.string.server_details_management_tab)
+    val environmentTabLabel = stringResource(Res.string.server_details_environment_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
     val deleteServerLabel = stringResource(Res.string.action_delete_server)
     val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
@@ -36,7 +37,7 @@ fun ServerScreen(component: ServerComponent) {
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
     val tabs =
-        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel) {
+        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel) {
             listOf(
                 TabData.Default(
                     selected = selectedTab == ServerDetailsTab.INFO,
@@ -68,6 +69,14 @@ fun ServerScreen(component: ServerComponent) {
                         SimpleTabContent(label = managementTabLabel, state = tabState)
                     },
                     onClick = component::selectManagementTab,
+                    closable = false,
+                ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.ENVIRONMENT,
+                    content = { tabState ->
+                        SimpleTabContent(label = environmentTabLabel, state = tabState)
+                    },
+                    onClick = component::selectEnvironmentTab,
                     closable = false,
                 )
             )
@@ -126,6 +135,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.MANAGEMENT -> {
                         ManagementTabContent(component)
+                    }
+
+                    ServerDetailsTab.ENVIRONMENT -> {
+                        EnvironmentTabContent(component)
                     }
                 }
             } else if (error != null) {

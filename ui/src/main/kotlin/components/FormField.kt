@@ -4,6 +4,8 @@ package eu.wynq.arkascendedservermanager.ui.components
 
 import arkascendedservermanager.ui.generated.resources.Res
 import arkascendedservermanager.ui.generated.resources.form_path_select_directory_title
+import kotlin.math.pow
+import kotlin.math.round
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -31,6 +33,11 @@ import org.jetbrains.jewel.ui.component.styling.LocalGroupHeaderStyle
 import org.jetbrains.jewel.ui.component.styling.TextAreaStyle
 import org.jetbrains.jewel.ui.theme.textAreaStyle
 import org.jetbrains.jewel.ui.typography
+
+private fun Float.round(decimals: Int): Float {
+    val factor = 10.0f.pow(decimals)
+    return round(this * factor) / factor
+}
 
 
 enum class LabelPosition {
@@ -657,6 +664,7 @@ fun FormFloatSliderField(
     showManualInput: Boolean = false,
     allowOutsideRange: Boolean = false,
     steps: Int = 0,
+    decimals: Int = 2,
 ) {
     require(!valueRange.isEmpty()) { "valueRange must not be empty" }
 
@@ -681,7 +689,9 @@ fun FormFloatSliderField(
 
     LaunchedEffect(manualValue) {
         val normalizedText = manualValue.toString()
-        if (inputState.text.toString() != normalizedText) {
+        val currentText = inputState.text.toString()
+        val currentParsed = currentText.toFloatOrNull()
+        if (currentParsed != manualValue) {
             inputState.edit {
                 replace(0, length, normalizedText)
             }
@@ -709,11 +719,11 @@ fun FormFloatSliderField(
                 value = sliderValue.floatValue,
                 onValueChange = { next ->
                     isSliderDragging = true
-                    sliderValue.floatValue = next.coerceIn(minValue, maxValue)
+                    val rounded = next.coerceIn(minValue, maxValue).round(decimals)
+                    sliderValue.floatValue = rounded
 
-                    val nextValue = sliderValue.floatValue
-                    if (nextValue != currentValue.value) {
-                        onValueChangeState.value(nextValue)
+                    if (rounded != currentValue.value) {
+                        onValueChangeState.value(rounded)
                     }
                 },
                 onValueChangeFinished = {

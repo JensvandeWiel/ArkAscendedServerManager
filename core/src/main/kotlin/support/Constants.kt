@@ -10,6 +10,8 @@ object Constants {
     const val CONFIG_PATH = "ShooterGame\\Saved\\Config\\WindowsServer"
     const val GAME_USER_SETTINGS_FILE = "GameUserSettings.ini"
     const val GAME_USER_SETTINGS_PATH = "$CONFIG_PATH\\$GAME_USER_SETTINGS_FILE"
+    const val GAME_FILE = "Game.ini"
+    const val GAME_PATH = "$CONFIG_PATH\\$GAME_FILE"
     const val SERVER_VERSION_FILE = "version.txt"
     const val ASA_API_VERSION_FILE = "api_version.txt"
     const val SERVER_VERSION_PATH = "$SERVER_BINARY_PATH\\$SERVER_VERSION_FILE"

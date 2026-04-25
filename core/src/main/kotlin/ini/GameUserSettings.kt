@@ -97,6 +97,26 @@ data class ServerSettings(
     @IniString(true)
     @field:DefaultString("https://cdn2.arkdedicated.com/asa/livetuningoverloads.json")
     val customLiveTuningUrl: String? = null,
+    @IniProperty("TamingSpeedMultiplier")
+    val tamingSpeedMultiplier: Float = 1.0f,
+    @IniProperty("HarvestAmountMultiplier")
+    val harvestAmountMultiplier: Float = 1.0f,
+    @IniProperty("ResourcesRespawnPeriodMultiplier")
+    val resourcesRespawnPeriodMultiplier: Float = 1.0f,
+    @IniProperty("ClampResourceHarvestDamage")
+    val clampResourceHarvestDamage: Boolean = false,
+    @IniProperty("HarvestHealthMultiplier")
+    val harvestHealthMultiplier: Float = 1.0f,
+    @IniProperty("DayCycleSpeedScale")
+    val dayCycleSpeedScale: Float = 1.0f,
+    @IniProperty("DayTimeSpeedScale")
+    val dayTimeSpeedScale: Float = 1.0f,
+    @IniProperty("NightTimeSpeedScale")
+    val nightTimeSpeedScale: Float = 1.0f,
+    @IniProperty("DisableWeatherFog")
+    val disableWeatherFog: Boolean = false,
+    @IniProperty("ClampItemSpoilingTimes")
+    val clampItemSpoilingTimes: Boolean = false,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0

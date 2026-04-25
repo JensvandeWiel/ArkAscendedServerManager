@@ -7,6 +7,7 @@ import db.models.Cluster
 import db.models.ClusterEntity
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.db.models.ServerEntity
+import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.server.Settings
@@ -39,9 +40,11 @@ object ServersRepository {
                     installation_location = "$dataPath\\servers\\${snakeCaseName}"
                     asa_api = false
                     game_user_settings = GameUserSettings.createForNewServer(name)
+                    game = Game.createForNewServer()
                 }
             })
             server.saveGusToInstall().getOrThrow()
+            server.saveGameToInstall().getOrThrow()
             InstallManager.createStartupScript(server).getOrThrow()
             server
         }
@@ -63,10 +66,12 @@ object ServersRepository {
                 installation_location = path
                 asa_api = false
                 game_user_settings = GameUserSettings.createForNewServer(name)
+                game = Game.createForNewServer()
             }
         })
 
         val existingGus = server.getGusFromInstall().getOrThrow()
+        val existingGame = server.getGameFromInstall().getOrThrow()
         val existingSettings = server.getSettingsFromInstall().getOrThrow()
         val existingAsaApi = {
             val serverExecutable = Path.of(path, Constants.STARTUP_SCRIPT_PATH).toFile()
@@ -86,6 +91,12 @@ object ServersRepository {
             server = server.copy(gameUserSettings = existingGus)
         } else {
             server.saveGusToInstall().getOrThrow()
+        }
+
+        if (existingGame != null) {
+            server = server.copy(game = existingGame)
+        } else {
+            server.saveGameToInstall().getOrThrow()
         }
 
         if (existingSettings != null) {
@@ -118,14 +129,22 @@ object ServersRepository {
             ServerEntity.all().with(ServerEntity::cluster).map {
                 val server = Server.fromEntity(it)
                 val installGus = server.getGusFromInstall().getOrThrow()
+                val installGame = server.getGameFromInstall().getOrThrow()
+                var updatedServer = server
                 if (installGus != null) {
-                    val server = server.copy(gameUserSettings = installGus)
-                    saveServer(server).getOrThrow()
-                    server
+                    updatedServer = updatedServer.copy(gameUserSettings = installGus)
                 } else {
                     server.saveGusToInstall().getOrThrow()
-                    server
                 }
+                if (installGame != null) {
+                    updatedServer = updatedServer.copy(game = installGame)
+                } else {
+                    server.saveGameToInstall().getOrThrow()
+                }
+                if (updatedServer != server) {
+                    saveServer(updatedServer).getOrThrow()
+                }
+                updatedServer
             }
         }
     }
@@ -134,6 +153,7 @@ object ServersRepository {
         transaction {
             ServerEntity.findById(server.id)?.let { entity ->
                 server.saveGusToInstall().getOrThrow()
+                server.saveGameToInstall().getOrThrow()
                 Server.applyToEntity(server, entity)
             }
         }
@@ -169,11 +189,13 @@ object ServersRepository {
                         sessionName = newProfileName
                     )
                 )
+                game = server.game
                 cluster = server.cluster?.let { ClusterEntity.findById(it.id) }
             }
         })
 
         newServer.saveGusToInstall().getOrThrow()
+        newServer.saveGameToInstall().getOrThrow()
         InstallManager.createStartupScript(newServer).getOrThrow()
         newServer
     }
