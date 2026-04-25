@@ -42,6 +42,11 @@ class ServersComponent(
 
     fun killServer(server: Server) = powerStore.killServer(server)
 
+    fun cloneServer(server: Server) {
+        serversStore.cloneServer(server)
+        _logger.info { "Cloned server: ${server.profileName} (${server.id})" }
+    }
+
     fun onServerAddClicked() {
         val server = serversStore.createServer()
         if (server != null) {

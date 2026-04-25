@@ -20,6 +20,7 @@ interface ServersStore {
     fun deleteServer(server: Server)
     fun updateServer(server: Server)
     fun importServer(path: String): Result<Server>
+    fun cloneServer(server: Server)
 }
 
 
@@ -90,6 +91,14 @@ class ServersStoreImpl: ServersStore {
             _servers.value = _servers.value + (server.id to server)
         }.onFailure {
             logger.error(it) { "Failed to save server ${server.profileName} (${server.id})" }
+        }
+    }
+
+    override fun cloneServer(server: Server) {
+        ServersRepository.cloneServer(server).onSuccess {
+            _servers.value = _servers.value + (it.id to it)
+        }.onFailure {
+            logger.error(it) { "Failed to clone server ${server.profileName} (${server.id})" }
         }
     }
 }

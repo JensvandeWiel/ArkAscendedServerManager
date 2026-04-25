@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalUuidApi::class)
+@file:OptIn(ExperimentalUuidApi::class, ExperimentalFoundationApi::class)
 
 package eu.wynq.arkascendedservermanager.ui.features.servers
 
@@ -133,6 +133,7 @@ fun ServersScreen(component: ServersComponent) {
                             onStart = { component.startServer(server) },
                             onStop = { component.stopServer(server) },
                             onKill = { component.killServer(server) },
+                            onClone = { component.cloneServer(server) },
                             onClick = { component.onServerClicked(server) },
                         )
                     }
@@ -159,6 +160,7 @@ fun ServerCard(
     onStart: () -> Unit = {},
     onStop: () -> Unit = {},
     onKill: () -> Unit = {},
+    onClone: () -> Unit = {},
     onClick: () -> Unit,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -173,6 +175,7 @@ fun ServerCard(
     val startServerLabel = stringResource(Res.string.action_start_server)
     val stopServerLabel = stringResource(Res.string.action_stop_server)
     val killServerLabel = stringResource(Res.string.action_kill_server)
+    val cloneServerLabel = "Clone server"
 
     val statusBarColor = Color(PowerManager.getPowerStateColor(powerState))
 
@@ -232,7 +235,14 @@ fun ServerCard(
                     color = JewelTheme.globalColors.text.disabled
                 )
 
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+                    IconActionButton(
+                        key = AllIconsKeys.General.Layout,
+                        contentDescription = cloneServerLabel,
+                        onClick = onClone,
+                        focusable = false,
+                        tooltip = { Text(cloneServerLabel) }
+                    )
                     DefaultButton(onClick = onStart, enabled = canStart) {
                         Text(startServerLabel)
                     }

@@ -144,4 +144,37 @@ object ServersRepository {
             ServerEntity.findById(server.id)?.delete()
         }
     }
+
+    fun cloneServer(server: Server): Result<Server> = runCatching {
+        val newProfileName = "${server.profileName} - Clone"
+        val newInstallationLocation = "${server.installationLocation}_clone"
+
+        val oldSettings = server.settings
+        val newSettings = oldSettings.copy(
+            administration = oldSettings.administration.copy(
+                serverPort = oldSettings.administration.serverPort + 1,
+                queryPort = oldSettings.administration.queryPort + 1,
+                rconPort = oldSettings.administration.rconPort + 1
+            )
+        )
+
+        val newServer = Server.fromEntity(transaction {
+            ServerEntity.new {
+                profile_name = newProfileName
+                installation_location = newInstallationLocation
+                asa_api = server.asaApi
+                settings = newSettings
+                game_user_settings = server.gameUserSettings.copy(
+                    sessionSettings = server.gameUserSettings.sessionSettings.copy(
+                        sessionName = newProfileName
+                    )
+                )
+                cluster = server.cluster?.let { ClusterEntity.findById(it.id) }
+            }
+        })
+
+        newServer.saveGusToInstall().getOrThrow()
+        InstallManager.createStartupScript(newServer).getOrThrow()
+        newServer
+    }
 }
