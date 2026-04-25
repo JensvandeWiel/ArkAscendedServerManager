@@ -53,7 +53,7 @@ awk -F '\t' -v repo_url="$REPO_WEB_URL" '
     if (x == "fix") return "Fix"
     if (x == "chore") return "Chore"
     if (x == "docs") return "Docs"
-    if (x == "refactor") return "Refactor")
+    if (x == "refactor") return "Refactor"
     return "None"
   }
 
