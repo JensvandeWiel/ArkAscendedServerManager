@@ -7,13 +7,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsHoveredAsState
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,6 +31,7 @@ import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.ui.components.FormPathField
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import eu.wynq.arkascendedservermanager.ui.helpers.PreviewWrapper
+import eu.wynq.arkascendedservermanager.ui.helpers.getPowerStateLabel
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
 import io.github.kdroidfilter.nucleus.window.jewel.JewelDecoratedDialog
@@ -179,21 +174,7 @@ fun ServerCard(
     val stopServerLabel = stringResource(Res.string.action_stop_server)
     val killServerLabel = stringResource(Res.string.action_kill_server)
 
-    val powerStateRunning = stringResource(Res.string.server_details_power_state_running)
-    val powerStateStarting = stringResource(Res.string.server_details_power_state_starting)
-    val powerStateStopping = stringResource(Res.string.server_details_power_state_stopping)
-    val powerStateStopped = stringResource(Res.string.server_details_power_state_stopped)
-    val powerStateUnknown = stringResource(Res.string.server_details_power_state_unknown)
-    val powerStateCrashed = stringResource(Res.string.server_details_power_state_crashed)
-
-    val statusBarColor = when (powerState) {
-        PowerState.Running -> Color(0xFF4CAF50)
-        PowerState.Starting -> Color(0xFFFFEB3B)
-        PowerState.Stopping -> Color(0xFFFFC107)
-        PowerState.Stopped -> Color(0xFF607D8B)
-        PowerState.Crashed -> Color(0xFFF44336)
-        PowerState.Unknown -> Color.Gray
-    }
+    val statusBarColor = Color(PowerManager.getPowerStateColor(powerState))
 
     Row(
         Modifier
@@ -246,14 +227,7 @@ fun ServerCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = when (powerState) {
-                        PowerState.Running -> powerStateRunning
-                        PowerState.Starting -> powerStateStarting
-                        PowerState.Stopping -> powerStateStopping
-                        PowerState.Stopped -> powerStateStopped
-                        PowerState.Unknown -> powerStateUnknown
-                        PowerState.Crashed -> powerStateCrashed
-                    },
+                    text = getPowerStateLabel(powerState),
                     style = JewelTheme.typography.labelTextStyle,
                     color = JewelTheme.globalColors.text.disabled
                 )
@@ -325,7 +299,7 @@ fun ImportServerDialog(
                 .background(JewelTheme.globalColors.panelBackground),
         ) {
             JewelDialogTitleBar {
-                    Text(importServerTitle)
+                Text(importServerTitle)
             }
             Row(Modifier.fillMaxWidth().padding(8.dp)) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {

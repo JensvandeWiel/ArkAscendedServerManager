@@ -4,19 +4,16 @@ import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.rcon.ArkRconClient
 import eu.wynq.arkascendedservermanager.core.rcon.ArkRconConfig
 import eu.wynq.arkascendedservermanager.core.support.Constants
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import io.github.oshai.kotlinlogging.KotlinLogging
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
+import managers.WebhookManager
 import oshi.ffm.SystemInfo
 import oshi.software.os.OSProcess
-import java.nio.file.Path
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.attribute.BasicFileAttributes
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -31,8 +28,28 @@ enum class PowerState {
 
 @OptIn(kotlin.uuid.ExperimentalUuidApi::class)
 object PowerManager {
+    private val _logger = KotlinLogging.logger {}
+    suspend fun sendWebhook(server: Server, oldState: PowerState, newState: PowerState): Result<Unit> {
+        if (oldState == newState) return Result.success(Unit)
+        return WebhookManager.sendPowerStateChange(server, oldState, newState)
+    }
 
-    suspend fun getPowerState(server: Server, oldState: PowerState = PowerState.Unknown, interval: Duration = 10.seconds): PowerState = withContext(Dispatchers.IO) {
+    fun getPowerStateColor(powerState: PowerState): Long {
+        return when (powerState) {
+            PowerState.Running -> 0xFF4CAF50
+            PowerState.Starting -> 0xFFFFEB3B
+            PowerState.Stopping -> 0xFFFFC107
+            PowerState.Stopped -> 0xFF607D8B
+            PowerState.Crashed -> 0xFFF44336
+            PowerState.Unknown -> 0xFF888888
+        }
+    }
+
+    suspend fun getPowerState(
+        server: Server,
+        oldState: PowerState = PowerState.Unknown,
+        interval: Duration = 10.seconds
+    ): PowerState = withContext(Dispatchers.IO) {
         val process = getProcess(server).getOrElse {
             return@withContext PowerState.Unknown
         }
@@ -53,6 +70,7 @@ object PowerManager {
             if (oldState == PowerState.Stopping) PowerState.Stopping else PowerState.Starting
         }
     }
+
     private fun checkCrash(server: Server, interval: Duration): Boolean {
         val crashDir = Path.of(server.installationLocation, "ShooterGame", "Saved", "Crashes")
         if (!Files.exists(crashDir) || !Files.isDirectory(crashDir)) return false
@@ -76,11 +94,20 @@ object PowerManager {
         oldStateProvider: () -> PowerState = { PowerState.Unknown },
     ): Flow<PowerState> = flow {
         var lastState = oldStateProvider()
-        while (true) {
-            val state = getPowerState(server, lastState, interval)
-            emit(state)
-            lastState = state
-            delay(interval)
+
+        coroutineScope {
+            while (true) {
+                val state = getPowerState(server, lastState, interval)
+                launch(Dispatchers.IO) {
+                    sendWebhook(server, lastState, state).onFailure {
+                        _logger.error(it) { "Failed to send webhook for ${server.profileName} (${server.id}): ${it.message}" }
+                    }
+                }
+
+                emit(state)
+                lastState = state
+                delay(interval)
+            }
         }
     }
 
@@ -135,7 +162,9 @@ object PowerManager {
                 withContext(Dispatchers.IO) {
                     val startupScriptPath = Path.of(server.installationLocation, Constants.STARTUP_SCRIPT_PATH)
                     val processBuilder = ProcessBuilder(startupScriptPath.toString())
-                    processBuilder.directory(Path.of(server.installationLocation, Constants.SERVER_BINARY_PATH).toFile())
+                    processBuilder.directory(
+                        Path.of(server.installationLocation, Constants.SERVER_BINARY_PATH).toFile()
+                    )
                     processBuilder.start()
                 }
             }

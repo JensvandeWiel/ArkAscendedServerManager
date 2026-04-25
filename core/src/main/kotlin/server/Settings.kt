@@ -1,11 +1,12 @@
 package eu.wynq.arkascendedservermanager.core.server
 
-import eu.wynq.arkascendedservermanager.core.server.ArgOption
+import eu.wynq.arkascendedservermanager.core.managers.PowerState
+import eu.wynq.arkascendedservermanager.core.support.isValidUrl
 import kotlinx.serialization.Serializable
 import java.lang.reflect.Field
+import kotlin.random.Random
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.primaryConstructor
-import kotlin.random.Random
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
@@ -32,7 +33,8 @@ data class Settings(
 ) {
     fun validate() = administration.validate() && options.validate()
 
-    fun toStartupScriptArguments(): List<String> = administration.toStartupScriptArguments() + options.getEnabledOptions()
+    fun toStartupScriptArguments(): List<String> =
+        administration.toStartupScriptArguments() + options.getEnabledOptions()
 
     companion object {
         fun createForNewServer(): Settings {
@@ -92,6 +94,10 @@ data class Administration(
     val culture: String? = null,
 
     val restartAfterCrash: Boolean = false,
+
+    val sendServerUpdatesToDiscord: Boolean = false,
+    val sendServerUpdatesWebhookUrl: String? = null,
+    val sendServerUpdatesEvents: Set<PowerState> = emptySet(),
 ) {
     fun validate() = validateServerPassword()
             && validateAdminPassword()
@@ -103,6 +109,7 @@ data class Administration(
             && validateRconPort()
             && validateServerPort()
             && validateCulture()
+            && validateSendServerUpdatesWebhookUrl()
 
     fun validateServerPassword() = serverPassword == null || serverPassword.isNotBlank()
     fun validateAdminPassword() = adminPassword.isNotBlank()
@@ -117,6 +124,8 @@ data class Administration(
     fun validateRconPort() = rconPort in 1..65535
     fun validateServerPort() = serverPort in 1..65535
     fun validateCulture() = culture == null || culture.isNotBlank() && locales.contains(culture)
+    fun validateSendServerUpdatesWebhookUrl() =
+        sendServerUpdatesWebhookUrl == null || sendServerUpdatesWebhookUrl.isNotBlank() && sendServerUpdatesWebhookUrl.isValidUrl()
 
     val locales = listOf(
         "ca", "cs", "da", "de", "en", "es", "eu", "fi", "fr", "hu",
@@ -146,16 +155,21 @@ data class Administration(
                         else -> head.append("?${argOption.name}=$value")
                     }
                 }
+
                 ArgKind.BOOLEAN_QUERY -> {
                     val boolValue = value as? Boolean ?: return@forEach
                     head.append("?${argOption.name}=${if (boolValue) "True" else "False"}")
                 }
+
                 ArgKind.FLAG_VALUE -> {
                     when (value) {
-                        is String -> value.takeIf { it.isNotBlank() }?.let { trailingArguments.add("-${argOption.name}=$it") }
+                        is String -> value.takeIf { it.isNotBlank() }
+                            ?.let { trailingArguments.add("-${argOption.name}=$it") }
+
                         else -> value?.let { trailingArguments.add("-${argOption.name}=$it") }
                     }
                 }
+
                 ArgKind.FLAG -> if (argOption.force || value == true) trailingArguments.add("-${argOption.name}")
                 ArgKind.LIST -> {
                     val list = value as? List<*> ?: emptyList<Any?>()
@@ -178,7 +192,8 @@ data class Administration(
 
     companion object {
         internal fun fromParsedStartupScript(parsed: ParsedStartupScript): Administration {
-            return parseByArgOptions(parsed, customValues = mapOf(
+            return parseByArgOptions(
+                parsed, customValues = mapOf(
                 "rconEnabled" to {
                     parsed.queryValues["RCONEnabled"]?.toBooleanOrNull()
                         ?: if (parsed.queryValues["RCONPort"]?.toIntOrNull() != null) true else Administration().rconEnabled
@@ -277,6 +292,7 @@ private fun parseSegment(
                 flags += value
             }
         }
+
         else -> {
             val pieces = trimmed.split('=', limit = 2)
             if (pieces.size == 2) {
@@ -343,14 +359,17 @@ private fun parseArgOptionValue(
             val raw = parsed.queryValues[argOption.name] ?: return MissingParsedValue
             parseScalarValue(raw, parameter)
         }
+
         ArgKind.BOOLEAN_QUERY -> {
             val raw = parsed.queryValues[argOption.name] ?: return MissingParsedValue
             raw.toBooleanOrNull() ?: MissingParsedValue
         }
+
         ArgKind.FLAG_VALUE -> {
             val raw = parsed.dashValues[argOption.name] ?: return MissingParsedValue
             parseScalarValue(raw, parameter)
         }
+
         ArgKind.FLAG -> argOption.force || parsed.flags.contains(argOption.name)
         ArgKind.LIST -> {
             val raw = parsed.dashValues[argOption.name] ?: return MissingParsedValue
@@ -394,7 +413,7 @@ data class Options(
     @field:ArgOption(name = "ServerUseEventColors", kind = ArgKind.FLAG, order = 18)
     val useEventColors: Boolean = false,
 ) {
-   fun validate() = true
+    fun validate() = true
 
     fun getEnabledOptions(): List<String> {
         return startupArgFields(this)

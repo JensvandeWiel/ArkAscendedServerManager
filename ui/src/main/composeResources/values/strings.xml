@@ -1,3 +1,8 @@
 <resources>
-
+    <string name="server_details_discord_webhook_label">Discord webhook</string>
+    <string name="server_details_discord_webhook_hint">Setups a webhook to send server power state updates to a discord channel.</string>
+    <string name="server_details_webhook_url_label">Webhook URL</string>
+    <string name="server_details_webhook_url_hint">The URL of the webhook to send server updates to.</string>
+    <string name="server_details_send_power_state_update_label">Send "%1$s" updates</string>
+    <string name="server_details_send_power_state_update_hint">Whether to send an update when the server changes to "%1$s" state.</string>
 </resources>

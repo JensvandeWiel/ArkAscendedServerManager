@@ -30,6 +30,7 @@ import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.managers.*
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
+import eu.wynq.arkascendedservermanager.ui.helpers.getPowerStateLabel
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.github.z4kn4fein.semver.Version
 import org.jetbrains.compose.resources.stringResource
@@ -73,12 +74,6 @@ fun InstallationInfo(component: ServerComponent) {
     val powerStateLabel = stringResource(Res.string.server_details_power_state_label)
     val installedStatus = stringResource(Res.string.server_details_installation_status_installed)
     val notInstalledStatus = stringResource(Res.string.server_details_installation_status_not_installed)
-    val powerStateRunning = stringResource(Res.string.server_details_power_state_running)
-    val powerStateStarting = stringResource(Res.string.server_details_power_state_starting)
-    val powerStateStopping = stringResource(Res.string.server_details_power_state_stopping)
-    val powerStateStopped = stringResource(Res.string.server_details_power_state_stopped)
-    val powerStateUnknown = stringResource(Res.string.server_details_power_state_unknown)
-    val powerStateCrashed = stringResource(Res.string.server_details_power_state_crashed)
     val versionLabel = stringResource(Res.string.server_details_version_label)
     val apiVersionLabel = stringResource(Res.string.server_details_api_version_label)
     val overseerVersionLabel = stringResource(Res.string.server_details_overseer_version_label)
@@ -183,14 +178,7 @@ fun InstallationInfo(component: ServerComponent) {
             Text(powerStateLabel)
             Spacer(Modifier.weight(1f))
             Text(
-                when (powerState) {
-                    PowerState.Running -> powerStateRunning
-                    PowerState.Starting -> powerStateStarting
-                    PowerState.Stopping -> powerStateStopping
-                    PowerState.Stopped -> powerStateStopped
-                    PowerState.Unknown -> powerStateUnknown
-                    PowerState.Crashed -> powerStateCrashed
-                }
+                getPowerStateLabel(powerState)
             )
         }
         Row(

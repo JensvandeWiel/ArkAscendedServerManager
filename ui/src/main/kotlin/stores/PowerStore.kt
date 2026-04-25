@@ -104,7 +104,13 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
             val result = action(server)
 
             if (result.isSuccess) {
+                val oldState = state.value
                 state.value = successState
+                appScope.launch {
+                    PowerManager.sendWebhook(server, oldState, successState).onFailure {
+                        logger.error(it) { "Failed to send webhook for ${server.profileName} (${server.id}): ${it.message}" }
+                    }
+                }
                 return@launch
             }
 
