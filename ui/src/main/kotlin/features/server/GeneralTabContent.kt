@@ -26,7 +26,7 @@ import kotlin.uuid.ExperimentalUuidApi
 fun GeneralTabContent(component: ServerComponent) {
     VerticallyScrollableContainer {
         Column(
-            modifier = Modifier.padding(end = scrollbarContentSafePadding()),
+            modifier = Modifier.padding(end = scrollbarContentSafePadding(), bottom = 4.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
             NameAndPasswordsSection(component)

@@ -88,6 +88,8 @@ data class Administration(
     @field:ArgOption(name = "ClusterDirOverride", kind = ArgKind.FLAG_VALUE, order = 10)
     val clusterDirOverride: String? = null,
 
+    @field:ArgOption(name = "culture", kind = ArgKind.FLAG_VALUE, order = 11)
+    val culture: String? = null,
 ) {
     fun validate() = validateServerPassword()
             && validateAdminPassword()
@@ -98,6 +100,7 @@ data class Administration(
             && validatePeerPort()
             && validateRconPort()
             && validateServerPort()
+            && validateCulture()
 
     fun validateServerPassword() = serverPassword == null || serverPassword.isNotBlank()
     fun validateAdminPassword() = adminPassword.isNotBlank()
@@ -111,6 +114,13 @@ data class Administration(
     fun validatePeerPort() = peerPort in 1..65535 && peerPort == serverPort + 1
     fun validateRconPort() = rconPort in 1..65535
     fun validateServerPort() = serverPort in 1..65535
+    fun validateCulture() = culture == null || culture.isNotBlank() && locales.contains(culture)
+
+    val locales = listOf(
+        "ca", "cs", "da", "de", "en", "es", "eu", "fi", "fr", "hu",
+        "it", "ja", "ka", "ko", "nl", "pl", "pt_BR", "ru", "sv", "th",
+        "tr", "zh", "zh-Hans-CN", "zh-TW"
+    )
 
     val peerPort: Int
         get() = serverPort + 1
@@ -369,6 +379,18 @@ data class Options(
     val noTransferFromFiltering: Boolean = true,
     @field:ArgOption(name = "UseDynamicConfig", kind = ArgKind.FLAG, order = 12)
     val useDynamicConfig: Boolean = false,
+    @field:ArgOption(name = "NoBattlEye", kind = ArgKind.FLAG, order = 13)
+    val noBattlEye: Boolean = false,
+    @field:ArgOption(name = "NoDinos", kind = ArgKind.FLAG, order = 14)
+    val noDinos: Boolean = false,
+    @field:ArgOption(name = "DisableCustomCosmetics", kind = ArgKind.FLAG, order = 15)
+    val disableCustomCosmetics: Boolean = false,
+    @field:ArgOption(name = "EasterColors", kind = ArgKind.FLAG, order = 16)
+    val easterColors: Boolean = false,
+    @field:ArgOption(name = "ForceRespawnDinos", kind = ArgKind.FLAG, order = 17)
+    val forceRespawnDinos: Boolean = false,
+    @field:ArgOption(name = "ServerUseEventColors", kind = ArgKind.FLAG, order = 18)
+    val useEventColors: Boolean = false,
 ) {
    fun validate() = true
 

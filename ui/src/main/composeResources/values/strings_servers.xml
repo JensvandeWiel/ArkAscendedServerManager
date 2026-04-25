@@ -147,4 +147,18 @@
     <string name="server_details_cluster_id_hint">Cluster ID is automatically set based on the selected cluster. (This field is used by ark to group servers together)</string>
     <string name="server_details_cluster_dir_override_label">Cluster Directory Override</string>
     <string name="server_details_cluster_dir_override_hint">The location where cluster data like player and item uploads are stored (This field is used by ark to group servers together)</string>
+    <string name="server_details_server_locale_label">Server Locale</string>
+    <string name="server_details_server_locale_hint">Override the server locale. This does not affect the client locale.</string>
+    <string name="server_details_disable_battleye_label">Disable BattlEye</string>
+    <string name="server_details_disable_battleye_hint">Disable BattlEye on the server. This will also disable BattlEye on the client.</string>
+    <string name="server_details_disable_custom_cosmetics_label">Disable Custom Cosmetics</string>
+    <string name="server_details_disable_custom_cosmetics_hint">Disables the Custom Cosmetic system (allowing players to use and display special mods that should only be skins and will be downloaded automatically by the connected clients).</string>
+    <string name="server_details_force_respawn_dinos_label">Force Respawn Dinos (On server launch)</string>
+    <string name="server_details_force_respawn_dinos_hint">Launch with this command to destroy all wild creatures on server start-up. Note: this will only destroy wild creatures that are not currently tamed.</string>
+    <string name="server_details_no_dinos_label">No Dinos</string>
+    <string name="server_details_no_dinos_hint">Prevents wild creatures from being spawned. Enabling this option will make the following options unusable: -NoDinosExceptForcedSpawn, -NoDinosExceptStreamingSpawn, -NoDinosExceptManualSpawn and -NoDinosExceptWaterSpawn.</string>
+    <string name="server_details_easter_colors_label">Easter Colors</string>
+    <string name="server_details_easter_colors_hint">Chance for Easter colors when creatures spawn.</string>
+    <string name="server_details_use_event_colors_label">Use event colors</string>
+    <string name="server_details_use_event_colors_hint">Enables event colors.</string>
 </resources>

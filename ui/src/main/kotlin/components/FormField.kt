@@ -1059,6 +1059,7 @@ fun <T : Any> FormSelectField(
     modifier: Modifier = Modifier,
     hint: String? = null,
     enabled: Boolean = true,
+    error: Boolean = false,
     labelPosition: LabelPosition = LabelPosition.Above,
     allowNone: Boolean = true,
     compareWith: (current: T?, to: T?) -> Boolean = { current, to -> current == to}
@@ -1086,7 +1087,8 @@ fun <T : Any> FormSelectField(
                         },
                         modifier = Modifier.fillMaxWidth(),
                         enabled = enabled,
-                        itemKeys = { _, item -> item }
+                        itemKeys = { _, item -> item },
+                        outline = if (error) Outline.Error else Outline.None,
                     )
                 }
             }
@@ -1103,7 +1105,8 @@ fun <T : Any> FormSelectField(
                         },
                         modifier = Modifier.fillMaxWidth(),
                         enabled = enabled,
-                        itemKeys = { _, item -> item }
+                        itemKeys = { _, item -> item },
+                        outline = if (error) Outline.Error else Outline.None,
                     )
                 }
             }
