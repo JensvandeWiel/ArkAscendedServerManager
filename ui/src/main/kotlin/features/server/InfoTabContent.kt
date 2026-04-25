@@ -78,6 +78,7 @@ fun InstallationInfo(component: ServerComponent) {
     val powerStateStopping = stringResource(Res.string.server_details_power_state_stopping)
     val powerStateStopped = stringResource(Res.string.server_details_power_state_stopped)
     val powerStateUnknown = stringResource(Res.string.server_details_power_state_unknown)
+    val powerStateCrashed = stringResource(Res.string.server_details_power_state_crashed)
     val versionLabel = stringResource(Res.string.server_details_version_label)
     val apiVersionLabel = stringResource(Res.string.server_details_api_version_label)
     val overseerVersionLabel = stringResource(Res.string.server_details_overseer_version_label)
@@ -110,7 +111,7 @@ fun InstallationInfo(component: ServerComponent) {
 
     val canStartServer =
         !status.isInstalling()
-                && (powerState == PowerState.Stopped)
+                && (powerState == PowerState.Stopped || powerState == PowerState.Crashed)
                 && (model.isInstalled == true)
                 && (if (model.initialServer?.asaApi == true) model.apiIsInstalled == true
                 && model.isOverseerInstalled == true else true)
@@ -192,6 +193,7 @@ fun InstallationInfo(component: ServerComponent) {
                     PowerState.Stopping -> powerStateStopping
                     PowerState.Stopped -> powerStateStopped
                     PowerState.Unknown -> powerStateUnknown
+                    PowerState.Crashed -> powerStateCrashed
                 }
             )
         }

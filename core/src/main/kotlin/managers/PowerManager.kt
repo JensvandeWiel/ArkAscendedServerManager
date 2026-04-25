@@ -14,6 +14,9 @@ import kotlinx.coroutines.withContext
 import oshi.ffm.SystemInfo
 import oshi.software.os.OSProcess
 import java.nio.file.Path
+import java.nio.file.Files
+import java.nio.file.attribute.BasicFileAttributes
+import java.util.concurrent.ConcurrentHashMap
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -23,15 +26,23 @@ enum class PowerState {
     Stopped,
     Unknown,
     Stopping,
+    Crashed,
 }
 
+@OptIn(kotlin.uuid.ExperimentalUuidApi::class)
 object PowerManager {
-    suspend fun getPowerState(server: Server, oldState: PowerState = PowerState.Unknown): PowerState = withContext(Dispatchers.IO) {
+
+    suspend fun getPowerState(server: Server, oldState: PowerState = PowerState.Unknown, interval: Duration = 10.seconds): PowerState = withContext(Dispatchers.IO) {
         val process = getProcess(server).getOrElse {
             return@withContext PowerState.Unknown
         }
 
         if (process == null) {
+            if (oldState == PowerState.Running || oldState == PowerState.Starting) {
+                if (checkCrash(server, interval)) {
+                    return@withContext PowerState.Crashed
+                }
+            }
             return@withContext PowerState.Stopped
         }
 
@@ -41,14 +52,33 @@ object PowerManager {
             if (oldState == PowerState.Stopping) PowerState.Stopping else PowerState.Starting
         }
     }
+    private fun checkCrash(server: Server, interval: Duration): Boolean {
+        val crashDir = Path.of(server.installationLocation, "ShooterGame", "Saved", "Crashes")
+        if (!Files.exists(crashDir) || !Files.isDirectory(crashDir)) return false
+        val now = System.currentTimeMillis()
+        val threshold = now - interval.inWholeMilliseconds
+        return Files.list(crashDir).use { stream ->
+            stream.filter { Files.isDirectory(it) }.anyMatch { path ->
+                try {
+                    val attrs = Files.readAttributes(path, BasicFileAttributes::class.java)
+                    attrs.creationTime().toMillis() >= threshold
+                } catch (_: Exception) {
+                    false
+                }
+            }
+        }
+    }
 
     fun pollPowerState(
         server: Server,
         interval: Duration = 10.seconds,
         oldStateProvider: () -> PowerState = { PowerState.Unknown },
     ): Flow<PowerState> = flow {
+        var lastState = oldStateProvider()
         while (true) {
-            emit(getPowerState(server, oldStateProvider()))
+            val state = getPowerState(server, lastState, interval)
+            emit(state)
+            lastState = state
             delay(interval)
         }
     }
