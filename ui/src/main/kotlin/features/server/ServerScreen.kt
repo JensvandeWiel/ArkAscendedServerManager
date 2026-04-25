@@ -26,6 +26,7 @@ fun ServerScreen(component: ServerComponent) {
     val infoTabLabel = stringResource(Res.string.server_details_info_tab)
     val generalTabLabel = stringResource(Res.string.server_details_general_tab)
     val profileTabLabel = stringResource(Res.string.server_details_profile_tab)
+    val managementTabLabel = stringResource(Res.string.server_details_management_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
     val deleteServerLabel = stringResource(Res.string.action_delete_server)
     val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
@@ -35,7 +36,7 @@ fun ServerScreen(component: ServerComponent) {
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
     val tabs =
-        remember(selectedTab, infoTabLabel, generalTabLabel) {
+        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel) {
             listOf(
                 TabData.Default(
                     selected = selectedTab == ServerDetailsTab.INFO,
@@ -61,6 +62,14 @@ fun ServerScreen(component: ServerComponent) {
                     onClick = component::selectGeneralTab,
                     closable = false,
                 ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.MANAGEMENT,
+                    content = { tabState ->
+                        SimpleTabContent(label = managementTabLabel, state = tabState)
+                    },
+                    onClick = component::selectManagementTab,
+                    closable = false,
+                )
             )
         }
 
@@ -113,6 +122,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.PROFILE -> {
                         ProfileTabContent(component)
+                    }
+
+                    ServerDetailsTab.MANAGEMENT -> {
+                        ManagementTabContent(component)
                     }
                 }
             } else if (error != null) {

@@ -90,6 +90,8 @@ data class Administration(
 
     @field:ArgOption(name = "culture", kind = ArgKind.FLAG_VALUE, order = 11)
     val culture: String? = null,
+
+    val restartAfterCrash: Boolean = false,
 ) {
     fun validate() = validateServerPassword()
             && validateAdminPassword()

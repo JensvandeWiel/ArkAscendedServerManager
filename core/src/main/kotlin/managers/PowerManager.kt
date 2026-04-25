@@ -57,7 +57,7 @@ object PowerManager {
         val crashDir = Path.of(server.installationLocation, "ShooterGame", "Saved", "Crashes")
         if (!Files.exists(crashDir) || !Files.isDirectory(crashDir)) return false
         val now = System.currentTimeMillis()
-        val threshold = now - (interval.inWholeMilliseconds * 2)
+        val threshold = now - interval.inWholeMilliseconds
         return Files.list(crashDir).use { stream ->
             stream.filter { Files.isDirectory(it) }.anyMatch { path ->
                 try {

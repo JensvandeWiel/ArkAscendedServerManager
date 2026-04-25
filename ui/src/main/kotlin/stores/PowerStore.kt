@@ -67,7 +67,15 @@ class PowerStoreImpl(private val appScope: CoroutineScope) : PowerStore {
         pollingJobs[server.id] = appScope.launch {
             try {
                 PowerManager.pollPowerState(server, oldStateProvider = { state.value }).collect { polledState ->
-                    state.value = mergePolledState(state.value, polledState)
+                    val oldState = state.value
+                    val newState = mergePolledState(oldState, polledState)
+                    state.value = newState
+
+                    if (newState == PowerState.Crashed && server.settings.administration.restartAfterCrash) {
+                        logger.info { "Server ${server.profileName} crashed, restarting in 5 seconds..." }
+                        kotlinx.coroutines.delay(5000)
+                        startServer(server)
+                    }
                 }
             } catch (t: Throwable) {
                 logger.error(t) { "Power polling failed for ${server.profileName} (${server.id})" }

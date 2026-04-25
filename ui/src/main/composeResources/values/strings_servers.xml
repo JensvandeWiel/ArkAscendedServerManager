@@ -162,4 +162,8 @@
     <string name="server_details_easter_colors_hint">Chance for Easter colors when creatures spawn.</string>
     <string name="server_details_use_event_colors_label">Use event colors</string>
     <string name="server_details_use_event_colors_hint">Enables event colors.</string>
+    <string name="server_details_management_tab">Management</string>
+    <string name="server_details_automatic_management_group">Automatic management</string>
+    <string name="server_details_restart_after_crash_label">Restart after crash</string>
+    <string name="server_details_restart_after_crash_hint">Automatically restart the server if it crashes, this is done within 5 seconds of the server crashing.</string>
 </resources>

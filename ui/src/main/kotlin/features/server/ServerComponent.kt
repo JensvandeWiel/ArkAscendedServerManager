@@ -41,7 +41,8 @@ import kotlin.uuid.Uuid
 enum class ServerDetailsTab {
     INFO,
     GENERAL,
-    PROFILE
+    PROFILE,
+    MANAGEMENT,
 }
 
 class ServerComponent(
@@ -145,6 +146,10 @@ class ServerComponent(
 
     fun selectGeneralTab() {
         selectTab(ServerDetailsTab.GENERAL)
+    }
+
+    fun selectManagementTab() {
+        selectTab(ServerDetailsTab.MANAGEMENT)
     }
     fun selectProfileTab() {
         selectTab(ServerDetailsTab.PROFILE)
