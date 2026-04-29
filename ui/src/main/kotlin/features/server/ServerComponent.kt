@@ -176,6 +176,12 @@ class ServerComponent(
             _model.update { state -> state.copy(initialServer = currentServer) }
             refreshInstallationInfo(currentServer)
             bindPowerState(currentServer)
+            if (currentServer.asaApi) {
+                startLogWatching(currentServer)
+            } else {
+                logJob?.cancel()
+                _logs.value = emptyList()
+            }
         }
     }
 
