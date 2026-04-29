@@ -10,6 +10,7 @@ import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.isValidPath
+import io.ktor.http.quote
 import kotlinx.serialization.json.Json
 import org.jetbrains.exposed.v1.core.dao.id.EntityID
 import org.jetbrains.exposed.v1.core.dao.id.UuidTable
@@ -91,7 +92,9 @@ data class Server(
         val executableName = if (asaApi) Constants.OVERSEER_EXECUTABLE_NAME else Constants.SERVER_EXECUTABLE_NAME
         val sb = StringBuilder()
         sb.append("start ")
-        sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString())
+        sb.append("$profileName (Managed by Ark Ascended Server Manager)".quote())
+        sb.append(" ")
+        sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString().quote())
         sb.append(" ")
         sb.append(settings.toStartupScriptArguments().joinToString(" "))
         return sb.toString()
