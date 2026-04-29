@@ -1,3 +1,15 @@
+## v0.3.1
+
+### Fix
+
+- Log watcher not updating when server installation location changes ([73ce71b](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/73ce71b))
+- Server not starting with spaces in installation location ([f3ba62f](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/f3ba62f))
+
+### Chore
+
+- update changelog for v0.3.0 ([2f37fc9](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/2f37fc9))
+
+
 ## v0.3.0
 
 ### Feature
