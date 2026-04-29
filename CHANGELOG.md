@@ -1,3 +1,18 @@
+## v0.3.0
+
+### Feature
+
+- add environment tab with advanced server environment and XP multipliers ([6dd8f98](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/6dd8f98))
+- add server cloning functionality with UI integration ([45d4d9a](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/45d4d9a))
+- add Discord webhook integration for server power state updates ([ed53e4c](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ed53e4c))
+- add automatic server restart after crash with management tab UI ([2eac5dd](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/2eac5dd))
+- add server power controls and status indicators to server list ([a74b9d9](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/a74b9d9))
+
+### Chore
+
+- update changelog for v0.2.0 ([98830e9](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/98830e9))
+
+
 ## v0.2.0
 
 ### Feature
