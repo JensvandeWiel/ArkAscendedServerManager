@@ -1,3 +1,14 @@
+## v0.3.2
+
+### Fix
+
+- Installer installing in dir before space instead of the full correct dir ([bbbc980](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/bbbc980))
+
+### Chore
+
+- update changelog for v0.3.1 ([3762eea](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/3762eea))
+
+
 ## v0.3.1
 
 ### Fix
