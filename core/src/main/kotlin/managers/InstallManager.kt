@@ -13,15 +13,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import support.getExeVersion
 import java.nio.charset.StandardCharsets
+import java.nio.file.AtomicMoveNotSupportedException
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.AtomicMoveNotSupportedException
 import java.nio.file.StandardCopyOption
 import java.security.MessageDigest
 
 sealed class InstallStatus {
     fun isInstalling() = !(this is Idle || this is InstallDone || this is InstallError)
 }
+
 class Idle : InstallStatus()
 class Preparing : InstallStatus()
 class InstallingAPI : InstallStatus()
@@ -43,7 +44,12 @@ object InstallManager {
         return installationPath.toFile().exists()
     }
 
-    fun install(server: Server, steamCMD: SteamCMD, currentAppVersion: String, validate: Boolean = true): Flow<InstallStatus> = flow {
+    fun install(
+        server: Server,
+        steamCMD: SteamCMD,
+        currentAppVersion: String,
+        validate: Boolean = true
+    ): Flow<InstallStatus> = flow {
         var failed = false
 
         installServer(server, steamCMD, validate).collect { status ->
@@ -209,7 +215,7 @@ object InstallManager {
     private fun installServer(server: Server, steamCMD: SteamCMD, validate: Boolean = true): Flow<Status> =
         steamCMD.runAsFlow(
             listOf(
-                "force_install_dir ${server.installationLocation}",
+                "force_install_dir \\\"${server.installationLocation.replace("\\", "/")}\\\"",
                 "login anonymous",
                 "app_update ${Constants.ARK_APP_ID}${if (validate) " validate" else ""}",
                 "quit"
