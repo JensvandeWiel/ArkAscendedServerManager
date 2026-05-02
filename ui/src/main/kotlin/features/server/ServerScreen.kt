@@ -78,7 +78,15 @@ fun ServerScreen(component: ServerComponent) {
                     },
                     onClick = component::selectEnvironmentTab,
                     closable = false,
-                )
+                ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.RULES,
+                    content = { tabState ->
+                        SimpleTabContent(label = "Rules", state = tabState)
+                    },
+                    onClick = component::selectRulesTab,
+                    closable = false,
+                ),
             )
         }
 
@@ -139,6 +147,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.ENVIRONMENT -> {
                         EnvironmentTabContent(component)
+                    }
+
+                    ServerDetailsTab.RULES -> {
+                        RulesTabContent(component)
                     }
                 }
             } else if (error != null) {

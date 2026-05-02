@@ -7,35 +7,26 @@ import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import com.arkivanov.decompose.value.update
 import db.models.Cluster
-import eu.wynq.arkascendedservermanager.core.managers.InstallManager
-import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
-import eu.wynq.arkascendedservermanager.core.server.Administration
-import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.managers.AsaApiInstallManager
+import eu.wynq.arkascendedservermanager.core.managers.InstallManager
+import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
+import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Options
+import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.watchFileContent
-import eu.wynq.arkascendedservermanager.ui.stores.ClustersStore
-import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
-import eu.wynq.arkascendedservermanager.ui.stores.PowerStore
-import eu.wynq.arkascendedservermanager.ui.stores.ServersStore
-import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
+import eu.wynq.arkascendedservermanager.ui.stores.*
 import io.github.oshai.kotlinlogging.KotlinLogging
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import java.nio.file.Path
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -45,6 +36,7 @@ enum class ServerDetailsTab {
     PROFILE,
     MANAGEMENT,
     ENVIRONMENT,
+    RULES,
 }
 
 class ServerComponent(
@@ -153,9 +145,15 @@ class ServerComponent(
     fun selectManagementTab() {
         selectTab(ServerDetailsTab.MANAGEMENT)
     }
+
     fun selectEnvironmentTab() {
         selectTab(ServerDetailsTab.ENVIRONMENT)
     }
+
+    fun selectRulesTab() {
+        selectTab(ServerDetailsTab.RULES)
+    }
+
     fun selectProfileTab() {
         selectTab(ServerDetailsTab.PROFILE)
     }
@@ -260,25 +258,45 @@ class ServerComponent(
 
     fun updateServerSettings(closure: (server: Settings) -> Settings) {
         _model.update { state ->
-            state.server?.let { state.copy(server = state.server.copy(settings = closure(state.server.settings))) } ?: state
+            state.server?.let { state.copy(server = state.server.copy(settings = closure(state.server.settings))) }
+                ?: state
         }
     }
 
     fun updateServerAdministrationSettings(closure: (administration: Administration) -> Administration) {
         _model.update { state ->
-            state.server?.let { state.copy(server = state.server.copy(settings = state.server.settings.copy(administration = closure(state.server.settings.administration)))) } ?: state
+            state.server?.let {
+                state.copy(
+                    server = state.server.copy(
+                        settings = state.server.settings.copy(
+                            administration = closure(state.server.settings.administration)
+                        )
+                    )
+                )
+            } ?: state
         }
     }
 
     fun updateServerOptions(closure: (options: Options) -> Options) {
         _model.update { state ->
-            state.server?.let { state.copy(server = state.server.copy(settings = state.server.settings.copy(options = closure(state.server.settings.options)))) } ?: state
+            state.server?.let {
+                state.copy(
+                    server = state.server.copy(
+                        settings = state.server.settings.copy(
+                            options = closure(
+                                state.server.settings.options
+                            )
+                        )
+                    )
+                )
+            } ?: state
         }
     }
 
     fun updateServerGameUserSettings(closure: (server: GameUserSettings) -> GameUserSettings) {
         _model.update { state ->
-            state.server?.let { state.copy(server = state.server.copy(gameUserSettings = closure(state.server.gameUserSettings))) } ?: state
+            state.server?.let { state.copy(server = state.server.copy(gameUserSettings = closure(state.server.gameUserSettings))) }
+                ?: state
         }
     }
 

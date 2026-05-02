@@ -117,6 +117,22 @@ data class ServerSettings(
     val disableWeatherFog: Boolean = false,
     @IniProperty("ClampItemSpoilingTimes")
     val clampItemSpoilingTimes: Boolean = false,
+    @IniProperty("ServerHardcore")
+    val serverHardcore: Boolean = false,
+    @IniProperty("EnableExtraStructurePreventionVolumes")
+    val enableExtraStructurePreventionVolumes: Boolean = false,
+    @IniProperty("serverPVE")
+    val serverPVE: Boolean = false,
+    @IniProperty("AllowCaveBuildingPvE")
+    val allowCaveBuildingPvE: Boolean = false,
+    @IniProperty("AllowCaveBuildingPvP")
+    val allowCaveBuildingPvP: Boolean = false,
+    @IniProperty("AllowCrateSpawnsOnTopOfStructures")
+    val allowCrateSpawnsOnTopOfStructures: Boolean = false,
+    @IniProperty("EnableCryoSicknessPVE")
+    val enableCryoSicknessPVE: Boolean = false,
+    @IniProperty("RandomSupplyCratePoints")
+    val randomSupplyCratePoints: Boolean = false,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0

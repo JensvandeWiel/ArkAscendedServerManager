@@ -45,6 +45,16 @@ data class ShooterGameMode(
     val poopIntervalMultiplier: Float = 1.0f,
     @IniProperty("HairGrowthSpeedMultiplier")
     val hairGrowthSpeedMultiplier: Float = 1.0f,
+    @IniProperty("bDisableFriendlyFire")
+    val disableFriendlyFire: Boolean = false,
+    @IniProperty("bPvEDisableFriendlyFire")
+    val pvEDisableFriendlyFire: Boolean = false,
+    @IniProperty("bDisableLootCrates")
+    val disableLootCrates: Boolean = false,
+    @IniProperty("bUseSingleplayerSettings")
+    val useSingleplayerSettings: Boolean = false,
+    @IniProperty("bShowCreativeMode")
+    val showCreativeMode: Boolean = false,
 ) {
     fun validate() = true
 }
