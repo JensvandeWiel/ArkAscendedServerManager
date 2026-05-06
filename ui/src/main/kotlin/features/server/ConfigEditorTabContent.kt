@@ -18,6 +18,7 @@ import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextarea
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
+import org.jetbrains.jewel.ui.Outline
 import serialization.IniSerializer
 import kotlin.uuid.ExperimentalUuidApi
 
@@ -42,7 +43,8 @@ fun ConfigEditorTabContent(component: ServerComponent) {
                         onValueChange = { editedGameIni.value = it },
                         label = stringResource(Res.string.config_editor_game_ini_label),
                         modifier = Modifier.fillMaxWidth().weight(1f),
-                        hint = stringResource(Res.string.config_editor_game_ini_label)
+                        hint = stringResource(Res.string.config_editor_game_ini_label),
+                        outline = if (editedGameIni.value == IniSerializer.serialize(game)) null else Outline.Warning
                     )
                 }
 
@@ -53,7 +55,8 @@ fun ConfigEditorTabContent(component: ServerComponent) {
                         onValueChange = { editedGameUserSettingsIni.value = it },
                         label = stringResource(Res.string.config_editor_game_user_settings_ini_label),
                         modifier = Modifier.fillMaxWidth().weight(1f),
-                        hint = stringResource(Res.string.config_editor_game_user_settings_ini_label)
+                        hint = stringResource(Res.string.config_editor_game_user_settings_ini_label),
+                        outline = if (editedGameUserSettingsIni.value == IniSerializer.serialize(gameUserSettings)) null else Outline.Warning
                     )
                 }
             }

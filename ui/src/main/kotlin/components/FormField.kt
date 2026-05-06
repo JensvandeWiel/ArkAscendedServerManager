@@ -799,6 +799,7 @@ fun FormTextarea(
     onKeyboardAction: KeyboardActionHandler? = null,
     placeholder: @Composable (() -> Unit)? = null,
     style: TextAreaStyle = JewelTheme.textAreaStyle,
+    outline: Outline? = null,
 ) {
     val state = remember { TextFieldState(value) }
     val currentValue = rememberUpdatedState(value)
@@ -836,6 +837,7 @@ fun FormTextarea(
         onKeyboardAction = onKeyboardAction,
         placeholder = placeholder,
         style = style,
+        outline = outline,
     )
 }
 
@@ -856,6 +858,7 @@ fun FormTextarea(
     placeholder: @Composable (() -> Unit)? = null,
     style: TextAreaStyle = JewelTheme.textAreaStyle,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    outline: Outline? = null,
 ) {
     val fullContent = @Composable {
         when (labelPosition) {
@@ -877,7 +880,7 @@ fun FormTextarea(
                         onKeyboardAction = onKeyboardAction,
                         interactionSource = interactionSource,
                         style = style,
-                        outline = if (error) Outline.Error else Outline.None,
+                        outline = if (outline !== null) outline else if (error) Outline.Error else Outline.None,
                         placeholder = placeholder,
                     )
                 }
@@ -897,7 +900,7 @@ fun FormTextarea(
                         onKeyboardAction = onKeyboardAction,
                         interactionSource = interactionSource,
                         style = style,
-                        outline = if (error) Outline.Error else Outline.None,
+                        outline = if (outline !== null) outline else if (error) Outline.Error else Outline.None,
                         placeholder = placeholder,
                     )
                 }
