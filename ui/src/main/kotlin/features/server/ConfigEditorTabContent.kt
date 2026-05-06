@@ -74,7 +74,7 @@ fun ConfigEditorTabContent(component: ServerComponent) {
                     component.updateServerGameUserSettings { gameUserSettingsResult.getOrThrow() }
                     ToastBannerManager.show(ToastBannerType.SUCCESS, "Configs applied successfully")
                 } else {
-                    ToastBannerManager.show(ToastBannerType.ERROR, "Invalid configs: ${errors.joinToString("; ")}")
+                    ToastBannerManager.show(ToastBannerType.ERROR, "Invalid configs: ${errors.joinToString("; ")}", timeoutMillis = null)
                 }
             }) {
                 Text(stringResource(Res.string.config_editor_apply_changes))
