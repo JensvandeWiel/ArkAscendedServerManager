@@ -75,7 +75,7 @@ fun ConfigEditorTabContent(component: ServerComponent) {
                 if (errors.isEmpty()) {
                     component.updateServerGame { gameResult.getOrThrow() }
                     component.updateServerGameUserSettings { gameUserSettingsResult.getOrThrow() }
-                    ToastBannerManager.show(ToastBannerType.SUCCESS, "Configs applied successfully")
+                    ToastBannerManager.show(ToastBannerType.SUCCESS, "Configs applied successfully, make sure to save the profile as well, otherwise they won't be applied")
                 } else {
                     ToastBannerManager.show(ToastBannerType.ERROR, "Invalid configs: ${errors.joinToString("; ")}", timeoutMillis = null)
                 }
