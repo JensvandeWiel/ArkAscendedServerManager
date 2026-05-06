@@ -38,6 +38,7 @@ enum class ServerDetailsTab {
     MANAGEMENT,
     ENVIRONMENT,
     RULES,
+    CONFIG_EDITOR,
 }
 
 class ServerComponent(
@@ -145,6 +146,10 @@ class ServerComponent(
 
     fun selectManagementTab() {
         selectTab(ServerDetailsTab.MANAGEMENT)
+    }
+
+    fun selectConfigEditorTab() {
+        selectTab(ServerDetailsTab.CONFIG_EDITOR)
     }
 
     fun selectEnvironmentTab() {

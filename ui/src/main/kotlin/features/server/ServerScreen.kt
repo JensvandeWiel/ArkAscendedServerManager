@@ -91,6 +91,14 @@ fun ServerScreen(component: ServerComponent) {
                     onClick = component::selectRulesTab,
                     closable = false,
                 ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.CONFIG_EDITOR,
+                    content = { tabState ->
+                        SimpleTabContent(label = "Config Editor", state = tabState)
+                    },
+                    onClick = component::selectConfigEditorTab,
+                    closable = false,
+                ),
             )
         }
 
@@ -166,6 +174,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.RULES -> {
                         RulesTabContent(component)
+                    }
+
+                    ServerDetailsTab.CONFIG_EDITOR -> {
+                        ConfigEditorTabContent(component)
                     }
                 }
             } else if (error != null) {

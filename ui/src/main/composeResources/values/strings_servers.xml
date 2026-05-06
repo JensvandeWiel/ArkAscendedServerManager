@@ -249,4 +249,12 @@
     <string name="server_details_rules_randomize_supply_crate_points_hint">If enabled, supply drops are in random locations. Note: This setting is known to cause artifacts becoming inaccessible on Ragnarok if active.</string>
     <string name="server_details_rules_allow_crate_spawns_on_structures_label">Allow Crate Spawns on Top of Structures</string>
     <string name="server_details_rules_allow_crate_spawns_on_structures_hint">If enabled, allows from-the-air Supply Crates to appear on top of Structures, rather than being prevented by Structures</string>
+    <string name="server_details_config_editor_tab">Config Editor</string>
+    <string name="config_editor_warning_text">Editing these configs can break your server if not done correctly. Make sure you know what you're doing and have a backup of your configs before applying changes. Use this feature at your own risk.</string>
+    <string name="config_editor_warning_custom_fields">You can also use this feature to add non-managed/custom fields and sections to your configs.</string>
+    <string name="config_editor_game_ini_label">Game.ini</string>
+    <string name="config_editor_game_user_settings_ini_label">GameUserSettings.ini</string>
+    <string name="config_editor_apply_changes">Apply Changes</string>
+    <string name="config_editor_configs_applied_successfully">Configs applied successfully</string>
+    <string name="config_editor_invalid_configs">Invalid configs: %1$s</string>
 </resources>
