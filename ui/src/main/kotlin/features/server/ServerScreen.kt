@@ -1,11 +1,14 @@
-@file:OptIn(ExperimentalUuidApi::class)
+@file:OptIn(ExperimentalUuidApi::class, ExperimentalFoundationApi::class)
 
 package eu.wynq.arkascendedservermanager.ui.features.server
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.TooltipPlacement
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
@@ -13,6 +16,7 @@ import eu.wynq.arkascendedservermanager.ui.components.*
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
+import org.jetbrains.jewel.ui.icons.AllIconsKeys
 import org.jetbrains.jewel.ui.theme.defaultTabStyle
 import org.jetbrains.jewel.ui.typography
 import kotlin.uuid.ExperimentalUuidApi
@@ -109,6 +113,17 @@ fun ServerScreen(component: ServerComponent) {
             Text(title, style = JewelTheme.typography.h2TextStyle)
             Text(titleSeparator, style = JewelTheme.typography.h2TextStyle)
             Text(model.initialServer?.profileName ?: "", style = JewelTheme.typography.h2TextStyle)
+            IconActionButton(
+                AllIconsKeys.Ide.External_link_arrow,
+                null,
+                onClick = component::openServerDir,
+                focusable = false,
+                tooltip = { Text("Open server directory") },
+                tooltipPlacement = TooltipPlacement.ComponentRect(
+                    Alignment.CenterEnd,
+                    Alignment.CenterEnd,
+                    offset = DpOffset((6).dp, 0.dp)
+                ))
             Spacer(Modifier.weight(1f))
             DefaultButton(onClick = component::saveServer, enabled = model.canSave()) {
                 Text(saveServerLabel)

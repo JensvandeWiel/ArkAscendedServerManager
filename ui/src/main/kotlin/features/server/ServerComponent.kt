@@ -27,6 +27,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import java.awt.Desktop
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -248,6 +249,10 @@ class ServerComponent(
                 logger.error(t) { "Failed to refresh installation info for ${server.profileName} (${server.id})" }
             }
         }
+    }
+
+    fun openServerDir(): Result<Unit> = runCatching {
+        Desktop.getDesktop().open(java.io.File(model.value.server?.installationLocation ?: return Result.failure(IllegalStateException("Server not loaded"))))
     }
 
     fun updateServer(closure: (server: Server) -> Server) {
