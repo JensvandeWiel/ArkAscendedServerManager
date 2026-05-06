@@ -48,6 +48,7 @@ object WebhookManager {
 
     suspend fun sendPowerStateChange(server: Server, oldState: PowerState, newState: PowerState): Result<Unit> {
         if (oldState == newState || oldState == PowerState.Unknown) return Result.success(Unit)
+        if (!server.settings.administration.sendServerUpdatesToDiscord) return Result.success(Unit)
         if (!server.settings.administration.sendServerUpdatesEvents.contains(newState)) return Result.success(Unit)
         if (server.settings.administration.sendServerUpdatesWebhookUrl.isNullOrBlank()) return Result.success(Unit)
 
