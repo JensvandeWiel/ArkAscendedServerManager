@@ -18,4 +18,6 @@
     <string name="action_skip_for_now">Skip for now</string>
     <string name="action_update_now">Update now</string>
     <string name="action_clone_server">Clone server</string>
+    <string name="action_validate_server">Validate</string>
+    <string name="action_refresh_info">Refresh info</string>
 </resources>

@@ -164,6 +164,25 @@ class ServerComponent(
         selectTab(ServerDetailsTab.PROFILE)
     }
 
+    suspend fun checkUpdateAvailable() {
+        val res = InstallManager.canUpdate(_model.value.server ?: return)
+        if (res.isFailure) {
+            logger.error(res.exceptionOrNull()) { "Failed to check for update for ${_model.value.server?.profileName} (${_model.value.server?.id})" }
+            return
+        }
+        try {
+            _model.update { state ->
+                if (state.server == null) {
+                    state
+                } else {
+                    state.copy(hasUpdateAvailable = if (res.getOrNull() == true) UpdateStatus.Available else UpdateStatus.UpToDate)
+                }
+            }
+        } catch (t: Throwable) {
+            logger.error(t) { "Failed to update model with update check result for ${_model.value.server?.profileName} (${_model.value.server?.id})" }
+        }
+    }
+
     fun saveServer() {
         _model.value.server?.let { currentServer ->
             serversStore.updateServer(currentServer)
@@ -203,6 +222,11 @@ class ServerComponent(
 
     fun refreshInstallationInfo() {
         _model.value.initialServer?.let { refreshInstallationInfo(it) }
+    }
+
+    fun refreshInfo() = appScope.launch {
+        refreshInstallationInfo()
+        checkUpdateAvailable()
     }
 
     private fun refreshInstallationInfo(server: Server) {

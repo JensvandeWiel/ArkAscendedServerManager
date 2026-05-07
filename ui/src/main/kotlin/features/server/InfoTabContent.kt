@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package eu.wynq.arkascendedservermanager.ui.features.server
 
 import Committing
@@ -7,6 +9,8 @@ import Reconfiguring
 import SteamCMDInstalling
 import SteamCMDUpdating
 import Validating
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.TooltipPlacement
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
@@ -25,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
@@ -36,6 +41,7 @@ import io.github.z4kn4fein.semver.Version
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
+import org.jetbrains.jewel.ui.icons.AllIconsKeys
 import org.jetbrains.jewel.ui.typography
 
 @Composable
@@ -98,6 +104,12 @@ fun InstallationInfo(component: ServerComponent) {
     val stopServerLabel = stringResource(Res.string.action_stop_server)
     val killServerLabel = stringResource(Res.string.action_kill_server)
 
+    val updateStatusLabel = stringResource(Res.string.server_details_update_status_label)
+    val updateStatusAvailable = stringResource(Res.string.server_details_update_status_available)
+    val updateStatusUpToDate = stringResource(Res.string.server_details_update_status_up_to_date)
+    val validateLabel = stringResource(Res.string.action_validate_server)
+    val refreshInfoLabel = stringResource(Res.string.action_refresh_info)
+
     val canStartServer = PowerManager.canStartServer(
         server = model.server ?: model.initialServer!!,
         powerState = powerState,
@@ -110,6 +122,10 @@ fun InstallationInfo(component: ServerComponent) {
     )
     val canStopServer = PowerManager.canStopServer(powerState, status)
     val canKillServer = PowerManager.canKillServer(powerState, status)
+
+    LaunchedEffect(model.server) {
+        component.checkUpdateAvailable()
+    }
 
     Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
         GroupHeader(installationInfoGroup)
@@ -141,6 +157,21 @@ fun InstallationInfo(component: ServerComponent) {
             Text(
                 when (model.isInstalled) {
                     true -> (if (model.version != null) versionValueFormat.format(model.version) else versionPlaceholder)
+                    false -> notInstalledStatus
+                    null -> unknownStatus
+                }
+            )
+        }
+        Row {
+            Text(updateStatusLabel)
+            Spacer(Modifier.weight(1f))
+            Text(
+                when (model.isInstalled) {
+                    true -> when (model.hasUpdateAvailable) {
+                        UpdateStatus.Unknown -> unknownStatus
+                        UpdateStatus.Available -> updateStatusAvailable
+                        UpdateStatus.UpToDate -> updateStatusUpToDate
+                    }
                     false -> notInstalledStatus
                     null -> unknownStatus
                 }
@@ -294,10 +325,22 @@ fun InstallationInfo(component: ServerComponent) {
             LaunchedEffect(status) {
                 if (status is InstallDone) {
                     component.refreshInstallationInfo()
+                    component.checkUpdateAvailable()
                 }
             }
+            IconActionButton(
+                AllIconsKeys.General.Refresh,
+                onClick = component::refreshInfo,
+                focusable = false,
+                tooltipPlacement = TooltipPlacement.ComponentRect(
+                    Alignment.CenterStart,
+                    Alignment.CenterStart, offset = DpOffset((-6).dp, 0.dp)
+                ),
+                contentDescription = refreshInfoLabel,
+                tooltip = { Text(refreshInfoLabel) }
+            )
             DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
-                Text(if (model.isInstalled == true && (if (model.initialServer?.asaApi == true) model.apiIsInstalled else true) == true) updateLabel else installLabel)
+                Text(if (model.isInstalled == true && (if (model.initialServer?.asaApi == true) model.apiIsInstalled else true) == true) if (model.hasUpdateAvailable == UpdateStatus.Available) updateLabel else validateLabel else installLabel)
             }
         }
         Row(

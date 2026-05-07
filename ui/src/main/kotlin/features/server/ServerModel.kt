@@ -12,9 +12,16 @@ data class ServerModel(
     val deleteDialogOpen: Boolean = false,
     val isOverseerInstalled: Boolean? = null,
     val overseerVersion: String? = null,
+    val hasUpdateAvailable: UpdateStatus = UpdateStatus.Unknown,
 ) {
     fun isDirty() = server != initialServer
     fun isValid() = server != null && server.validate()
     fun canSave() = isValid() && isDirty()
 }
 
+
+enum class UpdateStatus {
+    Unknown,
+    Available,
+    UpToDate
+}

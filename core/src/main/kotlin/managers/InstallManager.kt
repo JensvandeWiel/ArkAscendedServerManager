@@ -9,8 +9,19 @@ import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.corenative.CoreNative
 import io.github.z4kn4fein.semver.Version
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.engine.cio.CIO
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.request.get
+import io.ktor.http.HttpStatusCode
+import io.ktor.http.headers
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.json.Json
+import support.AcfParser
+import support.SteamResponse
 import support.getExeVersion
 import java.nio.charset.StandardCharsets
 import java.nio.file.AtomicMoveNotSupportedException
@@ -32,6 +43,18 @@ data class InstallingGame(val status: Status) : InstallStatus()
 
 
 object InstallManager {
+    private val client = HttpClient(CIO) {
+        install(ContentNegotiation) {
+            json(Json {
+                ignoreUnknownKeys = true
+                prettyPrint = true
+                isLenient = true
+            })
+        }
+        headers {
+            append("User-Agent", "JensvandeWiel/ArkAscendedServerManager")
+        }
+    }
 
     fun isInstalled(server: Server): Boolean {
         return isInstalled(Path.of(server.installationLocation))
@@ -221,4 +244,39 @@ object InstallManager {
                 "quit"
             )
         )
+
+    fun getCurrentBuild(server: Server) = runCatching {
+        val manifest = Path
+            .of(server.installationLocation, Constants.STEAM_APP_MANIFEST_PATH)
+            .toFile()
+            .readText()
+        val parsedManifest = AcfParser.parse(manifest)
+
+        return@runCatching ((parsedManifest["AppState"] as? Map<String, Any>)?.get("buildid") as? String)
+            ?: throw IllegalStateException("Failed to parse current build ID from Steam app manifest")
+    }
+
+    suspend fun getLatestBuild() = runCatching {
+        val url = Constants.STEAMCMD_NET_URL + Constants.ARK_APP_ID.toString()
+        val response = client.get(url)
+        if (response.status != HttpStatusCode.OK) {
+            throw IllegalStateException("Failed to fetch SteamCMD App Info: ${response.status}")
+        }
+        val steamResponse = response.body<SteamResponse>()
+
+        if (steamResponse.status != "success") {
+            throw IllegalStateException("SteamCMD API returned non-success status: ${steamResponse.status}")
+        }
+
+        val appData = steamResponse.data[Constants.ARK_APP_ID.toString()]
+            ?: throw IllegalStateException("SteamCMD API response missing app data for ARK")
+
+        return@runCatching appData.depots.branches.public.buildId
+    }
+
+    suspend fun canUpdate(server: Server): Result<Boolean> = runCatching {
+        val currentBuild = getCurrentBuild(server).getOrThrow()
+        val latestBuild = getLatestBuild().getOrThrow()
+        return@runCatching currentBuild != latestBuild
+    }
 }
