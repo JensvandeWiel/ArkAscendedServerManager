@@ -1,3 +1,22 @@
+## v0.4.0
+
+### Feature
+
+- Implement update checking for server installations and add related UI elements ([83f1209](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/83f1209))
+- Add Config text Editor ([045f206](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/045f206))
+
+### Fix
+
+- Keep config editor ini errors visible indefinitely ([96dd275](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/96dd275))
+- Manager still sending webhook events even if the global setting is off ([24ce1b3](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/24ce1b3))
+
+### Chore
+
+- Show hint to save server profile after config application ([5c11d0c](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/5c11d0c))
+- Show outline when files are edited ([e38fbc4](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/e38fbc4))
+- update changelog for v0.3.2 ([4648c76](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/4648c76))
+
+
 ## v0.3.2
 
 ### Fix
