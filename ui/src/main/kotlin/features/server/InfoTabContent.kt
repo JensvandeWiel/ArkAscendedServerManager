@@ -11,12 +11,14 @@ import SteamCMDUpdating
 import Validating
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipPlacement
+import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -384,8 +386,7 @@ fun LogsSection(component: ServerComponent) {
         ) {
             LazyColumn(
                 state = listState,
-                userScrollEnabled = false,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(end = 12.dp),
             ) {
                 items(logs) { line ->
                     Text(
@@ -395,6 +396,10 @@ fun LogsSection(component: ServerComponent) {
                     )
                 }
             }
+            VerticalScrollbar(
+                adapter = rememberScrollbarAdapter(listState),
+                modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+            )
         }
         LaunchedEffect(logs.lastOrNull(), viewportHeightPx) {
             if (logs.isNotEmpty()) {
