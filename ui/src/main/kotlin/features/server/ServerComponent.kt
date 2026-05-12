@@ -25,9 +25,13 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.awt.Desktop
+import java.io.File
+import java.io.RandomAccessFile
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid
 
@@ -67,6 +71,9 @@ class ServerComponent(
     private val _logs = MutableStateFlow<List<String>>(emptyList())
     val logs: StateFlow<List<String>> = _logs
     private var logJob: Job? = null
+    private var logReloadJob: Job? = null
+    private var currentLogFile: File? = null
+    private val logsMutex = Mutex()
 
     private val _logger = KotlinLogging.logger {}
 
@@ -350,10 +357,13 @@ class ServerComponent(
         logJob?.cancel()
         logJob = appScope.launch {
             try {
-                val logFile = java.io.File(server.installationLocation, Constants.OVERSEER_SERVER_LOG_PATH)
+                val logFile = File(server.installationLocation, Constants.OVERSEER_SERVER_LOG_PATH)
+                currentLogFile = logFile
                 _logger.info { "Starting log watcher for ${server.profileName} (${server.id} at ${logFile.absolutePath})" }
                 watchFileContent(logFile).collect { line ->
-                    _logs.update { (it + line).takeLast(_logLineLimit.value) }
+                    logsMutex.withLock {
+                        _logs.value = (_logs.value + line).takeLast(_logLineLimit.value)
+                    }
                 }
             } catch (t: Throwable) {
                 logger.error(t) { "Log watcher failed for ${server.profileName} (${server.id}): ${t.message}" }
@@ -364,10 +374,70 @@ class ServerComponent(
     fun updateLogLineLimit(limit: Int) {
         if (limit <= 0) return
         _logLineLimit.value = limit
-        _logs.update { it.takeLast(limit) }
+        if (_serverPowerState.value == PowerState.Stopped) {
+            _logs.value = emptyList()
+            return
+        }
+        reloadLogsFromFile(limit)
+    }
+
+    private fun reloadLogsFromFile(limit: Int) {
+        val logFile = currentLogFile
+        logReloadJob?.cancel()
+        logReloadJob = appScope.launch(Dispatchers.IO) {
+            val lines = if (logFile == null || !logFile.exists()) {
+                _logs.value.takeLast(limit)
+            } else {
+                readLastLines(logFile, limit)
+            }
+            logsMutex.withLock {
+                _logs.value = lines
+            }
+        }
+    }
+
+    private fun readLastLines(file: File, maxLines: Int): List<String> {
+        if (maxLines <= 0 || !file.exists()) return emptyList()
+
+        RandomAccessFile(file, "r").use { raf ->
+            val fileLength = raf.length()
+            if (fileLength == 0L) return emptyList()
+
+            val buffer = ByteArray(8192)
+            var position = fileLength
+            var start = 0L
+            var lineBreaks = 0
+
+            while (position > 0 && lineBreaks <= maxLines) {
+                val readSize = minOf(buffer.size.toLong(), position).toInt()
+                position -= readSize
+                raf.seek(position)
+                raf.readFully(buffer, 0, readSize)
+
+                for (index in readSize - 1 downTo 0) {
+                    if (buffer[index] == '\n'.code.toByte()) {
+                        lineBreaks++
+                        if (lineBreaks > maxLines) {
+                            start = position + index + 1
+                            position = 0
+                            break
+                        }
+                    }
+                }
+            }
+
+            raf.seek(start)
+            val bytes = ByteArray((fileLength - start).toInt())
+            raf.readFully(bytes)
+            return String(bytes, Charsets.UTF_8)
+                .lines()
+                .dropLastWhile { it.isEmpty() }
+                .takeLast(maxLines)
+        }
     }
 
     fun clearLogs() {
+        logReloadJob?.cancel()
         _logs.value = emptyList()
     }
 
