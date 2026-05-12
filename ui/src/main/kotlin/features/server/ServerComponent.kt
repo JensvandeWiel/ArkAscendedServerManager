@@ -66,8 +66,6 @@ class ServerComponent(
     val selectedTab: Value<ServerDetailsTab> get() = _selectedTab
     private var _serverPowerState: StateFlow<PowerState> = MutableStateFlow(PowerState.Unknown)
     val serverPowerState: StateFlow<PowerState> get() = _serverPowerState
-    private val _logLineLimit = MutableStateFlow(100)
-    val logLineLimit: StateFlow<Int> = _logLineLimit
     private val _logs = MutableStateFlow<List<String>>(emptyList())
     val logs: StateFlow<List<String>> = _logs
     private var logJob: Job? = null
@@ -362,7 +360,7 @@ class ServerComponent(
                 _logger.info { "Starting log watcher for ${server.profileName} (${server.id} at ${logFile.absolutePath})" }
                 watchFileContent(logFile).collect { line ->
                     logsMutex.withLock {
-                        _logs.value = (_logs.value + line).takeLast(_logLineLimit.value)
+                        _logs.value = (_logs.value + line).takeLast(_model.value.logLineLimit)
                     }
                 }
             } catch (t: Throwable) {
@@ -371,9 +369,18 @@ class ServerComponent(
         }
     }
 
-    fun updateLogLineLimit(limit: Int) {
-        if (limit <= 0) return
-        _logLineLimit.value = limit
+    fun updateLogLineLimitInput(input: String) {
+        val limit = input.toIntOrNull()?.takeIf { it > 0 }
+        val previousLimit = _model.value.logLineLimit
+        _model.update { state ->
+            state.copy(
+                logLineLimit = limit ?: state.logLineLimit,
+                logLineLimitInput = input,
+            )
+        }
+
+        if (limit == null || limit == previousLimit) return
+
         if (_serverPowerState.value == PowerState.Stopped) {
             _logs.value = emptyList()
             return

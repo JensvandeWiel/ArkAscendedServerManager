@@ -13,6 +13,8 @@ data class ServerModel(
     val isOverseerInstalled: Boolean? = null,
     val overseerVersion: String? = null,
     val hasUpdateAvailable: UpdateStatus = UpdateStatus.Unknown,
+    val logLineLimit: Int = 100,
+    val logLineLimitInput: String = "100",
 ) {
     fun isDirty() = server != initialServer
     fun isValid() = server != null && server.validate()
