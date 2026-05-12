@@ -137,6 +137,8 @@
     <string name="server_details_custom_live_tuning_url_hint">Direct link to the live tuning file.</string>
     <string name="server_details_go_to_server">Go to server</string>
     <string name="server_details_logs_group">Server Logs</string>
+    <string name="server_details_log_line_limit_label">Log length</string>
+    <string name="server_details_log_line_limit_hint">Maximum number of log lines to keep in the viewer.</string>
 
     <string name="server_import_dialog_title">Import Server</string>
     <string name="server_import_select_root_folder">Select the root folder of the server installation:</string>

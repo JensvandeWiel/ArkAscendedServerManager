@@ -25,6 +25,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -35,6 +36,7 @@ import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.managers.*
+import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import eu.wynq.arkascendedservermanager.ui.helpers.getPowerStateLabel
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -366,13 +368,32 @@ fun InstallationInfo(component: ServerComponent) {
 @Composable
 fun LogsSection(component: ServerComponent) {
     val logs by component.logs.collectAsState()
+    val logLineLimit by component.logLineLimit.collectAsState()
     val powerState by component.serverPowerState.collectAsState()
     val logsLabel = stringResource(Res.string.server_details_logs_group)
+    val logLineLimitLabel = stringResource(Res.string.server_details_log_line_limit_label)
+    val logLineLimitHint = stringResource(Res.string.server_details_log_line_limit_hint)
 
     GroupHeader(logsLabel)
     val listState = rememberLazyListState()
     var previousLogCount by remember { mutableIntStateOf(0) }
+    var logLineLimitText by remember { mutableStateOf(logLineLimit.toString()) }
+    val logLineLimitError = logLineLimitText.toIntOrNull()?.let { it <= 0 } ?: true
+    LaunchedEffect(logLineLimit) {
+        logLineLimitText = logLineLimit.toString()
+    }
     Column(Modifier.fillMaxSize()) {
+        FormTextField(
+            value = logLineLimitText,
+            onValueChange = { nextValue ->
+                logLineLimitText = nextValue
+                nextValue.toIntOrNull()?.takeIf { it > 0 }?.let(component::updateLogLineLimit)
+            },
+            label = logLineLimitLabel,
+            modifier = Modifier.width(160.dp).padding(bottom = 8.dp),
+            hint = logLineLimitHint,
+            error = logLineLimitError,
+        )
         Box(
             Modifier
                 .fillMaxSize()

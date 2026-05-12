@@ -62,6 +62,8 @@ class ServerComponent(
     val selectedTab: Value<ServerDetailsTab> get() = _selectedTab
     private var _serverPowerState: StateFlow<PowerState> = MutableStateFlow(PowerState.Unknown)
     val serverPowerState: StateFlow<PowerState> get() = _serverPowerState
+    private val _logLineLimit = MutableStateFlow(100)
+    val logLineLimit: StateFlow<Int> = _logLineLimit
     private val _logs = MutableStateFlow<List<String>>(emptyList())
     val logs: StateFlow<List<String>> = _logs
     private var logJob: Job? = null
@@ -351,12 +353,18 @@ class ServerComponent(
                 val logFile = java.io.File(server.installationLocation, Constants.OVERSEER_SERVER_LOG_PATH)
                 _logger.info { "Starting log watcher for ${server.profileName} (${server.id} at ${logFile.absolutePath})" }
                 watchFileContent(logFile).collect { line ->
-                    _logs.update { (it + line).takeLast(100) }
+                    _logs.update { (it + line).takeLast(_logLineLimit.value) }
                 }
             } catch (t: Throwable) {
                 logger.error(t) { "Log watcher failed for ${server.profileName} (${server.id}): ${t.message}" }
             }
         }
+    }
+
+    fun updateLogLineLimit(limit: Int) {
+        if (limit <= 0) return
+        _logLineLimit.value = limit
+        _logs.update { it.takeLast(limit) }
     }
 
     fun clearLogs() {
