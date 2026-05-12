@@ -30,7 +30,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
@@ -372,12 +371,11 @@ fun LogsSection(component: ServerComponent) {
 
     GroupHeader(logsLabel)
     val listState = rememberLazyListState()
-    var viewportHeightPx by remember { mutableIntStateOf(0) }
+    var previousLogCount by remember { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
         Box(
             Modifier
                 .fillMaxSize()
-                .onSizeChanged { viewportHeightPx = it.height }
                 .background(
                     if (isSystemInDarkTheme()) Color(0xff000000) else Color(0xffffffff),
                     shape = RoundedCornerShape(8.dp)
@@ -401,10 +399,18 @@ fun LogsSection(component: ServerComponent) {
                 modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
             )
         }
-        LaunchedEffect(logs.lastOrNull(), viewportHeightPx) {
-            if (logs.isNotEmpty()) {
+        LaunchedEffect(logs.size) {
+            if (logs.isEmpty()) {
+                previousLogCount = 0
+                return@LaunchedEffect
+            }
+
+            val lastVisibleIndex = listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: -1
+            val wasAtBottom = previousLogCount == 0 || lastVisibleIndex >= previousLogCount - 1
+            if (wasAtBottom) {
                 listState.scrollToItem(logs.lastIndex)
             }
+            previousLogCount = logs.size
         }
         LaunchedEffect(powerState) {
             if (powerState == PowerState.Stopped) {
