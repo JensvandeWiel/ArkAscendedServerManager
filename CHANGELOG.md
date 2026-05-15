@@ -1,3 +1,14 @@
+## v0.5.1
+
+### Fix
+
+- Use self-hosted version of steamcmd api for better stability and less aggressive caching ([eeeb7c5](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/eeeb7c5))
+
+### Chore
+
+- update changelog for v0.5.0 ([d27ffb3](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/d27ffb3))
+
+
 ## v0.5.0
 
 ### Feature
