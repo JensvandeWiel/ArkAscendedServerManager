@@ -133,6 +133,14 @@ data class ServerSettings(
     val enableCryoSicknessPVE: Boolean = false,
     @IniProperty("RandomSupplyCratePoints")
     val randomSupplyCratePoints: Boolean = false,
+    @IniProperty("TribeNameChangeCooldown")
+    val tribeNameChangeCooldown: Int = 15 * 60,
+    @IniProperty("PreventTribeAlliances")
+    val preventTribeAlliances: Boolean = false,
+    @IniProperty("PreventDiseases")
+    val preventDiseases: Boolean = false,
+    @IniProperty("NonPermanentDiseases")
+    val nonPermanentDiseases: Boolean = false,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
@@ -141,7 +149,8 @@ data class ServerSettings(
     fun validateMaxTributeItems() = maxTributeItems >= 50 && maxTributeItems <= 100
     fun validateBanListUrl() = banListUrl == null || (banListUrl.isNotBlank() && banListUrl.isValidUrl())
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
-    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateCustomDynamicConfigUrl()
+    fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
+    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown()
 }
 
 @IniSerializable

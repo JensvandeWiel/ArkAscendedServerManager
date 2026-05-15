@@ -55,8 +55,20 @@ data class ShooterGameMode(
     val useSingleplayerSettings: Boolean = false,
     @IniProperty("bShowCreativeMode")
     val showCreativeMode: Boolean = false,
+    @IniProperty("TribeSlotReuseCooldown")
+    val tribeSlotReuseCooldown: Int = 0,
+    @IniProperty("MaxNumberOfPlayersInTribe")
+    val maxNumberOfPlayersInTribe: Int = 70,
+    @IniProperty("bAllowCustomRecipes")
+    val allowCustomRecipes: Boolean = true,
+    @IniProperty("CustomRecipeEffectivenessMultiplier")
+    val customRecipeEffectivenessMultiplier: Float = 1.0f,
+    @IniProperty("CustomRecipeSkillMultiplier")
+    val customRecipeSkillMultiplier: Float = 1.0f,
 ) {
-    fun validate() = true
+    fun validateMaxNumberOfPlayersInTribe() = maxNumberOfPlayersInTribe >= 0
+    fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
+    fun validate() = validateMaxNumberOfPlayersInTribe() && validateTribeSlotReuseCooldown()
 }
 
 @IniSerializable
