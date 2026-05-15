@@ -288,4 +288,26 @@
     <string name="config_editor_apply_changes">Apply Changes</string>
     <string name="config_editor_configs_applied_successfully">Configs applied successfully</string>
     <string name="config_editor_invalid_configs">Invalid configs: %1$s</string>
+    <string name="server_details_player_allow_flyer_carry_pve_label">Enable Flyer-Carry</string>
+    <string name="server_details_player_allow_flyer_carry_pve_hint">If enabled, allows flying creatures to pick up wild creatures in PvE.</string>
+    <string name="server_details_player_xp_multiplier_label">XP Multiplier</string>
+    <string name="server_details_player_xp_multiplier_hint">Specifies the scaling factor for the experience received by players, tribes and tames for various actions. Higher values increase XP amounts awarded for various actions.</string>
+    <string name="server_details_player_damage_multiplier_label">Player Damage Multiplier</string>
+    <string name="server_details_player_damage_multiplier_hint">Specifies the scaling factor for the damage players deal with their attacks. The default value 1 provides normal damage. Higher values increase damage. Lower values decrease it.</string>
+    <string name="server_details_player_resistance_multiplier_label">Player Resistance Multiplier</string>
+    <string name="server_details_player_resistance_multiplier_hint">Specifies the scaling factor for the resistance to damage players receive when attacked. The default value 1 provides normal damage. Higher values decrease resistance, increasing damage per attack. Lower values increase it, reducing damage per attack.</string>
+    <string name="server_details_player_water_drain_multiplier_label">Player Water Drain Multiplier</string>
+    <string name="server_details_player_water_drain_multiplier_hint">Specifies the scaling factor for player characters' water consumption. Higher values increase water consumption (player characters get thirsty faster).</string>
+    <string name="server_details_player_food_drain_multiplier_label">Player Food Drain Multiplier</string>
+    <string name="server_details_player_food_drain_multiplier_hint">Specifies the scaling factor for player characters' food consumption. Higher values increase food consumption (player characters get hungry faster).</string>
+    <string name="server_details_player_stamina_drain_multiplier_label">Player Stamina Drain Multiplier</string>
+    <string name="server_details_player_stamina_drain_multiplier_hint">Specifies the scaling factor for player characters' stamina consumption. Higher values increase stamina consumption (player characters get tired faster).</string>
+    <string name="server_details_player_health_recovery_multiplier_label">Player Health Recovery Multiplier</string>
+    <string name="server_details_player_health_recovery_multiplier_hint">Specifies the scaling factor for player characters' health recovery. Higher values increase the recovery rate (player characters heal faster).</string>
+    <string name="server_details_player_harvesting_damage_multiplier_label">Player Harvesting Damage Multiplier</string>
+    <string name="server_details_player_harvesting_damage_multiplier_hint">Scales the damage done to a harvestable item/entity by a Player. A higher value increases it (by percentage): the higher number, the faster the survivors collects.</string>
+    <string name="server_details_player_crafting_skill_bonus_multiplier_label">Crafting Skill Bonus Multiplier</string>
+    <string name="server_details_player_crafting_skill_bonus_multiplier_hint">Scales the bonus received from upgrading the Crafting Skill.</string>
+    <string name="server_details_player_max_fall_speed_multiplier_label">Max Fall Speed Multiplier</string>
+    <string name="server_details_player_max_fall_speed_multiplier_hint">Defines the falling speed multiplier at which players starts taking fall damage. The higher this setting is, the longer players can fall without taking fall damage.</string>
 </resources>

@@ -141,6 +141,22 @@ data class ServerSettings(
     val preventDiseases: Boolean = false,
     @IniProperty("NonPermanentDiseases")
     val nonPermanentDiseases: Boolean = false,
+    @IniProperty("AllowFlyerCarryPvE")
+    val allowFlyerCarryPvE: Boolean = false,
+    @IniProperty("XPMultiplier")
+    val xpMultiplier: Float = 1.0f,
+    @IniProperty("PlayerDamageMultiplier")
+    val playerDamageMultiplier: Float = 1.0f,
+    @IniProperty("PlayerResistanceMultiplier")
+    val playerResistanceMultiplier: Float = 1.0f,
+    @IniProperty("PlayerCharacterWaterDrainMultiplier")
+    val playerCharacterWaterDrainMultiplier: Float = 1.0f,
+    @IniProperty("PlayerCharacterFoodDrainMultiplier")
+    val playerCharacterFoodDrainMultiplier: Float = 1.0f,
+    @IniProperty("PlayerCharacterStaminaDrainMultiplier")
+    val playerCharacterStaminaDrainMultiplier: Float = 1.0f,
+    @IniProperty("PlayerCharacterHealthRecoveryMultiplier")
+    val playerCharacterHealthRecoveryMultiplier: Float = 1.0f,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0

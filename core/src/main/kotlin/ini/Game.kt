@@ -77,6 +77,13 @@ data class ShooterGameMode(
     val customRecipeEffectivenessMultiplier: Float = 1.0f,
     @IniProperty("CustomRecipeSkillMultiplier")
     val customRecipeSkillMultiplier: Float = 1.0f,
+    @param:Unsure
+    @IniProperty("PlayerHarvestingDamageMultiplier")
+    val playerHarvestingDamageMultiplier: Float = 1.0f,
+    @IniProperty("CraftingSkillBonusMultiplier")
+    val craftingSkillBonusMultiplier: Float = 1.0f,
+    @IniProperty("MaxFallSpeedMultiplier")
+    val maxFallSpeedMultiplier: Float = 1.0f,
 ) {
     fun validateMaxNumberOfPlayersInTribe() = maxNumberOfPlayersInTribe >= 0
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
