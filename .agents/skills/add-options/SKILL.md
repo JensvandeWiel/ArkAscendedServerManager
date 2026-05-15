@@ -1,7 +1,7 @@
 ---
 name: add-option
 description: >
-Guide to add options to the application,. these options are used for ark server configuration
+  Guide to add options to the application,. these options are used for ark server configuration
 ---
 
 # Step by step guide
