@@ -32,6 +32,7 @@ fun ServerScreen(component: ServerComponent) {
     val profileTabLabel = stringResource(Res.string.server_details_profile_tab)
     val managementTabLabel = stringResource(Res.string.server_details_management_tab)
     val environmentTabLabel = stringResource(Res.string.server_details_environment_tab)
+    val playerTabLabel = stringResource(Res.string.server_details_player_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
     val deleteServerLabel = stringResource(Res.string.action_delete_server)
     val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
@@ -41,7 +42,7 @@ fun ServerScreen(component: ServerComponent) {
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
     val tabs =
-        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel) {
+        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel) {
             listOf(
                 TabData.Default(
                     selected = selectedTab == ServerDetailsTab.INFO,
@@ -89,6 +90,14 @@ fun ServerScreen(component: ServerComponent) {
                         SimpleTabContent(label = "Rules", state = tabState)
                     },
                     onClick = component::selectRulesTab,
+                    closable = false,
+                ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.PLAYER,
+                    content = { tabState ->
+                        SimpleTabContent(label = playerTabLabel, state = tabState)
+                    },
+                    onClick = component::selectPlayerTab,
                     closable = false,
                 ),
                 TabData.Default(
@@ -174,6 +183,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.RULES -> {
                         RulesTabContent(component)
+                    }
+
+                    ServerDetailsTab.PLAYER -> {
+                        PlayerTabContent(component)
                     }
 
                     ServerDetailsTab.CONFIG_EDITOR -> {

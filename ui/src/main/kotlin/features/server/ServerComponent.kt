@@ -38,6 +38,7 @@ enum class ServerDetailsTab {
     MANAGEMENT,
     ENVIRONMENT,
     RULES,
+    PLAYER,
     CONFIG_EDITOR,
 }
 
@@ -162,6 +163,10 @@ class ServerComponent(
 
     fun selectProfileTab() {
         selectTab(ServerDetailsTab.PROFILE)
+    }
+
+    fun selectPlayerTab() {
+        selectTab(ServerDetailsTab.PLAYER)
     }
 
     suspend fun checkUpdateAvailable() {

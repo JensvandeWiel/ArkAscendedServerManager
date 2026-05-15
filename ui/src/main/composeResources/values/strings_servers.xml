@@ -226,6 +226,7 @@
     <string name="server_details_restart_after_crash_label">Restart after crash</string>
     <string name="server_details_restart_after_crash_hint">Automatically restart the server if it crashes, this is done within 5 seconds of the server crashing.</string>
     <string name="server_details_rules_tab">Rules</string>
+    <string name="server_details_player_tab">Player Settings</string>
     <string name="server_details_rules_enable_hardcore_mode_label">Enable Hardcore Mode</string>
     <string name="server_details_rules_enable_hardcore_mode_hint">Enables Hardcore mode (player characters revert to level 1 upon death)</string>
     <string name="server_details_rules_disable_pvp_friendly_fire_label">Disable PvP Friendly Fire</string>
