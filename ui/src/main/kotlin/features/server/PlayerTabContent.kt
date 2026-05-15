@@ -14,6 +14,9 @@ import org.jetbrains.jewel.ui.component.GroupHeader
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 import arkascendedservermanager.ui.generated.resources.*
+import eu.wynq.arkascendedservermanager.core.ini.Game
+import eu.wynq.arkascendedservermanager.core.ini.ShooterGameMode
+import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import kotlin.uuid.ExperimentalUuidApi
 
 @OptIn(ExperimentalUuidApi::class)
@@ -182,6 +185,116 @@ fun PlayerTabContent(component: ServerComponent) {
                     valueRange = 0.1f..5.0f,
                     showManualInput = true,
                     allowOutsideRange = true,
+                )
+
+                CheckboxSectionHeader(
+                    checked = game.shooterGameMode.playerBaseStatMultipliers != null,
+                    onCheckedChange = { newVal ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = if (newVal) ShooterGameMode.createPlayerBaseStatMultipliersDefault() else null))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_multipliers_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_multipliers_hint)
+                )
+
+                FormFloatSliderField(
+                    value = game.shooterGameMode.playerBaseStatMultipliers?.get(0) ?: 1.0f,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = it.shooterGameMode.playerBaseStatMultipliers?.toMutableMap()?.apply { this[0] = newval }))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_health_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_health_hint),
+                    valueRange = 0.1f..25.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    enabled = game.shooterGameMode.playerBaseStatMultipliers != null
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.playerBaseStatMultipliers?.get(1) ?: 1.0f,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = it.shooterGameMode.playerBaseStatMultipliers?.toMutableMap()?.apply { this[1] = newval }))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_stamina_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_stamina_hint),
+                    valueRange = 0.1f..25.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    enabled = game.shooterGameMode.playerBaseStatMultipliers != null
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.playerBaseStatMultipliers?.get(2) ?: 1.0f,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = it.shooterGameMode.playerBaseStatMultipliers?.toMutableMap()?.apply { this[2] = newval }))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_torpidity_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_torpidity_hint),
+                    valueRange = 0.1f..25.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    enabled = game.shooterGameMode.playerBaseStatMultipliers != null
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.playerBaseStatMultipliers?.get(3) ?: 1.0f,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = it.shooterGameMode.playerBaseStatMultipliers?.toMutableMap()?.apply { this[3] = newval }))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_oxygen_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_oxygen_hint),
+                    valueRange = 0.1f..25.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    enabled = game.shooterGameMode.playerBaseStatMultipliers != null
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.playerBaseStatMultipliers?.get(4) ?: 1.0f,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = it.shooterGameMode.playerBaseStatMultipliers?.toMutableMap()?.apply { this[4] = newval }))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_food_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_food_hint),
+                    valueRange = 0.1f..25.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    enabled = game.shooterGameMode.playerBaseStatMultipliers != null
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.playerBaseStatMultipliers?.get(5) ?: 1.0f,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = it.shooterGameMode.playerBaseStatMultipliers?.toMutableMap()?.apply { this[5] = newval }))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_water_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_water_hint),
+                    valueRange = 0.1f..25.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    enabled = game.shooterGameMode.playerBaseStatMultipliers != null
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.playerBaseStatMultipliers?.get(7) ?: 1.0f,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(playerBaseStatMultipliers = it.shooterGameMode.playerBaseStatMultipliers?.toMutableMap()?.apply { this[7] = newval }))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_base_stat_weight_label),
+                    hint = stringResource(Res.string.server_details_player_base_stat_weight_hint),
+                    valueRange = 0.1f..25.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    enabled = game.shooterGameMode.playerBaseStatMultipliers != null
                 )
             }
         }

@@ -310,4 +310,20 @@
     <string name="server_details_player_crafting_skill_bonus_multiplier_hint">Scales the bonus received from upgrading the Crafting Skill.</string>
     <string name="server_details_player_max_fall_speed_multiplier_label">Max Fall Speed Multiplier</string>
     <string name="server_details_player_max_fall_speed_multiplier_hint">Defines the falling speed multiplier at which players starts taking fall damage. The higher this setting is, the longer players can fall without taking fall damage.</string>
+    <string name="server_details_player_base_stat_multipliers_label">Player Base Stat Multipliers</string>
+    <string name="server_details_player_base_stat_multipliers_hint">If enabled, changes player base stats by multiplying default values. This affects start stats for new spawned characters.</string>
+    <string name="server_details_player_base_stat_health_label">Health</string>
+    <string name="server_details_player_base_stat_health_hint">Specifies base multiplier for Health. Higher values increase base Health; lower values decrease base Health.</string>
+    <string name="server_details_player_base_stat_stamina_label">Stamina</string>
+    <string name="server_details_player_base_stat_stamina_hint">Specifies base multiplier for Stamina. Higher values increase base Stamina; lower values decrease base Stamina.</string>
+    <string name="server_details_player_base_stat_torpidity_label">Torpidity</string>
+    <string name="server_details_player_base_stat_torpidity_hint">Specifies base multiplier for Torpidity. Higher values increase base Torpidity; lower values decrease base Torpidity.</string>
+    <string name="server_details_player_base_stat_oxygen_label">Oxygen</string>
+    <string name="server_details_player_base_stat_oxygen_hint">Specifies base multiplier for Oxygen. Higher values increase base Oxygen; lower values decrease base Oxygen.</string>
+    <string name="server_details_player_base_stat_food_label">Food</string>
+    <string name="server_details_player_base_stat_food_hint">Specifies base multiplier for Food. Higher values increase base Food; lower values decrease base Food.</string>
+    <string name="server_details_player_base_stat_water_label">Water</string>
+    <string name="server_details_player_base_stat_water_hint">Specifies base multiplier for Water. Higher values increase base Water; lower values decrease base Water.</string>
+    <string name="server_details_player_base_stat_weight_label">Weight</string>
+    <string name="server_details_player_base_stat_weight_hint">Specifies base multiplier for Weight. Higher values increase base Weight; lower values decrease base Weight.</string>
 </resources>

@@ -84,7 +84,12 @@ data class ShooterGameMode(
     val craftingSkillBonusMultiplier: Float = 1.0f,
     @IniProperty("MaxFallSpeedMultiplier")
     val maxFallSpeedMultiplier: Float = 1.0f,
+    @IniProperty("PlayerBaseStatMultipliers")
+    val playerBaseStatMultipliers: Map<Int, Float>? = null,
 ) {
+    companion object {
+        fun createPlayerBaseStatMultipliersDefault() = mapOf(0 to 1.0f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 7 to 1.0f)
+    }
     fun validateMaxNumberOfPlayersInTribe() = maxNumberOfPlayersInTribe >= 0
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
     fun validateMaxAlliancesPerTribe() = maxAlliancesPerTribe >= 0
