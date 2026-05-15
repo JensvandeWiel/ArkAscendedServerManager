@@ -23,7 +23,7 @@ object Constants {
     const val OVERSEER_SERVER_LOG_PATH = "$SERVER_BINARY_PATH\\logs\\$OVERSEER_SERVER_LOG_FILE"
     const val CLUSTERS_DIRECTORY = "clusters"
 
-    const val STEAMCMD_NET_URL = "https://api.steamcmd.net/v1/info/"
+    const val STEAMCMD_NET_URL = "https://steamapi.wynq.eu/v1/info/"
     
     const val STEAM_APP_MANIFEST_PATH = "steamapps/appmanifest_${ARK_APP_ID}.acf"
 }
