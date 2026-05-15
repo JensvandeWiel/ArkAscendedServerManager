@@ -1,3 +1,24 @@
+## v0.5.0
+
+### Feature
+
+- Enhance player base and per-level stat multipliers with additional options and UI components ([fc17e35](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/fc17e35))
+- Add base level player multipliers ([895d0b7](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/895d0b7))
+- Add global player multipliers ([fc4afda](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/fc4afda))
+- Add player settings tab and related UI components ([17fe524](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/17fe524))
+- Added tribewar and alliance options ([ef2d751](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ef2d751))
+- Add new server configuration options and ini skill ([e0cf986](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/e0cf986))
+
+### Fix
+
+- Typo in skill ([459a0a4](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/459a0a4))
+
+### Chore
+
+- Add wiki extracted options ([b5b27c1](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/b5b27c1))
+- update changelog for v0.4.0 ([a5599b5](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/a5599b5))
+
+
 ## v0.4.0
 
 ### Feature
