@@ -271,6 +271,14 @@
     <string name="server_details_rules_non_permanent_diseases_label">Non-Permanent Diseases</string>
     <string name="server_details_rules_non_permanent_diseases_hint">If enabled, makes permanent diseases not permanent. Players will lose them if on re-spawn.</string>
     <string name="server_details_rules_tribes_header">Tribe Options</string>
+    <string name="server_details_rules_max_alliances_per_tribe_label">Max Alliances Per Tribe</string>
+    <string name="server_details_rules_max_alliances_per_tribe_hint">If set, defines maximum alliances a tribe can form. A value of 0 means no limit.</string>
+    <string name="server_details_rules_max_tribes_per_alliance_label">Max Tribes Per Alliance</string>
+    <string name="server_details_rules_max_tribes_per_alliance_hint">If set, defines maximum number of tribes allowed in an alliance. A value of 0 means no limit.</string>
+    <string name="server_details_rules_allow_tribe_warfare_label">Allow Tribe Warfare</string>
+    <string name="server_details_rules_allow_tribe_warfare_hint">If enabled, tribes can officially declare war on each other for mutually-agreed-upon periods (PvE).</string>
+    <string name="server_details_rules_allow_tribe_warfare_cancel_label">Allow Cancelling Tribe Warfare</string>
+    <string name="server_details_rules_allow_tribe_warfare_cancel_hint">If enabled, allows cancellation of an agreed-upon war before it has started.</string>
     <string name="server_details_config_editor_tab">Config Editor</string>
     <string name="config_editor_warning_text">Editing these configs can break your server if not done correctly. Make sure you know what you're doing and have a backup of your configs before applying changes. Use this feature at your own risk.</string>
     <string name="config_editor_warning_custom_fields">You can also use this feature to add non-managed/custom fields and sections to your configs.</string>

@@ -25,14 +25,14 @@ data class ShooterGameMode(
     val resourceNoReplenishRadiusPlayers: Float = 1.0f,
     @IniProperty("ResourceNoReplenishRadiusStructures")
     val resourceNoReplenishRadiusStructures: Float = 1.0f,
-    @Unsure
+    @param:Unsure
     @IniProperty("BaseTemperatureMultiplier")
     val baseTemperatureMultiplier: Float = 1.0f,
     @IniProperty("GlobalSpoilingTimeMultiplier")
     val globalSpoilingTimeMultiplier: Float = 1.0f,
     @IniProperty("GlobalItemDecompositionTimeMultiplier")
     val globalItemDecompositionTimeMultiplier: Float = 1.0f,
-    @Unsure
+    @param:Unsure
     @IniProperty("GlobalCorpseDecompositionTimeMultiplier")
     val globalCorpseDecompositionTimeMultiplier: Float = 1.0f,
     @IniProperty("CropDecaySpeedMultiplier")
@@ -59,6 +59,18 @@ data class ShooterGameMode(
     val tribeSlotReuseCooldown: Int = 0,
     @IniProperty("MaxNumberOfPlayersInTribe")
     val maxNumberOfPlayersInTribe: Int = 70,
+    @param:Unsure
+    @IniProperty("MaxAlliancesPerTribe")
+    val maxAlliancesPerTribe: Int = 0,
+    @param:Unsure
+    @IniProperty("MaxTribesPerAlliance")
+    val maxTribesPerAlliance: Int = 0,
+    @param:Unsure
+    @IniProperty("bPvEAllowTribeWar")
+    val pveAllowTribeWar: Boolean = true,
+    @param:Unsure
+    @IniProperty("bPvEAllowTribeWarCancel")
+    val pveAllowTribeWarCancel: Boolean = false,
     @IniProperty("bAllowCustomRecipes")
     val allowCustomRecipes: Boolean = true,
     @IniProperty("CustomRecipeEffectivenessMultiplier")
@@ -68,7 +80,10 @@ data class ShooterGameMode(
 ) {
     fun validateMaxNumberOfPlayersInTribe() = maxNumberOfPlayersInTribe >= 0
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
+    fun validateMaxAlliancesPerTribe() = maxAlliancesPerTribe >= 0
+    fun validateMaxTribesPerAlliance() = maxTribesPerAlliance >= 0
     fun validate() = validateMaxNumberOfPlayersInTribe() && validateTribeSlotReuseCooldown()
+            && validateMaxAlliancesPerTribe() && validateMaxTribesPerAlliance()
 }
 
 @IniSerializable

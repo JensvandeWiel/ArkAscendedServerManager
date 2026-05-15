@@ -6,7 +6,7 @@ description: >
 
 # Step by step guide
 ## 1. Dissect user request
-The user will give you, or ini settings like `AllowHitMarkers` check if it exists in `ArkServerOptions.csv` and check if compatible with ASA, if no, tell user its not compatible, if unknown warn user but continue.
+The user will give you, or ini settings like `AllowHitMarkers` check if it exists in `ArkServerOptions.csv` and check if compatible with ASA by checking the `inASA` column, if `No`, tell user its not compatible, if `Unknown` warn user in chat but continue.
 ## 2. Find config option location
 Check `ArkServerOptions.csv` for the given option, and check the location.
 - For GameUserSettings.ini: `core/src/main/kotlin/ini/GameUserSettings.kt`
@@ -14,7 +14,7 @@ Check `ArkServerOptions.csv` for the given option, and check the location.
 - For Command line options that are booleans: `core/src/main/kotlin/server/Settings.kt > Options`
 - For Command line options that are other types: `core/src/main/kotlin/server/Settings.kt > Administration`
 ## 3. Add config option
-Add the option to the selected file, derive attribute usage for correct setup also get default value from `ArkServerOptions.csv` 
+Add the option to the selected file, derive attribute usage for correct setup also get default value from `ArkServerOptions.csv` also add `@Unsure` annotation if in the csv `inASA` is `Unknown`
 
 **Important Data Type and Unit Considerations**:
 - If an option in `ArkServerOptions.csv` represents a **time value** (like seconds), and the user requests it to be displayed in **minutes**, ALWAYS store the underlying value in the configuration model (Game.kt/GameUserSettings.kt) as an `Int` to avoid floating point precision issues when calculating and saving. 

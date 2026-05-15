@@ -244,6 +244,68 @@ fun RulesTabContent(component: ServerComponent) {
                     labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
                 )
                 
+                // Nested alliances section
+                CheckboxSectionHeader(
+                    !gameUserSettings.serverSettings.preventTribeAlliances,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(preventTribeAlliances = !newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_prevent_tribe_alliances_label),
+                    hint = stringResource(Res.string.server_details_rules_prevent_tribe_alliances_hint),
+                )
+                FormSliderField(
+                    value = game.shooterGameMode.maxAlliancesPerTribe,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(maxAlliancesPerTribe = newval))
+                        }
+                    },
+                    enabled = !gameUserSettings.serverSettings.preventTribeAlliances,
+                    label = stringResource(Res.string.server_details_rules_max_alliances_per_tribe_label),
+                    hint = stringResource(Res.string.server_details_rules_max_alliances_per_tribe_hint),
+                    valueRange = 0..100,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormSliderField(
+                    value = game.shooterGameMode.maxTribesPerAlliance,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(maxTribesPerAlliance = newval))
+                        }
+                    },
+                    enabled = !gameUserSettings.serverSettings.preventTribeAlliances,
+                    label = stringResource(Res.string.server_details_rules_max_tribes_per_alliance_label),
+                    hint = stringResource(Res.string.server_details_rules_max_tribes_per_alliance_hint),
+                    valueRange = 0..100,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+
+                FormCheckboxField(
+                    game.shooterGameMode.pveAllowTribeWar,
+                    onCheckedChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(pveAllowTribeWar = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_allow_tribe_warfare_label),
+                    hint = stringResource(Res.string.server_details_rules_allow_tribe_warfare_hint)
+                )
+                FormCheckboxField(
+                    game.shooterGameMode.pveAllowTribeWarCancel,
+                    onCheckedChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(pveAllowTribeWarCancel = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_allow_tribe_warfare_cancel_label),
+                    hint = stringResource(Res.string.server_details_rules_allow_tribe_warfare_cancel_hint)
+                )
                 CheckboxSectionHeader(
                     game.shooterGameMode.allowCustomRecipes,
                     onCheckedChange = { newval ->
