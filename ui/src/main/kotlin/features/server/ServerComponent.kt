@@ -14,17 +14,20 @@ import eu.wynq.arkascendedservermanager.core.managers.AsaApiInstallManager
 import eu.wynq.arkascendedservermanager.core.managers.InstallManager
 import eu.wynq.arkascendedservermanager.core.managers.InstallStatus
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
+import eu.wynq.arkascendedservermanager.core.managers.UpdateStatus
 import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Options
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.watchFileContent
 import eu.wynq.arkascendedservermanager.ui.stores.*
+import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import io.github.z4kn4fein.semver.Version
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import java.awt.Desktop
@@ -170,17 +173,52 @@ class ServerComponent(
     }
 
     suspend fun checkUpdateAvailable() {
-        val res = InstallManager.canUpdate(_model.value.server ?: return)
-        if (res.isFailure) {
-            logger.error(res.exceptionOrNull()) { "Failed to check for update for ${_model.value.server?.profileName} (${_model.value.server?.id})" }
-            return
+        val server = _model.value.server ?: return
+
+        val gameUpdateResult = InstallManager.canUpdate(server)
+        val gameUpdateStatus = if (gameUpdateResult.isFailure) {
+            logger.error(gameUpdateResult.exceptionOrNull()) { "Failed to check for update for ${server.profileName} (${server.id})" }
+            UpdateStatus.Unknown
+        } else {
+            if (gameUpdateResult.getOrNull() == true) UpdateStatus.Available else UpdateStatus.UpToDate
         }
+
+        val apiUpdateStatus = if (server.asaApi && _model.value.apiIsInstalled == true) {
+            runCatching {
+                val currentApiVersion = AsaApiInstallManager.getApiVersion(server) ?: return@runCatching UpdateStatus.Unknown
+                val latestApiVersion = AsaApiInstallManager.getLatestRelease().getOrThrow().version
+                if (currentApiVersion == latestApiVersion) UpdateStatus.UpToDate else UpdateStatus.Available
+            }.getOrElse {
+                logger.error(it) { "Failed to check API update for ${server.profileName} (${server.id})" }
+                UpdateStatus.Unknown
+            }
+        } else {
+            UpdateStatus.Unknown
+        }
+
+        val overseerUpdateStatus = if (server.asaApi && _model.value.isOverseerInstalled == true) {
+            runCatching {
+                val currentOverseerVersion = AsaApiInstallManager.getOverseerVersion(server) ?: return@runCatching UpdateStatus.Unknown
+                val appVersion = Version.parse(AppBuildInfo.version)
+                if (currentOverseerVersion == appVersion) UpdateStatus.UpToDate else UpdateStatus.Available
+            }.getOrElse {
+                logger.error(it) { "Failed to check Overseer update for ${server.profileName} (${server.id})" }
+                UpdateStatus.Unknown
+            }
+        } else {
+            UpdateStatus.Unknown
+        }
+
         try {
             _model.update { state ->
                 if (state.server == null) {
                     state
                 } else {
-                    state.copy(hasUpdateAvailable = if (res.getOrNull() == true) UpdateStatus.Available else UpdateStatus.UpToDate)
+                    state.copy(
+                        hasUpdateAvailable = gameUpdateStatus,
+                        apiUpdateStatus = apiUpdateStatus,
+                        overseerUpdateStatus = overseerUpdateStatus,
+                    )
                 }
             }
         } catch (t: Throwable) {
@@ -248,6 +286,9 @@ class ServerComponent(
                             apiIsInstalled = null,
                             isOverseerInstalled = null,
                             overseerVersion = null,
+                            hasUpdateAvailable = UpdateStatus.Unknown,
+                            apiUpdateStatus = UpdateStatus.Unknown,
+                            overseerUpdateStatus = UpdateStatus.Unknown,
                         )
                     } else {
                         state

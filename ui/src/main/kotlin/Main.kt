@@ -347,7 +347,7 @@ fun main() {
 
     application {
         val lifecycle = remember { LifecycleRegistry() }
-        val windowState = rememberWindowState()
+        val windowState = rememberWindowState(size = DpSize(1000.dp, 800.dp))
         val updater = remember { buildUpdater() }
         val updaterModeOverride = remember { parseUpdaterModeOverride() }
         val scope = rememberCoroutineScope()

@@ -37,7 +37,6 @@ import eu.wynq.arkascendedservermanager.core.managers.*
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import eu.wynq.arkascendedservermanager.ui.helpers.getPowerStateLabel
 import io.github.oshai.kotlinlogging.KotlinLogging
-import io.github.z4kn4fein.semver.Version
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.foundation.theme.JewelTheme
 import org.jetbrains.jewel.ui.component.*
@@ -67,6 +66,37 @@ fun InstallProgress(
     }
     val progressText = stringResource(Res.string.server_details_progress_format, text, (progress * 100).toInt())
     Text(progressText)
+}
+
+@Composable
+private fun StatCell(label: String, value: String, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalAlignment = Alignment.Start,
+    ) {
+        Text(label, style = JewelTheme.typography.labelTextStyle, color = JewelTheme.globalColors.text.disabled)
+        Text(value)
+    }
+}
+
+@Composable
+private fun StatusCell(label: String, value: String, color: Color, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(2.dp),
+        horizontalAlignment = Alignment.Start,
+    ) {
+        Text(label, style = JewelTheme.typography.labelTextStyle, color = JewelTheme.globalColors.text.disabled)
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp), verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(8.dp)
+                    .background(color, shape = RoundedCornerShape(50))
+            )
+            Text(value)
+        }
+    }
 }
 
 @Composable
@@ -105,10 +135,17 @@ fun InstallationInfo(component: ServerComponent) {
     val killServerLabel = stringResource(Res.string.action_kill_server)
 
     val updateStatusLabel = stringResource(Res.string.server_details_update_status_label)
+    val apiUpdateStatusLabel = stringResource(Res.string.server_details_api_update_status_label)
+    val overseerUpdateStatusLabel = stringResource(Res.string.server_details_overseer_update_status_label)
     val updateStatusAvailable = stringResource(Res.string.server_details_update_status_available)
     val updateStatusUpToDate = stringResource(Res.string.server_details_update_status_up_to_date)
     val validateLabel = stringResource(Res.string.action_validate_server)
     val refreshInfoLabel = stringResource(Res.string.action_refresh_info)
+
+    val runningColor = Color(PowerManager.getPowerStateColor(PowerState.Running))
+    val startingColor = Color(PowerManager.getPowerStateColor(PowerState.Starting))
+    val stoppedColor = Color(PowerManager.getPowerStateColor(PowerState.Stopped))
+    val unknownColor = Color(PowerManager.getPowerStateColor(PowerState.Unknown))
 
     val canStartServer = PowerManager.canStartServer(
         server = model.server ?: model.initialServer!!,
@@ -122,20 +159,27 @@ fun InstallationInfo(component: ServerComponent) {
     )
     val canStopServer = PowerManager.canStopServer(powerState, status)
     val canKillServer = PowerManager.canKillServer(powerState, status)
+    val canUpdateServer = PowerManager.canUpdateServer(
+        server = model.server ?: model.initialServer!!,
+        powerState = powerState,
+        installStatus = status,
+        isInstalled = model.isInstalled,
+        apiIsInstalled = model.apiIsInstalled,
+        isOverseerInstalled = model.isOverseerInstalled
+    )
 
     LaunchedEffect(model.server) {
         component.checkUpdateAvailable()
     }
 
-    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+    Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         GroupHeader(installationInfoGroup)
-        Row {
-            Text(installationStatusLabel)
-            Spacer(Modifier.weight(1f))
-            Text(
-                when (model.isInstalled) {
-                    true -> {
-                        if (isAsaApiEnabled) {
+        Row(horizontalArrangement = Arrangement.spacedBy(16.dp), verticalAlignment = Alignment.Top) {
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                StatusCell(
+                    installationStatusLabel,
+                    when (model.isInstalled) {
+                        true -> if (isAsaApiEnabled) {
                             when (model.apiIsInstalled) {
                                 true -> installedStatus
                                 false -> apiNotInstalledStatus
@@ -144,73 +188,108 @@ fun InstallationInfo(component: ServerComponent) {
                         } else {
                             installedStatus
                         }
-                    }
 
-                    false -> notInstalledStatus
-                    null -> unknownStatus
-                }
-            )
-        }
-        Row {
-            Text(versionLabel)
-            Spacer(Modifier.weight(1f))
-            Text(
-                when (model.isInstalled) {
-                    true -> (if (model.version != null) versionValueFormat.format(model.version) else versionPlaceholder)
-                    false -> notInstalledStatus
-                    null -> unknownStatus
-                }
-            )
-        }
-        Row {
-            Text(updateStatusLabel)
-            Spacer(Modifier.weight(1f))
-            Text(
-                when (model.isInstalled) {
-                    true -> when (model.hasUpdateAvailable) {
-                        UpdateStatus.Unknown -> unknownStatus
-                        UpdateStatus.Available -> updateStatusAvailable
-                        UpdateStatus.UpToDate -> updateStatusUpToDate
-                    }
-                    false -> notInstalledStatus
-                    null -> unknownStatus
-                }
-            )
-        }
-        Row {
-            Text(apiVersionLabel)
-            Spacer(Modifier.weight(1f))
-            Text(
-                if (!isAsaApiEnabled) {
-                    notEnabledStatus
-                } else {
-                    when (model.apiIsInstalled) {
-                        true -> (if (model.apiVersion != null) versionValueFormat.format(model.apiVersion) else versionPlaceholder)
                         false -> notInstalledStatus
                         null -> unknownStatus
+                    },
+                    color = when (model.isInstalled) {
+                        true -> if (isAsaApiEnabled) {
+                            when (model.apiIsInstalled) {
+                                true -> runningColor
+                                false -> stoppedColor
+                                else -> unknownColor
+                            }
+                        } else {
+                            runningColor
+                        }
+
+                        false -> stoppedColor
+                        null -> unknownColor
                     }
-                }
-            )
-        }
-        if (isAsaApiEnabled) {
-            Row {
-                Text(overseerVersionLabel)
-                Spacer(Modifier.weight(1f))
-                Text(
-                    when (model.isOverseerInstalled) {
-                        true -> (if (model.overseerVersion != null) versionValueFormat.format(model.overseerVersion) else versionPlaceholder)
+                )
+                StatCell(
+                    versionLabel,
+                    when (model.isInstalled) {
+                        true -> if (model.version != null) versionValueFormat.format(model.version) else versionPlaceholder
                         false -> notInstalledStatus
                         null -> unknownStatus
                     }
                 )
+                StatusCell(
+                    updateStatusLabel,
+                    when (model.isInstalled) {
+                        true -> when (model.hasUpdateAvailable) {
+                            UpdateStatus.Unknown -> unknownStatus
+                            UpdateStatus.Available -> updateStatusAvailable
+                            UpdateStatus.UpToDate -> updateStatusUpToDate
+                        }
+                        false -> notInstalledStatus
+                        null -> unknownStatus
+                    },
+                    color = when (model.isInstalled) {
+                        true -> when (model.hasUpdateAvailable) {
+                            UpdateStatus.Unknown -> unknownColor
+                            UpdateStatus.Available -> startingColor
+                            UpdateStatus.UpToDate -> runningColor
+                        }
+                        false -> stoppedColor
+                        null -> unknownColor
+                    }
+                )
+                StatCell(powerStateLabel, getPowerStateLabel(powerState))
             }
-        }
-        Row {
-            Text(powerStateLabel)
-            Spacer(Modifier.weight(1f))
-            Text(
-                getPowerStateLabel(powerState)
-            )
+
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                StatCell(
+                    apiVersionLabel,
+                    if (!isAsaApiEnabled) {
+                        notEnabledStatus
+                    } else {
+                        when (model.apiIsInstalled) {
+                            true -> if (model.apiVersion != null) versionValueFormat.format(model.apiVersion) else versionPlaceholder
+                            false -> notInstalledStatus
+                            null -> unknownStatus
+                        }
+                    }
+                )
+
+                if (isAsaApiEnabled) {
+                    StatusCell(
+                        apiUpdateStatusLabel,
+                        when (model.apiUpdateStatus) {
+                            UpdateStatus.Unknown -> unknownStatus
+                            UpdateStatus.Available -> updateStatusAvailable
+                            UpdateStatus.UpToDate -> updateStatusUpToDate
+                        },
+                        color = when (model.apiUpdateStatus) {
+                            UpdateStatus.Unknown -> unknownColor
+                            UpdateStatus.Available -> startingColor
+                            UpdateStatus.UpToDate -> runningColor
+                        }
+                    )
+                    StatCell(
+                        overseerVersionLabel,
+                        when (model.isOverseerInstalled) {
+                            true -> if (model.overseerVersion != null) versionValueFormat.format(model.overseerVersion) else versionPlaceholder
+                            false -> notInstalledStatus
+                            null -> unknownStatus
+                        }
+                    )
+                    StatusCell(
+                        overseerUpdateStatusLabel,
+                        when (model.overseerUpdateStatus) {
+                            UpdateStatus.Unknown -> unknownStatus
+                            UpdateStatus.Available -> updateStatusAvailable
+                            UpdateStatus.UpToDate -> updateStatusUpToDate
+                        },
+                        color = when (model.overseerUpdateStatus) {
+                            UpdateStatus.Unknown -> unknownColor
+                            UpdateStatus.Available -> startingColor
+                            UpdateStatus.UpToDate -> runningColor
+                        }
+                    )
+                }
+            }
         }
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -235,14 +314,6 @@ fun InstallationInfo(component: ServerComponent) {
                     is InstallingGame -> {
                         val gameStatus = status as InstallingGame
                         when (gameStatus.status) {
-                            is Preparing -> {
-                                InstallProgress(
-                                    preparingLabel,
-                                    0f,
-                                    indeterminate = true,
-                                    modifier = Modifier.fillMaxWidth()
-                                )
-                            }
 
                             is SteamCMDUpdating -> {
                                 InstallProgress(
@@ -339,8 +410,18 @@ fun InstallationInfo(component: ServerComponent) {
                 contentDescription = refreshInfoLabel,
                 tooltip = { Text(refreshInfoLabel) }
             )
-            DefaultButton(onClick = component::startInstall, enabled = !status.isInstalling()) {
-                Text(if (model.isInstalled == true && (if (model.initialServer?.asaApi == true) model.apiIsInstalled else true) == true) if (model.hasUpdateAvailable == UpdateStatus.Available) updateLabel else validateLabel else installLabel)
+            DefaultButton(onClick = component::startInstall, enabled = canUpdateServer) {
+                Text(PowerManager.getUpdateButtonText(
+                    isInstalled = model.isInstalled,
+                    gameUpdateStatus = model.hasUpdateAvailable,
+                    apiUpdateStatus = model.apiUpdateStatus,
+                    overseerUpdateStatus = model.overseerUpdateStatus,
+                    apiIsInstalled = model.apiIsInstalled,
+                    isAsaApiEnabled = isAsaApiEnabled,
+                    installLabel = installLabel,
+                    updateLabel = updateLabel,
+                    validateLabel = validateLabel
+                ))
             }
         }
         Row(

@@ -26,6 +26,12 @@ enum class PowerState {
     Crashed,
 }
 
+enum class UpdateStatus {
+    Unknown,
+    Available,
+    UpToDate
+}
+
 @OptIn(kotlin.uuid.ExperimentalUuidApi::class)
 object PowerManager {
     private val _logger = KotlinLogging.logger {}
@@ -243,6 +249,49 @@ object PowerManager {
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+
+    fun canUpdateServer(
+        server: Server,
+        powerState: PowerState,
+        installStatus: InstallStatus,
+        isInstalled: Boolean?,
+        apiIsInstalled: Boolean?,
+        isOverseerInstalled: Boolean?
+    ): Boolean {
+        if (installStatus.isInstalling()) return false
+        if (powerState != PowerState.Stopped && powerState != PowerState.Crashed) return false
+        if (isInstalled != true) return false
+
+        if (server.asaApi) {
+            if (apiIsInstalled != true) return false
+            if (isOverseerInstalled != true) return false
+        }
+
+        return true
+    }
+
+    fun getUpdateButtonText(
+        isInstalled: Boolean?,
+        gameUpdateStatus: UpdateStatus?,
+        apiUpdateStatus: UpdateStatus?,
+        overseerUpdateStatus: UpdateStatus?,
+        apiIsInstalled: Boolean?,
+        isAsaApiEnabled: Boolean,
+        installLabel: String,
+        updateLabel: String,
+        validateLabel: String
+    ): String {
+        return when {
+            isInstalled != true -> installLabel
+            !isAsaApiEnabled -> when (gameUpdateStatus) {
+                UpdateStatus.Available -> updateLabel
+                else -> validateLabel
+            }
+            apiIsInstalled != true -> installLabel
+            gameUpdateStatus == UpdateStatus.Available || apiUpdateStatus == UpdateStatus.Available || overseerUpdateStatus == UpdateStatus.Available -> updateLabel
+            else -> validateLabel
         }
     }
 }

@@ -36,6 +36,8 @@
     <string name="server_details_update_status_label">Update Status:</string>
     <string name="server_details_update_status_available">Newer version available</string>
     <string name="server_details_update_status_up_to_date">Up to date</string>
+    <string name="server_details_api_update_status_label">API Update Status:</string>
+    <string name="server_details_overseer_update_status_label">Overseer Update Status:</string>
 
     <string name="server_details_progress_preparing">Preparing</string>
     <string name="server_details_progress_installing_api">Installing Ark API</string>

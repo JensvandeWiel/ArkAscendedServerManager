@@ -1,6 +1,7 @@
 package eu.wynq.arkascendedservermanager.ui.features.server
 
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.managers.UpdateStatus
 
 data class ServerModel(
     val server: Server? = null,
@@ -13,15 +14,10 @@ data class ServerModel(
     val isOverseerInstalled: Boolean? = null,
     val overseerVersion: String? = null,
     val hasUpdateAvailable: UpdateStatus = UpdateStatus.Unknown,
+    val apiUpdateStatus: UpdateStatus = UpdateStatus.Unknown,
+    val overseerUpdateStatus: UpdateStatus = UpdateStatus.Unknown,
 ) {
     fun isDirty() = server != initialServer
     fun isValid() = server != null && server.validate()
     fun canSave() = isValid() && isDirty()
-}
-
-
-enum class UpdateStatus {
-    Unknown,
-    Available,
-    UpToDate
 }
