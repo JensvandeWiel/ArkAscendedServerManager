@@ -230,12 +230,20 @@ internal data class ParsedStartupScript(
 )
 
 private fun parseStartupScript(startupScript: String): ParsedStartupScript {
-    val tokens = startupScript.trim().split(Regex("\\s+")).filter { it.isNotBlank() }
+    // Tokenize respecting quoted strings
+    val tokens = tokenizeStartupString(startupScript)
+
     val argumentTokens = buildList {
         if (tokens.firstOrNull() == "start") {
-            for (index in 2 until tokens.size) {
-                add(tokens[index])
+            // tokens layout possibilities:
+            // old format: [start, path, map?...] -> start args at index 2
+            // new format: [start, profileName, path, map?...] -> start args at index 3
+            val startIndex = when {
+                tokens.size >= 3 && !looksLikePath(tokens[1]) && looksLikePath(tokens[2]) -> 3
+                tokens.size >= 2 && looksLikePath(tokens[1]) -> 2
+                else -> 2
             }
+            for (index in startIndex until tokens.size) add(tokens[index])
         } else {
             addAll(tokens)
         }
@@ -271,6 +279,34 @@ private fun parseStartupScript(startupScript: String): ParsedStartupScript {
         dashValues = dashValues,
         flags = flags,
     )
+}
+
+private fun tokenizeStartupString(input: String): List<String> {
+    val result = mutableListOf<String>()
+    var i = 0
+    val n = input.length
+    while (i < n) {
+        while (i < n && input[i].isWhitespace()) i++
+        if (i >= n) break
+        if (input[i] == '"') {
+            i++
+            val start = i
+            while (i < n && input[i] != '"') i++
+            val token = input.substring(start, i)
+            result.add(token)
+            if (i < n && input[i] == '"') i++
+        } else {
+            val start = i
+            while (i < n && !input[i].isWhitespace()) i++
+            val token = input.substring(start, i)
+            result.add(token)
+        }
+    }
+    return result
+}
+
+private fun looksLikePath(token: String): Boolean {
+    return token.contains('\\') || token.contains('/') || token.contains(':') || token.endsWith(".exe", ignoreCase = true)
 }
 
 private fun parseSegment(
