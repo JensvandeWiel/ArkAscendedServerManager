@@ -1,3 +1,19 @@
+## v0.5.2
+
+### Feature
+
+- Add update status tracking for game, API, and overseer with UI enhancements ([a84c518](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/a84c518))
+
+### Fix
+
+- Improve current build retrieval by handling missing manifest file gracefully ([a97db72](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/a97db72))
+- Enhance startup script parsing to support quoted strings and flexible argument indexing ([354382c](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/354382c))
+
+### Chore
+
+- update changelog for v0.5.1 ([083f62a](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/083f62a))
+
+
 ## v0.5.1
 
 ### Fix
