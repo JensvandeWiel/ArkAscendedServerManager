@@ -245,15 +245,14 @@ object InstallManager {
             )
         )
 
-    fun getCurrentBuild(server: Server) = runCatching {
-        val manifest = Path
-            .of(server.installationLocation, Constants.STEAM_APP_MANIFEST_PATH)
-            .toFile()
-            .readText()
+    fun getCurrentBuild(server: Server): Result<String?> = runCatching {
+        val manifestFile = Path.of(server.installationLocation, Constants.STEAM_APP_MANIFEST_PATH).toFile()
+        if (!manifestFile.exists()) return@runCatching null
+
+        val manifest = manifestFile.readText()
         val parsedManifest = AcfParser.parse(manifest)
 
         return@runCatching ((parsedManifest["AppState"] as? Map<String, Any>)?.get("buildid") as? String)
-            ?: throw IllegalStateException("Failed to parse current build ID from Steam app manifest")
     }
 
     suspend fun getLatestBuild() = runCatching {
@@ -277,6 +276,7 @@ object InstallManager {
     suspend fun canUpdate(server: Server): Result<Boolean> = runCatching {
         val currentBuild = getCurrentBuild(server).getOrThrow()
         val latestBuild = getLatestBuild().getOrThrow()
+        if (currentBuild == null) return@runCatching false
         return@runCatching currentBuild != latestBuild
     }
 }
