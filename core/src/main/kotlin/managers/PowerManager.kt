@@ -252,23 +252,12 @@ object PowerManager {
         }
     }
 
-    fun canUpdateServer(
-        server: Server,
+    fun canUpdateOrInstallServer(
         powerState: PowerState,
         installStatus: InstallStatus,
-        isInstalled: Boolean?,
-        apiIsInstalled: Boolean?,
-        isOverseerInstalled: Boolean?
     ): Boolean {
         if (installStatus.isInstalling()) return false
         if (powerState != PowerState.Stopped && powerState != PowerState.Crashed) return false
-        if (isInstalled != true) return false
-
-        if (server.asaApi) {
-            if (apiIsInstalled != true) return false
-            if (isOverseerInstalled != true) return false
-        }
-
         return true
     }
 

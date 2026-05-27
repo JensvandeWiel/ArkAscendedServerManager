@@ -159,13 +159,9 @@ fun InstallationInfo(component: ServerComponent) {
     )
     val canStopServer = PowerManager.canStopServer(powerState, status)
     val canKillServer = PowerManager.canKillServer(powerState, status)
-    val canUpdateServer = PowerManager.canUpdateServer(
-        server = model.server ?: model.initialServer!!,
+    val canUpdateServer = PowerManager.canUpdateOrInstallServer(
         powerState = powerState,
         installStatus = status,
-        isInstalled = model.isInstalled,
-        apiIsInstalled = model.apiIsInstalled,
-        isOverseerInstalled = model.isOverseerInstalled
     )
 
     LaunchedEffect(model.server) {
