@@ -1,3 +1,14 @@
+## v0.5.3
+
+### Fix
+
+- Server not allowed to install/update when not installed yet ([3175292](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/3175292))
+
+### Chore
+
+- update changelog for v0.5.2 ([8f1497c](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/8f1497c))
+
+
 ## v0.5.2
 
 ### Feature
