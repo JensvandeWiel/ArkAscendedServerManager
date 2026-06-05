@@ -126,7 +126,7 @@ jobs:
           -PreleaseType=${{ needs.release_meta.outputs.release_type }}
           --stacktrace --no-daemon
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: release-assets-${{ runner.os }}-${{ matrix.arch }}
           path: |
@@ -136,7 +136,7 @@ jobs:
             ui/build/compose/binaries/main-release/nsis/packaging-metadata.json
           if-no-files-found: error
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: release-notes-${{ runner.os }}-${{ matrix.arch }}
           path: RELEASE_CHANGELOG.md
@@ -157,7 +157,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: release-notes
           pattern: release-notes-*
@@ -217,7 +217,7 @@ jobs:
           git commit -m "chore: update changelog for $TAG"
           git push origin "HEAD:$DEFAULT_BRANCH"
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: artifacts
           pattern: release-assets-*
