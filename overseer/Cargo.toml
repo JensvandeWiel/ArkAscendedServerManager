@@ -13,7 +13,7 @@ path = "src/main/rust/src/main.rs"
 ctrlc = "3"
 
 [target.'cfg(windows)'.dependencies]
-portable-pty = "0.8"
+portable-pty = "0.9"
 
 [build-dependencies]
 winres = "0.1"
