@@ -13,6 +13,7 @@ import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import eu.wynq.arkascendedservermanager.core.ini.ServerSettings
 import eu.wynq.arkascendedservermanager.core.server.defaultValueString
 import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
+import eu.wynq.arkascendedservermanager.ui.components.FormNullableTextField
 import eu.wynq.arkascendedservermanager.ui.components.FormOptionalTextField
 import eu.wynq.arkascendedservermanager.ui.components.FormSelectField
 import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
@@ -51,6 +52,8 @@ fun ServerOptionsSection(component: ServerComponent) {
     val easterColorsHint = stringResource(Res.string.server_details_easter_colors_hint)
     val useEventColorsLabel = stringResource(Res.string.server_details_use_event_colors_label)
     val useEventColorsHint = stringResource(Res.string.server_details_use_event_colors_hint)
+    val activeEventLabel = stringResource(Res.string.server_details_active_event_label)
+    val activeEventHint = stringResource(Res.string.server_details_active_event_hint)
 
     model.server?.run {
         GroupHeader(serverOptionsGroupLabel)
@@ -218,6 +221,16 @@ fun ServerOptionsSection(component: ServerComponent) {
                 )
             }
         }
+        FormNullableTextField(
+            value = settings.administration.activeEvent,
+            onValueChange = { newValue ->
+                component.updateServerAdministrationSettings {
+                    it.copy(activeEvent = newValue?.trim())
+                }
+            },
+            label = activeEventLabel,
+            hint = activeEventHint,
+            error = !settings.administration.validateActiveEvent()
+        )
     }
 }
-

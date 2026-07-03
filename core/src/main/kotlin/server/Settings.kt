@@ -3,6 +3,7 @@ package eu.wynq.arkascendedservermanager.core.server
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.core.support.isValidUrl
 import kotlinx.serialization.Serializable
+import java.awt.Stroke
 import java.lang.reflect.Field
 import kotlin.random.Random
 import kotlin.reflect.KParameter
@@ -92,6 +93,8 @@ data class Administration(
 
     @field:ArgOption(name = "culture", kind = ArgKind.FLAG_VALUE, order = 11)
     val culture: String? = null,
+    @field:ArgOption(name = "ActiveEvent", kind = ArgKind.FLAG_VALUE, order = 12)
+    val activeEvent: String? = null,
 
     val restartAfterCrash: Boolean = false,
 
@@ -110,6 +113,8 @@ data class Administration(
             && validateServerPort()
             && validateCulture()
             && validateSendServerUpdatesWebhookUrl()
+            && validateActiveEvent()
+
 
     fun validateServerPassword() = serverPassword == null || serverPassword.isNotBlank()
     fun validateAdminPassword() = adminPassword.isNotBlank()
@@ -124,6 +129,7 @@ data class Administration(
     fun validateRconPort() = rconPort in 1..65535
     fun validateServerPort() = serverPort in 1..65535
     fun validateCulture() = culture == null || culture.isNotBlank() && locales.contains(culture)
+    fun validateActiveEvent() = activeEvent == null || activeEvent.isNotBlank() && activeEvent.split(" ").size == 1
     fun validateSendServerUpdatesWebhookUrl() =
         sendServerUpdatesWebhookUrl == null || sendServerUpdatesWebhookUrl.isNotBlank() && sendServerUpdatesWebhookUrl.isValidUrl()
 

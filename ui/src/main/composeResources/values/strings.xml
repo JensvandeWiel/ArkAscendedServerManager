@@ -5,4 +5,6 @@
     <string name="server_details_webhook_url_hint">The URL of the webhook to send server updates to.</string>
     <string name="server_details_send_power_state_update_label">Send "%1$s" updates</string>
     <string name="server_details_send_power_state_update_hint">Whether to send an update when the server changes to "%1$s" state.</string>
+    <string name="server_details_active_event_label">Active Event</string>
+    <string name="server_details_active_event_hint">The active event used by the server. Leave blank to disable it.</string>
 </resources>
