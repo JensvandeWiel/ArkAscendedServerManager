@@ -1,5 +1,6 @@
 import org.gradle.api.attributes.Usage
 import org.gradle.api.tasks.Copy
+import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.internal.os.OperatingSystem
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.nativeplatform.OperatingSystemFamily
@@ -44,6 +45,12 @@ tasks.named<ProcessResources>("processResources") {
     }
 }
 
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(25))
+    }
+}
+
 dependencies {
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlinLogging)
@@ -67,6 +74,8 @@ dependencies {
     implementation(libs.serialization.json)
     implementation(libs.kotlinx.coroutinesCore)
     implementation(libs.oshi)
+    implementation(libs.jna.jpms)
+    implementation(libs.jna.platform.jpms)
     testImplementation(libs.kotlin.test)
     implementation(libs.inisaur)
     add("overseerRuntime", project(":overseer"))
