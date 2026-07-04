@@ -221,6 +221,7 @@ jobs:
         with:
           path: artifacts
           pattern: release-assets-*
+          merge-multiple: true
 
 
       - name: Generate update YML files
@@ -229,6 +230,18 @@ jobs:
           artifacts-path: artifacts
           version: ${{ needs.release_meta.outputs.version }}
           channel: ${{ needs.release_meta.outputs.channel }}
+
+      - name: Verify artifacts before publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "Artifacts directory tree:"
+          find artifacts -maxdepth 4 -type f | sed 's/^/ - /'
+          FILE_COUNT="$(find artifacts -type f | wc -l | tr -d ' ')"
+          if [[ "$FILE_COUNT" -eq 0 ]]; then
+            echo "::error::No files found in artifacts/ for release upload"
+            exit 1
+          fi
 
       - name: Publish release
         uses: kdroidFilter/Nucleus/.github/actions/publish-release@main
