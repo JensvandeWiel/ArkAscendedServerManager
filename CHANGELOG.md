@@ -2,6 +2,7 @@
 
 ### Feature
 
+- add artifact verification step before release publishing ([500b18b](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/500b18b))
 - Add active event configuration with validation and UI support ([d035421](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/d035421))
 
 ### Fix
@@ -31,6 +32,7 @@
 
 ### Chore
 
+- update changelog for v0.6.0 ([1548bfc](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/1548bfc))
 - update github artifact actions ([022c189](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/022c189))
 - update actions/configure-pages action to v6 ([d7f9a90](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/d7f9a90))
 - update actions/checkout action to v7 ([7a8e153](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/7a8e153))
