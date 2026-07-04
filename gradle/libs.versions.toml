@@ -1,5 +1,5 @@
 [versions]
-androidx-lifecycle = "2.9.6"
+androidx-lifecycle = "2.10.0"
 composeHotReload = "1.1.1"
 composeMultiplatform = "1.10.0"
 junit = "4.13.2"
