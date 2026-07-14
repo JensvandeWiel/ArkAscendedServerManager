@@ -129,7 +129,11 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: release-assets-${{ runner.os }}-${{ matrix.arch }}
-          path: build/compose/binaries/main/**/*
+          path: |
+            ui/build/compose/binaries/main-release/nsis/*.exe
+            ui/build/compose/binaries/main-release/nsis/*.blockmap
+            ui/build/compose/binaries/main-release/nsis/signing-metadata.json
+            ui/build/compose/binaries/main-release/nsis/packaging-metadata.json
           if-no-files-found: error
 
       - uses: actions/upload-artifact@v4
@@ -218,6 +222,7 @@ jobs:
           path: artifacts
           pattern: release-assets-*
 
+
       - name: Generate update YML files
         uses: kdroidFilter/Nucleus/.github/actions/generate-update-yml@main
         with:
@@ -244,4 +249,3 @@ jobs:
           fi
 
           gh release edit "${{ needs.release_meta.outputs.tag }}" --notes-file "$NOTES_FILE"
-
