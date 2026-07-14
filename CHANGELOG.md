@@ -9,6 +9,7 @@
 
 ### Fix
 
+- downgrade actions versions in release workflow and update artifact paths ([8b830de](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/8b830de))
 - update kotlin monorepo to v2.4.0 ([d86fb0a](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/d86fb0a))
 - update rust crate portable-pty to 0.9 ([34c0ec2](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/34c0ec2))
 - update androidx.lifecycle to v2.10.0 ([1f51973](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/1f51973))
@@ -34,6 +35,8 @@
 
 ### Chore
 
+- Modify release.yml to upload NSIS artifacts ([5ac23d3](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/5ac23d3))
+- update changelog for v0.6.0 ([ff151ab](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ff151ab))
 - update changelog for v0.6.0 ([b399cea](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/b399cea))
 - clean up CHANGELOG by removing outdated entries for v0.6.0 ([eae4696](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/eae4696))
 - update changelog for v0.6.0 ([a7d9afd](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/a7d9afd))
