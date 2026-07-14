@@ -223,6 +223,12 @@ jobs:
           pattern: release-assets-*
           merge-multiple: true
 
+      # ADD THIS STEP TO FLATTEN THE DIRECTORY STRUCTUR
+      - name: Flatten artifacts directory
+        shell: bash
+        run: |
+          find artifacts -mindepth 2 -type f -exec mv -t artifacts {} +
+          find artifacts -mindepth 1 -type d -empty -delete
 
       - name: Generate update YML files
         uses: kdroidFilter/Nucleus/.github/actions/generate-update-yml@main
@@ -236,10 +242,10 @@ jobs:
         run: |
           set -euo pipefail
           echo "Artifacts directory tree:"
-          find artifacts -maxdepth 4 -type f | sed 's/^/ - /'
-          FILE_COUNT="$(find artifacts -type f | wc -l | tr -d ' ')"
+          find artifacts -maxdepth 2 -type f | sed 's/^/ - /'
+          FILE_COUNT="$(find artifacts -maxdepth 1 -type f | wc -l | tr -d ' ')"
           if [[ "$FILE_COUNT" -eq 0 ]]; then
-            echo "::error::No files found in artifacts/ for release upload"
+            echo "::error::No files found in root of artifacts/ for release upload"
             exit 1
           fi
 
