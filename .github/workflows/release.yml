@@ -221,9 +221,7 @@ jobs:
         with:
           path: artifacts
           pattern: release-assets-*
-          merge-multiple: true
 
-      # ADD THIS STEP TO FLATTEN THE DIRECTORY STRUCTUR
       - name: Flatten artifacts directory
         shell: bash
         run: |
