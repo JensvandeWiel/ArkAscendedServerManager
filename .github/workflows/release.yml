@@ -28,7 +28,7 @@ jobs:
       release_type: ${{ steps.resolve.outputs.release_type }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -96,7 +96,7 @@ jobs:
       RELEASE_VERSION: ${{ needs.release_meta.outputs.tag }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -126,17 +126,13 @@ jobs:
           -PreleaseType=${{ needs.release_meta.outputs.release_type }}
           --stacktrace --no-daemon
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v4
         with:
           name: release-assets-${{ runner.os }}-${{ matrix.arch }}
-          path: |
-            ui/build/compose/binaries/main-release/nsis/*.exe
-            ui/build/compose/binaries/main-release/nsis/*.blockmap
-            ui/build/compose/binaries/main-release/nsis/signing-metadata.json
-            ui/build/compose/binaries/main-release/nsis/packaging-metadata.json
+          path: build/compose/binaries/main/**/*
           if-no-files-found: error
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@v4
         with:
           name: release-notes-${{ runner.os }}-${{ matrix.arch }}
           path: RELEASE_CHANGELOG.md
@@ -155,9 +151,9 @@ jobs:
       GITHUB_USERNAME: ${{ github.actor }}
 
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
 
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@v4
         with:
           path: release-notes
           pattern: release-notes-*
@@ -217,16 +213,10 @@ jobs:
           git commit -m "chore: update changelog for $TAG"
           git push origin "HEAD:$DEFAULT_BRANCH"
 
-      - uses: actions/download-artifact@v8
+      - uses: actions/download-artifact@v4
         with:
           path: artifacts
           pattern: release-assets-*
-
-      - name: Flatten artifacts directory
-        shell: bash
-        run: |
-          find artifacts -mindepth 2 -type f -exec mv -t artifacts {} +
-          find artifacts -mindepth 1 -type d -empty -delete
 
       - name: Generate update YML files
         uses: kdroidFilter/Nucleus/.github/actions/generate-update-yml@main
@@ -234,18 +224,6 @@ jobs:
           artifacts-path: artifacts
           version: ${{ needs.release_meta.outputs.version }}
           channel: ${{ needs.release_meta.outputs.channel }}
-
-      - name: Verify artifacts before publish
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Artifacts directory tree:"
-          find artifacts -maxdepth 2 -type f | sed 's/^/ - /'
-          FILE_COUNT="$(find artifacts -maxdepth 1 -type f | wc -l | tr -d ' ')"
-          if [[ "$FILE_COUNT" -eq 0 ]]; then
-            echo "::error::No files found in root of artifacts/ for release upload"
-            exit 1
-          fi
 
       - name: Publish release
         uses: kdroidFilter/Nucleus/.github/actions/publish-release@main
