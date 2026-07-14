@@ -30,7 +30,7 @@ data class AsaApiRelease(
 
 
 object AsaApiInstallManager {
-    private val asaApiUrl = "https://api.github.com/repos/JensvandeWiel/AsaApi/releases"
+    private val asaApiUrl = "https://api.github.com/repos/ArkServerApi/AsaApi/releases"
 
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -45,6 +45,45 @@ object AsaApiInstallManager {
         }
     }
 
+    private fun parseAsaApiVersion(rawVersion: String): Version {
+        return normalizeAsaApiVersion(rawVersion).toVersion(false)
+    }
+
+    private fun normalizeAsaApiVersion(rawVersion: String): String {
+        val trimmed = rawVersion.trim().trimStart('v', 'V')
+        val buildSeparator = trimmed.indexOf('+')
+        val coreAndPrerelease = if (buildSeparator >= 0) trimmed.substring(0, buildSeparator) else trimmed
+        val buildMetadata = if (buildSeparator >= 0) trimmed.substring(buildSeparator + 1) else null
+
+        val prereleaseSeparator = coreAndPrerelease.indexOf('-')
+        val core = if (prereleaseSeparator >= 0) coreAndPrerelease.substring(0, prereleaseSeparator) else coreAndPrerelease
+        val prerelease = if (prereleaseSeparator >= 0) coreAndPrerelease.substring(prereleaseSeparator + 1) else null
+
+        val normalizedCore = core
+            .split('.')
+            .filter { it.isNotBlank() }
+            .map { segment -> segment.toIntOrNull()?.toString() ?: segment }
+            .let { segments ->
+                when (segments.size) {
+                    1 -> "${segments[0]}.0.0"
+                    2 -> "${segments[0]}.${segments[1]}.0"
+                    else -> segments.take(3).joinToString(".")
+                }
+            }
+
+        return buildString {
+            append(normalizedCore)
+            if (!prerelease.isNullOrBlank()) {
+                append('-')
+                append(prerelease)
+            }
+            if (!buildMetadata.isNullOrBlank()) {
+                append('+')
+                append(buildMetadata)
+            }
+        }
+    }
+
     suspend fun getLatestRelease(): Result<AsaApiRelease> = runCatching {
         val request = client.get(asaApiUrl)
         if (request.status != HttpStatusCode.OK) {
@@ -53,7 +92,7 @@ object AsaApiInstallManager {
 
         val releases: Array<GithubRelease> = request.body()
 
-        val latest = releases.maxByOrNull { it.tag_name.toVersion(false) }
+        val latest = releases.maxByOrNull { parseAsaApiVersion(it.tag_name) }
             ?: throw IllegalStateException("No releases found")
 
         val apiAsset = latest.assets.firstOrNull {
@@ -62,7 +101,7 @@ object AsaApiInstallManager {
 
         return Result.success(
             AsaApiRelease(
-                version = latest.tag_name.toVersion(false),
+                version = parseAsaApiVersion(latest.tag_name),
                 downloadUrl = apiAsset.browser_download_url
             )
         )
@@ -114,14 +153,14 @@ object AsaApiInstallManager {
     fun getApiVersion(server: Server): Version? {
         val versionFile = Path(server.installationLocation, Constants.ASA_API_VERSION_PATH).toFile()
         if (versionFile.exists()) {
-            return versionFile.readText().toVersion(false)
+            return runCatching { parseAsaApiVersion(versionFile.readText()) }.getOrNull()
         }
         return null
     }
 
     fun getApiVersionAsString(server: Server): String? {
         val version = getApiVersion(server) ?: return null
-        return "${version.major}.${version.minor}${if (version.buildMetadata !== null) "+${version.buildMetadata}" else null}"
+        return version.toString()
     }
 
     fun isInstalled(server: Server): Boolean {
