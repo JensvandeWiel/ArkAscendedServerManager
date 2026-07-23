@@ -118,6 +118,10 @@ jobs:
 
           cp RELEASE_CHANGELOG.md CHANGELOG.md
 
+      - uses: nuget/setup-nuget@v4
+        with:
+          nuget-version: '5.x'
+
       - name: Build packages
         shell: bash
         run: >
