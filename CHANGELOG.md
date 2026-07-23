@@ -2,6 +2,8 @@
 
 ### Chore
 
+- add nuget configuration and setup step in release workflow ([ae560bc](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ae560bc))
+- update changelog for v0.7.2 ([ee605cc](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ee605cc))
 - update changelog for v0.7.1 ([3e9271f](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/3e9271f))
 
 
