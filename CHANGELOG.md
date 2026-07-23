@@ -1,3 +1,10 @@
+## v0.7.2
+
+### Chore
+
+- update changelog for v0.7.1 ([3e9271f](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/3e9271f))
+
+
 ## v0.7.1
 
 ### Fix
