@@ -4,6 +4,7 @@ import IniFile
 import annotations.IniProperty
 import annotations.IniSection
 import annotations.IniSerializable
+import annotations.OmitIfNull
 import annotations.WithIgnored
 import support.Unsure
 import kotlinx.serialization.Serializable
@@ -86,13 +87,56 @@ data class ShooterGameMode(
     val maxFallSpeedMultiplier: Float = 1.0f,
     @param:Unsure
     @IniProperty("PlayerBaseStatMultipliers")
+    @OmitIfNull
     val playerBaseStatMultipliers: Map<Int, Float>? = null,
     @IniProperty("PerLevelStatsMultiplier_Player")
+    @OmitIfNull
     val perLevelStatsMultiplierPlayer: Map<Int, Float>? = null,
+    @IniProperty("DinoHarvestingDamageMultiplier")
+    @Unsure
+    val dinoHarvestingDamageMultiplier: Float = 3.2f,
+    @IniProperty("DinoTurretDamageMultiplier")
+    @Unsure
+    val dinoTurretDamageMultiplier: Float = 1.0f,
+    @IniProperty("PassiveTameIntervalMultiplier")
+    @Unsure
+    val passiveTameIntervalMultiplier: Float = 1.0f,
+    @IniProperty("TamedDinoCharacterFoodDrainMultiplier")
+    @Unsure
+    val tamedDinoCharacterFoodDrainMultiplier: Float = 1.0f,
+    @IniProperty("TamedDinoTorporDrainMultiplier")
+    @Unsure
+    val tamedDinoTorporDrainMultiplier: Float = 1.0f,
+    @IniProperty("WildDinoCharacterFoodDrainMultiplier")
+    val wildDinoCharacterFoodDrainMultiplier: Float = 1.0f,
+    @IniProperty("WildDinoTorporDrainMultiplier")
+    @Unsure
+    val wildDinoTorporDrainMultiplier: Float = 1.0f,
+    @IniProperty("PerLevelStatsMultiplier_DinoTamed")
+    @Unsure
+    @OmitIfNull
+    val perLevelStatsMultiplierDinoTamed: Map<Int, Float>? = null,
+    @IniProperty("PerLevelStatsMultiplier_DinoTamed_Add")
+    @Unsure
+    @OmitIfNull
+    val perLevelStatsMultiplierDinoTamedAdd: Map<Int, Float>? = null,
+    @IniProperty("PerLevelStatsMultiplier_DinoTamed_Affinity")
+    @Unsure
+    @OmitIfNull
+    val perLevelStatsMultiplierDinoTamedAffinity: Map<Int, Float>? = null,
+    @IniProperty("PerLevelStatsMultiplier_DinoWild")
+    @Unsure
+    @OmitIfNull
+    val perLevelStatsMultiplierDinoWild: Map<Int, Float>? = null,
 ) {
     companion object {
         fun createPlayerBaseStatMultipliersDefault() = mapOf(0 to 1.0f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 6 to 1.0f, 7 to 1.0f, 8 to 1.0f, 9 to 1.0f, 10 to 1.0f, 11 to 1.0f)
         fun createPerLevelStatsMultiplierPlayerDefault() = mapOf(0 to 1.0f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 6 to 1.0f, 7 to 1.0f, 8 to 1.0f, 9 to 1.0f, 10 to 1.0f, 11 to 1.0f)
+
+        fun createPerLevelStatsMultiplierDinoTamedDefault() = mapOf(0 to 0.2f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 6 to 1.0f, 7 to 1.0f, 8 to 0.17f, 9 to 1.0f, 10 to 1.0f, 11 to 1.0f)
+        fun createPerLevelStatsMultiplierDinoTamedAddDefault() = mapOf(0 to 0.14f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 6 to 1.0f, 7 to 1.0f, 8 to 0.14f, 9 to 1.0f, 10 to 1.0f, 11 to 1.0f)
+        fun createPerLevelStatsMultiplierDinoTamedAffinityDefault() = mapOf(0 to 0.44f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 6 to 1.0f, 7 to 1.0f, 8 to 0.44f, 9 to 1.0f, 10 to 1.0f, 11 to 1.0f)
+        fun createPerLevelStatsMultiplierDinoWildDefault() = mapOf(0 to 1.0f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 6 to 1.0f, 7 to 1.0f, 8 to 1.0f, 9 to 1.0f, 10 to 1.0f, 11 to 1.0f)
     }
     fun validateMaxNumberOfPlayersInTribe() = maxNumberOfPlayersInTribe >= 0
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0

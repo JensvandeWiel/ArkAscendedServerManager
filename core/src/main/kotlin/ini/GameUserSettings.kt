@@ -157,6 +157,28 @@ data class ServerSettings(
     val playerCharacterStaminaDrainMultiplier: Float = 1.0f,
     @IniProperty("PlayerCharacterHealthRecoveryMultiplier")
     val playerCharacterHealthRecoveryMultiplier: Float = 1.0f,
+    @IniProperty("AllowRaidDinoFeeding")
+    val allowRaidDinoFeeding: Boolean = false,
+    @IniProperty("DinoCharacterHealthRecoveryMultiplier")
+    val dinoCharacterHealthRecoveryMultiplier: Float = 1.0f,
+    @IniProperty("DinoCharacterStaminaDrainMultiplier")
+    val dinoCharacterStaminaDrainMultiplier: Float = 1.0f,
+    @IniProperty("DinoDamageMultiplier")
+    val dinoDamageMultiplier: Float = 1.0f,
+    @IniProperty("DinoResistanceMultiplier")
+    val dinoResistanceMultiplier: Float = 1.0f,
+    @IniProperty("MaxPersonalTamedDinos")
+    val maxPersonalTamedDinos: Int = 0,
+    @IniProperty("MaxTamedDinos")
+    val maxTamedDinos: Int = 5000,
+    @IniProperty("RaidDinoCharacterFoodDrainMultiplier")
+    val raidDinoCharacterFoodDrainMultiplier: Float = 1.0f,
+    @IniProperty("TamedDinoDamageMultiplier")
+    @Unsure
+    val tamedDinoDamageMultiplier: Float = 1.0f,
+    @IniProperty("TamedDinoResistanceMultiplier")
+    @Unsure
+    val tamedDinoResistanceMultiplier: Float = 1.0f,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0

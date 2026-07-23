@@ -42,6 +42,7 @@ enum class ServerDetailsTab {
     ENVIRONMENT,
     RULES,
     PLAYER,
+    DINO_SETTINGS,
     CONFIG_EDITOR,
 }
 
@@ -170,6 +171,10 @@ class ServerComponent(
 
     fun selectPlayerTab() {
         selectTab(ServerDetailsTab.PLAYER)
+    }
+
+    fun selectDinoSettingsTab() {
+        selectTab(ServerDetailsTab.DINO_SETTINGS)
     }
 
     suspend fun checkUpdateAvailable() {
