@@ -1,3 +1,14 @@
+## v0.7.0
+
+### Feature
+
+- add dino settings tab and related configuration options ([f729187](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/f729187))
+
+### Chore
+
+- update changelog for v0.6.0 ([f53f40b](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/f53f40b))
+
+
 ## v0.6.0
 
 ### Feature
