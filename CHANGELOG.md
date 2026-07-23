@@ -1,3 +1,14 @@
+## v0.7.1
+
+### Fix
+
+- Rollback portable-pty to 0.8.1 since it breaks console capture, investigation required ([365f28a](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/365f28a))
+
+### Chore
+
+- update changelog for v0.7.0 ([0cb1fcd](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/0cb1fcd))
+
+
 ## v0.7.0
 
 ### Feature
