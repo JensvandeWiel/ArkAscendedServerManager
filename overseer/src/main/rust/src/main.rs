@@ -1,18 +1,18 @@
 use std::env;
+use std::ffi::OsStr;
 use std::ffi::OsString;
 use std::fs::{File, OpenOptions};
-use std::io::{self, Read, Write};
+use std::io::{self, Write};
+use std::os::windows::ffi::OsStrExt;
 use std::path::{Path, PathBuf};
 use std::process;
 use std::sync::{
     Arc, Mutex,
     atomic::{AtomicBool, Ordering},
 };
-use std::thread;
 use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
-#[cfg(windows)]
-use portable_pty::{CommandBuilder, PtySize, native_pty_system};
+use winptyrs::{AgentConfig, MouseMode, PTY, PTYArgs, PTYBackend};
 
 mod output_sanitizer;
 
@@ -134,57 +134,79 @@ fn run_server_with_pty(
     overseer_writer: &Arc<Mutex<File>>,
     shutdown_requested: &Arc<AtomicBool>,
 ) -> io::Result<i32> {
-    let pty_system = native_pty_system();
-    let pair = pty_system
-        .openpty(PtySize {
-            rows: 40,
-            cols: 512,
-            pixel_width: 0,
-            pixel_height: 0,
-        })
-        .map_err(|err| io::Error::other(format!("failed to create PTY: {err}")))?;
+    let pty_args = PTYArgs {
+        cols: 512,
+        rows: 40,
+        mouse_mode: MouseMode::WINPTY_MOUSE_MODE_NONE,
+        timeout: 10000,
+        agent_config: AgentConfig::WINPTY_FLAG_COLOR_ESCAPES,
+    };
 
-    let mut cmd = CommandBuilder::new(launch.executable.as_os_str());
-    cmd.cwd(&launch.cwd);
-    for arg in args {
-        cmd.arg(arg);
+    let mut pty = PTY::new_with_backend(&pty_args, PTYBackend::ConPTY)
+        .map_err(|e| io::Error::other(format!("failed to create PTY: {}", e.to_string_lossy())))?;
+
+    let appname = launch.executable.as_os_str().to_os_string();
+    let cmdline = build_cmdline(args);
+    let cwd = Some(launch.cwd.as_os_str().to_os_string());
+
+    pty.spawn(appname, cmdline, cwd, None)
+        .map_err(|e| io::Error::other(format!("failed to spawn PTY child: {}", e.to_string_lossy())))?;
+
+    let pid = pty.get_pid();
+    write_meta_line(overseer_writer, &format!("child pid={pid} (pty)"))?;
+
+    let mut sanitizer = OutputSanitizer::new();
+    let mut total_bytes = 0_usize;
+    let mut termination_requested = false;
+
+    loop {
+        match pty.read(false) {
+            Ok(output) if !output.is_empty() => {
+                let bytes = os_string_to_bytes(&output);
+                total_bytes += bytes.len();
+                let cleaned = sanitizer.filter(&bytes);
+                write_log_data(server_writer, &cleaned)?;
+            }
+            Err(_) => break,
+            _ => {}
+        }
+
+        if !pty.is_alive().unwrap_or(false) {
+            if let Ok(output) = pty.read(true) {
+                let bytes = os_string_to_bytes(&output);
+                total_bytes += bytes.len();
+                let cleaned = sanitizer.filter(&bytes);
+                write_log_data(server_writer, &cleaned)?;
+            }
+            break;
+        }
+
+        if shutdown_requested.load(Ordering::SeqCst) && !termination_requested {
+            kill_process_by_pid(pid);
+            termination_requested = true;
+        }
+
+        std::thread::sleep(Duration::from_millis(50));
     }
 
-    let mut child = pair
-        .slave
-        .spawn_command(cmd)
-        .map_err(|err| io::Error::other(format!("failed to spawn PTY child: {err}")))?;
+    let tail = sanitizer.finish();
+    if !tail.is_empty() {
+        write_log_data(server_writer, &tail)?;
+    }
+
+    let exit_code = pty
+        .get_exitstatus()
+        .ok()
+        .flatten()
+        .and_then(|c| i32::try_from(c).ok())
+        .unwrap_or(1);
 
     write_meta_line(
         overseer_writer,
-        &format!("child pid={:?} (pty)", child.process_id()),
+        &format!("child exited with code={exit_code}; captured pty_bytes={total_bytes}"),
     )?;
 
-    // Close the slave in this process so EOF is delivered once the child exits.
-    drop(pair.slave);
-
-    let reader = pair
-        .master
-        .try_clone_reader()
-        .map_err(|err| io::Error::other(format!("failed to clone PTY reader: {err}")))?;
-
-    let stream_writer = Arc::clone(server_writer);
-    let stream_thread = thread::spawn(move || stream_to_log(reader, stream_writer));
-
-    let status = wait_for_child_exit(child.as_mut(), shutdown_requested)?;
-
-    // Close the PTY master after process exit so the reader clone receives EOF.
-    drop(pair.master);
-
-    let captured_bytes = join_stream_thread(stream_thread)?;
-    let exit_code = i32::try_from(status.exit_code()).unwrap_or(1);
-
-    write_meta_line(
-        overseer_writer,
-        &format!("child exited with code={exit_code}; captured pty_bytes={captured_bytes}"),
-    )?;
-
-    if captured_bytes == 0 {
+    if total_bytes == 0 {
         write_meta_line(
             overseer_writer,
             "warning: child produced no PTY output; for Ark, include -log and inspect engine log files",
@@ -194,29 +216,45 @@ fn run_server_with_pty(
     Ok(exit_code)
 }
 
-fn wait_for_child_exit(
-    child: &mut (dyn portable_pty::Child + Send + Sync),
-    shutdown_requested: &Arc<AtomicBool>,
-) -> io::Result<portable_pty::ExitStatus> {
-    let mut termination_requested = false;
-
-    loop {
-        if let Some(status) = child
-            .try_wait()
-            .map_err(|err| io::Error::other(format!("failed waiting for PTY child: {err}")))?
-        {
-            return Ok(status);
-        }
-
-        if shutdown_requested.load(Ordering::SeqCst) && !termination_requested {
-            child.kill().map_err(|err| {
-                io::Error::other(format!("failed to stop child after Ctrl+C: {err}"))
-            })?;
-            termination_requested = true;
-        }
-
-        thread::sleep(Duration::from_millis(50));
+fn build_cmdline(args: &[OsString]) -> Option<OsString> {
+    if args.is_empty() {
+        return None;
     }
+    let parts: Vec<String> = args
+        .iter()
+        .map(|a| {
+            let s = a.to_string_lossy();
+            if s.contains(' ') {
+                format!("\"{}\"", s)
+            } else {
+                s.to_string()
+            }
+        })
+        .collect();
+    Some(parts.join(" ").into())
+}
+
+fn os_string_to_bytes(s: &OsStr) -> Vec<u8> {
+    let wide: Vec<u16> = s.encode_wide().collect();
+    String::from_utf16_lossy(&wide).into_bytes()
+}
+
+fn kill_process_by_pid(pid: u32) {
+    let _ = std::process::Command::new("taskkill")
+        .args(["/F", "/PID", &pid.to_string()])
+        .output();
+}
+
+fn write_log_data(writer: &Arc<Mutex<File>>, data: &[u8]) -> io::Result<()> {
+    if data.is_empty() {
+        return Ok(());
+    }
+    let mut log = writer
+        .lock()
+        .map_err(|_| io::Error::other("failed to lock log file writer"))?;
+    log.write_all(data)?;
+    log.flush()?;
+    Ok(())
 }
 
 fn resolve_launch_target(server_exe: &str) -> io::Result<LaunchTarget> {
@@ -225,7 +263,6 @@ fn resolve_launch_target(server_exe: &str) -> io::Result<LaunchTarget> {
         .map(Path::to_path_buf)
         .ok_or_else(|| io::Error::other("failed to determine launcher directory"))?;
 
-    // Prefer a sibling executable next to the launcher binary.
     let preferred = launcher_dir.join(server_exe);
     let executable = if preferred.exists() {
         preferred
@@ -266,49 +303,6 @@ fn ensure_parent_dir(path: &Path) -> io::Result<()> {
         std::fs::create_dir_all(parent)?;
     }
     Ok(())
-}
-
-fn stream_to_log<R: Read>(mut reader: R, writer: Arc<Mutex<File>>) -> io::Result<usize> {
-    let mut buffer = [0_u8; 8192];
-    let mut total_bytes = 0_usize;
-    let mut sanitizer = OutputSanitizer::new();
-
-    loop {
-        let bytes_read = reader.read(&mut buffer)?;
-        if bytes_read == 0 {
-            break;
-        }
-
-        total_bytes += bytes_read;
-        let cleaned = sanitizer.filter(&buffer[..bytes_read]);
-
-        let mut log = writer
-            .lock()
-            .map_err(|_| io::Error::other("failed to lock log file writer"))?;
-        if !cleaned.is_empty() {
-            log.write_all(&cleaned)?;
-        }
-        // Flush each chunk so other processes tailing the file can see near-live output.
-        log.flush()?;
-    }
-
-    let tail = sanitizer.finish();
-    if !tail.is_empty() {
-        let mut log = writer
-            .lock()
-            .map_err(|_| io::Error::other("failed to lock log file writer"))?;
-        log.write_all(&tail)?;
-        log.flush()?;
-    }
-
-    Ok(total_bytes)
-}
-
-fn join_stream_thread(handle: thread::JoinHandle<io::Result<usize>>) -> io::Result<usize> {
-    match handle.join() {
-        Ok(result) => result,
-        Err(_) => Err(io::Error::other("stream forwarding thread panicked")),
-    }
 }
 
 fn write_meta_line(writer: &Arc<Mutex<File>>, message: &str) -> io::Result<()> {

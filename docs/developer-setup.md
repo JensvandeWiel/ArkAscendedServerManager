@@ -9,6 +9,7 @@ This project is still under active development, so the app is not ready for norm
 - **Cargo** — used to build the native `core-native` module.
 - **Visual Studio Build Tools** — install the C++ workload and Windows SDK for native Rust builds on Windows.
 - **Git** — for cloning the repository.
+- **Nuget** — used for managing .NET dependencies for building winpty-rs.
 
 ### Suggested Windows install steps
 
