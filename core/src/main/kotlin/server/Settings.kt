@@ -480,6 +480,8 @@ data class Options(
     val forceRespawnDinos: Boolean = false,
     @field:ArgOption(name = "ServerUseEventColors", kind = ArgKind.FLAG, order = 18)
     val useEventColors: Boolean = false,
+    @field:ArgOption(name = "AutoDestroyStructures", kind = ArgKind.FLAG, order = 19)
+    val autoDestroyStructures: Boolean = false,
 ) {
     fun validate() = true
 

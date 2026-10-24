@@ -149,6 +149,45 @@ data class ServerSettings(
     val enableCryoSicknessPVE: Boolean = false,
     @IniProperty("RandomSupplyCratePoints")
     val randomSupplyCratePoints: Boolean = false,
+    @IniProperty("StructureResistanceMultiplier")
+    val structureResistanceMultiplier: Float = 1.0f,
+    @IniProperty("StructurePreventResourceRadiusMultiplier")
+    val structurePreventResourceRadiusMultiplier: Float = 1.0f,
+    @IniProperty("TheMaxStructuresInRange")
+    val theMaxStructuresInRange: Int = 10500,
+    @IniProperty("IgnoreLimitMaxStructuresInRangeTypeFlag")
+    val ignoreLimitMaxStructuresInRangeTypeFlag: Boolean = false,
+    @IniProperty("PerPlatformMaxStructuresMultiplier")
+    val perPlatformMaxStructuresMultiplier: Float = 1.0f,
+    @IniProperty("PlatformSaddleBuildAreaBoundsMultiplier")
+    val platformSaddleBuildAreaBoundsMultiplier: Float = 1.0f,
+    @IniProperty("OverrideStructurePlatformPrevention")
+    val overrideStructurePlatformPrevention: Boolean = false,
+    @IniProperty("AlwaysAllowStructurePickup")
+    val alwaysAllowStructurePickup: Boolean = false,
+    @IniProperty("StructurePickupTimeAfterPlacement")
+    val structurePickupTimeAfterPlacement: Float = 30.0f,
+    @IniProperty("StructurePickupHoldDuration")
+    val structurePickupHoldDuration: Float = 0.5f,
+    @IniProperty("DisableStructureDecayPvE")
+    val disableStructureDecayPvE: Boolean = false,
+    @IniProperty("PvEStructureDecayPeriodMultiplier")
+    @Unsure
+    val pvEStructureDecayPeriodMultiplier: Float = 1.0f,
+    @IniProperty("PvPStructureDecay")
+    @Unsure
+    val pvPStructureDecay: Boolean = false,
+    @IniProperty("AutoDestroyOldStructuresMultiplier")
+    @Unsure
+    val autoDestroyOldStructuresMultiplier: Float = 0.0f,
+    @IniProperty("ItemStackSizeMultiplier")
+    val itemStackSizeMultiplier: Float = 1.0f,
+    @IniProperty("ClampItemStats")
+    @Unsure
+    val clampItemStats: Boolean = false,
+    @IniProperty("MaxPlatformSaddleStructureLimit")
+    @Unsure
+    val maxPlatformSaddleStructureLimit: Int = 75,
     @IniProperty("AdminLogging")
     val adminLogging: Boolean = false,
     @IniProperty("globalVoiceChat")
@@ -235,6 +274,11 @@ data class ServerSettings(
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateActiveMods() = activeMods.all { it > 0 }
     fun validateDifficultyOffset() = difficultyOffset >= 0.0f
+    fun validateStructureMultipliers() = structureResistanceMultiplier >= 0 && structurePreventResourceRadiusMultiplier >= 0 && perPlatformMaxStructuresMultiplier >= 0 && platformSaddleBuildAreaBoundsMultiplier >= 0
+    fun validateStructureLimits() = theMaxStructuresInRange >= 0 && maxPlatformSaddleStructureLimit >= 0
+    fun validateStructurePickup() = structurePickupTimeAfterPlacement >= 0 && structurePickupHoldDuration >= 0
+    fun validateStructureDecay() = pvEStructureDecayPeriodMultiplier >= 0 && autoDestroyOldStructuresMultiplier >= 0
+    fun validateItemStack() = itemStackSizeMultiplier >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
     fun validateMinimumDinoReuploadInterval() = minimumDinoReuploadInterval == null || minimumDinoReuploadInterval >= 0
     fun validateTributeExpirations() = listOf(
@@ -250,7 +294,7 @@ data class ServerSettings(
     fun validateBadWordWhiteListUrl() = badWordWhiteListUrl == null || (badWordWhiteListUrl.isNotBlank() && badWordWhiteListUrl.isValidUrl())
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable

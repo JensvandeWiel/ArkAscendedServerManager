@@ -156,6 +156,9 @@ class IniRoundTripTest {
         assertFalse(ServerSettings(banListUrl = "not-a-url").validate())
         assertFalse(ServerSettings(badWordListUrl = "not-a-url").validateBadWordListUrl())
         assertFalse(ServerSettings(badWordWhiteListUrl = "not-a-url").validateBadWordWhiteListUrl())
+        assertFalse(ServerSettings(structureResistanceMultiplier = -1.0f).validate())
+        assertFalse(ServerSettings(theMaxStructuresInRange = -1).validate())
+        assertFalse(ShooterGameMode(limitTurretsNum = -1).validate())
         assertTrue(ServerSettings().validate())
     }
 
@@ -216,6 +219,64 @@ class IniRoundTripTest {
         assertFalse(settings.serverForceNoHud)
         assertFalse(settings.showFloatingDamageText)
         assertEquals(3000, ShooterGameMode().photoModeRangeLimit)
+    }
+
+    @Test
+    fun `structures and items fields round-trip`() {
+        val settings = GameUserSettings().copy(
+            serverSettings = ServerSettings(
+                structureResistanceMultiplier = 2.0f,
+                structurePreventResourceRadiusMultiplier = 0.5f,
+                theMaxStructuresInRange = 5000,
+                ignoreLimitMaxStructuresInRangeTypeFlag = true,
+                perPlatformMaxStructuresMultiplier = 3.0f,
+                platformSaddleBuildAreaBoundsMultiplier = 2.0f,
+                overrideStructurePlatformPrevention = true,
+                alwaysAllowStructurePickup = true,
+                structurePickupTimeAfterPlacement = 10.0f,
+                structurePickupHoldDuration = 1.0f,
+                disableStructureDecayPvE = true,
+                pvEStructureDecayPeriodMultiplier = 2.0f,
+                pvPStructureDecay = true,
+                autoDestroyOldStructuresMultiplier = 1.0f,
+                itemStackSizeMultiplier = 5.0f,
+                clampItemStats = true,
+                maxPlatformSaddleStructureLimit = 100,
+            )
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+
+        assertEquals(settings.serverSettings, parsed.serverSettings)
+
+        val mode = ShooterGameMode(
+            disableWirelessCrafting = true,
+            disableWirelessCraftingForDinos = true,
+            disableWirelessCraftingForPlayers = true,
+            disableWirelessCraftingForStructures = true,
+            wirelessCraftingRangeOverride = 5000,
+            limitGeneratorsNum = 5,
+            limitGeneratorsRange = 20000,
+            hardLimitTurretsInRange = true,
+            limitTurretsInRange = false,
+            limitTurretsNum = 50,
+            limitTurretsRange = 8000.0f,
+        )
+
+        val parsedGame = IniSerializer.deserialize<Game>(IniSerializer.serialize(Game(shooterGameMode = mode)))
+
+        assertEquals(mode, parsedGame.shooterGameMode)
+    }
+
+    @Test
+    fun `structures and items defaults match ASA`() {
+        val settings = ServerSettings()
+
+        assertEquals(10500, settings.theMaxStructuresInRange)
+        assertEquals(1.0f, settings.itemStackSizeMultiplier)
+        assertEquals(3000, ShooterGameMode().wirelessCraftingRangeOverride)
+        assertTrue(ShooterGameMode().limitTurretsInRange)
+        assertEquals(100, ShooterGameMode().limitTurretsNum)
     }
 
     @Test

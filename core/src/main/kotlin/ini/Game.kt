@@ -86,6 +86,32 @@ data class ShooterGameMode(
     val customRecipeEffectivenessMultiplier: Float = 1.0f,
     @IniProperty("CustomRecipeSkillMultiplier")
     val customRecipeSkillMultiplier: Float = 1.0f,
+    @IniProperty("bDisableWirelessCrafting")
+    val disableWirelessCrafting: Boolean = false,
+    @IniProperty("bDisableWirelessCraftingForDinos")
+    val disableWirelessCraftingForDinos: Boolean = false,
+    @IniProperty("bDisableWirelessCraftingForPlayers")
+    val disableWirelessCraftingForPlayers: Boolean = false,
+    @IniProperty("bDisableWirelessCraftingForStructures")
+    val disableWirelessCraftingForStructures: Boolean = false,
+    @IniProperty("WirelessCraftingRangeOverride")
+    val wirelessCraftingRangeOverride: Int = 3000,
+    @IniProperty("LimitGeneratorsNum")
+    val limitGeneratorsNum: Int = 3,
+    @IniProperty("LimitGeneratorsRange")
+    val limitGeneratorsRange: Int = 15000,
+    @IniProperty("bHardLimitTurretsInRange")
+    @Unsure
+    val hardLimitTurretsInRange: Boolean = false,
+    @IniProperty("bLimitTurretsInRange")
+    @Unsure
+    val limitTurretsInRange: Boolean = true,
+    @IniProperty("LimitTurretsNum")
+    @Unsure
+    val limitTurretsNum: Int = 100,
+    @IniProperty("LimitTurretsRange")
+    @Unsure
+    val limitTurretsRange: Float = 10000.0f,
     @param:Unsure
     @IniProperty("PlayerHarvestingDamageMultiplier")
     val playerHarvestingDamageMultiplier: Float = 1.0f,
@@ -148,10 +174,13 @@ data class ShooterGameMode(
     }
     fun validateMaxNumberOfPlayersInTribe() = maxNumberOfPlayersInTribe >= 0
     fun validatePhotoModeRangeLimit() = photoModeRangeLimit >= 0
+    fun validateWirelessCrafting() = wirelessCraftingRangeOverride >= 0
+    fun validateGenerators() = limitGeneratorsNum >= 0 && limitGeneratorsRange >= 0
+    fun validateTurrets() = limitTurretsNum >= 0 && limitTurretsRange >= 0
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
     fun validateMaxAlliancesPerTribe() = maxAlliancesPerTribe >= 0
     fun validateMaxTribesPerAlliance() = maxTribesPerAlliance >= 0
-    fun validate() = validateMaxNumberOfPlayersInTribe() && validatePhotoModeRangeLimit() && validateTribeSlotReuseCooldown()
+    fun validate() = validateMaxNumberOfPlayersInTribe() && validatePhotoModeRangeLimit() && validateWirelessCrafting() && validateGenerators() && validateTurrets() && validateTribeSlotReuseCooldown()
             && validateMaxAlliancesPerTribe() && validateMaxTribesPerAlliance()
 }
 

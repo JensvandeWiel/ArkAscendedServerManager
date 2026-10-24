@@ -374,6 +374,7 @@
 
     <string name="server_details_dino_settings_tab">Dino Settings</string>
     <string name="server_details_chat_and_hud_tab">Chat &amp; HUD</string>
+    <string name="server_details_structures_and_items_tab">Structures &amp; Items</string>
     <string name="server_details_dino_allow_raid_dino_feeding_label">Allow Raid Dino Feeding</string>
     <string name="server_details_dino_allow_raid_dino_feeding_hint">If True, allows Titanosaurs to be permanently tamed (namely allow them to be fed). Note: in The Island only spawns a maximum of 3 Titanosaurs, so 3 tamed ones should ultimately block any more ones from spawning.</string>
     <string name="server_details_dino_tame_limits_header">Tame Limits</string>
@@ -497,4 +498,79 @@
     <string name="server_details_chat_and_hud_disable_photo_mode_hint">If enabled, photo mode is disabled on the server.</string>
     <string name="server_details_chat_and_hud_photo_mode_range_limit_label">Photo mode range limit</string>
     <string name="server_details_chat_and_hud_photo_mode_range_limit_hint">Maximum distance between the photo-mode camera and the player, in Unreal units. Default is 3000.</string>
+
+    <!-- Structures & Items -->
+    <string name="server_details_structures_limits_group">Structure limits</string>
+    <string name="server_details_structures_resistance_multiplier_label">Structure resistance multiplier</string>
+    <string name="server_details_structures_resistance_multiplier_hint">Scales how much damage structures take. Higher values make structures tougher.</string>
+    <string name="server_details_structures_prevent_resource_radius_multiplier_label">Resource prevention radius multiplier</string>
+    <string name="server_details_structures_prevent_resource_radius_multiplier_hint">Scales the radius around structures where resources cannot respawn.</string>
+    <string name="server_details_structures_max_structures_in_range_label">Max structures in range</string>
+    <string name="server_details_structures_max_structures_in_range_hint">Maximum number of structures that can be built within the hard-coded range. Default is 10500.</string>
+    <string name="server_details_structures_ignore_limit_type_flag_label">Ignore structure type limit</string>
+    <string name="server_details_structures_ignore_limit_type_flag_hint">If enabled, the structure limit ignores structure type flags.</string>
+
+    <string name="server_details_structures_platform_saddles_group">Platform saddles</string>
+    <string name="server_details_structures_per_platform_max_structures_multiplier_label">Per-platform structure multiplier</string>
+    <string name="server_details_structures_per_platform_max_structures_multiplier_hint">Multiplier for the number of structures allowed on a platform saddle.</string>
+    <string name="server_details_structures_platform_saddle_build_area_multiplier_label">Platform build area multiplier</string>
+    <string name="server_details_structures_platform_saddle_build_area_multiplier_hint">Multiplier for the build area bounds around platform saddles.</string>
+    <string name="server_details_structures_max_platform_saddle_structure_limit_label">Max structures per platform saddle</string>
+    <string name="server_details_structures_max_platform_saddle_structure_limit_hint">Maximum number of structures allowed on a single platform saddle. Default is 75.</string>
+    <string name="server_details_structures_override_platform_prevention_label">Override platform prevention</string>
+    <string name="server_details_structures_override_platform_prevention_hint">If enabled, allows structures on platform saddles where ARK would normally prevent them.</string>
+
+    <string name="server_details_structures_pickup_group">Pickup</string>
+    <string name="server_details_structures_always_allow_pickup_label">Always allow structure pickup</string>
+    <string name="server_details_structures_always_allow_pickup_hint">If enabled, disables the pickup timer for structures.</string>
+    <string name="server_details_structures_pickup_time_after_placement_label">Pickup time after placement (seconds)</string>
+    <string name="server_details_structures_pickup_time_after_placement_hint">Seconds after placement during which a structure can be picked up. Default is 30.</string>
+    <string name="server_details_structures_pickup_hold_duration_label">Pickup hold duration (seconds)</string>
+    <string name="server_details_structures_pickup_hold_duration_hint">Seconds the pickup key must be held. Default is 0.5.</string>
+
+    <string name="server_details_structures_decay_group">Decay</string>
+    <string name="server_details_structures_disable_decay_pve_label">Disable PvE structure decay</string>
+    <string name="server_details_structures_disable_decay_pve_hint">If enabled, PvE structures do not decay.</string>
+    <string name="server_details_structures_pve_decay_period_multiplier_label">PvE decay period multiplier</string>
+    <string name="server_details_structures_pve_decay_period_multiplier_hint">Scales the PvE structure decay period.</string>
+    <string name="server_details_structures_pvp_decay_label">Enable PvP structure decay</string>
+    <string name="server_details_structures_pvp_decay_hint">If enabled, structures decay on PvP servers even while offline protection is active.</string>
+    <string name="server_details_structures_auto_destroy_old_multiplier_label">Auto-destroy old structures multiplier</string>
+    <string name="server_details_structures_auto_destroy_old_multiplier_hint">Scales the auto-destroy timer for old structures. Requires the AutoDestroyStructures launch flag below.</string>
+    <string name="server_details_structures_auto_destroy_structures_label">Enable auto-destroy structures flag</string>
+    <string name="server_details_structures_auto_destroy_structures_hint">Adds -AutoDestroyStructures to the launch line; required for the multiplier above to have any effect.</string>
+
+    <string name="server_details_structures_turrets_group">Turrets</string>
+    <string name="server_details_structures_hard_limit_turrets_label">Hard turret limit</string>
+    <string name="server_details_structures_hard_limit_turrets_hint">If enabled, enforces the hard turret limit.</string>
+    <string name="server_details_structures_limit_turrets_label">Limit turrets in range</string>
+    <string name="server_details_structures_limit_turrets_hint">If enabled, limits the number of automated turrets in range.</string>
+    <string name="server_details_structures_limit_turrets_num_label">Max turrets in range</string>
+    <string name="server_details_structures_limit_turrets_num_hint">Maximum number of turrets in range. Default is 100.</string>
+    <string name="server_details_structures_limit_turrets_range_label">Turret limit range</string>
+    <string name="server_details_structures_limit_turrets_range_hint">Radius, in Unreal units, used for the turret limit. Default is 10000.</string>
+
+    <string name="server_details_structures_items_group">Items</string>
+    <string name="server_details_structures_clamp_item_stats_label">Clamp item stats</string>
+    <string name="server_details_structures_clamp_item_stats_hint">If enabled, item stats are clamped. Per-stat clamps are planned for the Tables tab.</string>
+    <string name="server_details_structures_item_stack_size_multiplier_label">Item stack size multiplier</string>
+    <string name="server_details_structures_item_stack_size_multiplier_hint">Global multiplier for item stack sizes.</string>
+
+    <string name="server_details_structures_wireless_crafting_group">Wireless crafting</string>
+    <string name="server_details_structures_disable_wireless_crafting_label">Disable wireless crafting</string>
+    <string name="server_details_structures_disable_wireless_crafting_hint">If enabled, disables wireless crafting entirely.</string>
+    <string name="server_details_structures_disable_wireless_crafting_players_label">Disable for players</string>
+    <string name="server_details_structures_disable_wireless_crafting_players_hint">If enabled, players cannot craft wirelessly.</string>
+    <string name="server_details_structures_disable_wireless_crafting_dinos_label">Disable for dinos</string>
+    <string name="server_details_structures_disable_wireless_crafting_dinos_hint">If enabled, dinos cannot craft wirelessly.</string>
+    <string name="server_details_structures_disable_wireless_crafting_structures_label">Disable for structures</string>
+    <string name="server_details_structures_disable_wireless_crafting_structures_hint">If enabled, structures cannot craft wirelessly.</string>
+    <string name="server_details_structures_wireless_crafting_range_label">Wireless crafting range</string>
+    <string name="server_details_structures_wireless_crafting_range_hint">Wireless crafting range in Unreal units. Default is 3000.</string>
+
+    <string name="server_details_structures_generators_group">Generators</string>
+    <string name="server_details_structures_limit_generators_num_label">Max generators in range</string>
+    <string name="server_details_structures_limit_generators_num_hint">Maximum number of generators in range. Default is 3.</string>
+    <string name="server_details_structures_limit_generators_range_label">Generator limit range</string>
+    <string name="server_details_structures_limit_generators_range_hint">Radius, in Unreal units, for the generator limit. Default is 15000.</string>
 </resources>

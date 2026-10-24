@@ -43,6 +43,7 @@ enum class ServerDetailsTab {
     RULES,
     PLAYER,
     DINO_SETTINGS,
+    STRUCTURES_AND_ITEMS,
     CHAT_AND_HUD,
     CONFIG_EDITOR,
 }
@@ -180,6 +181,10 @@ class ServerComponent(
 
     fun selectChatAndHudTab() {
         selectTab(ServerDetailsTab.CHAT_AND_HUD)
+    }
+
+    fun selectStructuresAndItemsTab() {
+        selectTab(ServerDetailsTab.STRUCTURES_AND_ITEMS)
     }
 
     suspend fun checkUpdateAvailable() {

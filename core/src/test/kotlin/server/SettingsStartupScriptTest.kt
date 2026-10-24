@@ -65,6 +65,13 @@ class SettingsStartupScriptTest {
     }
 
     @Test
+    fun `emits AutoDestroyStructures launch flag`() {
+        val args = Settings(options = Options(autoDestroyStructures = true)).toStartupScriptArguments()
+
+        assertTrue(args.contains("-AutoDestroyStructures"))
+    }
+
+    @Test
     fun `mirrors ActiveMods to the launch line only when enabled`() {
         fun server(mirror: Boolean) = Server(
             id = Uuid.parse("123e4567-e89b-12d3-a456-426614174000"),
