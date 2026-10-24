@@ -23,12 +23,19 @@ References used:
 - **ASA only.** An option with `inASA=No` is not implemented. `inASA=Unknown` is allowed only
   with `@Unsure` and (from phase 2) an experimental visual marker. Audit result: **0
   contradictions** among the modelled options.
-- **Mods are INI-first.** Mods are stored in `GameUserSettings.ini > [ServerSettings] >
-  ActiveMods` as comma-separated CurseForge project IDs. `-mods=` is no longer emitted. Legacy
-  `-mods=` startup scripts are imported into `ActiveMods` on load/save.
-  **Override point:** the wiki also documents `-mods=` for ASA and contradicts itself about
-  whether `ActiveMods` is read. If a real server does not download/load mods with INI-only,
-  add an advanced "mirror mods to `-mods=`" toggle (phase 2). Do not silently write both.
+- **Three sources of truth.** The wiki CSV, the legacy C# manager
+  (`C:\Users\jens\MyProjects\ServerManagers`) and the current app. The legacy manager is ASE-era
+  and may contradict the wiki; `tools/audit-options.py` reports those differences instead of
+  silently resolving them. The current app follows the wiki when they disagree, unless the
+  wiki is clearly wrong (see §2.1).
+- **Mods are INI-first, with an optional CLI mirror.** Mods are stored in
+  `GameUserSettings.ini > [ServerSettings] > ActiveMods` as comma-separated CurseForge project
+  IDs. `-mods=` is not emitted unless the user enables `mirrorModsToLaunchArgs` (default off).
+  Online research (Oct 2026) found that **both routes work**: `ActiveMods` is the list the engine
+  reads; `-mods=` is the documented ASA route and is commonly used because it also downloads and
+  updates CurseForge mods on start. If both are present, the launch argument wins, so the lists
+  must be identical (the app generates the mirror from `ActiveMods`).
+  **Override point:** enable the mirror if a real server does not download mods from INI-only.
 - **Units are stored as ARK stores them.** `TribeNameChangeCooldown` is stored raw (default
   `15`); its unit is documented as ambiguous. `TribeSlotReuseCooldown` is seconds in ARK and
   displayed as minutes; only the hint was wrong, not the conversion.
@@ -47,6 +54,11 @@ References used:
 - **162 ASA=Yes scalar gaps**, **24 table/struct gaps**, **30 ASE-only rows**, **36
   DynamicConfig rows**, **172 ASA=Unknown rows** (experimental candidates), **1** `-mods`
   covered by `ActiveMods`.
+- **Legacy manager comparison:** 293 entries, **8 legacy-only** (all ASE-only: SOTF, PGM and the
+  ASE extinction event) and **3 location conflicts**: `Port` and `MultiHome` (legacy writes
+  `[SessionSettings]`, the wiki says CLI), and `MaxNumberOfPlayersInTribe` (legacy writes
+  `[ServerSettings]`, the wiki and ASA sources say `Game.ini`). The app follows the wiki; the
+  conflicts are reported in the audit, not silently resolved.
 - All exposed options now have `implemented=Yes` in the CSV (130 rows).
 - Full report: [`option-audit.md`](option-audit.md) and [`option-audit.csv`](option-audit.csv).
 
@@ -156,6 +168,11 @@ What the first fresh scrape found (relative to the committed CSV):
 Rule: never hand-append to the CSV. Run the scraper (or add a manual row to a separate
 `ArkServerOptions.extra.csv` if the wiki lacks it). When `--check` reports drift, review it and
 update this document if the new option changes a tab/gap list.
+
+`tools/audit-options.py` also reads the legacy C# manager
+(`C:\Users\jens\MyProjects\ServerManagers`) as a third source. It is ASE-era and may contradict
+the wiki; the audit reports legacy-only keys and location conflicts. Use `--no-legacy` when the
+checkout is not available.
 
 ### Caveat about the `inASA` column
 
@@ -856,8 +873,19 @@ value. The test plan targets each separately.
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
 | L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
 
-Today only L1 exists (`core/src/test/kotlin`: 3 test classes) and `ui` has no test source set yet,
-so L2/L3/L4 need scaffolding in phase 0.
+Today: **36 core tests** pass (`IniRoundTripTest` 13, `SettingsStartupScriptTest` 11,
+`ServerIoTest` 7, RCON 5) plus **11 Python tests**; `:ui:compileKotlin` passes. The tests cover
+existing behaviour, not only the new options:
+
+- model round-trip for existing sections/fields, defaults, validation, URL validation;
+- startup-script parsing/serialization (existing and new args, quoted paths, legacy mods);
+- real file I/O: save/load `GameUserSettings.ini` and `Game.ini`, unknown-key preservation,
+  startup `.bat` creation, install detection, `version.txt` reading;
+- RCON protocol/authentication against a fake server;
+- scraper/audit/CSV invariants.
+
+Still uncovered: `ServersRepository`/H2 (the DB path is global `~/.aasm`), `PowerManager` process
+control, SteamCMD/install flows, and Compose UI. Those are phase 1/3 items (see §8.5/§8.6).
 
 ### 8.2 Fixtures (build these once, reuse everywhere)
 
@@ -953,10 +981,14 @@ in-game"; do not claim they work just because the file was written.
 
 ### 8.7 CI
 
-- PR: `./gradlew :core:test :ui:test` + `python -m unittest discover -s tools` +
-  `python tools/scrape-ark-options.py --check --input tools/fixtures/Server_configuration.raw`.
-- Weekly: live `--check` (network) as a separate job; on drift, open a PR with the regenerated
-  CSV and a summary (added/removed/changed).
+- PR: `./gradlew :core:test :ui:compileKotlin -x :overseer:cargoBuild` on a Windows runner
+  (the app and the path-based file I/O tests are Windows-first) plus the Python tests and
+  `python tools/audit-options.py --check`.
+- The CI checkout does not include the sibling `inisaur` repo, so it resolves the published
+  `0.5.0` and the app keeps a compatibility shim for single-item `ActiveMods`. A local developer
+  checkout uses the sibling `../inisaur` via a conditional composite build.
+- Weekly: live scrape `--check` (network) as a separate job; on drift, open a PR with the
+  regenerated CSV and a summary (added/removed/changed).
 - Release: all of the above + the L5 checklist.
 
 ### 8.8 Definition of done
@@ -1168,8 +1200,15 @@ serializes deterministically.
 16. **Native build blocker.** `:overseer:cargoBuild` currently fails with `LNK1181: cannot open
     input file 'conpty.lib'` (winpty/Windows SDK). This is pre-existing and unrelated to config
     work, but it blocks `./gradlew test` locally. Use
-    `./gradlew :core:test -x :overseer:cargoBuild` until it is fixed. CI must either exclude the
-    task or run on an image where the native build works.
+    `./gradlew :core:test -x :overseer:cargoBuild` until it is fixed. CI excludes the task.
+17. **inisaur single-item arrays.** Published inisaur `0.5.0` parses `ActiveMods=111` as a scalar
+    and returns an empty list for a `List<Int>` property. The sibling library now wraps a `Plain`
+    value as a one-item array when a collection is requested; the app uses that via a conditional
+    composite build. The app keeps `withActiveModsFromRaw` as a compatibility shim until a new
+    inisaur release containing the fix is published; remove it then.
+18. **Legacy manager conflicts.** `Port`/`MultiHome` (legacy `[SessionSettings]`, wiki CLI) and
+    `MaxNumberOfPlayersInTribe` (legacy `[ServerSettings]`, wiki/ASA `Game.ini`) are reported by
+    the audit. The app follows the wiki. Re-check if a real ASA server rejects a value.
 
 ---
 
