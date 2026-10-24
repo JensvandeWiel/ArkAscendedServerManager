@@ -154,6 +154,8 @@ class IniRoundTripTest {
         assertFalse(ServerSettings(maxTributeDinos = 10).validate())
         assertFalse(ServerSettings(maxTributeItems = 10).validate())
         assertFalse(ServerSettings(banListUrl = "not-a-url").validate())
+        assertFalse(ServerSettings(badWordListUrl = "not-a-url").validateBadWordListUrl())
+        assertFalse(ServerSettings(badWordWhiteListUrl = "not-a-url").validateBadWordWhiteListUrl())
         assertTrue(ServerSettings().validate())
     }
 
@@ -167,6 +169,53 @@ class IniRoundTripTest {
         val parsed = IniSerializer.deserialize<GameUserSettings>(raw).withActiveModsFromRaw(raw)
 
         assertEquals(listOf(111), parsed.serverSettings.activeMods)
+    }
+
+    @Test
+    fun `chat and HUD fields round-trip`() {
+        val settings = GameUserSettings().copy(
+            serverSettings = ServerSettings(
+                adminLogging = true,
+                globalVoiceChat = true,
+                proximityChat = true,
+                serverCrosshair = false,
+                showMapPlayerLocation = false,
+                allowThirdPersonPlayer = false,
+                allowHitMarkers = false,
+                allowHideDamageSourceFromLogs = false,
+                showFloatingDamageText = true,
+                serverForceNoHud = true,
+                disablePvEGamma = true,
+                enablePvPGamma = true,
+                preventSpawnAnimations = true,
+                dontAlwaysNotifyPlayerJoined = true,
+                badWordListUrl = "https://example.com/bad.txt",
+                badWordWhiteListUrl = "https://example.com/good.txt",
+            )
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+
+        assertEquals(settings.serverSettings, parsed.serverSettings)
+
+        val mode = ShooterGameMode(disablePhotoMode = true, photoModeRangeLimit = 5000)
+        val parsedGame = IniSerializer.deserialize<Game>(IniSerializer.serialize(Game(shooterGameMode = mode)))
+
+        assertEquals(mode, parsedGame.shooterGameMode)
+    }
+
+    @Test
+    fun `chat and HUD defaults match ASA`() {
+        val settings = ServerSettings()
+
+        assertTrue(settings.serverCrosshair)
+        assertTrue(settings.showMapPlayerLocation)
+        assertTrue(settings.allowThirdPersonPlayer)
+        assertTrue(settings.allowHitMarkers)
+        assertTrue(settings.allowHideDamageSourceFromLogs)
+        assertFalse(settings.serverForceNoHud)
+        assertFalse(settings.showFloatingDamageText)
+        assertEquals(3000, ShooterGameMode().photoModeRangeLimit)
     }
 
     @Test

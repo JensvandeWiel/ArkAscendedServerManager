@@ -170,7 +170,7 @@ Add the field here, derive implementation details from the tab/section files to 
 
 ### UI Tab & Section Reference
 
-The app has **8 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
+The app has **9 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
 
 #### Profile Tab (`ProfileTabContent.kt`)
 - **Content**: Server name, installation path, ASA API toggle
@@ -215,6 +215,14 @@ Composed of **10 sub-sections**, each in its own file under `general/`:
   - **Base Stat Multipliers** (`CheckboxSectionHeader` → 12 stat sliders)
   - **Per-Level Stats Multipliers** (`CheckboxSectionHeader` → 12 stat sliders)
 
+#### Chat & HUD Tab (`ChatAndHudTabContent.kt`)
+- **Sections**:
+  - **Chat** (`GroupHeader`): admin logging, global voice chat, proximity chat, join notifications
+  - **Word filter** (`GroupHeader`): bad-word and whitelist URLs
+  - **HUD and visuals** (`GroupHeader`): crosshair, map location, third-person, hit markers, damage source, floating damage, force no HUD, spawn animations
+  - **Gamma** (`GroupHeader`): PvE/PvP gamma
+  - **Photo mode** (`GroupHeader`): disable photo mode, range limit
+
 #### Management Tab (`ManagementTabContent.kt`)
 - **Sections**:
   - **Automatic Management** (`GroupHeader`): restart after crash
@@ -234,6 +242,7 @@ When the user gives you an option, follow this logic:
    - PvP/PvE/tribe rules/diseases → **Rules** tab
    - Server operation (ports, name, cluster, tribute) → **General** tab group
    - Command-line flags (idle kick, battleye, cosmetics, dinos, events) → General > **ServerOptionsSection**
+   - Chat, voice, HUD/visuals, gamma, photo mode → **Chat & HUD** tab
    - Auto-restart, discord → **Management** tab
    - Profile info → **Profile** tab
 3. **Place within a group**: group with related options under the same `GroupHeader` or `CheckboxSectionHeader`

@@ -57,6 +57,10 @@ data class ShooterGameMode(
     val useSingleplayerSettings: Boolean = false,
     @IniProperty("bShowCreativeMode")
     val showCreativeMode: Boolean = false,
+    @IniProperty("bDisablePhotoMode")
+    val disablePhotoMode: Boolean = false,
+    @IniProperty("PhotoModeRangeLimit")
+    val photoModeRangeLimit: Int = 3000,
     @IniProperty("TribeSlotReuseCooldown")
     @Unsure
     val tribeSlotReuseCooldown: Int = 0,
@@ -143,10 +147,11 @@ data class ShooterGameMode(
         fun createPerLevelStatsMultiplierDinoWildDefault() = mapOf(0 to 1.0f, 1 to 1.0f, 2 to 1.0f, 3 to 1.0f, 4 to 1.0f, 5 to 1.0f, 6 to 1.0f, 7 to 1.0f, 8 to 1.0f, 9 to 1.0f, 10 to 1.0f, 11 to 1.0f)
     }
     fun validateMaxNumberOfPlayersInTribe() = maxNumberOfPlayersInTribe >= 0
+    fun validatePhotoModeRangeLimit() = photoModeRangeLimit >= 0
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
     fun validateMaxAlliancesPerTribe() = maxAlliancesPerTribe >= 0
     fun validateMaxTribesPerAlliance() = maxTribesPerAlliance >= 0
-    fun validate() = validateMaxNumberOfPlayersInTribe() && validateTribeSlotReuseCooldown()
+    fun validate() = validateMaxNumberOfPlayersInTribe() && validatePhotoModeRangeLimit() && validateTribeSlotReuseCooldown()
             && validateMaxAlliancesPerTribe() && validateMaxTribesPerAlliance()
 }
 

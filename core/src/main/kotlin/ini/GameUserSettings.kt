@@ -149,6 +149,42 @@ data class ServerSettings(
     val enableCryoSicknessPVE: Boolean = false,
     @IniProperty("RandomSupplyCratePoints")
     val randomSupplyCratePoints: Boolean = false,
+    @IniProperty("AdminLogging")
+    val adminLogging: Boolean = false,
+    @IniProperty("globalVoiceChat")
+    val globalVoiceChat: Boolean = false,
+    @IniProperty("ProximityChat")
+    val proximityChat: Boolean = false,
+    @IniProperty("ServerCrosshair")
+    val serverCrosshair: Boolean = true,
+    @IniProperty("ShowMapPlayerLocation")
+    val showMapPlayerLocation: Boolean = true,
+    @IniProperty("AllowThirdPersonPlayer")
+    val allowThirdPersonPlayer: Boolean = true,
+    @IniProperty("AllowHitMarkers")
+    val allowHitMarkers: Boolean = true,
+    @IniProperty("AllowHideDamageSourceFromLogs")
+    val allowHideDamageSourceFromLogs: Boolean = true,
+    @IniProperty("ShowFloatingDamageText")
+    val showFloatingDamageText: Boolean = false,
+    @IniProperty("ServerForceNoHUD")
+    val serverForceNoHud: Boolean = false,
+    @IniProperty("DisablePvEGamma")
+    val disablePvEGamma: Boolean = false,
+    @IniProperty("EnablePvPGamma")
+    val enablePvPGamma: Boolean = false,
+    @IniProperty("PreventSpawnAnimations")
+    val preventSpawnAnimations: Boolean = false,
+    @IniProperty("DontAlwaysNotifyPlayerJoined")
+    val dontAlwaysNotifyPlayerJoined: Boolean = false,
+    @IniProperty("BadWordListURL")
+    @OmitIfNull
+    @IniString(true)
+    val badWordListUrl: String? = null,
+    @IniProperty("BadWordWhiteListURL")
+    @OmitIfNull
+    @IniString(true)
+    val badWordWhiteListUrl: String? = null,
     @IniProperty("TribeNameChangeCooldown")
     val tribeNameChangeCooldown: Int = 15,
     @IniProperty("PreventTribeAlliances")
@@ -210,9 +246,11 @@ data class ServerSettings(
     fun validateMaxTributeDinos() = maxTributeDinos >= 20 && maxTributeDinos <= 100
     fun validateMaxTributeItems() = maxTributeItems >= 50 && maxTributeItems <= 100
     fun validateBanListUrl() = banListUrl == null || (banListUrl.isNotBlank() && banListUrl.isValidUrl())
+    fun validateBadWordListUrl() = badWordListUrl == null || (badWordListUrl.isNotBlank() && badWordListUrl.isValidUrl())
+    fun validateBadWordWhiteListUrl() = badWordWhiteListUrl == null || (badWordWhiteListUrl.isNotBlank() && badWordWhiteListUrl.isValidUrl())
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable

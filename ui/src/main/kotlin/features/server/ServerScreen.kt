@@ -34,6 +34,7 @@ fun ServerScreen(component: ServerComponent) {
     val environmentTabLabel = stringResource(Res.string.server_details_environment_tab)
     val playerTabLabel = stringResource(Res.string.server_details_player_tab)
     val dinoSettingsTabLabel = stringResource(Res.string.server_details_dino_settings_tab)
+    val chatAndHudTabLabel = stringResource(Res.string.server_details_chat_and_hud_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
     val deleteServerLabel = stringResource(Res.string.action_delete_server)
     val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
@@ -43,7 +44,7 @@ fun ServerScreen(component: ServerComponent) {
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
     val tabs =
-        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel) {
+        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel, chatAndHudTabLabel) {
             listOf(
                 TabData.Default(
                     selected = selectedTab == ServerDetailsTab.INFO,
@@ -107,6 +108,14 @@ fun ServerScreen(component: ServerComponent) {
                         SimpleTabContent(label = dinoSettingsTabLabel, state = tabState)
                     },
                     onClick = component::selectDinoSettingsTab,
+                    closable = false,
+                ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.CHAT_AND_HUD,
+                    content = { tabState ->
+                        SimpleTabContent(label = chatAndHudTabLabel, state = tabState)
+                    },
+                    onClick = component::selectChatAndHudTab,
                     closable = false,
                 ),
                 TabData.Default(
@@ -200,6 +209,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.DINO_SETTINGS -> {
                         DinoSettingsTabContent(component)
+                    }
+
+                    ServerDetailsTab.CHAT_AND_HUD -> {
+                        ChatAndHudTabContent(component)
                     }
 
                     ServerDetailsTab.CONFIG_EDITOR -> {

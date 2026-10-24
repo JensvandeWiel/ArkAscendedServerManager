@@ -373,6 +373,7 @@
     <string name="server_details_player_per_level_crafting_speed_hint">Specifies multiplier for crafting speed gained per level. Higher values increase Crafting Speed faster; lower values increase Crafting Speed slower.</string>
 
     <string name="server_details_dino_settings_tab">Dino Settings</string>
+    <string name="server_details_chat_and_hud_tab">Chat &amp; HUD</string>
     <string name="server_details_dino_allow_raid_dino_feeding_label">Allow Raid Dino Feeding</string>
     <string name="server_details_dino_allow_raid_dino_feeding_hint">If True, allows Titanosaurs to be permanently tamed (namely allow them to be fed). Note: in The Island only spawns a maximum of 3 Titanosaurs, so 3 tamed ones should ultimately block any more ones from spawning.</string>
     <string name="server_details_dino_tame_limits_header">Tame Limits</string>
@@ -449,4 +450,51 @@
     <string name="server_details_dino_per_level_fortitude_hint">Specifies multiplier for fortitude gained per level. Higher values increase Fortitude faster; lower values increase Fortitude slower.</string>
     <string name="server_details_dino_per_level_crafting_speed_label">Crafting Speed</string>
     <string name="server_details_dino_per_level_crafting_speed_hint">Specifies multiplier for crafting speed gained per level. Higher values increase Crafting Speed faster; lower values increase Crafting Speed slower.</string>
+
+    <!-- Chat & HUD -->
+    <string name="server_details_chat_and_hud_chat_group">Chat</string>
+    <string name="server_details_chat_and_hud_admin_logging_label">Log admin commands</string>
+    <string name="server_details_chat_and_hud_admin_logging_hint">If enabled, all admin commands are written to the in-game chat.</string>
+    <string name="server_details_chat_and_hud_global_voice_chat_label">Global voice chat</string>
+    <string name="server_details_chat_and_hud_global_voice_chat_hint">If enabled, voice chat is global instead of proximity based.</string>
+    <string name="server_details_chat_and_hud_proximity_chat_label">Proximity chat</string>
+    <string name="server_details_chat_and_hud_proximity_chat_hint">If enabled, players can hear nearby voice chat.</string>
+    <string name="server_details_chat_and_hud_dont_always_notify_player_joined_label">Disable join notifications</string>
+    <string name="server_details_chat_and_hud_dont_always_notify_player_joined_hint">If enabled, player join notifications are globally disabled.</string>
+
+    <string name="server_details_chat_and_hud_word_filter_group">Word filter</string>
+    <string name="server_details_chat_and_hud_bad_word_list_url_label">Bad word list URL</string>
+    <string name="server_details_chat_and_hud_bad_word_list_url_hint">URL to the bad-word list. ASA official: http://cdn2.arkdedicated.com/asa/badwords.txt. Leave empty to use ARK's default.</string>
+    <string name="server_details_chat_and_hud_bad_word_whitelist_url_label">Bad word whitelist URL</string>
+    <string name="server_details_chat_and_hud_bad_word_whitelist_url_hint">URL to the allow-word list. ASA official: http://cdn2.arkdedicated.com/asa/goodwords.txt. Leave empty to use ARK's default.</string>
+
+    <string name="server_details_chat_and_hud_hud_group">HUD and visuals</string>
+    <string name="server_details_chat_and_hud_server_crosshair_label">Show crosshair</string>
+    <string name="server_details_chat_and_hud_server_crosshair_hint">If disabled, the crosshair is hidden for all players.</string>
+    <string name="server_details_chat_and_hud_show_map_player_location_label">Show player location on map</string>
+    <string name="server_details_chat_and_hud_show_map_player_location_hint">If disabled, players cannot see their exact position on the map.</string>
+    <string name="server_details_chat_and_hud_allow_third_person_player_label">Allow third-person camera</string>
+    <string name="server_details_chat_and_hud_allow_third_person_player_hint">If disabled, third-person camera is disabled on the server.</string>
+    <string name="server_details_chat_and_hud_allow_hit_markers_label">Allow hit markers</string>
+    <string name="server_details_chat_and_hud_allow_hit_markers_hint">If disabled, optional markers for ranged attacks are hidden.</string>
+    <string name="server_details_chat_and_hud_allow_hide_damage_source_from_logs_label">Hide damage source in tribe logs</string>
+    <string name="server_details_chat_and_hud_allow_hide_damage_source_from_logs_hint">If enabled, the source of damage is hidden in tribe logs.</string>
+    <string name="server_details_chat_and_hud_show_floating_damage_text_label">Floating damage text</string>
+    <string name="server_details_chat_and_hud_show_floating_damage_text_hint">If enabled, damage numbers float above the target.</string>
+    <string name="server_details_chat_and_hud_server_force_no_hud_label">Force no HUD</string>
+    <string name="server_details_chat_and_hud_server_force_no_hud_hint">If enabled, the HUD is hidden for every player.</string>
+    <string name="server_details_chat_and_hud_prevent_spawn_animations_label">Prevent spawn animations</string>
+    <string name="server_details_chat_and_hud_prevent_spawn_animations_hint">If enabled, spawn animations are skipped.</string>
+
+    <string name="server_details_chat_and_hud_gamma_group">Gamma</string>
+    <string name="server_details_chat_and_hud_disable_pve_gamma_label">Disable gamma in PvE</string>
+    <string name="server_details_chat_and_hud_disable_pve_gamma_hint">If enabled, the gamma console command is blocked in PvE mode.</string>
+    <string name="server_details_chat_and_hud_enable_pvp_gamma_label">Allow gamma in PvP</string>
+    <string name="server_details_chat_and_hud_enable_pvp_gamma_hint">If enabled, players can change gamma in PvP mode.</string>
+
+    <string name="server_details_chat_and_hud_photo_mode_group">Photo mode</string>
+    <string name="server_details_chat_and_hud_disable_photo_mode_label">Disable photo mode</string>
+    <string name="server_details_chat_and_hud_disable_photo_mode_hint">If enabled, photo mode is disabled on the server.</string>
+    <string name="server_details_chat_and_hud_photo_mode_range_limit_label">Photo mode range limit</string>
+    <string name="server_details_chat_and_hud_photo_mode_range_limit_hint">Maximum distance between the photo-mode camera and the player, in Unreal units. Default is 3000.</string>
 </resources>
