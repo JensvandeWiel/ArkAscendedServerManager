@@ -27,6 +27,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 CSV_PATH = REPO_ROOT / "ArkServerOptions.csv"
 OUT_MD = REPO_ROOT / "docs" / "option-audit.md"
 OUT_CSV = REPO_ROOT / "docs" / "option-audit.csv"
+LEGACY_MANAGER = Path(r"C:\Users\jens\MyProjects\ServerManagers\src\ARKServerManager\Lib\ServerProfile.cs")
 
 INI_FILES = [
     REPO_ROOT / "core/src/main/kotlin/ini/GameUserSettings.kt",
@@ -92,6 +93,7 @@ def norm(name: str) -> str:
     value = value.lstrip("?-")
     value = value.split("=")[0]
     value = value.replace("'''", "")
+    value = re.sub(r"<[^>]+>", "", value)
     value = re.sub(r"\[.*$", "", value)
     return value.strip().lower()
 
@@ -165,6 +167,71 @@ def parse_cli_models():
                 "file": "Settings.kt",
                 "location": "Command line options",
                 "source": "Settings.kt",
+            }
+        )
+    return entries
+
+
+LEGACY_GUS_SECTIONS = {
+    "GUS_ServerSettings": "Configuration Files > GameUserSettings.ini > [ServerSettings]",
+    "GUS_SessionSettings": "Configuration Files > GameUserSettings.ini > [SessionSettings]",
+    "GUS_MessageOfTheDay": "Configuration Files > GameUserSettings.ini > [MessageOfTheDay]",
+    "GUS_MultiHome": "Configuration Files > GameUserSettings.ini > [MultiHome]",
+    "GUS_GameSession": "Configuration Files > GameUserSettings.ini > [/Script/Engine.GameSession]",
+    "GUS_Ragnarok": "Configuration Files > GameUserSettings.ini > [Ragnarok]",
+    "Game_ShooterGameMode": "Configuration Files > Game.ini",
+}
+
+# The wiki uses one wildcard row for the _type variants; the legacy manager and
+# the Kotlin model use separate keys.
+LEGACY_ALIASES = {
+    "perlevelstatsmultiplier_dinotamed_add": "perlevelstatsmultiplier_dinotamed",
+    "perlevelstatsmultiplier_dinotamed_affinity": "perlevelstatsmultiplier_dinotamed",
+}
+
+
+def parse_legacy(path: Path):
+    """Extract [IniFileEntry] keys from the legacy C# ARK Server Manager.
+
+    The legacy app is an ASE-era source and may contradict the wiki. This parser is
+    deliberately shallow: existence, location and key are enough for the report.
+    """
+    text = path.read_text(encoding="utf-8-sig")
+    pattern = re.compile(
+        r"\[IniFileEntry\((?P<args>[^\]]*)\)\]\s*"
+        r"(?:\[[^\]]*\]\s*)*public\s+[^\r\n{]+?\s+(?P<prop>\w+)\s*\{",
+        re.MULTILINE,
+    )
+    entries = []
+    for match in pattern.finditer(text):
+        parts = [part.strip() for part in match.group("args").split(",")]
+        if len(parts) < 3:
+            continue
+        file_name = parts[0].removeprefix("IniFiles.")
+        section = parts[1].removeprefix("IniSections.")
+        if section == "Custom":
+            continue
+        key = None
+        for part in parts[3:]:
+            if part.startswith('"') and part.endswith('"'):
+                key = part.strip('"')
+                break
+        key = key or match.group("prop")
+        location = (
+            "Engine.ini"
+            if file_name == "Engine"
+            else LEGACY_GUS_SECTIONS.get(section, "Configuration Files > Game.ini")
+        )
+        entries.append(
+            {
+                "file": file_name,
+                "section": section,
+                "key": key,
+                "property": match.group("prop"),
+                "location": location,
+                "scope": "ase-only"
+                if match.group("prop").startswith(("SOTF_", "PGM_")) or key == "NextExtinctionEventUTC"
+                else "unverified",
             }
         )
     return entries
@@ -252,12 +319,23 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="exit 1 when action items exist")
     parser.add_argument("--fix-implemented", action="store_true", help="set implemented=Yes for exposed, modelled options and rewrite the CSV")
+    parser.add_argument("--legacy-manager", type=Path, default=LEGACY_MANAGER, help="path to the legacy ARK Server Manager ServerProfile.cs")
+    parser.add_argument("--no-legacy", action="store_true", help="skip the legacy manager comparison")
     args = parser.parse_args()
 
     rows = read_csv(CSV_PATH)
     ini = parse_ini_models()
     cli = parse_cli_models()
     ui = ui_text()
+
+    legacy_path = None if args.no_legacy else args.legacy_manager
+    legacy = parse_legacy(legacy_path) if legacy_path and legacy_path.exists() else []
+    legacy_by_key = defaultdict(list)
+    for entry in legacy:
+        legacy_by_key[norm(entry["key"])].append(entry)
+    csv_by_norm = defaultdict(list)
+    for row in rows:
+        csv_by_norm[norm(row["name"])].append(row)
 
     model_by_norm: dict[str, list[dict]] = defaultdict(list)
     for entry in ini + cli:
@@ -374,8 +452,28 @@ def main() -> int:
                 "implemented": row.get("implemented", ""),
                 "issues": " | ".join(row_issues),
                 "flag": " | ".join(row_flags),
+                "legacy": "yes" if legacy_by_key.get(key) else "",
+                "legacy_location": legacy_by_key[key][0]["location"] if legacy_by_key.get(key) else "",
             }
         )
+
+    # Legacy ARK Server Manager (ASE-era) is a third source of truth. It may
+    # contradict the wiki; report the differences instead of resolving them.
+    legacy_only = []
+    legacy_conflicts = []
+    for entry in legacy:
+        key = LEGACY_ALIASES.get(norm(entry["key"]), norm(entry["key"]))
+        matches = csv_by_norm.get(key, [])
+        if not matches:
+            legacy_only.append(entry)
+            continue
+        csv_location = matches[0]["Location"]
+        if entry["file"] == "GameUserSettings" and not csv_location.startswith("Configuration Files > GameUserSettings.ini"):
+            legacy_conflicts.append((entry, csv_location))
+        elif entry["file"] == "Game" and not csv_location.startswith("Configuration Files > Game.ini"):
+            legacy_conflicts.append((entry, csv_location))
+        elif entry["file"] == "Engine":
+            legacy_conflicts.append((entry, csv_location))
 
     # Optionally reconcile the stale implemented column in one pass.
     if args.fix_implemented and flags:
@@ -417,7 +515,14 @@ def main() -> int:
     for key, count in sorted(sections.items()):
         lines.append(f"- {key}: **{count}**")
     lines.append(f"- Action items: **{len(issues)}**")
-    lines.append(f"- Stale `implemented` flags: **{len(flags)}** (expected until phase 0)")
+    lines.append(f"- Stale `implemented` flags: **{len(flags)}** (run `--fix-implemented` to reconcile)")
+    if legacy:
+        lines.append(
+            f"- Legacy ARK Server Manager: **{len(legacy)}** entries, {len(legacy_only)} legacy-only, "
+            f"{len(legacy_conflicts)} location conflicts"
+        )
+    else:
+        lines.append("- Legacy ARK Server Manager: not found (skipped)")
     lines.append(f"- Full matrix: [`option-audit.csv`](option-audit.csv)")
     lines.append("")
 
@@ -453,6 +558,39 @@ def main() -> int:
         lines.append("</details>")
     else:
         lines.append("None.")
+    lines.append("")
+
+    lines.append("## Legacy manager comparison")
+    lines.append("")
+    if not legacy:
+        lines.append("Legacy manager not found; comparison skipped.")
+    else:
+        lines.append(f"Source: `{legacy_path}`.")
+        lines.append("")
+        lines.append("The legacy manager is an ASE-era source. It can contradict the wiki; differences are")
+        lines.append("reported here, not silently resolved. `ase-only` rows are expected (SOTF/PGM/ASE events).")
+        lines.append("")
+        lines.append("### Keys managed by the legacy manager but missing from the wiki CSV")
+        lines.append("")
+        if legacy_only:
+            lines.append("| Key | Legacy location | Property | Scope |")
+            lines.append("|---|---|---|---|")
+            for entry in legacy_only:
+                lines.append(
+                    f"| `{entry['key']}` | {entry['location']} | `{entry['property']}` | {entry['scope']} |"
+                )
+        else:
+            lines.append("None.")
+        lines.append("")
+        lines.append("### Location conflicts")
+        lines.append("")
+        if legacy_conflicts:
+            lines.append("| Key | Legacy location | CSV location |")
+            lines.append("|---|---|---|")
+            for entry, csv_location in legacy_conflicts:
+                lines.append(f"| `{entry['key']}` | {entry['location']} | {csv_location} |")
+        else:
+            lines.append("None.")
     lines.append("")
 
     lines.append("## Modelled options")
@@ -529,6 +667,7 @@ def main() -> int:
     print(f"modelled: {len(ini)} INI + {len(cli)} launch")
     print(f"action items: {len(issues)}")
     print(f"stale implemented flags: {len(flags)}")
+    print(f"legacy: {len(legacy)} entries, {len(legacy_only)} only, {len(legacy_conflicts)} conflicts")
     print(f"status: {dict(sections)}")
     print(f"wrote {OUT_MD.relative_to(REPO_ROOT)} and {OUT_CSV.relative_to(REPO_ROOT)}")
     if issues and args.check:
