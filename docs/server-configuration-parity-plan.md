@@ -79,7 +79,9 @@ References used:
 - [x] Phase 1 started: **Chat & HUD** tab (16 `[ServerSettings]` + 2 `Game.ini` options).
 - [x] Phase 1: **Structures & Items** tab (17 `[ServerSettings]` + 11 `Game.ini` options +
   `-AutoDestroyStructures`).
-- [ ] Next: **Admin & Security** tab.
+- [x] Phase 1: **Admin & Security** tab (10 `[ServerSettings]` + 6 launch flags; BanListURL moved
+  from General).
+- [ ] Next: **Advanced / Launch** tab.
 - [ ] Real-server acceptance (§8.6) — needs a disposable server.
 - [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
   so CI excludes it — see §11.16).
@@ -609,6 +611,10 @@ options). Remaining P2 items (filters, `AlwaysNotifyPlayerLeft`, `-nosound`) are
 
 ### 6.9 Admin & Security (new)
 
+**Status: implemented** in `ui/.../AdminAndSecurityTabContent.kt` (10 `[ServerSettings]` + 6
+launch flags; `BanListURL` moved here from General). Whitelist file management is still out of
+scope.
+
 - P0 `AdminListURL`, `CosmeticWhitelistOverride`, `BanListURL` (move), `-exclusivejoin`.
 - P0 `UseCharacterTracker`, `-disableCharacterTracker`, `UpdateAllowedCheatersInterval`.
 - P0 `-NoBattlEye` (move from General), `-UseItemDupeCheck`, `-ForceDupeLog`,
@@ -890,7 +896,7 @@ value. The test plan targets each separately.
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
 | L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
 
-Today: **41 core tests** pass (`IniRoundTripTest` 17, `SettingsStartupScriptTest` 12,
+Today: **44 core tests** pass (`IniRoundTripTest` 18, `SettingsStartupScriptTest` 13,
 `ServerIoTest` 7, RCON 5) plus **11 Python tests**; `:ui:compileKotlin` passes. The tests cover
 existing behaviour, not only the new options:
 
@@ -1069,7 +1075,7 @@ Order by admin impact:
 1. [x] **Chat & HUD** — implemented (booleans, URL word filters, photo mode). Next:
    [ ] **Structures & Items**.
 2. [x] **Structures & Items** — implemented. Next: [ ] **Admin & Security**.
-3. **Admin & Security** (flags + URLs; needs the Phase 0 emitter).
+3. [x] **Admin & Security** — implemented. Next: [ ] **Advanced / Launch**.
 4. **Advanced / Launch** (biggest launch coverage; performance/save/logging groups).
 5. Extend **Rules**, **Environment**, **Players**, **Dinos** with their P0/P1 items
    (including the full breeding/imprint group).
