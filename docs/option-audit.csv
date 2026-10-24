@@ -206,7 +206,7 @@ Configuration Files > GameUserSettings.ini > [ServerSettings],HarvestAmountMulti
 Configuration Files > GameUserSettings.ini > [ServerSettings],HarvestHealthMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,harvestHealthMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],IgnoreLimitMaxStructuresInRangeTypeFlag,Yes,Yes,boolean,False,modeled-gameusersettings,ignoreLimitMaxStructuresInRangeTypeFlag,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],IgnorePVPMountedWeaponryRestrictions,Yes,No,boolean,False,modeled-gameusersettings,ignorePvpMountedWeaponryRestrictions,GameUserSettings.kt,Boolean,false,,Yes,,,,
-Configuration Files > GameUserSettings.ini > [ServerSettings],ImplantSuicideCD,Yes,No,float,28800,missing-asa,,,,,,,,,,
+Configuration Files > GameUserSettings.ini > [ServerSettings],ImplantSuicideCD,Yes,No,float,28800,modeled-gameusersettings,implantSuicideCd,GameUserSettings.kt,Float,28800.0f,,Yes,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],ItemStackSizeMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,itemStackSizeMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],KickIdlePlayersPeriod,Yes,Yes,float,3600.0,modeled-gameusersettings,kickIdlePlayersPeriod,GameUserSettings.kt,Int,3600,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],MaxCosmoWeaponAmmo,Yes,No,float,-1,missing-asa,,,,,,,,,,
@@ -228,9 +228,9 @@ Configuration Files > GameUserSettings.ini > [ServerSettings],NPCNetworkStasisRa
 Configuration Files > GameUserSettings.ini > [ServerSettings],NPCNetworkStasisRangeScalePercentEnd,Unknown,Yes,float,0.55000001,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],OnlyAutoDestroyCoreStructures,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],OnlyDecayUnsnappedCoreStructures,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],OverrideOfficialDifficulty,Yes,Yes,float,0.0,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],OverrideOfficialDifficulty,Yes,Yes,float,0.0,modeled-gameusersettings,overrideOfficialDifficulty,GameUserSettings.kt,Float,0.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],OverrideStructurePlatformPrevention,Yes,Yes,boolean,False,modeled-gameusersettings,overrideStructurePlatformPrevention,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],OxygenSwimSpeedStatMultiplier,Yes,Yes,float,1.0,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],OxygenSwimSpeedStatMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,oxygenSwimSpeedStatMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PerPlatformMaxStructuresMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,perPlatformMaxStructuresMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PersonalTamedDinosSaddleStructureCost,Unknown,Yes,integer,0,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PlatformSaddleBuildAreaBoundsMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,platformSaddleBuildAreaBoundsMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
@@ -435,14 +435,14 @@ Configuration Files > Game.ini,EggHatchSpeedMultiplier,Yes,Yes,float,1.0,modeled
 Configuration Files > Game.ini,EngramEntryAutoUnlocks,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,ExcludeItemIndices,Yes,Yes,integer,N/A,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,FastDecayInterval,Unknown,Yes,integer,43200,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,FishingLootQualityMultiplier,Unknown,Yes,float,1.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,FuelConsumptionIntervalMultiplier,Unknown,Yes,float,1.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,FishingLootQualityMultiplier,Unknown,Yes,float,1.0,modeled-game,fishingLootQualityMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,FuelConsumptionIntervalMultiplier,Unknown,Yes,float,1.0,modeled-game,fuelConsumptionIntervalMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,LimitGeneratorsNum,Yes,No,integer,3,modeled-game,limitGeneratorsNum,Game.kt,Int,3,,Yes,,,,
 Configuration Files > Game.ini,LimitGeneratorsRange,Yes,No,integer,15000,modeled-game,limitGeneratorsRange,Game.kt,Int,15000,,Yes,,,,
 Configuration Files > Game.ini,GenericXPMultiplier,Yes,Yes,float,1.0,modeled-game,genericXPMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,GlobalCorpseDecompositionTimeMultiplier,Unknown,Yes,float,1.0,modeled-game,globalCorpseDecompositionTimeMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,GlobalItemDecompositionTimeMultiplier,Yes,Yes,float,1.0,modeled-game,globalItemDecompositionTimeMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,GlobalPoweredBatteryDurabilityDecreasePerSecond,Unknown,Yes,float,3.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,GlobalPoweredBatteryDurabilityDecreasePerSecond,Unknown,Yes,float,3.0,modeled-game,globalPoweredBatteryDurabilityDecreasePerSecond,Game.kt,Float,3.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,GlobalSpoilingTimeMultiplier,Yes,Yes,float,1.0,modeled-game,globalSpoilingTimeMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,HairGrowthSpeedMultiplier,Yes,Yes,float,"1.0 (ASE), 0 (ASA)",modeled-game,hairGrowthSpeedMultiplier,Game.kt,Float,0.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,HarvestResourceItemAmountClassMultipliers,Yes,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
@@ -486,7 +486,7 @@ Configuration Files > Game.ini,ResourceNoReplenishRadiusPlayers,Yes,Yes,float,1.
 Configuration Files > Game.ini,ResourceNoReplenishRadiusStructures,Yes,Yes,float,1.0,modeled-game,resourceNoReplenishRadiusStructures,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,SpecialXPMultiplier,Yes,Yes,float,1.0,modeled-game,specialXPMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,StructureDamageRepairCooldown,Unknown,Yes,integer,180,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,SupplyCrateLootQualityMultiplier,Unknown,Yes,float,1.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,SupplyCrateLootQualityMultiplier,Unknown,Yes,float,1.0,modeled-game,supplyCrateLootQualityMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,TamedDinoCharacterFoodDrainMultiplier,Unknown,Yes,float,1.0,modeled-game,tamedDinoCharacterFoodDrainMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,TamedDinoClassDamageMultipliers,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,TamedDinoClassResistanceMultipliers,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
