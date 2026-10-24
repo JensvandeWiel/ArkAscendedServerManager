@@ -41,6 +41,10 @@ bin/
 ### VS Code ###
 .vscode/
 
+### Python (tools/ scripts) ###
+__pycache__/
+*.pyc
+
 ### Mac OS ###
 .DS_Store
 
