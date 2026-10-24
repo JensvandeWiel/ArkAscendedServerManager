@@ -66,14 +66,20 @@ References used:
 
 - [x] Fix the correctness issues in §4.
 - [x] Generic launch-argument emitter for every `ArgKind`.
-- [x] `ActiveMods` in `GameUserSettings.ini`, legacy `-mods` import, no launch-line emission.
+- [x] `ActiveMods` in `GameUserSettings.ini`, legacy `-mods` import, optional `-mods` mirror
+  (`mirrorModsToLaunchArgs`, default off).
 - [x] `DifficultyOffset` and `MinimumDinoReuploadInterval` modelled and exposed.
 - [x] `@Unsure` on every modelled `inASA=Unknown` option.
-- [x] Scraper, audit, and Python tests committed.
-- [x] Core round-trip/preservation/default tests.
+- [x] Scraper, legacy-manager audit, and Python tests committed.
+- [x] Existing-behavior tests: `ServerIoTest` (INI file I/O, startup script, install detection,
+  version, unknown keys), expanded `IniRoundTripTest` (existing sections, validation, URLs),
+  `SettingsStartupScriptTest`, and the fake RCON server tests.
+- [x] inisaur single-item array fix in the sibling library; app keeps a compatibility shim until
+  a release containing it is published.
 - [ ] Real-server acceptance (§8.6) — needs a disposable server.
-- [ ] CI workflow (the native `overseer` build currently fails locally on `conpty.lib`; see
-  §11.16).
+- [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
+  so CI excludes it — see §11.16).
+- [ ] Publish inisaur with the single-item array fix and remove `withActiveModsFromRaw`.
 
 ---
 
