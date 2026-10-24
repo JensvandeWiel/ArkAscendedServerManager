@@ -80,6 +80,10 @@
     <string name="server_details_group_map_and_mods">Map and Mods</string>
     <string name="server_details_map_label">Map:</string>
     <string name="server_details_map_hint">The map your server will load. Make sure to use the correct map name, otherwise your server might not start.</string>
+    <string name="server_details_official_map_label">Official map</string>
+    <string name="server_details_official_map_hint">Pick a stock ASA map, or type a custom/mod map below.</string>
+    <string name="server_details_active_map_mod_label">Active mod map ID</string>
+    <string name="server_details_active_map_mod_hint">CurseForge mod ID of the map to load, for modded maps. Leave empty for official maps.</string>
     <string name="server_details_mods_label">Mods (CurseForge IDs, comma separated):</string>
     <string name="server_details_mods_hint">CurseForge mod project IDs, comma separated with no spaces. The left-most mod has the highest priority. ASA reads this from GameUserSettings.ini as ActiveMods.</string>
     <string name="server_details_mirror_mods_label">Also pass mods with -mods (fallback)</string>

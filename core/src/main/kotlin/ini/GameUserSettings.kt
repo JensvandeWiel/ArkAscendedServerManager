@@ -53,6 +53,10 @@ data class ServerSettings(
     @IniArray(arrayType = ArrayType.CommaSeparatedArray)
     val activeMods: List<Int> = emptyList(),
 
+    @IniProperty("ActiveMapMod")
+    @OmitIfNull
+    val activeMapMod: Int? = null,
+
     @IniProperty("DifficultyOffset")
     val difficultyOffset: Float = 1.0f,
 
@@ -295,6 +299,7 @@ data class ServerSettings(
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
     fun validateActiveMods() = activeMods.all { it > 0 }
+    fun validateActiveMapMod() = activeMapMod == null || activeMapMod > 0
     fun validateDifficultyOffset() = difficultyOffset >= 0.0f
     fun validateStructureMultipliers() = structureResistanceMultiplier >= 0 && structurePreventResourceRadiusMultiplier >= 0 && perPlatformMaxStructuresMultiplier >= 0 && platformSaddleBuildAreaBoundsMultiplier >= 0
     fun validateStructureLimits() = theMaxStructuresInRange >= 0 && maxPlatformSaddleStructureLimit >= 0
@@ -319,7 +324,7 @@ data class ServerSettings(
     fun validateUpdateAllowedCheatersInterval() = updateAllowedCheatersInterval >= 0
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateActiveMapMod() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable

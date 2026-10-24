@@ -43,6 +43,18 @@ class IniRoundTripTest {
     }
 
     @Test
+    fun `ActiveMapMod is written and parsed back`() {
+        val settings = GameUserSettings().copy(
+            serverSettings = ServerSettings(activeMapMod = 12345)
+        )
+
+        val text = IniSerializer.serialize(settings)
+
+        assertTrue(text.contains("ActiveMapMod=12345"))
+        assertEquals(12345, IniSerializer.deserialize<GameUserSettings>(text).serverSettings.activeMapMod)
+    }
+
+    @Test
     fun `unknown ServerSettings keys are preserved`() {
         val input = """
             [ServerSettings]
