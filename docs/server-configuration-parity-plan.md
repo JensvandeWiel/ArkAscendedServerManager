@@ -83,6 +83,7 @@ References used:
   from General).
 - [x] Phase 1: **Advanced / Launch** tab (logging, performance, stability, save, dino spawn,
   network, passive mods, notifications, raw extra args).
+- [x] Official map picker and `ActiveMapMod` in General.
 - [ ] Next: extend **Rules / Environment / Players / Dinos** with their P0/P1 items.
 - [ ] Real-server acceptance (§8.6) — needs a disposable server.
 - [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
@@ -478,6 +479,9 @@ the launch line, it is marked *(covered by CLI)* and needs no new field — only
 check.
 
 ### 6.1 General
+
+**Status:** map picker, `ActiveMapMod` and `DifficultyOffset` implemented; the rest of this list
+is still open.
 
 - P0 `DifficultyOffset` (float, 1.0); `OverrideOfficialDifficulty` (float, 0.0).
 - P0 `?AltSaveDirectoryName` (string) — save folder per map.
@@ -902,7 +906,7 @@ value. The test plan targets each separately.
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
 | L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
 
-Today: **45 core tests** pass (`IniRoundTripTest` 19, `SettingsStartupScriptTest` 14,
+Today: **46 core tests** pass (`IniRoundTripTest` 20, `SettingsStartupScriptTest` 14,
 `ServerIoTest` 7, RCON 5) plus **11 Python tests**; `:ui:compileKotlin` passes. The tests cover
 existing behaviour, not only the new options:
 
