@@ -79,3 +79,15 @@ include("ui")
 include("core")
 include("core-native")
 include("overseer")
+
+// Use the sibling inisaur checkout for local development when present. This lets
+// app changes that rely on an unreleased inisaur fix compile locally; CI keeps
+// using the published artifact.
+val localInisaur = file("../inisaur")
+if (localInisaur.resolve("build.gradle.kts").exists()) {
+    includeBuild(localInisaur) {
+        dependencySubstitution {
+            substitute(module("eu.wynq:inisaur")).using(project(":"))
+        }
+    }
+}

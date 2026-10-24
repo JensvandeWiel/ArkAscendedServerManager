@@ -7,6 +7,7 @@ import db.models.ClusterEntity
 import db.models.ClustersTable
 import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
+import eu.wynq.arkascendedservermanager.core.ini.withActiveModsFromRaw
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.isValidPath
@@ -96,14 +97,22 @@ data class Server(
         sb.append(" ")
         sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString().quote())
         sb.append(" ")
-        sb.append(settings.toStartupScriptArguments().joinToString(" "))
+        val arguments = settings.toStartupScriptArguments().toMutableList()
+        if (settings.administration.mirrorModsToLaunchArgs) {
+            val mods = gameUserSettings.serverSettings.activeMods
+            if (mods.isNotEmpty()) {
+                arguments.add("-mods=${mods.joinToString(",")}")
+            }
+        }
+        sb.append(arguments.joinToString(" "))
         return sb.toString()
     }
 
     fun getGusFromInstall(): Result<GameUserSettings?> = runCatching {
         val path = Path.of(installationLocation, Constants.GAME_USER_SETTINGS_PATH)
         if (path.toFile().exists()) {
-            IniSerializer.deserialize<GameUserSettings>(path.toFile().readText())
+            val text = path.toFile().readText()
+            IniSerializer.deserialize<GameUserSettings>(text).withActiveModsFromRaw(text)
         } else {
             null
         }

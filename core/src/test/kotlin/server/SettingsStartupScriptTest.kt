@@ -5,6 +5,7 @@ package eu.wynq.arkascendedservermanager.core.server
 import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
+import eu.wynq.arkascendedservermanager.core.ini.ServerSettings
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
@@ -61,6 +62,24 @@ class SettingsStartupScriptTest {
 
         val migrated = GameUserSettings().migrateLegacyMods(parsed.administration.mods)
         assertEquals(listOf(111, 222), migrated.serverSettings.activeMods)
+    }
+
+    @Test
+    fun `mirrors ActiveMods to the launch line only when enabled`() {
+        fun server(mirror: Boolean) = Server(
+            id = Uuid.parse("123e4567-e89b-12d3-a456-426614174000"),
+            profileName = "Test Server",
+            installationLocation = "C:\\Ark",
+            asaApi = false,
+            settings = Settings(administration = Administration(mirrorModsToLaunchArgs = mirror)),
+            gameUserSettings = GameUserSettings().copy(
+                serverSettings = ServerSettings(activeMods = listOf(111, 222))
+            ),
+            game = Game()
+        )
+
+        assertTrue(!server(mirror = false).makeStartupScriptString().contains("-mods="))
+        assertTrue(server(mirror = true).makeStartupScriptString().contains("-mods=111,222"))
     }
 
     @Test

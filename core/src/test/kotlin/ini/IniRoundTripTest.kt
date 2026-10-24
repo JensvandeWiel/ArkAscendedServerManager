@@ -2,6 +2,7 @@ package eu.wynq.arkascendedservermanager.core.ini
 
 import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Settings
+import eu.wynq.arkascendedservermanager.core.support.isValidUrl
 import kotlinx.serialization.json.Json
 import serialization.IniSerializer
 import kotlin.test.Test
@@ -87,6 +88,94 @@ class IniRoundTripTest {
         assertEquals(0, ShooterGameMode().maxNumberOfPlayersInTribe)
         assertEquals(0.0f, ShooterGameMode().hairGrowthSpeedMultiplier)
         assertEquals(27020, Administration().rconPort)
+    }
+
+    @Test
+    fun `existing GameUserSettings values round-trip`() {
+        val settings = GameUserSettings().copy(
+            sessionSettings = SessionSettings("Roundtrip Server"),
+            messageOfTheDay = MessageOfTheDay(duration = 42, message = "hello"),
+            serverSettings = ServerSettings(
+                autoSavePeriodMinutes = 5,
+                activeMods = listOf(111, 222),
+                difficultyOffset = 2.5f,
+                kickIdlePlayersPeriod = 1200,
+                rconServerGameLogBuffer = 300,
+                maxTributeDinos = 30,
+                maxTributeItems = 60,
+                tamingSpeedMultiplier = 2.0f,
+                xpMultiplier = 3.0f,
+                serverPVE = true,
+                allowCaveBuildingPvP = false,
+                tribeNameChangeCooldown = 60,
+                maxTamedDinos = 1234,
+                dayCycleSpeedScale = 2.0f,
+            )
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+
+        assertEquals(settings.sessionSettings, parsed.sessionSettings)
+        assertEquals(settings.messageOfTheDay, parsed.messageOfTheDay)
+        assertEquals(settings.serverSettings, parsed.serverSettings)
+    }
+
+    @Test
+    fun `existing ShooterGameMode values round-trip`() {
+        val mode = ShooterGameMode(
+            genericXPMultiplier = 2.0f,
+            disableFriendlyFire = true,
+            useSingleplayerSettings = true,
+            tribeSlotReuseCooldown = 3600,
+            maxNumberOfPlayersInTribe = 4,
+            pveAllowTribeWar = false,
+            customRecipeEffectivenessMultiplier = 3.0f,
+            dinoHarvestingDamageMultiplier = 1.5f,
+        )
+
+        val parsed = IniSerializer.deserialize<Game>(IniSerializer.serialize(Game(shooterGameMode = mode)))
+
+        assertEquals(mode, parsed.shooterGameMode)
+    }
+
+    @Test
+    fun `existing validation rules reject bad values`() {
+        assertFalse(Administration(serverPort = 0).validate())
+        assertFalse(Administration(serverPort = 65535).validate()) // peer port overflows
+        assertFalse(Administration(adminPassword = "").validate())
+        assertFalse(Administration(slots = 0).validate())
+        assertFalse(Administration(mods = listOf("abc")).validate())
+        assertFalse(Administration(culture = "xx").validate())
+        assertFalse(Administration(activeEvent = "Two Words").validate())
+        assertTrue(Administration().validate())
+
+        assertFalse(ServerSettings(autoSavePeriodMinutes = -1).validate())
+        assertFalse(ServerSettings(kickIdlePlayersPeriod = -1).validate())
+        assertFalse(ServerSettings(maxTributeDinos = 10).validate())
+        assertFalse(ServerSettings(maxTributeItems = 10).validate())
+        assertFalse(ServerSettings(banListUrl = "not-a-url").validate())
+        assertTrue(ServerSettings().validate())
+    }
+
+    @Test
+    fun `single ActiveMods value is recovered from raw text`() {
+        val raw = """
+            [ServerSettings]
+            ActiveMods=111
+        """.trimIndent()
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(raw).withActiveModsFromRaw(raw)
+
+        assertEquals(listOf(111), parsed.serverSettings.activeMods)
+    }
+
+    @Test
+    fun `url validation requires an http or https host`() {
+        assertTrue("https://cdn2.arkdedicated.com/asa/BanList.txt".isValidUrl())
+        assertTrue("http://example.com/path".isValidUrl())
+        assertFalse("not-a-url".isValidUrl())
+        assertFalse("file:///c:/temp/x".isValidUrl())
+        assertFalse("https://".isValidUrl())
     }
 
     @Test
