@@ -1,0 +1,42 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    name: Data pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Scraper tests
+        run: python -m unittest discover -s tools -p "test_*.py" -v
+      - name: Option audit
+        run: python tools/audit-options.py --check
+
+  kotlin:
+    name: Core and UI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "25"
+      - uses: gradle/actions/setup-gradle@v4
+      # The native overseer build is currently blocked by conpty.lib on the
+      # developer machine; exclude it so config tests still run. Remove -x once
+      # the native build is fixed.
+      - name: Core tests
+        run: ./gradlew :core:test -x :overseer:cargoBuild --console=plain
+      - name: UI compile
+        run: ./gradlew :ui:compileKotlin -x :overseer:cargoBuild --console=plain

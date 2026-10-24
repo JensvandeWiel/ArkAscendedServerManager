@@ -1004,8 +1004,9 @@ Table option:
    Python tests) and `tools/audit-options.py` with `--fix-implemented`.
 6. [x] Build the first fixtures/tests: `IniRoundTripTest` (defaults, ActiveMods, unknown-key
    preservation, old JSON), updated `SettingsStartupScriptTest` (legacy `-mods` import).
-7. [ ] Stand up the `ui` test source set and a CI workflow. The native `overseer` build currently
-   fails on `conpty.lib`, so CI must exclude `:overseer:cargoBuild` or run where it works.
+7. [x] Add a CI workflow (`.github/workflows/tests.yml`) for the Python tests, audit and
+   `:core:test`/`:ui:compileKotlin`. [ ] Add UI tests when the table editor exists. The native
+   `overseer` build is excluded until `conpty.lib` is fixed.
 8. [ ] L5 real-server acceptance for the mod decision (§8.6). This decides whether a `-mods`
    mirror toggle is required.
 
