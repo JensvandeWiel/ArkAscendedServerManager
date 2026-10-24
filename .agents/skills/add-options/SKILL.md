@@ -268,6 +268,7 @@ When the user gives you an option, follow this logic:
 1. **Find the option** in `ArkServerOptions.csv` → read its `Location` and `name`
 2. **Determine the tab** by the option's category:
    - Player stats/multipliers → **Player** tab
+   - Dino stats, breeding/imprinting, tame limits, cryo → **Dino Settings** tab
    - XP multipliers/taming/harvesting → **Environment** tab
    - PvP/PvE/tribe rules/diseases → **Rules** tab
    - Server operation (ports, name, cluster, tribute) → **General** tab group

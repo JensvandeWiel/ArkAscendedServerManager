@@ -315,6 +315,49 @@ class IniRoundTripTest {
     }
 
     @Test
+    fun `dino breeding and tame limits round-trip`() {
+        val settings = GameUserSettings().copy(
+            serverSettings = ServerSettings(
+                dinoCharacterFoodDrainMultiplier = 0.5f,
+                forceGachaUnhappyInCaves = false,
+                disableImprintDinoBuff = true,
+                allowAnyoneBabyImprintCuddle = true,
+                allowCryoFridgeOnSaddle = true,
+                disableCryopodEnemyCheck = true,
+                disableCryopodFridgeRequirement = true,
+                destroyTamesOverTheSoftTameLimit = true,
+                maxTamedDinosSoftTameLimit = 100,
+                maxTamedDinosSoftTameLimitCountdownForDeletionDuration = 3600,
+            )
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+
+        assertEquals(settings.serverSettings, parsed.serverSettings)
+
+        val mode = ShooterGameMode(
+            matingIntervalMultiplier = 2.0f,
+            matingSpeedMultiplier = 2.0f,
+            eggHatchSpeedMultiplier = 2.0f,
+            babyMatureSpeedMultiplier = 2.0f,
+            babyFoodConsumptionSpeedMultiplier = 2.0f,
+            babyImprintAmountMultiplier = 2.0f,
+            babyImprintingStatScaleMultiplier = 2.0f,
+            babyCuddleIntervalMultiplier = 2.0f,
+            babyCuddleGracePeriodMultiplier = 2.0f,
+            babyCuddleLoseImprintQualitySpeedMultiplier = 2.0f,
+            destroyTamesOverLevelClamp = 10,
+            useDinoLevelUpAnimations = false,
+        )
+
+        val parsedGame = IniSerializer.deserialize<Game>(IniSerializer.serialize(Game(shooterGameMode = mode)))
+
+        assertEquals(mode, parsedGame.shooterGameMode)
+        assertTrue(ServerSettings().forceGachaUnhappyInCaves)
+        assertTrue(ShooterGameMode().useDinoLevelUpAnimations)
+    }
+
+    @Test
     fun `url validation requires an http or https host`() {
         assertTrue("https://cdn2.arkdedicated.com/asa/BanList.txt".isValidUrl())
         assertTrue("http://example.com/path".isValidUrl())

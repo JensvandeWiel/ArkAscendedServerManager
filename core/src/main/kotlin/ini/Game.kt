@@ -42,6 +42,30 @@ data class ShooterGameMode(
     val cropGrowthSpeedMultiplier: Float = 1.0f,
     @IniProperty("LayEggIntervalMultiplier")
     val layEggIntervalMultiplier: Float = 1.0f,
+    @IniProperty("MatingIntervalMultiplier")
+    val matingIntervalMultiplier: Float = 1.0f,
+    @IniProperty("MatingSpeedMultiplier")
+    val matingSpeedMultiplier: Float = 1.0f,
+    @IniProperty("EggHatchSpeedMultiplier")
+    val eggHatchSpeedMultiplier: Float = 1.0f,
+    @IniProperty("BabyMatureSpeedMultiplier")
+    val babyMatureSpeedMultiplier: Float = 1.0f,
+    @IniProperty("BabyFoodConsumptionSpeedMultiplier")
+    val babyFoodConsumptionSpeedMultiplier: Float = 1.0f,
+    @IniProperty("BabyImprintAmountMultiplier")
+    val babyImprintAmountMultiplier: Float = 1.0f,
+    @IniProperty("BabyImprintingStatScaleMultiplier")
+    val babyImprintingStatScaleMultiplier: Float = 1.0f,
+    @IniProperty("BabyCuddleIntervalMultiplier")
+    val babyCuddleIntervalMultiplier: Float = 1.0f,
+    @IniProperty("BabyCuddleGracePeriodMultiplier")
+    val babyCuddleGracePeriodMultiplier: Float = 1.0f,
+    @IniProperty("BabyCuddleLoseImprintQualitySpeedMultiplier")
+    val babyCuddleLoseImprintQualitySpeedMultiplier: Float = 1.0f,
+    @IniProperty("DestroyTamesOverLevelClamp")
+    val destroyTamesOverLevelClamp: Int = 0,
+    @IniProperty("bUseDinoLevelUpAnimations")
+    val useDinoLevelUpAnimations: Boolean = true,
     @IniProperty("PoopIntervalMultiplier")
     val poopIntervalMultiplier: Float = 1.0f,
     @IniProperty("HairGrowthSpeedMultiplier")
@@ -177,10 +201,23 @@ data class ShooterGameMode(
     fun validateWirelessCrafting() = wirelessCraftingRangeOverride >= 0
     fun validateGenerators() = limitGeneratorsNum >= 0 && limitGeneratorsRange >= 0
     fun validateTurrets() = limitTurretsNum >= 0 && limitTurretsRange >= 0
+    fun validateBreedingMultipliers() = listOf(
+        matingIntervalMultiplier,
+        matingSpeedMultiplier,
+        eggHatchSpeedMultiplier,
+        babyMatureSpeedMultiplier,
+        babyFoodConsumptionSpeedMultiplier,
+        babyImprintAmountMultiplier,
+        babyImprintingStatScaleMultiplier,
+        babyCuddleIntervalMultiplier,
+        babyCuddleGracePeriodMultiplier,
+        babyCuddleLoseImprintQualitySpeedMultiplier,
+    ).all { it >= 0 }
+    fun validateDestroyTamesOverLevelClamp() = destroyTamesOverLevelClamp >= 0
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
     fun validateMaxAlliancesPerTribe() = maxAlliancesPerTribe >= 0
     fun validateMaxTribesPerAlliance() = maxTribesPerAlliance >= 0
-    fun validate() = validateMaxNumberOfPlayersInTribe() && validatePhotoModeRangeLimit() && validateWirelessCrafting() && validateGenerators() && validateTurrets() && validateTribeSlotReuseCooldown()
+    fun validate() = validateMaxNumberOfPlayersInTribe() && validatePhotoModeRangeLimit() && validateWirelessCrafting() && validateGenerators() && validateTurrets() && validateBreedingMultipliers() && validateDestroyTamesOverLevelClamp() && validateTribeSlotReuseCooldown()
             && validateMaxAlliancesPerTribe() && validateMaxTribesPerAlliance()
 }
 

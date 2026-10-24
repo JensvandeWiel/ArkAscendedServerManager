@@ -699,4 +699,57 @@
     <string name="server_details_advanced_extra_group">Extra</string>
     <string name="server_details_advanced_extra_args_label">Extra launch arguments</string>
     <string name="server_details_advanced_extra_args_hint">Raw arguments appended to the launch line, e.g. -SomeFlag=value. Use with care.</string>
+
+    <!-- Dino breeding / tame limits / cryo -->
+    <string name="server_details_dino_soft_tame_limit_label">Soft tame limit</string>
+    <string name="server_details_dino_soft_tame_limit_hint">Tames above this limit are marked for cryo. Default is 5000.</string>
+    <string name="server_details_dino_soft_tame_limit_countdown_label">Soft limit deletion countdown (seconds)</string>
+    <string name="server_details_dino_soft_tame_limit_countdown_hint">Seconds before tames over the soft limit are deleted. Default is 604800 (7 days).</string>
+    <string name="server_details_dino_destroy_over_soft_limit_label">Destroy tames over soft limit</string>
+    <string name="server_details_dino_destroy_over_soft_limit_hint">If enabled, tames over the soft limit are destroyed when the countdown ends.</string>
+    <string name="server_details_dino_destroy_over_level_clamp_label">Destroy tames over level</string>
+    <string name="server_details_dino_destroy_over_level_clamp_hint">Destroys tames above this level. 0 disables the clamp.</string>
+
+    <string name="server_details_dino_taming_header">Taming</string>
+    <string name="server_details_dino_food_drain_multiplier_label">Dino food drain multiplier</string>
+    <string name="server_details_dino_food_drain_multiplier_hint">Scales food consumption for all dinos. Default is 1.0.</string>
+    <string name="server_details_dino_anyone_imprint_cuddle_label">Anyone can imprint-cuddle</string>
+    <string name="server_details_dino_anyone_imprint_cuddle_hint">If enabled, any player can take care of a baby, not just the imprinter.</string>
+    <string name="server_details_dino_disable_imprint_buff_label">Disable imprint buff</string>
+    <string name="server_details_dino_disable_imprint_buff_hint">If enabled, the imprint stat buff is not applied.</string>
+    <string name="server_details_dino_gacha_unhappy_caves_label">Gacha unhappy in caves</string>
+    <string name="server_details_dino_gacha_unhappy_caves_hint">If enabled, Gachas are unhappy when placed in caves.</string>
+
+    <string name="server_details_dino_breeding_header">Breeding and imprinting</string>
+    <string name="server_details_dino_mating_interval_multiplier_label">Mating interval multiplier</string>
+    <string name="server_details_dino_mating_interval_multiplier_hint">Scales the time between matings. Lower values allow mating more often.</string>
+    <string name="server_details_dino_mating_speed_multiplier_label">Mating speed multiplier</string>
+    <string name="server_details_dino_mating_speed_multiplier_hint">Scales how fast dinos mate.</string>
+    <string name="server_details_dino_egg_hatch_speed_multiplier_label">Egg hatch speed multiplier</string>
+    <string name="server_details_dino_egg_hatch_speed_multiplier_hint">Scales how fast fertilized eggs hatch.</string>
+    <string name="server_details_dino_baby_mature_speed_multiplier_label">Baby mature speed multiplier</string>
+    <string name="server_details_dino_baby_mature_speed_multiplier_hint">Scales how fast babies mature.</string>
+    <string name="server_details_dino_baby_food_consumption_multiplier_label">Baby food consumption multiplier</string>
+    <string name="server_details_dino_baby_food_consumption_multiplier_hint">Scales how fast babies eat.</string>
+    <string name="server_details_dino_baby_imprint_amount_multiplier_label">Baby imprint amount multiplier</string>
+    <string name="server_details_dino_baby_imprint_amount_multiplier_hint">Scales the imprint percentage gained per cuddle.</string>
+    <string name="server_details_dino_baby_imprinting_stat_scale_multiplier_label">Imprint stat scale multiplier</string>
+    <string name="server_details_dino_baby_imprinting_stat_scale_multiplier_hint">Scales the stat bonus from imprinting. Set to 0 to disable it.</string>
+    <string name="server_details_dino_baby_cuddle_interval_multiplier_label">Cuddle interval multiplier</string>
+    <string name="server_details_dino_baby_cuddle_interval_multiplier_hint">Scales how often babies want to cuddle.</string>
+    <string name="server_details_dino_baby_cuddle_grace_multiplier_label">Cuddle grace period multiplier</string>
+    <string name="server_details_dino_baby_cuddle_grace_multiplier_hint">Scales how long you can delay a cuddle before imprint quality drops.</string>
+    <string name="server_details_dino_baby_cuddle_lose_quality_multiplier_label">Cuddle quality loss multiplier</string>
+    <string name="server_details_dino_baby_cuddle_lose_quality_multiplier_hint">Scales how fast imprint quality drops after the grace period.</string>
+
+    <string name="server_details_dino_cryo_header">Cryopods</string>
+    <string name="server_details_dino_allow_cryo_fridge_saddle_label">Allow cryofridge on saddles</string>
+    <string name="server_details_dino_allow_cryo_fridge_saddle_hint">If enabled, cryofridges can be built on platform saddles and rafts.</string>
+    <string name="server_details_dino_disable_cryopod_enemy_check_label">Disable cryopod enemy check</string>
+    <string name="server_details_dino_disable_cryopod_enemy_check_hint">If enabled, the enemy proximity check for cryopods is skipped.</string>
+    <string name="server_details_dino_disable_cryopod_fridge_requirement_label">Disable cryopod fridge requirement</string>
+    <string name="server_details_dino_disable_cryopod_fridge_requirement_hint">If enabled, cryopods work without a powered cryofridge.</string>
+
+    <string name="server_details_dino_level_up_animations_label">Dino level-up animations</string>
+    <string name="server_details_dino_level_up_animations_hint">If enabled, dinos play level-up animations.</string>
 </resources>

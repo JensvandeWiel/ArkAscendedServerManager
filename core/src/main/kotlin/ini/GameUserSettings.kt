@@ -290,6 +290,26 @@ data class ServerSettings(
     val maxTamedDinos: Int = 5000,
     @IniProperty("RaidDinoCharacterFoodDrainMultiplier")
     val raidDinoCharacterFoodDrainMultiplier: Float = 1.0f,
+    @IniProperty("DinoCharacterFoodDrainMultiplier")
+    val dinoCharacterFoodDrainMultiplier: Float = 1.0f,
+    @IniProperty("ForceGachaUnhappyInCaves")
+    val forceGachaUnhappyInCaves: Boolean = true,
+    @IniProperty("DisableImprintDinoBuff")
+    val disableImprintDinoBuff: Boolean = false,
+    @IniProperty("AllowAnyoneBabyImprintCuddle")
+    val allowAnyoneBabyImprintCuddle: Boolean = false,
+    @IniProperty("AllowCryoFridgeOnSaddle")
+    val allowCryoFridgeOnSaddle: Boolean = false,
+    @IniProperty("DisableCryopodEnemyCheck")
+    val disableCryopodEnemyCheck: Boolean = false,
+    @IniProperty("DisableCryopodFridgeRequirement")
+    val disableCryopodFridgeRequirement: Boolean = false,
+    @IniProperty("DestroyTamesOverTheSoftTameLimit")
+    val destroyTamesOverTheSoftTameLimit: Boolean = false,
+    @IniProperty("MaxTamedDinos_SoftTameLimit")
+    val maxTamedDinosSoftTameLimit: Int = 5000,
+    @IniProperty("MaxTamedDinos_SoftTameLimit_CountdownForDeletionDuration")
+    val maxTamedDinosSoftTameLimitCountdownForDeletionDuration: Int = 604800,
     @IniProperty("TamedDinoDamageMultiplier")
     @Unsure
     val tamedDinoDamageMultiplier: Float = 1.0f,
@@ -306,6 +326,8 @@ data class ServerSettings(
     fun validateStructurePickup() = structurePickupTimeAfterPlacement >= 0 && structurePickupHoldDuration >= 0
     fun validateStructureDecay() = pvEStructureDecayPeriodMultiplier >= 0 && autoDestroyOldStructuresMultiplier >= 0
     fun validateItemStack() = itemStackSizeMultiplier >= 0
+    fun validateDinoFoodDrain() = dinoCharacterFoodDrainMultiplier >= 0
+    fun validateSoftTameLimits() = maxTamedDinosSoftTameLimit >= 0 && maxTamedDinosSoftTameLimitCountdownForDeletionDuration >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
     fun validateMinimumDinoReuploadInterval() = minimumDinoReuploadInterval == null || minimumDinoReuploadInterval >= 0
     fun validateTributeExpirations() = listOf(
@@ -324,7 +346,7 @@ data class ServerSettings(
     fun validateUpdateAllowedCheatersInterval() = updateAllowedCheatersInterval >= 0
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateActiveMapMod() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateActiveMapMod() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateDinoFoodDrain() && validateSoftTameLimits() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable

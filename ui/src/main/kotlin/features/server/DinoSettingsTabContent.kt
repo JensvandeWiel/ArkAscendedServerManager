@@ -85,6 +85,58 @@ fun DinoSettingsTabContent(component: ServerComponent) {
                     allowOutsideRange = true,
                     labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
                 )
+                FormSliderField(
+                    value = gameUserSettings.serverSettings.maxTamedDinosSoftTameLimit,
+                    onValueChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(maxTamedDinosSoftTameLimit = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_soft_tame_limit_label),
+                    hint = stringResource(Res.string.server_details_dino_soft_tame_limit_hint),
+                    valueRange = 0..10000,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormSliderField(
+                    value = gameUserSettings.serverSettings.maxTamedDinosSoftTameLimitCountdownForDeletionDuration,
+                    onValueChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(maxTamedDinosSoftTameLimitCountdownForDeletionDuration = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_soft_tame_limit_countdown_label),
+                    hint = stringResource(Res.string.server_details_dino_soft_tame_limit_countdown_hint),
+                    valueRange = 0..604_800,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormCheckboxField(
+                    checked = gameUserSettings.serverSettings.destroyTamesOverTheSoftTameLimit,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(destroyTamesOverTheSoftTameLimit = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_destroy_over_soft_limit_label),
+                    hint = stringResource(Res.string.server_details_dino_destroy_over_soft_limit_hint),
+                )
+                FormSliderField(
+                    value = game.shooterGameMode.destroyTamesOverLevelClamp,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(destroyTamesOverLevelClamp = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_destroy_over_level_clamp_label),
+                    hint = stringResource(Res.string.server_details_dino_destroy_over_level_clamp_hint),
+                    valueRange = 0..5000,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
 
                 GroupHeader(stringResource(Res.string.server_details_dino_tamed_header))
                 FormFloatSliderField(
@@ -259,6 +311,238 @@ fun DinoSettingsTabContent(component: ServerComponent) {
                     valueRange = 0.1f..5.0f,
                     showManualInput = true,
                     allowOutsideRange = true,
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_dino_taming_header))
+                FormFloatSliderField(
+                    value = gameUserSettings.serverSettings.dinoCharacterFoodDrainMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(dinoCharacterFoodDrainMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_food_drain_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_food_drain_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormCheckboxField(
+                    checked = gameUserSettings.serverSettings.allowAnyoneBabyImprintCuddle,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(allowAnyoneBabyImprintCuddle = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_anyone_imprint_cuddle_label),
+                    hint = stringResource(Res.string.server_details_dino_anyone_imprint_cuddle_hint),
+                )
+                FormCheckboxField(
+                    checked = gameUserSettings.serverSettings.disableImprintDinoBuff,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(disableImprintDinoBuff = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_disable_imprint_buff_label),
+                    hint = stringResource(Res.string.server_details_dino_disable_imprint_buff_hint),
+                )
+                FormCheckboxField(
+                    checked = gameUserSettings.serverSettings.forceGachaUnhappyInCaves,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(forceGachaUnhappyInCaves = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_gacha_unhappy_caves_label),
+                    hint = stringResource(Res.string.server_details_dino_gacha_unhappy_caves_hint),
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_dino_breeding_header))
+                FormFloatSliderField(
+                    value = game.shooterGameMode.matingIntervalMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(matingIntervalMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_mating_interval_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_mating_interval_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.matingSpeedMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(matingSpeedMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_mating_speed_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_mating_speed_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.eggHatchSpeedMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(eggHatchSpeedMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_egg_hatch_speed_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_egg_hatch_speed_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.babyMatureSpeedMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(babyMatureSpeedMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_baby_mature_speed_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_baby_mature_speed_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.babyFoodConsumptionSpeedMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(babyFoodConsumptionSpeedMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_baby_food_consumption_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_baby_food_consumption_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.babyImprintAmountMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(babyImprintAmountMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_baby_imprint_amount_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_baby_imprint_amount_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.babyImprintingStatScaleMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(babyImprintingStatScaleMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_baby_imprinting_stat_scale_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_baby_imprinting_stat_scale_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.babyCuddleIntervalMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(babyCuddleIntervalMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_baby_cuddle_interval_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_baby_cuddle_interval_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.babyCuddleGracePeriodMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(babyCuddleGracePeriodMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_baby_cuddle_grace_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_baby_cuddle_grace_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+                FormFloatSliderField(
+                    value = game.shooterGameMode.babyCuddleLoseImprintQualitySpeedMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(babyCuddleLoseImprintQualitySpeedMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_baby_cuddle_lose_quality_multiplier_label),
+                    hint = stringResource(Res.string.server_details_dino_baby_cuddle_lose_quality_multiplier_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_dino_cryo_header))
+                FormCheckboxField(
+                    checked = gameUserSettings.serverSettings.allowCryoFridgeOnSaddle,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(allowCryoFridgeOnSaddle = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_allow_cryo_fridge_saddle_label),
+                    hint = stringResource(Res.string.server_details_dino_allow_cryo_fridge_saddle_hint),
+                )
+                FormCheckboxField(
+                    checked = gameUserSettings.serverSettings.disableCryopodEnemyCheck,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(disableCryopodEnemyCheck = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_disable_cryopod_enemy_check_label),
+                    hint = stringResource(Res.string.server_details_dino_disable_cryopod_enemy_check_hint),
+                )
+                FormCheckboxField(
+                    checked = gameUserSettings.serverSettings.disableCryopodFridgeRequirement,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(disableCryopodFridgeRequirement = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_disable_cryopod_fridge_requirement_label),
+                    hint = stringResource(Res.string.server_details_dino_disable_cryopod_fridge_requirement_hint),
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_dino_other_header))
+                FormCheckboxField(
+                    checked = game.shooterGameMode.useDinoLevelUpAnimations,
+                    onCheckedChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(useDinoLevelUpAnimations = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_dino_level_up_animations_label),
+                    hint = stringResource(Res.string.server_details_dino_level_up_animations_hint),
                 )
 
                 GroupHeader(stringResource(Res.string.server_details_dino_per_level_stats_header))
