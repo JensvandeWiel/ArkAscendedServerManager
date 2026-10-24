@@ -439,7 +439,7 @@ def main() -> int:
     lines.append("## Stale implemented flags")
     lines.append("")
     lines.append("These options are modelled and exposed in the UI but the CSV does not say `implemented=Yes`.")
-    lines.append("They are not correctness bugs; phase 0 will reconcile the column.")
+    lines.append("They are not correctness bugs; run `python tools/audit-options.py --fix-implemented` to reconcile.")
     lines.append("")
     if flags:
         lines.append(f"<details><summary>Show {len(flags)} options</summary>")

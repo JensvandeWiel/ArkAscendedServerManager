@@ -39,7 +39,9 @@ References used:
 
 `tools/audit-options.py` checks all 554 wiki rows against the Kotlin models and the UI.
 
-- **129 modelled** (65 `GameUserSettings`, 43 `Game.ini`, 21 launch; names can overlap).
+- **129 wiki rows modelled** (65 `GameUserSettings`, 43 `Game.ini`, 21 launch; names can overlap).
+  The audit sees 134 model entries; the extra 5 are manager-only entries or names the wiki writes
+  differently (see the audit's "App-only settings" section).
 - **0 contradictions** after phase 0 (no ASA=No options, every Unknown has `@Unsure`, defaults
   and locations match).
 - **162 ASA=Yes scalar gaps**, **24 table/struct gaps**, **30 ASE-only rows**, **36

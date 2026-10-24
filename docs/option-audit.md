@@ -26,7 +26,7 @@ No contradictions found.
 ## Stale implemented flags
 
 These options are modelled and exposed in the UI but the CSV does not say `implemented=Yes`.
-They are not correctness bugs; phase 0 will reconcile the column.
+They are not correctness bugs; run `python tools/audit-options.py --fix-implemented` to reconcile.
 
 None.
 
