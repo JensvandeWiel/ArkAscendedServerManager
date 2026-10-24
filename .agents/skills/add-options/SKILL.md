@@ -170,7 +170,7 @@ Add the field here, derive implementation details from the tab/section files to 
 
 ### UI Tab & Section Reference
 
-The app has **10 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
+The app has **11 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
 
 #### Profile Tab (`ProfileTabContent.kt`)
 - **Content**: Server name, installation path, ASA API toggle
@@ -226,6 +226,13 @@ Composed of **10 sub-sections**, each in its own file under `general/`:
   - **Wireless crafting**: global/per-type toggles, range
   - **Generators**: count and range
 
+#### Admin & Security Tab (`AdminAndSecurityTabContent.kt`)
+- **Sections**:
+  - **Lists and URLs**: ban list, admin list, cosmetic whitelist
+  - **Character tracking**: `UseCharacterTracker`
+  - **Cheat and dupe protection**: dupe check/log flags, allowed-cheaters interval
+  - **Mesh protection**: mesh checking/biting toggles, under-mesh launch flags
+
 #### Chat & HUD Tab (`ChatAndHudTabContent.kt`)
 - **Sections**:
   - **Chat** (`GroupHeader`): admin logging, global voice chat, proximity chat, join notifications
@@ -255,6 +262,7 @@ When the user gives you an option, follow this logic:
    - Command-line flags (idle kick, battleye, cosmetics, dinos, events) → General > **ServerOptionsSection**
    - Chat, voice, HUD/visuals, gamma, photo mode → **Chat & HUD** tab
    - Structures, platform saddles, turrets, item stacks, wireless crafting → **Structures & Items** tab
+   - Ban/admin lists, dupe/mesh protection, character tracking → **Admin & Security** tab
    - Auto-restart, discord → **Management** tab
    - Profile info → **Profile** tab
 3. **Place within a group**: group with related options under the same `GroupHeader` or `CheckboxSectionHeader`

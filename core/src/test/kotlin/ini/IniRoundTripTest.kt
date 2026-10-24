@@ -156,6 +156,9 @@ class IniRoundTripTest {
         assertFalse(ServerSettings(banListUrl = "not-a-url").validate())
         assertFalse(ServerSettings(badWordListUrl = "not-a-url").validateBadWordListUrl())
         assertFalse(ServerSettings(badWordWhiteListUrl = "not-a-url").validateBadWordWhiteListUrl())
+        assertFalse(ServerSettings(adminListUrl = "not-a-url").validateAdminListUrl())
+        assertFalse(ServerSettings(cosmeticWhitelistOverride = "not-a-url").validateCosmeticWhitelistOverride())
+        assertFalse(ServerSettings(updateAllowedCheatersInterval = -1.0f).validateUpdateAllowedCheatersInterval())
         assertFalse(ServerSettings(structureResistanceMultiplier = -1.0f).validate())
         assertFalse(ServerSettings(theMaxStructuresInRange = -1).validate())
         assertFalse(ShooterGameMode(limitTurretsNum = -1).validate())
@@ -277,6 +280,26 @@ class IniRoundTripTest {
         assertEquals(3000, ShooterGameMode().wirelessCraftingRangeOverride)
         assertTrue(ShooterGameMode().limitTurretsInRange)
         assertEquals(100, ShooterGameMode().limitTurretsNum)
+    }
+
+    @Test
+    fun `admin and security fields round-trip`() {
+        val settings = GameUserSettings().copy(
+            serverSettings = ServerSettings(
+                adminListUrl = "https://example.com/admins.txt",
+                cosmeticWhitelistOverride = "https://example.com/cosmetics.txt",
+                useCharacterTracker = true,
+                updateAllowedCheatersInterval = 120.0f,
+                serverEnableMeshChecking = true,
+                enableMeshBitingProtection = false,
+            )
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+
+        assertEquals(settings.serverSettings, parsed.serverSettings)
+        assertEquals(600.0f, ServerSettings().updateAllowedCheatersInterval)
+        assertTrue(ServerSettings().enableMeshBitingProtection)
     }
 
     @Test

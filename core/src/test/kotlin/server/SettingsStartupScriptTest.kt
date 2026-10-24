@@ -65,6 +65,33 @@ class SettingsStartupScriptTest {
     }
 
     @Test
+    fun `emits admin and security launch flags`() {
+        val args = Settings(
+            options = Options(
+                useItemDupeCheck = true,
+                forceDupeLog = true,
+                disableDupeLogDeletes = true,
+                ignoreDupedItems = true,
+                noUnderMeshChecking = true,
+                noUnderMeshKilling = true,
+            )
+        ).toStartupScriptArguments()
+
+        assertTrue(
+            args.containsAll(
+                listOf(
+                    "-UseItemDupeCheck",
+                    "-ForceDupeLog",
+                    "-DisableDupeLogDeletes",
+                    "-ignoredupeditems",
+                    "-noundermeshchecking",
+                    "-noundermeshkilling",
+                )
+            )
+        )
+    }
+
+    @Test
     fun `emits AutoDestroyStructures launch flag`() {
         val args = Settings(options = Options(autoDestroyStructures = true)).toStartupScriptArguments()
 

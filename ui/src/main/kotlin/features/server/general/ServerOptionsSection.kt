@@ -29,8 +29,6 @@ fun ServerOptionsSection(component: ServerComponent) {
     val idlePlayerKickTimeHint = stringResource(Res.string.server_details_idle_player_kick_time_hint)
     val idlePlayerKickEnabledLabel = stringResource(Res.string.server_details_idle_player_kick_enabled_label)
     val idlePlayerKickEnabledHint = stringResource(Res.string.server_details_idle_player_kick_enabled_hint)
-    val banListUrlLabel = stringResource(Res.string.server_details_ban_list_url_label)
-    val banListUrlHint = stringResource(Res.string.server_details_ban_list_url_hint)
     val useDynamicConfigLabel = stringResource(Res.string.server_details_use_dynamic_config_label)
     val useDynamicConfigHint = stringResource(Res.string.server_details_use_dynamic_config_hint)
     val customDynamicConfigUrlHint = stringResource(Res.string.server_details_custom_dynamic_config_url_hint)
@@ -87,17 +85,6 @@ fun ServerOptionsSection(component: ServerComponent) {
                 error = if (settings.options.enableIdlePlayerKick) !gameUserSettings.serverSettings.validateKickIdlePlayersPeriod() else false,
             )
         }
-        FormOptionalTextField(
-            value = gameUserSettings.serverSettings.banListUrl,
-            onValueChange = { newValue ->
-                component.updateServerGameUserSettings {
-                    it.copy(serverSettings = it.serverSettings.copy(banListUrl = newValue))
-                }
-            },
-            defaultValue = ServerSettings::banListUrl.defaultValueString!!,
-            label = banListUrlLabel,
-            hint = banListUrlHint,
-        )
         FormToggleableNullableTextField(
             value = gameUserSettings.serverSettings.customDynamicConfigUrl,
             onValueChange = { newValue: String? ->

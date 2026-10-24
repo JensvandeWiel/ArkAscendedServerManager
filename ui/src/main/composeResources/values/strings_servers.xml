@@ -375,6 +375,7 @@
     <string name="server_details_dino_settings_tab">Dino Settings</string>
     <string name="server_details_chat_and_hud_tab">Chat &amp; HUD</string>
     <string name="server_details_structures_and_items_tab">Structures &amp; Items</string>
+    <string name="server_details_admin_and_security_tab">Admin &amp; Security</string>
     <string name="server_details_dino_allow_raid_dino_feeding_label">Allow Raid Dino Feeding</string>
     <string name="server_details_dino_allow_raid_dino_feeding_hint">If True, allows Titanosaurs to be permanently tamed (namely allow them to be fed). Note: in The Island only spawns a maximum of 3 Titanosaurs, so 3 tamed ones should ultimately block any more ones from spawning.</string>
     <string name="server_details_dino_tame_limits_header">Tame Limits</string>
@@ -573,4 +574,37 @@
     <string name="server_details_structures_limit_generators_num_hint">Maximum number of generators in range. Default is 3.</string>
     <string name="server_details_structures_limit_generators_range_label">Generator limit range</string>
     <string name="server_details_structures_limit_generators_range_hint">Radius, in Unreal units, for the generator limit. Default is 15000.</string>
+
+    <!-- Admin & Security -->
+    <string name="server_details_admin_and_security_lists_group">Lists and URLs</string>
+    <string name="server_details_admin_list_url_label">Admin list URL</string>
+    <string name="server_details_admin_list_url_hint">URL to the admin list. ARK fetches it periodically; the format matches the ban list.</string>
+    <string name="server_details_cosmetic_whitelist_override_label">Cosmetic whitelist override URL</string>
+    <string name="server_details_cosmetic_whitelist_override_hint">URL to a comma-separated custom-cosmetic whitelist (ModID|dynamic download|blueprints).</string>
+
+    <string name="server_details_admin_and_security_tracking_group">Character tracking</string>
+    <string name="server_details_use_character_tracker_label">Use character tracker</string>
+    <string name="server_details_use_character_tracker_hint">If enabled, ARK tracks character data for the server. Default is off.</string>
+
+    <string name="server_details_admin_and_security_cheat_group">Cheat and dupe protection</string>
+    <string name="server_details_use_item_dupe_check_label">Item dupe check</string>
+    <string name="server_details_use_item_dupe_check_hint">Adds extra item dupe protection. Can affect mods, so test before enabling on a modded server.</string>
+    <string name="server_details_force_dupe_log_label">Force dupe log</string>
+    <string name="server_details_force_dupe_log_hint">Forces dupe logging even when dupe-log deletes are enabled.</string>
+    <string name="server_details_disable_dupe_log_deletes_label">Disable dupe log deletes</string>
+    <string name="server_details_disable_dupe_log_deletes_hint">Prevents ARK from deleting dupe-log entries.</string>
+    <string name="server_details_ignore_duped_items_label">Ignore duped items</string>
+    <string name="server_details_ignore_duped_items_hint">If a duped item is detected it is ignored rather than deleted. This does not disable the checks.</string>
+    <string name="server_details_update_allowed_cheaters_interval_label">Allowed cheaters refresh interval (seconds)</string>
+    <string name="server_details_update_allowed_cheaters_interval_hint">Seconds between refreshes of the allowed-cheaters list. Default is 600.</string>
+
+    <string name="server_details_admin_and_security_mesh_group">Mesh protection</string>
+    <string name="server_details_server_enable_mesh_checking_label">Enable mesh checking</string>
+    <string name="server_details_server_enable_mesh_checking_hint">If enabled, the server checks for players under the mesh.</string>
+    <string name="server_details_enable_mesh_biting_protection_label">Enable mesh biting protection</string>
+    <string name="server_details_enable_mesh_biting_protection_hint">If enabled, protects against mesh biting.</string>
+    <string name="server_details_no_under_mesh_checking_label">Disable under-mesh checking</string>
+    <string name="server_details_no_under_mesh_checking_hint">Launch flag that disables anti-mesh checking entirely.</string>
+    <string name="server_details_no_under_mesh_killing_label">Disable under-mesh killing</string>
+    <string name="server_details_no_under_mesh_killing_hint">Launch flag that disables anti-mesh kills but keeps teleporting.</string>
 </resources>

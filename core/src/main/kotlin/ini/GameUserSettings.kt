@@ -224,6 +224,24 @@ data class ServerSettings(
     @OmitIfNull
     @IniString(true)
     val badWordWhiteListUrl: String? = null,
+    @IniProperty("AdminListURL")
+    @OmitIfNull
+    @IniString(true)
+    val adminListUrl: String? = null,
+    @IniProperty("CosmeticWhitelistOverride")
+    @OmitIfNull
+    @IniString(true)
+    val cosmeticWhitelistOverride: String? = null,
+    @IniProperty("UseCharacterTracker")
+    val useCharacterTracker: Boolean = false,
+    @IniProperty("UpdateAllowedCheatersInterval")
+    val updateAllowedCheatersInterval: Float = 600.0f,
+    @IniProperty("ServerEnableMeshChecking")
+    @Unsure
+    val serverEnableMeshChecking: Boolean = false,
+    @IniProperty("EnableMeshBitingProtection")
+    @Unsure
+    val enableMeshBitingProtection: Boolean = true,
     @IniProperty("TribeNameChangeCooldown")
     val tribeNameChangeCooldown: Int = 15,
     @IniProperty("PreventTribeAlliances")
@@ -292,9 +310,12 @@ data class ServerSettings(
     fun validateBanListUrl() = banListUrl == null || (banListUrl.isNotBlank() && banListUrl.isValidUrl())
     fun validateBadWordListUrl() = badWordListUrl == null || (badWordListUrl.isNotBlank() && badWordListUrl.isValidUrl())
     fun validateBadWordWhiteListUrl() = badWordWhiteListUrl == null || (badWordWhiteListUrl.isNotBlank() && badWordWhiteListUrl.isValidUrl())
+    fun validateAdminListUrl() = adminListUrl == null || (adminListUrl.isNotBlank() && adminListUrl.isValidUrl())
+    fun validateCosmeticWhitelistOverride() = cosmeticWhitelistOverride == null || (cosmeticWhitelistOverride.isNotBlank() && cosmeticWhitelistOverride.isValidUrl())
+    fun validateUpdateAllowedCheatersInterval() = updateAllowedCheatersInterval >= 0
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable

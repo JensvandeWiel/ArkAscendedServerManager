@@ -36,6 +36,7 @@ fun ServerScreen(component: ServerComponent) {
     val dinoSettingsTabLabel = stringResource(Res.string.server_details_dino_settings_tab)
     val chatAndHudTabLabel = stringResource(Res.string.server_details_chat_and_hud_tab)
     val structuresAndItemsTabLabel = stringResource(Res.string.server_details_structures_and_items_tab)
+    val adminAndSecurityTabLabel = stringResource(Res.string.server_details_admin_and_security_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
     val deleteServerLabel = stringResource(Res.string.action_delete_server)
     val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
@@ -45,7 +46,7 @@ fun ServerScreen(component: ServerComponent) {
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
     val tabs =
-        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel, chatAndHudTabLabel, structuresAndItemsTabLabel) {
+        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel, chatAndHudTabLabel, structuresAndItemsTabLabel, adminAndSecurityTabLabel) {
             listOf(
                 TabData.Default(
                     selected = selectedTab == ServerDetailsTab.INFO,
@@ -117,6 +118,14 @@ fun ServerScreen(component: ServerComponent) {
                         SimpleTabContent(label = structuresAndItemsTabLabel, state = tabState)
                     },
                     onClick = component::selectStructuresAndItemsTab,
+                    closable = false,
+                ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.ADMIN_AND_SECURITY,
+                    content = { tabState ->
+                        SimpleTabContent(label = adminAndSecurityTabLabel, state = tabState)
+                    },
+                    onClick = component::selectAdminAndSecurityTab,
                     closable = false,
                 ),
                 TabData.Default(
@@ -226,6 +235,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.STRUCTURES_AND_ITEMS -> {
                         StructuresAndItemsTabContent(component)
+                    }
+
+                    ServerDetailsTab.ADMIN_AND_SECURITY -> {
+                        AdminAndSecurityTabContent(component)
                     }
 
                     ServerDetailsTab.CONFIG_EDITOR -> {

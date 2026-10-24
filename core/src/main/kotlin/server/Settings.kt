@@ -482,6 +482,21 @@ data class Options(
     val useEventColors: Boolean = false,
     @field:ArgOption(name = "AutoDestroyStructures", kind = ArgKind.FLAG, order = 19)
     val autoDestroyStructures: Boolean = false,
+    @Unsure
+    @field:ArgOption(name = "UseItemDupeCheck", kind = ArgKind.FLAG, order = 20)
+    val useItemDupeCheck: Boolean = false,
+    @field:ArgOption(name = "ForceDupeLog", kind = ArgKind.FLAG, order = 21)
+    val forceDupeLog: Boolean = false,
+    @field:ArgOption(name = "DisableDupeLogDeletes", kind = ArgKind.FLAG, order = 22)
+    val disableDupeLogDeletes: Boolean = false,
+    @field:ArgOption(name = "ignoredupeditems", kind = ArgKind.FLAG, order = 23)
+    val ignoreDupedItems: Boolean = false,
+    @Unsure
+    @field:ArgOption(name = "noundermeshchecking", kind = ArgKind.FLAG, order = 24)
+    val noUnderMeshChecking: Boolean = false,
+    @Unsure
+    @field:ArgOption(name = "noundermeshkilling", kind = ArgKind.FLAG, order = 25)
+    val noUnderMeshKilling: Boolean = false,
 ) {
     fun validate() = true
 
