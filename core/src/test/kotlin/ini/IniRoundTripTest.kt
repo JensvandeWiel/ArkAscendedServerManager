@@ -312,6 +312,17 @@ class IniRoundTripTest {
     }
 
     @Test
+    fun `MultiHome round-trips in SessionSettings`() {
+        val settings = GameUserSettings().copy(
+            sessionSettings = SessionSettings("MultiHome Server", "192.168.1.20")
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+
+        assertEquals(settings.sessionSettings, parsed.sessionSettings)
+    }
+
+    @Test
     fun `old Settings JSON decodes with new fields defaulted`() {
         // A minimal row from a previous release: no activeMods, difficultyOffset, etc.
         val oldJson = """

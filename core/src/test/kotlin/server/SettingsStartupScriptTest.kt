@@ -65,6 +65,89 @@ class SettingsStartupScriptTest {
     }
 
     @Test
+    fun `emits advanced launch arguments`() {
+        val settings = Settings(
+            administration = Administration(
+                gbUsageToForceRestart = 35f,
+                maxNumOfSaveBackups = 5,
+                altSaveDirectoryName = "MySave",
+                customNotificationUrl = "https://example.com/notify",
+                serverIp = "1.2.3.4",
+                ip = "1.2.3.4",
+                serverPlatform = "PC+XSX",
+                extraArgs = "-CustomFlag=1",
+            ),
+            options = Options(
+                serverGameLog = true,
+                serverGameLogIncludeTribeLogs = true,
+                serverRconOutputTribeLogs = true,
+                log = true,
+                useStore = true,
+                convertToStore = true,
+                noWildBabies = true,
+                noAi = true,
+                noSound = true,
+                oneThread = true,
+                noPerfThreads = true,
+                forceUsePerfThreads = true,
+                disableInOneRangeScaling = true,
+                alwaysTickDedicatedSkeletalMeshes = true,
+                noHangDetection = true,
+                preventHibernation = true,
+                noDinosExceptForcedSpawn = true,
+                noDinosExceptStreamingSpawn = true,
+                noDinosExceptManualSpawn = true,
+                noDinosExceptWaterSpawn = true,
+                nitradoQueryPort = true,
+                multiHome = true,
+                stasisKeepControllers = true,
+                passiveMods = listOf("111", "222"),
+            ),
+        )
+
+        val args = settings.toStartupScriptArguments()
+
+        assertTrue(args.any { it.contains("?AltSaveDirectoryName=MySave") })
+        assertTrue(args.contains("-GBUsageToForceRestart=35.0"))
+        assertTrue(args.contains("-MaxNumOfSaveBackups=5"))
+        assertTrue(args.contains("-ServerIP=1.2.3.4"))
+        assertTrue(args.contains("-ip=1.2.3.4"))
+        assertTrue(args.contains("-ServerPlatform=PC+XSX"))
+        assertTrue(args.contains("-CustomNotificationURL=https://example.com/notify"))
+        assertTrue(args.contains("-passivemods=111,222"))
+        assertTrue(args.contains("-CustomFlag=1"))
+        assertTrue(
+            args.containsAll(
+                listOf(
+                    "-servergamelog",
+                    "-servergamelogincludetribelogs",
+                    "-ServerRCONOutputTribeLogs",
+                    "-log",
+                    "-usestore",
+                    "-converttostore",
+                    "-NoWildBabies",
+                    "-NoAI",
+                    "-nosound",
+                    "-onethread",
+                    "-noperfthreads",
+                    "-forceuseperfthreads",
+                    "-disabledinonetrangescaling",
+                    "-AlwaysTickDedicatedSkeletalMeshes",
+                    "-NoHangDetection",
+                    "-PreventHibernation",
+                    "-NoDinosExceptForcedSpawn",
+                    "-NoDinosExceptStreamingSpawn",
+                    "-NoDinosExceptManualSpawn",
+                    "-NoDinosExceptWaterSpawn",
+                    "-NitradoQueryPort",
+                    "-MULTIHOME",
+                    "-StasisKeepControllers",
+                )
+            )
+        )
+    }
+
+    @Test
     fun `emits admin and security launch flags`() {
         val args = Settings(
             options = Options(

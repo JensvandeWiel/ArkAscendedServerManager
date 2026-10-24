@@ -22,10 +22,14 @@ import support.Unsure
 data class SessionSettings(
     @IniProperty("SessionName")
     val sessionName: String = "Server hosted by JensvandeWiel/ArkAscendedServerManager",
-
+    @IniProperty("MultiHome")
+    @Unsure
+    @OmitIfNull
+    val multiHome: String? = null,
     ) {
-    fun validate() = validateSessionName()
+    fun validate() = validateSessionName() && validateMultiHome()
     fun validateSessionName() = sessionName.isNotBlank()
+    fun validateMultiHome() = multiHome == null || multiHome.isNotBlank()
 }
 
 @IniSection("MessageOfTheDay")

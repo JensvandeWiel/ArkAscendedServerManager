@@ -108,6 +108,25 @@ data class Administration(
     @field:ArgOption(name = "ActiveEvent", kind = ArgKind.FLAG_VALUE, order = 12)
     val activeEvent: String? = null,
 
+    @field:ArgOption(name = "GBUsageToForceRestart", kind = ArgKind.FLAG_VALUE, order = 20)
+    val gbUsageToForceRestart: Float? = null,
+    @Unsure
+    @field:ArgOption(name = "MaxNumOfSaveBackups", kind = ArgKind.FLAG_VALUE, order = 21)
+    val maxNumOfSaveBackups: Int? = null,
+    @field:ArgOption(name = "AltSaveDirectoryName", kind = ArgKind.QUERY, order = 22)
+    val altSaveDirectoryName: String? = null,
+    @field:ArgOption(name = "CustomNotificationURL", kind = ArgKind.FLAG_VALUE, order = 23)
+    val customNotificationUrl: String? = null,
+    @field:ArgOption(name = "ServerIP", kind = ArgKind.FLAG_VALUE, order = 24)
+    val serverIp: String? = null,
+    @field:ArgOption(name = "ip", kind = ArgKind.FLAG_VALUE, order = 25)
+    val ip: String? = null,
+    @field:ArgOption(name = "ServerPlatform", kind = ArgKind.FLAG_VALUE, order = 26)
+    val serverPlatform: String? = null,
+
+    /** Raw escape hatch; appended to the launch arguments verbatim. */
+    val extraArgs: String? = null,
+
     val restartAfterCrash: Boolean = false,
 
     val sendServerUpdatesToDiscord: Boolean = false,
@@ -126,6 +145,13 @@ data class Administration(
             && validateCulture()
             && validateSendServerUpdatesWebhookUrl()
             && validateActiveEvent()
+            && validateGbUsageToForceRestart()
+            && validateMaxNumOfSaveBackups()
+            && validateCustomNotificationUrl()
+            && validateServerIp()
+            && validateIp()
+            && validateServerPlatform()
+            && validateAltSaveDirectoryName()
 
 
     fun validateServerPassword() = serverPassword == null || serverPassword.isNotBlank()
@@ -142,6 +168,13 @@ data class Administration(
     fun validateServerPort() = serverPort in 1..65535
     fun validateCulture() = culture == null || culture.isNotBlank() && locales.contains(culture)
     fun validateActiveEvent() = activeEvent == null || activeEvent.isNotBlank() && activeEvent.split(" ").size == 1
+    fun validateGbUsageToForceRestart() = gbUsageToForceRestart == null || gbUsageToForceRestart >= 0
+    fun validateMaxNumOfSaveBackups() = maxNumOfSaveBackups == null || maxNumOfSaveBackups >= 0
+    fun validateCustomNotificationUrl() = customNotificationUrl == null || (customNotificationUrl.isNotBlank() && customNotificationUrl.isValidUrl())
+    fun validateServerIp() = serverIp == null || serverIp.isNotBlank()
+    fun validateIp() = ip == null || ip.isNotBlank()
+    fun validateServerPlatform() = serverPlatform == null || serverPlatform.isNotBlank()
+    fun validateAltSaveDirectoryName() = altSaveDirectoryName == null || altSaveDirectoryName.isNotBlank()
     fun validateSendServerUpdatesWebhookUrl() =
         sendServerUpdatesWebhookUrl == null || sendServerUpdatesWebhookUrl.isNotBlank() && sendServerUpdatesWebhookUrl.isValidUrl()
 
@@ -154,7 +187,8 @@ data class Administration(
     val peerPort: Int
         get() = serverPort + 1
 
-    fun toStartupScriptArguments(): List<String> = buildStartupArguments(this)
+    fun toStartupScriptArguments(): List<String> =
+        buildStartupArguments(this) + listOfNotNull(extraArgs?.takeIf { it.isNotBlank() })
 
     companion object {
         internal fun fromParsedStartupScript(parsed: ParsedStartupScript): Administration {
@@ -497,6 +531,56 @@ data class Options(
     @Unsure
     @field:ArgOption(name = "noundermeshkilling", kind = ArgKind.FLAG, order = 25)
     val noUnderMeshKilling: Boolean = false,
+    @field:ArgOption(name = "servergamelog", kind = ArgKind.FLAG, order = 26)
+    val serverGameLog: Boolean = false,
+    @field:ArgOption(name = "servergamelogincludetribelogs", kind = ArgKind.FLAG, order = 27)
+    val serverGameLogIncludeTribeLogs: Boolean = false,
+    @field:ArgOption(name = "ServerRCONOutputTribeLogs", kind = ArgKind.FLAG, order = 28)
+    val serverRconOutputTribeLogs: Boolean = false,
+    @field:ArgOption(name = "log", kind = ArgKind.FLAG, order = 29)
+    val log: Boolean = false,
+    @field:ArgOption(name = "usestore", kind = ArgKind.FLAG, order = 30)
+    val useStore: Boolean = false,
+    @field:ArgOption(name = "converttostore", kind = ArgKind.FLAG, order = 31)
+    val convertToStore: Boolean = false,
+    @field:ArgOption(name = "NoWildBabies", kind = ArgKind.FLAG, order = 32)
+    val noWildBabies: Boolean = false,
+    @field:ArgOption(name = "NoAI", kind = ArgKind.FLAG, order = 33)
+    val noAi: Boolean = false,
+    @field:ArgOption(name = "nosound", kind = ArgKind.FLAG, order = 34)
+    val noSound: Boolean = false,
+    @field:ArgOption(name = "onethread", kind = ArgKind.FLAG, order = 35)
+    val oneThread: Boolean = false,
+    @field:ArgOption(name = "noperfthreads", kind = ArgKind.FLAG, order = 36)
+    val noPerfThreads: Boolean = false,
+    @field:ArgOption(name = "forceuseperfthreads", kind = ArgKind.FLAG, order = 37)
+    val forceUsePerfThreads: Boolean = false,
+    @field:ArgOption(name = "disabledinonetrangescaling", kind = ArgKind.FLAG, order = 38)
+    val disableInOneRangeScaling: Boolean = false,
+    @field:ArgOption(name = "AlwaysTickDedicatedSkeletalMeshes", kind = ArgKind.FLAG, order = 39)
+    val alwaysTickDedicatedSkeletalMeshes: Boolean = false,
+    @Unsure
+    @field:ArgOption(name = "NoHangDetection", kind = ArgKind.FLAG, order = 40)
+    val noHangDetection: Boolean = false,
+    @Unsure
+    @field:ArgOption(name = "PreventHibernation", kind = ArgKind.FLAG, order = 41)
+    val preventHibernation: Boolean = false,
+    @field:ArgOption(name = "NoDinosExceptForcedSpawn", kind = ArgKind.FLAG, order = 42)
+    val noDinosExceptForcedSpawn: Boolean = false,
+    @field:ArgOption(name = "NoDinosExceptStreamingSpawn", kind = ArgKind.FLAG, order = 43)
+    val noDinosExceptStreamingSpawn: Boolean = false,
+    @field:ArgOption(name = "NoDinosExceptManualSpawn", kind = ArgKind.FLAG, order = 44)
+    val noDinosExceptManualSpawn: Boolean = false,
+    @field:ArgOption(name = "NoDinosExceptWaterSpawn", kind = ArgKind.FLAG, order = 45)
+    val noDinosExceptWaterSpawn: Boolean = false,
+    @field:ArgOption(name = "NitradoQueryPort", kind = ArgKind.FLAG, order = 46)
+    val nitradoQueryPort: Boolean = false,
+    @field:ArgOption(name = "MULTIHOME", kind = ArgKind.FLAG, order = 47)
+    val multiHome: Boolean = false,
+    @field:ArgOption(name = "StasisKeepControllers", kind = ArgKind.FLAG, order = 48)
+    val stasisKeepControllers: Boolean = false,
+    @field:ArgOption(name = "passivemods", kind = ArgKind.LIST, order = 49)
+    val passiveMods: List<String> = emptyList(),
 ) {
     fun validate() = true
 

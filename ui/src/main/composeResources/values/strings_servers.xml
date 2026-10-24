@@ -376,6 +376,7 @@
     <string name="server_details_chat_and_hud_tab">Chat &amp; HUD</string>
     <string name="server_details_structures_and_items_tab">Structures &amp; Items</string>
     <string name="server_details_admin_and_security_tab">Admin &amp; Security</string>
+    <string name="server_details_advanced_and_launch_tab">Advanced &amp; Launch</string>
     <string name="server_details_dino_allow_raid_dino_feeding_label">Allow Raid Dino Feeding</string>
     <string name="server_details_dino_allow_raid_dino_feeding_hint">If True, allows Titanosaurs to be permanently tamed (namely allow them to be fed). Note: in The Island only spawns a maximum of 3 Titanosaurs, so 3 tamed ones should ultimately block any more ones from spawning.</string>
     <string name="server_details_dino_tame_limits_header">Tame Limits</string>
@@ -607,4 +608,91 @@
     <string name="server_details_no_under_mesh_checking_hint">Launch flag that disables anti-mesh checking entirely.</string>
     <string name="server_details_no_under_mesh_killing_label">Disable under-mesh killing</string>
     <string name="server_details_no_under_mesh_killing_hint">Launch flag that disables anti-mesh kills but keeps teleporting.</string>
+
+    <!-- Advanced & Launch -->
+    <string name="server_details_advanced_logging_group">Logging</string>
+    <string name="server_details_advanced_server_game_log_label">Server game log</string>
+    <string name="server_details_advanced_server_game_log_hint">Enables the server admin log (also used by RCON getgamelog).</string>
+    <string name="server_details_advanced_include_tribe_logs_label">Include tribe logs</string>
+    <string name="server_details_advanced_include_tribe_logs_hint">Includes tribe logs in the server log and RCON output.</string>
+    <string name="server_details_advanced_rcon_tribe_logs_label">RCON tribe logs</string>
+    <string name="server_details_advanced_rcon_tribe_logs_hint">Includes tribe logs in RCON output. Requires include tribe logs.</string>
+    <string name="server_details_advanced_log_label">Write ARK log file</string>
+    <string name="server_details_advanced_log_hint">Adds -log so ARK writes its own log file.</string>
+
+    <string name="server_details_advanced_performance_group">Performance</string>
+    <string name="server_details_advanced_no_ai_label">Disable creature AI</string>
+    <string name="server_details_advanced_no_ai_hint">Adds -NoAI. Useful for very large saves or diagnostics, not for normal play.</string>
+    <string name="server_details_advanced_no_sound_label">Disable sound</string>
+    <string name="server_details_advanced_no_sound_hint">Adds -nosound to save a little CPU on the server.</string>
+    <string name="server_details_advanced_one_thread_label">Single thread</string>
+    <string name="server_details_advanced_one_thread_hint">Adds -onethread; disables multithreading.</string>
+    <string name="server_details_advanced_no_perf_threads_label">Disable performance threads</string>
+    <string name="server_details_advanced_no_perf_threads_hint">Adds -noperfthreads.</string>
+    <string name="server_details_advanced_force_perf_threads_label">Force performance threads</string>
+    <string name="server_details_advanced_force_perf_threads_hint">Adds -forceuseperfthreads.</string>
+    <string name="server_details_advanced_disable_replication_scaling_label">Disable replication range scaling</string>
+    <string name="server_details_advanced_disable_replication_scaling_hint">Adds -disabledinonetrangescaling.</string>
+    <string name="server_details_advanced_always_tick_meshes_label">Always tick skeletal meshes</string>
+    <string name="server_details_advanced_always_tick_meshes_hint">Adds -AlwaysTickDedicatedSkeletalMeshes; costs CPU but fixes idle-creature collisions.</string>
+    <string name="server_details_advanced_stasis_controllers_label">Keep stasis controllers</string>
+    <string name="server_details_advanced_stasis_controllers_hint">Adds -StasisKeepControllers; faster un-stasis, more memory.</string>
+
+    <string name="server_details_advanced_stability_group">Stability</string>
+    <string name="server_details_advanced_memory_guard_label">Memory guard</string>
+    <string name="server_details_advanced_memory_guard_hint">Enables -GBUsageToForceRestart; saves and restarts when RAM usage exceeds the limit.</string>
+    <string name="server_details_advanced_memory_guard_gb_label">Memory limit (GB)</string>
+    <string name="server_details_advanced_memory_guard_gb_hint">RAM limit for the memory guard. Default is 35 GB; 0 disables it.</string>
+    <string name="server_details_advanced_no_hang_detection_label">Disable hang detection</string>
+    <string name="server_details_advanced_no_hang_detection_hint">Adds -NoHangDetection; prevents shutdown when startup takes longer than 45 minutes.</string>
+    <string name="server_details_advanced_prevent_hibernation_label">Prevent hibernation</string>
+    <string name="server_details_advanced_prevent_hibernation_hint">Adds -PreventHibernation.</string>
+
+    <string name="server_details_advanced_save_group">Saves</string>
+    <string name="server_details_advanced_use_store_label">Use store save format</string>
+    <string name="server_details_advanced_use_store_hint">Adds -usestore; stores player/tribe profiles inside the world save.</string>
+    <string name="server_details_advanced_convert_to_store_label">Convert to store</string>
+    <string name="server_details_advanced_convert_to_store_hint">Adds -converttostore; converts existing profiles on the next world save.</string>
+    <string name="server_details_advanced_max_save_backups_label">Max save backups</string>
+    <string name="server_details_advanced_max_save_backups_hint">Adds -MaxNumOfSaveBackups. Default is 20; 0 keeps every backup.</string>
+    <string name="server_details_advanced_alt_save_dir_label">Alternate save directory</string>
+    <string name="server_details_advanced_alt_save_dir_hint">Adds ?AltSaveDirectoryName=; useful for clusters. ASA still uses savedir/mapname.</string>
+
+    <string name="server_details_advanced_dino_spawn_group">Dino spawning</string>
+    <string name="server_details_advanced_no_wild_babies_label">No wild babies</string>
+    <string name="server_details_advanced_no_wild_babies_hint">Adds -NoWildBabies; stops wild baby creatures from spawning.</string>
+    <string name="server_details_advanced_no_dinos_forced_label">No dinos except forced spawns</string>
+    <string name="server_details_advanced_no_dinos_forced_hint">Adds -NoDinosExceptForcedSpawn.</string>
+    <string name="server_details_advanced_no_dinos_streaming_label">No dinos except streaming spawns</string>
+    <string name="server_details_advanced_no_dinos_streaming_hint">Adds -NoDinosExceptStreamingSpawn.</string>
+    <string name="server_details_advanced_no_dinos_manual_label">No dinos except manual spawns</string>
+    <string name="server_details_advanced_no_dinos_manual_hint">Adds -NoDinosExceptManualSpawn.</string>
+    <string name="server_details_advanced_no_dinos_water_label">No dinos except water spawns</string>
+    <string name="server_details_advanced_no_dinos_water_hint">Adds -NoDinosExceptWaterSpawn.</string>
+
+    <string name="server_details_advanced_network_group">Network</string>
+    <string name="server_details_advanced_multihome_label">Enable multihome</string>
+    <string name="server_details_advanced_multihome_hint">Adds -MULTIHOME; also set the MultiHome IP below.</string>
+    <string name="server_details_advanced_multihome_ip_label">MultiHome IP</string>
+    <string name="server_details_advanced_multihome_ip_hint">IP address ARK binds to when multihome is enabled.</string>
+    <string name="server_details_advanced_server_ip_label">Server IP</string>
+    <string name="server_details_advanced_server_ip_hint">Adds -ServerIP=. Mostly used with multihome or hosting panels.</string>
+    <string name="server_details_advanced_ip_label">ip flag</string>
+    <string name="server_details_advanced_ip_hint">Adds -ip=.</string>
+    <string name="server_details_advanced_platform_label">Allowed platforms</string>
+    <string name="server_details_advanced_platform_hint">Adds -ServerPlatform=. Values: PC, XSX, PS5, WINGDK, ALL; combine with +.</string>
+    <string name="server_details_advanced_nitrado_query_port_label">Nitrado query port</string>
+    <string name="server_details_advanced_nitrado_query_port_hint">Adds -NitradoQueryPort. Only relevant on Nitrado hosting.</string>
+
+    <string name="server_details_advanced_mods_group">Mods</string>
+    <string name="server_details_advanced_passive_mods_label">Passive mods (CurseForge IDs)</string>
+    <string name="server_details_advanced_passive_mods_hint">Comma-separated IDs for -passivemods; loads mod data without enabling gameplay.</string>
+
+    <string name="server_details_advanced_notifications_group">Notifications</string>
+    <string name="server_details_advanced_notification_url_label">Custom notification URL</string>
+    <string name="server_details_advanced_notification_url_hint">Adds -CustomNotificationURL= for broadcast notifications. HTTP/HTTPS only.</string>
+
+    <string name="server_details_advanced_extra_group">Extra</string>
+    <string name="server_details_advanced_extra_args_label">Extra launch arguments</string>
+    <string name="server_details_advanced_extra_args_hint">Raw arguments appended to the launch line, e.g. -SomeFlag=value. Use with care.</string>
 </resources>

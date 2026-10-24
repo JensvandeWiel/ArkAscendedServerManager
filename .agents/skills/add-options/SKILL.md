@@ -170,7 +170,7 @@ Add the field here, derive implementation details from the tab/section files to 
 
 ### UI Tab & Section Reference
 
-The app has **11 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
+The app has **12 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
 
 #### Profile Tab (`ProfileTabContent.kt`)
 - **Content**: Server name, installation path, ASA API toggle
@@ -233,6 +233,18 @@ Composed of **10 sub-sections**, each in its own file under `general/`:
   - **Cheat and dupe protection**: dupe check/log flags, allowed-cheaters interval
   - **Mesh protection**: mesh checking/biting toggles, under-mesh launch flags
 
+#### Advanced & Launch Tab (`AdvancedAndLaunchTabContent.kt`)
+- **Sections**:
+  - **Logging**: server game log, tribe logs, RCON logs, `-log`
+  - **Performance**: AI/sound/thread/replication/mesh tick toggles
+  - **Stability**: memory guard, hang detection, hibernation
+  - **Saves**: store format, backups, alternate save dir
+  - **Dino spawning**: wild babies and `-NoDinosExcept*`
+  - **Network**: multihome, ServerIP/ip, ServerPlatform, Nitrado query port
+  - **Mods**: passive mods
+  - **Notifications**: custom notification URL
+  - **Extra**: raw launch arguments
+
 #### Chat & HUD Tab (`ChatAndHudTabContent.kt`)
 - **Sections**:
   - **Chat** (`GroupHeader`): admin logging, global voice chat, proximity chat, join notifications
@@ -263,6 +275,7 @@ When the user gives you an option, follow this logic:
    - Chat, voice, HUD/visuals, gamma, photo mode → **Chat & HUD** tab
    - Structures, platform saddles, turrets, item stacks, wireless crafting → **Structures & Items** tab
    - Ban/admin lists, dupe/mesh protection, character tracking → **Admin & Security** tab
+   - Performance, save format, logging, network, raw launch args → **Advanced & Launch** tab
    - Auto-restart, discord → **Management** tab
    - Profile info → **Profile** tab
 3. **Place within a group**: group with related options under the same `GroupHeader` or `CheckboxSectionHeader`
