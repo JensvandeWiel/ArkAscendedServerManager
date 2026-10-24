@@ -17,7 +17,7 @@ Command line options,-EnableIdlePlayerKick,Yes,Yes,,,modeled-settings,enableIdle
 Command line options,-epiconly,No,Yes,,,ase-only,,,,,,,,,,
 Command line options,?EventColorsChanceOverride=<float>,Unknown,Yes,,,missing-unknown,,,,,,,,,,
 Command line options,-exclusivejoin,Yes,Yes,,,missing-asa,,,,,,,,,,
-Command line options,-ForceAllowCaveFlyers,Yes,Yes,,,missing-asa,,,,,,,,,,
+Command line options,-ForceAllowCaveFlyers,Yes,Yes,,,modeled-settings,forceAllowCaveFlyers,Settings.kt,Boolean,false,,Yes,,,,
 Command line options,-ForceRespawnDinos,Yes,Yes,,,modeled-settings,forceRespawnDinos,Settings.kt,Boolean,false,,Yes,,,,
 Command line options,"?GameModIds=<ModID1>[,<ModID2>[...]]",No,Yes,,,ase-only,,,,,,,,,,
 Command line options,-GBUsageToForceRestart=<value>,Yes,No,,35,modeled-settings,gbUsageToForceRestart,Settings.kt,Float?,null,,Yes,,,,
@@ -151,11 +151,11 @@ Configuration Files > GameUserSettings.ini > [ServerSettings],AllowCaveBuildingP
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowCrateSpawnsOnTopOfStructures,Unknown,Yes,boolean,False,modeled-gameusersettings,allowCrateSpawnsOnTopOfStructures,GameUserSettings.kt,Boolean,false,yes,Yes,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowCryoFridgeOnSaddle,Yes,No,boolean,False,modeled-gameusersettings,allowCryoFridgeOnSaddle,GameUserSettings.kt,Boolean,false,,Yes,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowFlyerCarryPvE,Yes,Yes,boolean,False,modeled-gameusersettings,allowFlyerCarryPvE,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],AllowFlyingStaminaRecovery,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],AllowFlyingStaminaRecovery,Unknown,Yes,boolean,False,modeled-gameusersettings,allowFlyingStaminaRecovery,GameUserSettings.kt,Boolean,false,yes,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowHideDamageSourceFromLogs,Yes,Yes,boolean,True,modeled-gameusersettings,allowHideDamageSourceFromLogs,GameUserSettings.kt,Boolean,true,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowHitMarkers,Yes,Yes,boolean,True,modeled-gameusersettings,allowHitMarkers,GameUserSettings.kt,Boolean,true,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowIntegratedSPlusStructures,Unknown,Yes,boolean,True,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],AllowMultipleAttachedC4,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],AllowMultipleAttachedC4,Yes,Yes,boolean,False,modeled-gameusersettings,allowMultipleAttachedC4,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowRaidDinoFeeding,Yes,Yes,boolean,False,modeled-gameusersettings,allowRaidDinoFeeding,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowSharedConnections,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowTekSuitPowersInGenesis,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
@@ -189,7 +189,7 @@ Configuration Files > GameUserSettings.ini > [ServerSettings],DinoResistanceMult
 Configuration Files > GameUserSettings.ini > [ServerSettings],DisableBurrowDecayTimers,Yes,No,boolean,False,missing-asa,,,,,,,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],DisableCryopodEnemyCheck,Yes,No,boolean,False,modeled-gameusersettings,disableCryopodEnemyCheck,GameUserSettings.kt,Boolean,false,,Yes,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],DisableCryopodFridgeRequirement,Yes,No,boolean,False,modeled-gameusersettings,disableCryopodFridgeRequirement,GameUserSettings.kt,Boolean,false,,Yes,,,,
-Configuration Files > GameUserSettings.ini > [ServerSettings],DisableDinoDecayPvE,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],DisableDinoDecayPvE,Yes,Yes,boolean,False,modeled-gameusersettings,disableDinoDecayPvE,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],DisableImprintDinoBuff,Yes,Yes,boolean,False,modeled-gameusersettings,disableImprintDinoBuff,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],DisablePvEGamma,Yes,Yes,boolean,False,modeled-gameusersettings,disablePvEGamma,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],DisableStructureDecayPvE,Yes,Yes,boolean,False,modeled-gameusersettings,disableStructureDecayPvE,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
@@ -199,13 +199,13 @@ Configuration Files > GameUserSettings.ini > [ServerSettings],EnableExtraStructu
 Configuration Files > GameUserSettings.ini > [ServerSettings],EnablePvPGamma,Yes,Yes,boolean,False,modeled-gameusersettings,enablePvPGamma,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],ExtinctionEventTimeInterval,Unknown,Yes,seconds,,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],FastDecayUnsnappedCoreStructures,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],ForceAllStructureLocking,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],ForceAllStructureLocking,Yes,Yes,boolean,False,modeled-gameusersettings,forceAllStructureLocking,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],ForceGachaUnhappyInCaves,Yes,Unknown,boolean,True,modeled-gameusersettings,forceGachaUnhappyInCaves,GameUserSettings.kt,Boolean,true,,Yes,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],globalVoiceChat,Yes,Yes,boolean,False,modeled-gameusersettings,globalVoiceChat,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],HarvestAmountMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,harvestAmountMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],HarvestHealthMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,harvestHealthMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],IgnoreLimitMaxStructuresInRangeTypeFlag,Yes,Yes,boolean,False,modeled-gameusersettings,ignoreLimitMaxStructuresInRangeTypeFlag,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],IgnorePVPMountedWeaponryRestrictions,Yes,No,boolean,False,missing-asa,,,,,,,,,,
+Configuration Files > GameUserSettings.ini > [ServerSettings],IgnorePVPMountedWeaponryRestrictions,Yes,No,boolean,False,modeled-gameusersettings,ignorePvpMountedWeaponryRestrictions,GameUserSettings.kt,Boolean,false,,Yes,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],ImplantSuicideCD,Yes,No,float,28800,missing-asa,,,,,,,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],ItemStackSizeMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,itemStackSizeMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],KickIdlePlayersPeriod,Yes,Yes,float,3600.0,modeled-gameusersettings,kickIdlePlayersPeriod,GameUserSettings.kt,Int,3600,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
@@ -241,16 +241,16 @@ Configuration Files > GameUserSettings.ini > [ServerSettings],PlayerCharacterWat
 Configuration Files > GameUserSettings.ini > [ServerSettings],PlayerDamageMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,playerDamageMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PlayerResistanceMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,playerResistanceMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PreventDiseases,Yes,Yes,boolean,False,modeled-gameusersettings,preventDiseases,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],PreventMateBoost,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],PreventOfflinePvP,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],PreventOfflinePvPInterval,Yes,Yes,float,0.0,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],PreventMateBoost,Yes,Yes,boolean,False,modeled-gameusersettings,preventMateBoost,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],PreventOfflinePvP,Yes,Yes,boolean,False,modeled-gameusersettings,preventOfflinePvP,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],PreventOfflinePvPInterval,Yes,Yes,float,0.0,modeled-gameusersettings,preventOfflinePvPInterval,GameUserSettings.kt,Float,0.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PreventSpawnAnimations,Yes,Yes,boolean,False,modeled-gameusersettings,preventSpawnAnimations,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PreventTribeAlliances,Yes,Yes,boolean,False,modeled-gameusersettings,preventTribeAlliances,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],ProximityChat,Yes,Yes,boolean,False,modeled-gameusersettings,proximityChat,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],PvEAllowStructuresAtSupplyDrops,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],PvEDinoDecayPeriodMultiplier,Yes,Yes,float,1.0,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],PvEAllowStructuresAtSupplyDrops,Yes,Yes,boolean,False,modeled-gameusersettings,pveAllowStructuresAtSupplyDrops,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],PvEDinoDecayPeriodMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,pveDinoDecayPeriodMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PvEStructureDecayPeriodMultiplier,Unknown,Yes,float,1.0,modeled-gameusersettings,pvEStructureDecayPeriodMultiplier,GameUserSettings.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],PvPDinoDecay,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+Configuration Files > GameUserSettings.ini > [ServerSettings],PvPDinoDecay,Yes,Yes,boolean,False,modeled-gameusersettings,pvpDinoDecay,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],PvPStructureDecay,Unknown,Yes,boolean,False,modeled-gameusersettings,pvPStructureDecay,GameUserSettings.kt,Boolean,false,yes,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],RaidDinoCharacterFoodDrainMultiplier,Yes,Yes,float,1.0,modeled-gameusersettings,raidDinoCharacterFoodDrainMultiplier,GameUserSettings.kt,Float,1.0f,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],RandomSupplyCratePoints,Yes,Yes,boolean,False,modeled-gameusersettings,randomSupplyCratePoints,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
@@ -380,10 +380,10 @@ Configuration Files > Game.ini,BabyImprintingStatScaleMultiplier,Yes,Yes,float,1
 Configuration Files > Game.ini,BabyMatureSpeedMultiplier,Yes,Yes,float,1.0,modeled-game,babyMatureSpeedMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bAllowUnclaimDinos,Unknown,Yes,boolean,True,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bAllowCustomRecipes,Unknown,Yes,boolean,True,modeled-game,allowCustomRecipes,Game.kt,Boolean,true,yes,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,bAllowFlyerSpeedLeveling,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,bAllowFlyerSpeedLeveling,Yes,Yes,boolean,False,modeled-game,allowFlyerSpeedLeveling,Game.kt,Boolean,false,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bAllowPlatformSaddleMultiFloors,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,bAllowSpeedLeveling,Yes,No,boolean,False,missing-asa,,,,,,,,,,
-Configuration Files > Game.ini,bAllowUnlimitedRespecs,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,bAllowSpeedLeveling,Yes,No,boolean,False,modeled-game,allowSpeedLeveling,Game.kt,Boolean,false,,Yes,,,,
+Configuration Files > Game.ini,bAllowUnlimitedRespecs,Yes,Yes,boolean,False,modeled-game,allowUnlimitedRespecs,Game.kt,Boolean,false,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,BaseTemperatureMultiplier,Unknown,Yes,float,1.0,modeled-game,baseTemperatureMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bAutoPvETimer,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bAutoPvEUseSystemTime,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
@@ -394,13 +394,13 @@ Configuration Files > Game.ini,bDisableDinoTaming,Unknown,Yes,boolean,False,miss
 Configuration Files > Game.ini,bDisableFriendlyFire,Yes,Yes,boolean,False,modeled-game,disableFriendlyFire,Game.kt,Boolean,false,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bDisableLootCrates,Unknown,Yes,boolean,False,modeled-game,disableLootCrates,Game.kt,Boolean,false,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bDisablePhotoMode,Yes,No,boolean,False,modeled-game,disablePhotoMode,Game.kt,Boolean,false,,Yes,,,,
-Configuration Files > Game.ini,bDisableStructurePlacementCollision,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,bDisableStructurePlacementCollision,Yes,Yes,boolean,False,modeled-game,disableStructurePlacementCollision,Game.kt,Boolean,false,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bDisableWirelessCrafting,Yes,No,boolean,false,modeled-game,disableWirelessCrafting,Game.kt,Boolean,false,,Yes,,,,
 Configuration Files > Game.ini,bDisableWirelessCraftingForDinos,Yes,No,boolean,false,modeled-game,disableWirelessCraftingForDinos,Game.kt,Boolean,false,,Yes,,,,
 Configuration Files > Game.ini,bDisableWirelessCraftingForPlayers,Yes,No,boolean,false,modeled-game,disableWirelessCraftingForPlayers,Game.kt,Boolean,false,,Yes,,,,
 Configuration Files > Game.ini,bDisableWirelessCraftingForStructures,Yes,No,boolean,false,modeled-game,disableWirelessCraftingForStructures,Game.kt,Boolean,false,,Yes,,,,
 Configuration Files > Game.ini,bFlyerPlatformAllowUnalignedDinoBasing,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,bIgnoreStructuresPreventionVolumes,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,bIgnoreStructuresPreventionVolumes,Yes,Yes,boolean,False,modeled-game,ignoreStructuresPreventionVolumes,Game.kt,Boolean,false,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bIncreasePvPRespawnInterval,Unknown,Yes,boolean,True,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bOnlyAllowSpecifiedEngrams,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bPassiveDefensesDamageRiderlessDinos,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
@@ -545,7 +545,7 @@ DynamicConfig,HexagonRewardMultiplier,Yes,Yes,float,1.0,dynamic-config,,,,,,,,,,
 DynamicConfig,MatingIntervalMultiplier,Yes,Yes,float,1.0,dynamic-config,matingIntervalMultiplier,Game.kt,Float,1.0f,,,,,yes,Configuration Files > Game.ini
 DynamicConfig,MatingSpeedMultiplier,Unknown,Yes,float,1.0,dynamic-config,matingSpeedMultiplier,Game.kt,Float,1.0f,,,,,yes,Configuration Files > Game.ini
 DynamicConfig,NPCReplacements,Unknown,Yes,string,N/A,dynamic-config,,,,,,,,,yes,Configuration Files > Game.ini
-DynamicConfig,PvEDinoDecayPeriodMultiplier,Unknown,Yes,float,1.0,dynamic-config,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
+DynamicConfig,PvEDinoDecayPeriodMultiplier,Unknown,Yes,float,1.0,dynamic-config,pveDinoDecayPeriodMultiplier,GameUserSettings.kt,Float,1.0f,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 DynamicConfig,PvEStructureDecayPeriodMultiplier,Unknown,Yes,float,1.0,dynamic-config,pvEStructureDecayPeriodMultiplier,GameUserSettings.kt,Float,1.0f,yes,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 DynamicConfig,StructureDamageMultiplier,Unknown,Yes,float,1.0,dynamic-config,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 DynamicConfig,TamingSpeedMultiplier,Unknown,Yes,float,1.0,dynamic-config,tamingSpeedMultiplier,GameUserSettings.kt,Float,1.0f,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
