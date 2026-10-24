@@ -81,7 +81,9 @@ References used:
   `-AutoDestroyStructures`).
 - [x] Phase 1: **Admin & Security** tab (10 `[ServerSettings]` + 6 launch flags; BanListURL moved
   from General).
-- [ ] Next: **Advanced / Launch** tab.
+- [x] Phase 1: **Advanced / Launch** tab (logging, performance, stability, save, dino spawn,
+  network, passive mods, notifications, raw extra args).
+- [ ] Next: extend **Rules / Environment / Players / Dinos** with their P0/P1 items.
 - [ ] Real-server acceptance (§8.6) — needs a disposable server.
 - [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
   so CI excludes it — see §11.16).
@@ -628,6 +630,10 @@ scope.
 
 ### 6.10 Advanced / Launch (new)
 
+**Status: implemented** in `ui/.../AdvancedAndLaunchTabContent.kt` (logging, performance,
+stability, save format, dino spawning, network, passive mods, notifications, raw extra args). Some
+P2 flags remain deferred.
+
 - P0 performance: `-forceuseperfthreads`, `-noperfthreads`, `-onethread`, `-NoAI`,
   `-Nosound`, `-disabledinonetrangescaling`, `-AlwaysTickDedicatedSkeletalMeshes`.
 - P0 stability: `-GBUsageToForceRestart` (float, 35), `-NoHangDetection`,
@@ -896,7 +902,7 @@ value. The test plan targets each separately.
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
 | L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
 
-Today: **44 core tests** pass (`IniRoundTripTest` 18, `SettingsStartupScriptTest` 13,
+Today: **45 core tests** pass (`IniRoundTripTest` 19, `SettingsStartupScriptTest` 14,
 `ServerIoTest` 7, RCON 5) plus **11 Python tests**; `:ui:compileKotlin` passes. The tests cover
 existing behaviour, not only the new options:
 
@@ -1076,7 +1082,8 @@ Order by admin impact:
    [ ] **Structures & Items**.
 2. [x] **Structures & Items** — implemented. Next: [ ] **Admin & Security**.
 3. [x] **Admin & Security** — implemented. Next: [ ] **Advanced / Launch**.
-4. **Advanced / Launch** (biggest launch coverage; performance/save/logging groups).
+4. [x] **Advanced / Launch** — implemented. Next: extend the existing Rules/Environment/Players/
+   Dinos tabs.
 5. Extend **Rules**, **Environment**, **Players**, **Dinos** with their P0/P1 items
    (including the full breeding/imprint group).
 6. **Cluster & Transfers** tab (move existing sections, add the 3 expiration settings + UI for
