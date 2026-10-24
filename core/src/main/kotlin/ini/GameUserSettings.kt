@@ -289,6 +289,12 @@ data class ServerSettings(
     val playerDamageMultiplier: Float = 1.0f,
     @IniProperty("PlayerResistanceMultiplier")
     val playerResistanceMultiplier: Float = 1.0f,
+    @IniProperty("OverrideOfficialDifficulty")
+    val overrideOfficialDifficulty: Float = 0.0f,
+    @IniProperty("OxygenSwimSpeedStatMultiplier")
+    val oxygenSwimSpeedStatMultiplier: Float = 1.0f,
+    @IniProperty("ImplantSuicideCD")
+    val implantSuicideCd: Float = 28800.0f,
     @IniProperty("PlayerCharacterWaterDrainMultiplier")
     val playerCharacterWaterDrainMultiplier: Float = 1.0f,
     @IniProperty("PlayerCharacterFoodDrainMultiplier")
@@ -353,6 +359,9 @@ data class ServerSettings(
     fun validateSoftTameLimits() = maxTamedDinosSoftTameLimit >= 0 && maxTamedDinosSoftTameLimitCountdownForDeletionDuration >= 0
     fun validatePreventOfflinePvPInterval() = preventOfflinePvPInterval >= 0
     fun validatePveDinoDecayPeriodMultiplier() = pveDinoDecayPeriodMultiplier >= 0
+    fun validateOverrideOfficialDifficulty() = overrideOfficialDifficulty >= 0
+    fun validateOxygenSwimSpeed() = oxygenSwimSpeedStatMultiplier >= 0
+    fun validateImplantSuicideCd() = implantSuicideCd >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
     fun validateMinimumDinoReuploadInterval() = minimumDinoReuploadInterval == null || minimumDinoReuploadInterval >= 0
     fun validateTributeExpirations() = listOf(
@@ -371,7 +380,7 @@ data class ServerSettings(
     fun validateUpdateAllowedCheatersInterval() = updateAllowedCheatersInterval >= 0
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateActiveMapMod() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateDinoFoodDrain() && validateSoftTameLimits() && validatePreventOfflinePvPInterval() && validatePveDinoDecayPeriodMultiplier() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateActiveMapMod() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateDinoFoodDrain() && validateSoftTameLimits() && validatePreventOfflinePvPInterval() && validatePveDinoDecayPeriodMultiplier() && validateOverrideOfficialDifficulty() && validateOxygenSwimSpeed() && validateImplantSuicideCd() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable

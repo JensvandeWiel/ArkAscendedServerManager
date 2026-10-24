@@ -184,6 +184,32 @@ fun PlayerTabContent(component: ServerComponent) {
                     showManualInput = true,
                     allowOutsideRange = true,
                 )
+                FormFloatSliderField(
+                    value = gameUserSettings.serverSettings.oxygenSwimSpeedStatMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(oxygenSwimSpeedStatMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_oxygen_swim_speed_multiplier_label),
+                    hint = stringResource(Res.string.server_details_player_oxygen_swim_speed_multiplier_hint),
+                    valueRange = 0.1f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                )
+                FormFloatSliderField(
+                    value = gameUserSettings.serverSettings.implantSuicideCd,
+                    onValueChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(implantSuicideCd = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_player_implant_suicide_cd_label),
+                    hint = stringResource(Res.string.server_details_player_implant_suicide_cd_hint),
+                    valueRange = 0.0f..86_400.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                )
 
                 CheckboxSectionHeader(
                     checked = game.shooterGameMode.playerBaseStatMultipliers != null,

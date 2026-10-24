@@ -390,6 +390,30 @@ class IniRoundTripTest {
     }
 
     @Test
+    fun `environment and player extras round-trip`() {
+        val settings = GameUserSettings().copy(
+            serverSettings = ServerSettings(
+                overrideOfficialDifficulty = 5.0f,
+                oxygenSwimSpeedStatMultiplier = 2.0f,
+                implantSuicideCd = 3600.0f,
+            )
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+        assertEquals(settings.serverSettings, parsed.serverSettings)
+
+        val mode = ShooterGameMode(
+            fishingLootQualityMultiplier = 2.0f,
+            supplyCrateLootQualityMultiplier = 2.0f,
+            fuelConsumptionIntervalMultiplier = 2.0f,
+            globalPoweredBatteryDurabilityDecreasePerSecond = 1.0f,
+        )
+        val parsedGame = IniSerializer.deserialize<Game>(IniSerializer.serialize(Game(shooterGameMode = mode)))
+        assertEquals(mode, parsedGame.shooterGameMode)
+        assertEquals(28800.0f, ServerSettings().implantSuicideCd)
+    }
+
+    @Test
     fun `url validation requires an http or https host`() {
         assertTrue("https://cdn2.arkdedicated.com/asa/BanList.txt".isValidUrl())
         assertTrue("http://example.com/path".isValidUrl())

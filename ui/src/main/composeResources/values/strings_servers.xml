@@ -797,4 +797,23 @@
     <string name="server_details_rules_allow_unlimited_respecs_hint">If enabled, players can respec without a cooldown.</string>
     <string name="server_details_rules_force_cave_flyers_label">Force allow cave flyers</string>
     <string name="server_details_rules_force_cave_flyers_hint">Adds -ForceAllowCaveFlyers so flyers can enter caves.</string>
+
+    <!-- Environment / Players additions -->
+    <string name="server_details_environment_difficulty_group">Difficulty</string>
+    <string name="server_details_environment_override_official_difficulty_label">Override official difficulty</string>
+    <string name="server_details_environment_override_official_difficulty_hint">Sets the exact difficulty multiplier. 0 uses DifficultyOffset instead.</string>
+    <string name="server_details_environment_loot_group">Loot and consumables</string>
+    <string name="server_details_environment_fishing_loot_quality_label">Fishing loot quality multiplier</string>
+    <string name="server_details_environment_fishing_loot_quality_hint">Scales the quality of fishing loot. Default is 1.0; 1-5 is typical.</string>
+    <string name="server_details_environment_supply_crate_loot_quality_label">Supply crate loot quality multiplier</string>
+    <string name="server_details_environment_supply_crate_loot_quality_hint">Scales the quality of supply crate loot. Default is 1.0; 1-5 is typical.</string>
+    <string name="server_details_environment_fuel_consumption_interval_label">Fuel consumption interval multiplier</string>
+    <string name="server_details_environment_fuel_consumption_interval_hint">Scales the interval at which fuel is consumed.</string>
+    <string name="server_details_environment_battery_durability_label">Battery durability loss per second</string>
+    <string name="server_details_environment_battery_durability_hint">Durability lost per second by powered batteries. Default is 3.0.</string>
+
+    <string name="server_details_player_oxygen_swim_speed_multiplier_label">Oxygen swim speed multiplier</string>
+    <string name="server_details_player_oxygen_swim_speed_multiplier_hint">Scales how much the oxygen stat contributes to swim speed.</string>
+    <string name="server_details_player_implant_suicide_cd_label">Implant suicide cooldown (seconds)</string>
+    <string name="server_details_player_implant_suicide_cd_hint">Cooldown before a survivor can use the implant to suicide. Default is 28800 (8 hours).</string>
 </resources>

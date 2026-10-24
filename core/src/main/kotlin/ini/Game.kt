@@ -33,6 +33,18 @@ data class ShooterGameMode(
     val globalSpoilingTimeMultiplier: Float = 1.0f,
     @IniProperty("GlobalItemDecompositionTimeMultiplier")
     val globalItemDecompositionTimeMultiplier: Float = 1.0f,
+    @IniProperty("GlobalPoweredBatteryDurabilityDecreasePerSecond")
+    @Unsure
+    val globalPoweredBatteryDurabilityDecreasePerSecond: Float = 3.0f,
+    @IniProperty("FuelConsumptionIntervalMultiplier")
+    @Unsure
+    val fuelConsumptionIntervalMultiplier: Float = 1.0f,
+    @IniProperty("FishingLootQualityMultiplier")
+    @Unsure
+    val fishingLootQualityMultiplier: Float = 1.0f,
+    @IniProperty("SupplyCrateLootQualityMultiplier")
+    @Unsure
+    val supplyCrateLootQualityMultiplier: Float = 1.0f,
     @param:Unsure
     @IniProperty("GlobalCorpseDecompositionTimeMultiplier")
     val globalCorpseDecompositionTimeMultiplier: Float = 1.0f,
@@ -224,10 +236,16 @@ data class ShooterGameMode(
         babyCuddleLoseImprintQualitySpeedMultiplier,
     ).all { it >= 0 }
     fun validateDestroyTamesOverLevelClamp() = destroyTamesOverLevelClamp >= 0
+    fun validateEnvironmentExtras() = listOf(
+        globalPoweredBatteryDurabilityDecreasePerSecond,
+        fuelConsumptionIntervalMultiplier,
+        fishingLootQualityMultiplier,
+        supplyCrateLootQualityMultiplier,
+    ).all { it >= 0 }
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
     fun validateMaxAlliancesPerTribe() = maxAlliancesPerTribe >= 0
     fun validateMaxTribesPerAlliance() = maxTribesPerAlliance >= 0
-    fun validate() = validateMaxNumberOfPlayersInTribe() && validatePhotoModeRangeLimit() && validateWirelessCrafting() && validateGenerators() && validateTurrets() && validateBreedingMultipliers() && validateDestroyTamesOverLevelClamp() && validateTribeSlotReuseCooldown()
+    fun validate() = validateMaxNumberOfPlayersInTribe() && validatePhotoModeRangeLimit() && validateWirelessCrafting() && validateGenerators() && validateTurrets() && validateBreedingMultipliers() && validateDestroyTamesOverLevelClamp() && validateEnvironmentExtras() && validateTribeSlotReuseCooldown()
             && validateMaxAlliancesPerTribe() && validateMaxTribesPerAlliance()
 }
 

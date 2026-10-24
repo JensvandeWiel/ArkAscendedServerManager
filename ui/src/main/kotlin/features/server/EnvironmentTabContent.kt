@@ -360,6 +360,75 @@ fun EnvironmentTabContent(component: ServerComponent) {
                     label = stringResource(Res.string.server_details_environment_clamp_item_spoiling_times_label),
                     hint = stringResource(Res.string.server_details_environment_clamp_item_spoiling_times_hint),
                 )
+
+                GroupHeader(stringResource(Res.string.server_details_environment_difficulty_group))
+                FormFloatSliderField(
+                    gameUserSettings.serverSettings.overrideOfficialDifficulty,
+                    onValueChange = { newValue ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(overrideOfficialDifficulty = newValue))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_environment_override_official_difficulty_label),
+                    valueRange = 0.0f..20.0f,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    hint = stringResource(Res.string.server_details_environment_override_official_difficulty_hint),
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_environment_loot_group))
+                FormFloatSliderField(
+                    game.shooterGameMode.fishingLootQualityMultiplier,
+                    onValueChange = { newValue ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(fishingLootQualityMultiplier = newValue))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_environment_fishing_loot_quality_label),
+                    valueRange = 0.0f..10.0f,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    hint = stringResource(Res.string.server_details_environment_fishing_loot_quality_hint),
+                )
+                FormFloatSliderField(
+                    game.shooterGameMode.supplyCrateLootQualityMultiplier,
+                    onValueChange = { newValue ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(supplyCrateLootQualityMultiplier = newValue))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_environment_supply_crate_loot_quality_label),
+                    valueRange = 0.0f..10.0f,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    hint = stringResource(Res.string.server_details_environment_supply_crate_loot_quality_hint),
+                )
+                FormFloatSliderField(
+                    game.shooterGameMode.fuelConsumptionIntervalMultiplier,
+                    onValueChange = { newValue ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(fuelConsumptionIntervalMultiplier = newValue))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_environment_fuel_consumption_interval_label),
+                    valueRange = 0.0f..10.0f,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    hint = stringResource(Res.string.server_details_environment_fuel_consumption_interval_hint),
+                )
+                FormFloatSliderField(
+                    game.shooterGameMode.globalPoweredBatteryDurabilityDecreasePerSecond,
+                    onValueChange = { newValue ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(globalPoweredBatteryDurabilityDecreasePerSecond = newValue))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_environment_battery_durability_label),
+                    valueRange = 0.0f..10.0f,
+                    allowOutsideRange = true,
+                    showManualInput = true,
+                    hint = stringResource(Res.string.server_details_environment_battery_durability_hint),
+                )
             }
         }
     }
