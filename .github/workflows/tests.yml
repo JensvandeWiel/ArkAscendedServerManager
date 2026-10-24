@@ -34,9 +34,10 @@ jobs:
           java-version: "25"
       - uses: gradle/actions/setup-gradle@v4
       # The native overseer build is currently blocked by conpty.lib on the
-      # developer machine; exclude it so config tests still run. Remove -x once
-      # the native build is fixed.
+      # developer machine; exclude it so config tests still run. The checksum
+      # task needs the native executable, so skip it alongside cargoBuild.
+      # Remove both -x flags once the native build is fixed.
       - name: Core tests
-        run: ./gradlew.bat :core:test -x :overseer:cargoBuild --console=plain
+        run: ./gradlew.bat :core:test -x :overseer:cargoBuild -x :core:writeOverseerChecksum --console=plain
       - name: UI compile
-        run: ./gradlew.bat :ui:compileKotlin -x :overseer:cargoBuild --console=plain
+        run: ./gradlew.bat :ui:compileKotlin -x :overseer:cargoBuild -x :core:writeOverseerChecksum --console=plain
