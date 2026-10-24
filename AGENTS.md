@@ -24,6 +24,9 @@
   `./gradlew :core:test :ui:compileKotlin -x :overseer:cargoBuild` (the native `overseer` build
   currently fails on `conpty.lib`). Existing behavior is covered by `ServerIoTest`,
   `IniRoundTripTest`, `SettingsStartupScriptTest` and the fake RCON server tests; keep them green.
+- If Compose resource accessors fail with unresolved `_collectMainString*` after adding strings,
+  delete `ui/build/generated/compose` and rebuild; it is a resource-generator cache issue, not a
+  code error.
 - Preserve unknown INI keys and user custom config. `Config Editor` must always round-trip.
 - Report option work with: CSV name, file/section, default, validation, UI placement, test added,
   and `implemented=Yes`.
