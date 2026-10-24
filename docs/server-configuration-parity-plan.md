@@ -86,7 +86,10 @@ References used:
 - [x] Official map picker and `ActiveMapMod` in General.
 - [x] Dinos: breeding/imprinting, soft tame limits, cryo, Gacha, level clamp and level-up
   animations.
-- [ ] Next: **Rules / Environment / Players** P0/P1 items, then **Cluster & Transfers**.
+- [x] Rules: offline protection, C4/locking/mate boost, dino decay, supply-drop structures,
+  leveling/respecs, cave flyers.
+- [ ] Next: **Environment** and **Players** P0/P1, then the Cluster & Transfers tab (options
+  already exist in General; only the UI move is missing).
 - [ ] Real-server acceptance (§8.6) — needs a disposable server.
 - [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
   so CI excludes it — see §11.16).
@@ -506,6 +509,9 @@ is still open.
 
 ### 6.3 Rules
 
+**Status:** P0/P1 scalars implemented in `RulesTabContent.kt` (offline protection, C4/locking/
+mate boost, decay, supply-drop structures, leveling/respecs, cave flyers). P2 items remain.
+
 - P0 `PreventOfflinePvP` (bool), `PreventOfflinePvPInterval` (float, 0).
 - P0 `PreventMateBoost` (bool).
 - P0 `AllowMultipleAttachedC4` (bool).
@@ -912,7 +918,7 @@ value. The test plan targets each separately.
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
 | L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
 
-Today: **47 core tests** pass (`IniRoundTripTest` 21, `SettingsStartupScriptTest` 14,
+Today: **48 core tests** pass (`IniRoundTripTest` 22, `SettingsStartupScriptTest` 15,
 `ServerIoTest` 7, RCON 5) plus **11 Python tests**; `:ui:compileKotlin` passes. The tests cover
 existing behaviour, not only the new options:
 
@@ -1094,8 +1100,7 @@ Order by admin impact:
 3. [x] **Admin & Security** — implemented. Next: [ ] **Advanced / Launch**.
 4. [x] **Advanced / Launch** — implemented. Next: extend the existing Rules/Environment/Players/
    Dinos tabs.
-5. [x] **Dinos** P0/P1 — breeding/imprinting, soft tame limits, cryo, Gacha, level clamp,
-   level-up animations. Next: [ ] extend **Rules / Environment / Players**.
+5. [x] **Dinos** and **Rules** P0/P1. Next: [ ] **Environment** and **Players**.
 6. **Cluster & Transfers** tab (move existing sections, add the 3 expiration settings + UI for
    `MinimumDinoReuploadInterval`).
 
