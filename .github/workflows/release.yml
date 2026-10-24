@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag to release (e.g. v1.2.3). Defaults to latest tag when empty.'
+        description: 'Tag to release (e.g. v1.2.3 or v1.2.3-rc1). Defaults to latest tag when empty.'
         required: false
         type: string
 
@@ -25,6 +25,7 @@ jobs:
       tag: ${{ steps.resolve.outputs.tag }}
       version: ${{ steps.resolve.outputs.version }}
       channel: ${{ steps.resolve.outputs.channel }}
+      build_channel: ${{ steps.resolve.outputs.build_channel }}
       release_type: ${{ steps.resolve.outputs.release_type }}
 
     steps:
@@ -60,20 +61,28 @@ jobs:
 
           VERSION="${TAG#v}"
 
-          if [[ "$VERSION" == *"-alpha"* ]]; then
+          if [[ "$VERSION" == *"-rc"* ]]; then
+            CHANNEL="rc"
+            BUILD_CHANNEL="beta"
+            RELEASE_TYPE="prerelease"
+          elif [[ "$VERSION" == *"-alpha"* ]]; then
             CHANNEL="alpha"
+            BUILD_CHANNEL="alpha"
             RELEASE_TYPE="prerelease"
           elif [[ "$VERSION" == *"-beta"* ]]; then
             CHANNEL="beta"
+            BUILD_CHANNEL="beta"
             RELEASE_TYPE="prerelease"
           else
             CHANNEL="latest"
+            BUILD_CHANNEL="latest"
             RELEASE_TYPE="release"
           fi
 
           echo "tag=$TAG" >> "$GITHUB_OUTPUT"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "channel=$CHANNEL" >> "$GITHUB_OUTPUT"
+          echo "build_channel=$BUILD_CHANNEL" >> "$GITHUB_OUTPUT"
           echo "release_type=$RELEASE_TYPE" >> "$GITHUB_OUTPUT"
 
   build:
@@ -126,7 +135,7 @@ jobs:
         shell: bash
         run: >
           ./gradlew packageReleaseDistributionForCurrentOS
-          -PreleaseChannel=${{ needs.release_meta.outputs.channel }}
+          -PreleaseChannel=${{ needs.release_meta.outputs.build_channel }}
           -PreleaseType=${{ needs.release_meta.outputs.release_type }}
           --stacktrace --no-daemon
 
@@ -233,6 +242,23 @@ jobs:
           artifacts-path: artifacts
           version: ${{ needs.release_meta.outputs.version }}
           channel: ${{ needs.release_meta.outputs.channel }}
+
+      # The upstream action only understands latest/beta/alpha and maps unknown
+      # channels such as "rc" to latest.yml. RC builds must not publish a
+      # latest.yml, so rename the generated metadata to rc.yml/rc-*.yml.
+      - name: Rename RC update metadata
+        if: needs.release_meta.outputs.channel == 'rc'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          UPDATE_DIR="artifacts/update-yml"
+          shopt -s nullglob
+          for file in "$UPDATE_DIR"/latest*.yml; do
+            name="$(basename "$file")"
+            mv "$file" "$UPDATE_DIR/rc${name#latest}"
+            echo "Renamed $name to rc${name#latest}"
+          done
 
       - name: Publish release
         uses: kdroidFilter/Nucleus/.github/actions/publish-release@main

@@ -29,6 +29,9 @@ import eu.wynq.arkascendedservermanager.core.support.SteamCMDHelper
 import eu.wynq.arkascendedservermanager.ui.features.root.RootComponent
 import eu.wynq.arkascendedservermanager.ui.features.root.RootScreen
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
+import eu.wynq.arkascendedservermanager.ui.helpers.UpdateChannel
+import eu.wynq.arkascendedservermanager.ui.helpers.UpdateChannelStore
+import eu.wynq.arkascendedservermanager.ui.helpers.shouldPreferStable
 import eu.wynq.arkascendedservermanager.ui.stores.ClustersStore
 import eu.wynq.arkascendedservermanager.ui.stores.ClustersStoreImpl
 import eu.wynq.arkascendedservermanager.ui.stores.InstallStore
@@ -104,14 +107,54 @@ private sealed interface StartupState {
     data class UpdateAvailable(
         val latestVersion: String,
         val update: UpdateResult.Available? = null,
+        val updater: NucleusUpdater? = null,
     ) : StartupState
     data class DownloadingUpdate(val version: String, val percent: Int) : StartupState
     data class Ready(val rootComponent: RootComponent) : StartupState
     data class Failed(val throwable: Throwable) : StartupState
 }
 
-private fun buildUpdater(): NucleusUpdater = NucleusUpdater {
+private fun buildUpdater(updateChannel: UpdateChannel = UpdateChannel.STABLE): NucleusUpdater = NucleusUpdater {
     provider = GitHubProvider(owner = UPDATE_OWNER, repo = UPDATE_REPO)
+    this.channel = updateChannel.updaterChannel
+    allowPrerelease = updateChannel.allowPrerelease
+}
+
+private data class UpdateCheck(
+    val result: UpdateResult,
+    val updater: NucleusUpdater,
+)
+
+/**
+ * RC users check both channels. The stable channel wins when it has the higher
+ * version, which is how `v0.18.0` replaces `v0.18.0-rcN` without publishing the
+ * final build to the RC metadata file.
+ */
+private suspend fun checkForUpdates(channel: UpdateChannel): UpdateCheck {
+    val stableUpdater = buildUpdater(UpdateChannel.STABLE)
+    val stableResult = stableUpdater.checkForUpdates()
+    if (channel == UpdateChannel.STABLE) {
+        return UpdateCheck(stableResult, stableUpdater)
+    }
+
+    val rcUpdater = buildUpdater(UpdateChannel.RC)
+    val rcResult = rcUpdater.checkForUpdates()
+    val stableAvailable = stableResult as? UpdateResult.Available
+    val rcAvailable = rcResult as? UpdateResult.Available
+    return when {
+        stableAvailable != null && rcAvailable != null -> {
+            if (shouldPreferStable(stableAvailable.info.version, rcAvailable.info.version)) {
+                UpdateCheck(stableAvailable, stableUpdater)
+            } else {
+                UpdateCheck(rcAvailable, rcUpdater)
+            }
+        }
+
+        stableAvailable != null -> UpdateCheck(stableAvailable, stableUpdater)
+        rcAvailable != null -> UpdateCheck(rcAvailable, rcUpdater)
+        stableResult is UpdateResult.Error && rcResult !is UpdateResult.Error -> UpdateCheck(rcResult, rcUpdater)
+        else -> UpdateCheck(stableResult, stableUpdater)
+    }
 }
 
 private suspend fun runStartupSequence(
@@ -348,7 +391,8 @@ fun main() {
     application {
         val lifecycle = remember { LifecycleRegistry() }
         val windowState = rememberWindowState(size = DpSize(1000.dp, 800.dp))
-        val updater = remember { buildUpdater() }
+        val updateChannel = remember { UpdateChannelStore.current() }
+        val updater = remember(updateChannel) { buildUpdater(updateChannel) }
         val updaterModeOverride = remember { parseUpdaterModeOverride() }
         val scope = rememberCoroutineScope()
         var startupState by remember {
@@ -368,6 +412,7 @@ fun main() {
                         StartupState.UpdateAvailable(
                             latestVersion = "test-${AppBuildInfo.version}",
                             update = null,
+                            updater = updater,
                         )
                     }
 
@@ -382,16 +427,20 @@ fun main() {
                         runStartupSequence(lifecycle) { startupState = it }
                     }
 
-                    null -> when (val updateResult = withContext(Dispatchers.IO) { updater.checkForUpdates() }) {
-                        is UpdateResult.Available -> StartupState.UpdateAvailable(
-                            latestVersion = updateResult.info.version,
-                            update = updateResult,
-                        )
+                    null -> {
+                        val check = withContext(Dispatchers.IO) { checkForUpdates(updateChannel) }
+                        when (val updateResult = check.result) {
+                            is UpdateResult.Available -> StartupState.UpdateAvailable(
+                                latestVersion = updateResult.info.version,
+                                update = updateResult,
+                                updater = check.updater,
+                            )
 
-                        is UpdateResult.NotAvailable -> runStartupSequence(lifecycle) { startupState = it }
-                        is UpdateResult.Error -> {
-                            startupLogger.warn(updateResult.exception) { "Update check failed, continuing startup" }
-                            runStartupSequence(lifecycle) { startupState = it }
+                            is UpdateResult.NotAvailable -> runStartupSequence(lifecycle) { startupState = it }
+                            is UpdateResult.Error -> {
+                                startupLogger.warn(updateResult.exception) { "Update check failed, continuing startup" }
+                                runStartupSequence(lifecycle) { startupState = it }
+                            }
                         }
                     }
                 }
@@ -423,16 +472,17 @@ fun main() {
 
                                 else {
                                     val version = currentState.latestVersion
+                                    val activeUpdater = currentState.updater ?: updater
                                     withContext(Dispatchers.IO) {
                                         var installed = false
-                                        updater.downloadUpdate(updateResult.info).collect { progress ->
+                                        activeUpdater.downloadUpdate(updateResult.info).collect { progress ->
                                             startupState = StartupState.DownloadingUpdate(
                                                 version = version,
                                                 percent = progress.percent.toInt().coerceIn(0, 100),
                                             )
                                             if (!installed && progress.file != null) {
                                                 installed = true
-                                                updater.installAndRestart(progress.file!!)
+                                                activeUpdater.installAndRestart(progress.file!!)
                                             }
                                         }
                                     }

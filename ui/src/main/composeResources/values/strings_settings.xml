@@ -5,4 +5,9 @@
     <string name="settings_steamcmd_path_hint">Path to steamcmd executable, used for downloading and updating the server</string>
     <string name="settings_save_failed">Failed to save settings</string>
     <string name="settings_steamcmd_path_changed_restart_required">SteamCMD path changed. Restart the app to apply the change.</string>
+    <string name="settings_update_channel">Update channel</string>
+    <string name="settings_update_channel_hint">Stable is recommended. Release candidates are test builds; RC users also receive the final stable release when it ships.</string>
+    <string name="settings_update_channel_stable">Stable</string>
+    <string name="settings_update_channel_rc">Release candidates (RC)</string>
+    <string name="settings_update_channel_changed_restart_required">Update channel changed. Restart the app to apply the change.</string>
 </resources>

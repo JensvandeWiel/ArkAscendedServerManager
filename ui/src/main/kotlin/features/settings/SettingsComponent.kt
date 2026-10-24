@@ -3,10 +3,13 @@ package eu.wynq.arkascendedservermanager.ui.features.settings
 import arkascendedservermanager.ui.generated.resources.Res
 import arkascendedservermanager.ui.generated.resources.settings_save_failed
 import arkascendedservermanager.ui.generated.resources.settings_steamcmd_path_changed_restart_required
+import arkascendedservermanager.ui.generated.resources.settings_update_channel_changed_restart_required
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.MutableValue
 import com.arkivanov.decompose.value.Value
 import eu.wynq.arkascendedservermanager.core.db.models.Settings
+import eu.wynq.arkascendedservermanager.ui.helpers.UpdateChannel
+import eu.wynq.arkascendedservermanager.ui.helpers.UpdateChannelStore
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerType
 import eu.wynq.arkascendedservermanager.ui.stores.SettingsStore
@@ -23,12 +26,15 @@ class SettingsComponent(componentContext: ComponentContext) : ComponentContext b
 
     init {
         val initialSettings = settingsStore.settings.value
+        val initialChannel = UpdateChannelStore.current()
         _model = MutableValue(
             SettingsModel(
                 dataPath = initialSettings?.dataPath ?: "",
                 initialDataPath = initialSettings?.dataPath ?: "",
                 steamCmdPath = initialSettings?.steamcmdPath ?: "",
-                initialSteamCmdPath = initialSettings?.steamcmdPath ?: ""
+                initialSteamCmdPath = initialSettings?.steamcmdPath ?: "",
+                updateChannel = initialChannel,
+                initialUpdateChannel = initialChannel,
             )
         )
     }
@@ -41,6 +47,10 @@ class SettingsComponent(componentContext: ComponentContext) : ComponentContext b
     fun onSteamCmdPathChanged(value: String) {
         val updatedModel = _model.value.copy(steamCmdPath = value)
         _model.value = updatedModel.copy(steamCmdPathError = !updatedModel.isSteamCmdPathValid())
+    }
+
+    fun onUpdateChannelChanged(value: UpdateChannel) {
+        _model.value = _model.value.copy(updateChannel = value)
     }
 
     fun saveSettings() {
@@ -73,17 +83,26 @@ class SettingsComponent(componentContext: ComponentContext) : ComponentContext b
             )
             currentModel.copy(dataPathError = true, steamCmdPathError = true)
         } else {
+            UpdateChannelStore.save(currentModel.updateChannel)
+
             if (currentModel.steamCmdPath != currentModel.initialSteamCmdPath) {
                 ToastBannerManager.show(
                     type = ToastBannerType.INFO,
                     text = runBlocking { getString(Res.string.settings_steamcmd_path_changed_restart_required) },
                 )
             }
+            if (currentModel.updateChannel != currentModel.initialUpdateChannel) {
+                ToastBannerManager.show(
+                    type = ToastBannerType.INFO,
+                    text = runBlocking { getString(Res.string.settings_update_channel_changed_restart_required) },
+                )
+            }
             currentModel.copy(
                 dataPathError = false,
                 steamCmdPathError = false,
                 initialDataPath = currentModel.dataPath,
-                initialSteamCmdPath = currentModel.steamCmdPath
+                initialSteamCmdPath = currentModel.steamCmdPath,
+                initialUpdateChannel = currentModel.updateChannel,
             )
         }
     }
