@@ -142,7 +142,7 @@ Command line options,-server,Yes,Yes,,,missing-asa,,,,,,,,,,
 Command line options,-USEALLAVAILABLECORES,No,Yes,,,ase-only,,,,,,,,,,
 Command line options,-vulkan,Yes,Yes,,,missing-asa,,,,,,,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],ActiveMods,Yes,Yes,"list of mod IDs, comma-separated with no spaces, in a single line (for example: <code>ModID1,ModID2,ModID3</code>)",,modeled-gameusersettings,activeMods,GameUserSettings.kt,List<Int>,emptyList(),,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
-Configuration Files > GameUserSettings.ini > [ServerSettings],ActiveMapMod,Yes,Unknown,mod ID for currently active mod map,,missing-asa,,,,,,,,,,
+Configuration Files > GameUserSettings.ini > [ServerSettings],ActiveMapMod,Yes,Unknown,mod ID for currently active mod map,,modeled-gameusersettings,activeMapMod,GameUserSettings.kt,Int?,null,,Yes,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],ActiveTotalConversion,No,Yes,ModID,,ase-only,,,,,,,,,,
 Configuration Files > GameUserSettings.ini > [ServerSettings],AdminLogging,Yes,Yes,boolean,False,modeled-gameusersettings,adminLogging,GameUserSettings.kt,Boolean,false,,Yes,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 Configuration Files > GameUserSettings.ini > [ServerSettings],AllowAnyoneBabyImprintCuddle,Yes,Yes,boolean,False,missing-asa,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
