@@ -140,7 +140,7 @@ fun RulesTabContent(component: ServerComponent) {
                             game.shooterGameMode.showCreativeMode,
                             onCheckedChange = { newval ->
                                 component.updateServerGame {
-                                    it.copy(shooterGameMode = it.shooterGameMode.copy(useSingleplayerSettings = newval))
+                                    it.copy(shooterGameMode = it.shooterGameMode.copy(showCreativeMode = newval))
                                 }
                             },
                             label = stringResource(Res.string.server_details_rules_allow_creative_mode_label),

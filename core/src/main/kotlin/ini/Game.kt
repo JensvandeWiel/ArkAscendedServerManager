@@ -45,21 +45,24 @@ data class ShooterGameMode(
     @IniProperty("PoopIntervalMultiplier")
     val poopIntervalMultiplier: Float = 1.0f,
     @IniProperty("HairGrowthSpeedMultiplier")
-    val hairGrowthSpeedMultiplier: Float = 1.0f,
+    val hairGrowthSpeedMultiplier: Float = 0.0f,
     @IniProperty("bDisableFriendlyFire")
     val disableFriendlyFire: Boolean = false,
     @IniProperty("bPvEDisableFriendlyFire")
     val pvEDisableFriendlyFire: Boolean = false,
     @IniProperty("bDisableLootCrates")
+    @Unsure
     val disableLootCrates: Boolean = false,
     @IniProperty("bUseSingleplayerSettings")
     val useSingleplayerSettings: Boolean = false,
     @IniProperty("bShowCreativeMode")
     val showCreativeMode: Boolean = false,
     @IniProperty("TribeSlotReuseCooldown")
+    @Unsure
     val tribeSlotReuseCooldown: Int = 0,
     @IniProperty("MaxNumberOfPlayersInTribe")
-    val maxNumberOfPlayersInTribe: Int = 70,
+    @Unsure
+    val maxNumberOfPlayersInTribe: Int = 0,
     @param:Unsure
     @IniProperty("MaxAlliancesPerTribe")
     val maxAlliancesPerTribe: Int = 0,
@@ -73,6 +76,7 @@ data class ShooterGameMode(
     @IniProperty("bPvEAllowTribeWarCancel")
     val pveAllowTribeWarCancel: Boolean = false,
     @IniProperty("bAllowCustomRecipes")
+    @Unsure
     val allowCustomRecipes: Boolean = true,
     @IniProperty("CustomRecipeEffectivenessMultiplier")
     val customRecipeEffectivenessMultiplier: Float = 1.0f,

@@ -1,6 +1,7 @@
 package eu.wynq.arkascendedservermanager.core.ini
 
 import IniFile
+import annotations.IniArray
 import annotations.IniBoolean
 import annotations.IniProperty
 import annotations.IniSection
@@ -8,6 +9,7 @@ import annotations.IniSerializable
 import annotations.OmitIfNull
 import annotations.IniString
 import annotations.WithIgnored
+import ArrayType
 import eu.wynq.arkascendedservermanager.core.server.DefaultInt
 import eu.wynq.arkascendedservermanager.core.server.DefaultString
 import eu.wynq.arkascendedservermanager.core.support.isValidUrl
@@ -42,6 +44,14 @@ data class MessageOfTheDay(
 data class ServerSettings(
     @IniProperty("AutoSavePeriodMinutes")
     val autoSavePeriodMinutes: Int = 15,
+
+    @IniProperty("ActiveMods")
+    @IniArray(arrayType = ArrayType.CommaSeparatedArray)
+    val activeMods: List<Int> = emptyList(),
+
+    @IniProperty("DifficultyOffset")
+    val difficultyOffset: Float = 1.0f,
+
     @IniProperty("KickIdlePlayersPeriod")
     val kickIdlePlayersPeriod: Int = 3600,
     @IniProperty("RCONServerGameLogBuffer")
@@ -67,18 +77,22 @@ data class ServerSettings(
     @IniProperty("MaxTributeItems")
     val maxTributeItems: Int = 50,
     @IniProperty("MinimumDinoReuploadInterval")
+    @Unsure
     @OmitIfNull
     @field:DefaultInt(0)
     val minimumDinoReuploadInterval: Int? = null,
     @IniProperty("TributeCharacterExpirationSeconds")
+    @Unsure
     @OmitIfNull
     @field:DefaultInt(0)
     val tributeCharacterExpirationSeconds: Int? = null,
     @IniProperty("TributeDinoExpirationSeconds")
+    @Unsure
     @OmitIfNull
     @field:DefaultInt(86400)
     val tributeDinoExpirationSeconds: Int? = null,
     @IniProperty("TributeItemExpirationSeconds")
+    @Unsure
     @OmitIfNull
     @field:DefaultInt(86400)
     val tributeItemExpirationSeconds: Int? = null,
@@ -126,15 +140,17 @@ data class ServerSettings(
     @IniProperty("AllowCaveBuildingPvE")
     val allowCaveBuildingPvE: Boolean = false,
     @IniProperty("AllowCaveBuildingPvP")
-    val allowCaveBuildingPvP: Boolean = false,
+    val allowCaveBuildingPvP: Boolean = true,
     @IniProperty("AllowCrateSpawnsOnTopOfStructures")
+    @Unsure
     val allowCrateSpawnsOnTopOfStructures: Boolean = false,
     @IniProperty("EnableCryoSicknessPVE")
+    @Unsure
     val enableCryoSicknessPVE: Boolean = false,
     @IniProperty("RandomSupplyCratePoints")
     val randomSupplyCratePoints: Boolean = false,
     @IniProperty("TribeNameChangeCooldown")
-    val tribeNameChangeCooldown: Int = 15 * 60,
+    val tribeNameChangeCooldown: Int = 15,
     @IniProperty("PreventTribeAlliances")
     val preventTribeAlliances: Boolean = false,
     @IniProperty("PreventDiseases")
@@ -181,14 +197,22 @@ data class ServerSettings(
     val tamedDinoResistanceMultiplier: Float = 1.0f,
 ) {
     fun validateAutoSavePeriodMinutes() = autoSavePeriodMinutes >= 0
+    fun validateActiveMods() = activeMods.all { it > 0 }
+    fun validateDifficultyOffset() = difficultyOffset >= 0.0f
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
+    fun validateMinimumDinoReuploadInterval() = minimumDinoReuploadInterval == null || minimumDinoReuploadInterval >= 0
+    fun validateTributeExpirations() = listOf(
+        tributeCharacterExpirationSeconds,
+        tributeDinoExpirationSeconds,
+        tributeItemExpirationSeconds,
+    ).all { it == null || it >= 0 }
     fun validateRconServerGameLogBuffer() = rconServerGameLogBuffer >= 0
     fun validateMaxTributeDinos() = maxTributeDinos >= 20 && maxTributeDinos <= 100
     fun validateMaxTributeItems() = maxTributeItems >= 50 && maxTributeItems <= 100
     fun validateBanListUrl() = banListUrl == null || (banListUrl.isNotBlank() && banListUrl.isValidUrl())
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateDifficultyOffset() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable
@@ -210,4 +234,17 @@ data class GameUserSettings(
     }
 
     fun validate() = sessionSettings.validate() && messageOfTheDay.validate() && serverSettings.validate()
+
+    /**
+     * Older profiles stored mods on the launch line. Move them to [ServerSettings.activeMods]
+     * when the INI value is still empty; the launch line no longer emits `-mods`.
+     */
+    fun migrateLegacyMods(legacyMods: List<String>): GameUserSettings {
+        val parsed = legacyMods.mapNotNull { it.trim().toIntOrNull() }.filter { it > 0 }
+        return if (serverSettings.activeMods.isEmpty() && parsed.isNotEmpty()) {
+            copy(serverSettings = serverSettings.copy(activeMods = parsed))
+        } else {
+            this
+        }
+    }
 }

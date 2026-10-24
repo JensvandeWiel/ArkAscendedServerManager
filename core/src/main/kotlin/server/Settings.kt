@@ -3,6 +3,7 @@ package eu.wynq.arkascendedservermanager.core.server
 import eu.wynq.arkascendedservermanager.core.managers.PowerState
 import eu.wynq.arkascendedservermanager.core.support.isValidUrl
 import kotlinx.serialization.Serializable
+import support.Unsure
 import java.awt.Stroke
 import java.lang.reflect.Field
 import kotlin.random.Random
@@ -64,14 +65,16 @@ data class Administration(
     val serverPort: Int = 7777,
 
 
+    @Unsure
     @field:ArgOption(name = "QueryPort", kind = ArgKind.QUERY, order = 2)
     val queryPort: Int = 27015,
 
+    @Unsure
     @field:ArgOption(name = "RCONEnabled", kind = ArgKind.BOOLEAN_QUERY, order = 3)
     val rconEnabled: Boolean = true,
 
     @field:ArgOption(name = "RCONPort", kind = ArgKind.QUERY, order = 4)
-    val rconPort: Int = 27016,
+    val rconPort: Int = 27020,
 
     @field:ArgOption(name = "ServerPassword", kind = ArgKind.QUERY, order = 5)
     val serverPassword: String? = null,
@@ -82,7 +85,8 @@ data class Administration(
     @field:ArgOption(name = "WinLiveMaxPlayers", kind = ArgKind.FLAG_VALUE, order = 7)
     val slots: Int = 70,
 
-    @field:ArgOption(name = "mods", kind = ArgKind.LIST, order = 8)
+    // Mods live in GameUserSettings.ini [ServerSettings] ActiveMods.
+    // `-mods` is still parsed for legacy imports, but is never emitted.
     val mods: List<String> = emptyList(),
 
     @field:ArgOption(name = "clusterid", kind = ArgKind.FLAG_VALUE, order = 9)
@@ -142,59 +146,7 @@ data class Administration(
     val peerPort: Int
         get() = serverPort + 1
 
-    fun toStartupScriptArguments(): List<String> {
-        val head = StringBuilder()
-        val trailingArguments = mutableListOf<String>()
-
-        startupArgFields(this).forEach { field ->
-            val argOption = field.argOptionOrNull() ?: return@forEach
-            val value = runCatching {
-                field.isAccessible = true
-                field.get(this)
-            }.getOrNull() ?: return@forEach
-
-            when (argOption.kind) {
-                ArgKind.RAW -> (value as? String)?.takeIf { it.isNotBlank() }?.let(head::append)
-                ArgKind.QUERY -> {
-                    when (value) {
-                        is String -> value.takeIf { it.isNotBlank() }?.let { head.append("?${argOption.name}=$it") }
-                        else -> head.append("?${argOption.name}=$value")
-                    }
-                }
-
-                ArgKind.BOOLEAN_QUERY -> {
-                    val boolValue = value as? Boolean ?: return@forEach
-                    head.append("?${argOption.name}=${if (boolValue) "True" else "False"}")
-                }
-
-                ArgKind.FLAG_VALUE -> {
-                    when (value) {
-                        is String -> value.takeIf { it.isNotBlank() }
-                            ?.let { trailingArguments.add("-${argOption.name}=$it") }
-
-                        else -> value?.let { trailingArguments.add("-${argOption.name}=$it") }
-                    }
-                }
-
-                ArgKind.FLAG -> if (argOption.force || value == true) trailingArguments.add("-${argOption.name}")
-                ArgKind.LIST -> {
-                    val list = value as? List<*> ?: emptyList<Any?>()
-                    val sanitized = list.filterIsInstance<String>()
-                        .mapNotNull { item -> item.trim().takeIf { it.isNotEmpty() && it.isNumeric() } }
-                    if (sanitized.isNotEmpty()) {
-                        trailingArguments.add("-${argOption.name}=${sanitized.joinToString(",")}")
-                    }
-                }
-            }
-        }
-
-        return buildList {
-            if (head.isNotEmpty()) {
-                add(head.toString())
-            }
-            addAll(trailingArguments)
-        }
-    }
+    fun toStartupScriptArguments(): List<String> = buildStartupArguments(this)
 
     companion object {
         internal fun fromParsedStartupScript(parsed: ParsedStartupScript): Administration {
@@ -203,9 +155,74 @@ data class Administration(
                 "rconEnabled" to {
                     parsed.queryValues["RCONEnabled"]?.toBooleanOrNull()
                         ?: if (parsed.queryValues["RCONPort"]?.toIntOrNull() != null) true else Administration().rconEnabled
+                },
+                // Legacy import only: new profiles store mods in ActiveMods.
+                "mods" to {
+                    (parsed.dashValues["mods"] ?: parsed.queryValues["GameModIds"])
+                        ?.split(',')
+                        ?.mapNotNull { value -> value.trim().takeIf { it.isNotEmpty() && it.isNumeric() } }
+                        ?: emptyList()
                 }
             ))
         }
+    }
+}
+
+/**
+ * Serializes any class carrying [ArgOption] fields into launch arguments.
+ * Shared by [Administration] and [Options], so every [ArgKind] works in both.
+ */
+private fun buildStartupArguments(instance: Any): List<String> {
+    val head = StringBuilder()
+    val trailingArguments = mutableListOf<String>()
+
+    startupArgFields(instance).forEach { field ->
+        val argOption = field.argOptionOrNull() ?: return@forEach
+        val value = runCatching {
+            field.isAccessible = true
+            field.get(instance)
+        }.getOrNull() ?: return@forEach
+
+        when (argOption.kind) {
+            ArgKind.RAW -> (value as? String)?.takeIf { it.isNotBlank() }?.let(head::append)
+            ArgKind.QUERY -> {
+                when (value) {
+                    is String -> value.takeIf { it.isNotBlank() }?.let { head.append("?${argOption.name}=$it") }
+                    else -> head.append("?${argOption.name}=$value")
+                }
+            }
+
+            ArgKind.BOOLEAN_QUERY -> {
+                val boolValue = value as? Boolean ?: return@forEach
+                head.append("?${argOption.name}=${if (boolValue) "True" else "False"}")
+            }
+
+            ArgKind.FLAG_VALUE -> {
+                when (value) {
+                    is String -> value.takeIf { it.isNotBlank() }
+                        ?.let { trailingArguments.add("-${argOption.name}=$it") }
+
+                    else -> value?.let { trailingArguments.add("-${argOption.name}=$it") }
+                }
+            }
+
+            ArgKind.FLAG -> if (argOption.force || value == true) trailingArguments.add("-${argOption.name}")
+            ArgKind.LIST -> {
+                val list = value as? List<*> ?: emptyList<Any?>()
+                val sanitized = list.filterIsInstance<String>()
+                    .mapNotNull { item -> item.trim().takeIf { it.isNotEmpty() && it.isNumeric() } }
+                if (sanitized.isNotEmpty()) {
+                    trailingArguments.add("-${argOption.name}=${sanitized.joinToString(",")}")
+                }
+            }
+        }
+    }
+
+    return buildList {
+        if (head.isNotEmpty()) {
+            add(head.toString())
+        }
+        addAll(trailingArguments)
     }
 }
 
@@ -457,21 +474,7 @@ data class Options(
 ) {
     fun validate() = true
 
-    fun getEnabledOptions(): List<String> {
-        return startupArgFields(this)
-            .mapNotNull { field ->
-                val argOption = field.argOptionOrNull() ?: return@mapNotNull null
-                val value = runCatching {
-                    field.isAccessible = true
-                    field.get(this)
-                }.getOrNull()
-                if (argOption.kind == ArgKind.FLAG && (argOption.force || value == true)) {
-                    "-${argOption.name}"
-                } else {
-                    null
-                }
-            }
-    }
+    fun getEnabledOptions(): List<String> = buildStartupArguments(this)
 
     companion object {
         internal fun fromParsedStartupScript(parsed: ParsedStartupScript): Options {

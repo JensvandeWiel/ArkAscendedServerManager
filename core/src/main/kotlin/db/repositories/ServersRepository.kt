@@ -88,7 +88,9 @@ object ServersRepository {
         }
 
         if (existingGus != null) {
-            server = server.copy(gameUserSettings = existingGus)
+            server = server.copy(
+                gameUserSettings = existingGus.migrateLegacyMods(existingSettings?.administration?.mods.orEmpty())
+            )
         } else {
             server.saveGusToInstall().getOrThrow()
         }
@@ -132,7 +134,9 @@ object ServersRepository {
                 val installGame = server.getGameFromInstall().getOrThrow()
                 var updatedServer = server
                 if (installGus != null) {
-                    updatedServer = updatedServer.copy(gameUserSettings = installGus)
+                    updatedServer = updatedServer.copy(
+                        gameUserSettings = installGus.migrateLegacyMods(updatedServer.settings.administration.mods)
+                    )
                 } else {
                     server.saveGusToInstall().getOrThrow()
                 }

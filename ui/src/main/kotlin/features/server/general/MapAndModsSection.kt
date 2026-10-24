@@ -3,6 +3,7 @@ package eu.wynq.arkascendedservermanager.ui.features.server.general
 import androidx.compose.runtime.Composable
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
+import eu.wynq.arkascendedservermanager.ui.components.FormFloatSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import eu.wynq.arkascendedservermanager.ui.features.server.ServerComponent
 import org.jetbrains.compose.resources.stringResource
@@ -16,6 +17,8 @@ fun MapAndModsSection(component: ServerComponent) {
     val mapHint = stringResource(Res.string.server_details_map_hint)
     val modsLabel = stringResource(Res.string.server_details_mods_label)
     val modsHint = stringResource(Res.string.server_details_mods_hint)
+    val difficultyLabel = stringResource(Res.string.server_details_difficulty_offset_label)
+    val difficultyHint = stringResource(Res.string.server_details_difficulty_offset_hint)
 
     model.server?.run {
         GroupHeader(mapAndModsGroupLabel)
@@ -31,17 +34,31 @@ fun MapAndModsSection(component: ServerComponent) {
             error = !settings.administration.validateMap(),
         )
         FormTextField(
-            value = settings.administration.mods.joinToString(","),
+            value = gameUserSettings.serverSettings.activeMods.joinToString(","),
             onValueChange = { newValue ->
-                val mods = newValue.split(",").mapNotNull { rawValue -> rawValue.trim().takeIf { it.isNotEmpty() } }
-                component.updateServerAdministrationSettings {
-                    it.copy(mods = mods)
+                val mods = newValue.split(",")
+                    .mapNotNull { it.trim().toIntOrNull() }
+                    .filter { it > 0 }
+                component.updateServerGameUserSettings {
+                    it.copy(serverSettings = it.serverSettings.copy(activeMods = mods))
                 }
             },
             label = modsLabel,
             hint = modsHint,
-            error = !settings.administration.validateMods(),
+            error = !gameUserSettings.serverSettings.validateActiveMods(),
+        )
+        FormFloatSliderField(
+            value = gameUserSettings.serverSettings.difficultyOffset,
+            onValueChange = { newValue ->
+                component.updateServerGameUserSettings {
+                    it.copy(serverSettings = it.serverSettings.copy(difficultyOffset = newValue))
+                }
+            },
+            label = difficultyLabel,
+            hint = difficultyHint,
+            valueRange = 0.01f..10.0f,
+            allowOutsideRange = true,
+            showManualInput = true,
         )
     }
 }
-

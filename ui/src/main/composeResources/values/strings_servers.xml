@@ -80,8 +80,10 @@
     <string name="server_details_group_map_and_mods">Map and Mods</string>
     <string name="server_details_map_label">Map:</string>
     <string name="server_details_map_hint">The map your server will load. Make sure to use the correct map name, otherwise your server might not start.</string>
-    <string name="server_details_mods_label">Mods (comma separated):</string>
-    <string name="server_details_mods_hint">A comma-separated list of mod ids, in the order in which they should be applied.</string>
+    <string name="server_details_mods_label">Mods (CurseForge IDs, comma separated):</string>
+    <string name="server_details_mods_hint">CurseForge mod project IDs, comma separated with no spaces. The left-most mod has the highest priority. ASA reads this from GameUserSettings.ini as ActiveMods.</string>
+    <string name="server_details_difficulty_offset_label">Difficulty offset</string>
+    <string name="server_details_difficulty_offset_hint">Scales wild creature levels. 1.0 is the default; lower values make the world easier. Use Game.ini OverrideOfficialDifficulty when you need an exact level cap.</string>
     <string name="server_details_group_saves">Saves</string>
     <string name="server_details_auto_save_period_label">Auto save period (minutes)</string>
     <string name="server_details_auto_save_period_hint">Set how often the server will automatically save the game. Setting it to a very low value may impact performance, setting this to 0 will cause constant saving.</string>
@@ -115,6 +117,8 @@
     <string name="server_details_max_tribute_dino_uploads_hint">Limits number of dinosaurs that can be uploaded in a tribute. Default is 20. Range is 20-100.</string>
     <string name="server_details_max_tribute_item_uploads_label">Max Tribute Item Uploads</string>
     <string name="server_details_max_tribute_item_uploads_hint">Limits number of items that can be uploaded in a tribute. Default is 50. Range is 50-100.</string>
+    <string name="server_details_minimum_dino_reupload_interval_label">Minimum dino re-upload interval (seconds)</string>
+    <string name="server_details_minimum_dino_reupload_interval_hint">Cool-down between allowed creature re-uploads, in seconds. 43200 is 12 hours (official servers). Leave unchecked to use ARK's default.</string>
     <string name="server_details_override_survivor_upload_expiration_label">Override Survivor Upload Expiration (minutes)</string>
     <string name="server_details_override_survivor_upload_expiration_hint">Enable to write tribute character expiration in minutes. Warning: do not set this option to an extremely high value; it can overflow and may cause upload time checks to fail and ARK Data to be deleted.</string>
     <string name="server_details_override_dino_upload_expiration_label">Override Dino Upload Expiration (minutes)</string>
@@ -257,10 +261,10 @@
     <string name="server_details_rules_allow_crate_spawns_on_structures_hint">If enabled, allows from-the-air Supply Crates to appear on top of Structures, rather than being prevented by Structures</string>
     <string name="server_details_rules_max_players_in_tribe_label">Max Players In Tribe</string>
     <string name="server_details_rules_max_players_in_tribe_hint">Sets the maximum survivors allowed in a tribe. A value of 1 effectively disables tribes. The default value of 0 means there is no limit.</string>
-    <string name="server_details_rules_tribe_name_change_cooldown_label">Tribe Name Change Cooldown (minutes)</string>
-    <string name="server_details_rules_tribe_name_change_cooldown_hint">Cool-down, in minutes, in between tribe name changes. Official servers use a value of 2880 (2 days).</string>
+    <string name="server_details_rules_tribe_name_change_cooldown_label">Tribe Name Change Cooldown</string>
+    <string name="server_details_rules_tribe_name_change_cooldown_hint">Value passed to ARK unchanged. The unit is ambiguous: the wiki says minutes, but the published official value (172800 = 2 days) only makes sense as seconds. Default is 15. Verify the unit on your server before relying on a duration.</string>
     <string name="server_details_rules_tribe_slot_reuse_cooldown_label">Tribe Slot Reuse Cooldown (minutes)</string>
-    <string name="server_details_rules_tribe_slot_reuse_cooldown_hint">Locks a tribe slot for the value in minutes, e.g.: a value of 60 would mean that if a survivor leaves the tribe, their place cannot be taken by another survivor (or re-join) for 1 hour. Used on Official Small Tribes Servers.</string>
+    <string name="server_details_rules_tribe_slot_reuse_cooldown_hint">Locks a tribe slot for the value in seconds, e.g. 3600 means 1 hour. The manager displays this in minutes. Used on Official Small Tribes servers.</string>
     <string name="server_details_rules_prevent_tribe_alliances_label">Allow Tribe Alliances</string>
     <string name="server_details_rules_prevent_tribe_alliances_hint">If enabled, allows tribes to officially declare alliances with each other.</string>
     <string name="server_details_rules_allow_custom_recipes_label">Allow Custom Recipes</string>

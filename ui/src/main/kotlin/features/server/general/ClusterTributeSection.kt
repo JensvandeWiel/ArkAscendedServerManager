@@ -34,6 +34,10 @@ fun ClusterTributeSection(component: ServerComponent) {
         stringResource(Res.string.server_details_override_item_upload_expiration_label)
     val overrideItemUploadExpirationHint =
         stringResource(Res.string.server_details_override_item_upload_expiration_hint)
+    val minimumDinoReuploadIntervalLabel =
+        stringResource(Res.string.server_details_minimum_dino_reupload_interval_label)
+    val minimumDinoReuploadIntervalHint =
+        stringResource(Res.string.server_details_minimum_dino_reupload_interval_hint)
 
     model.server?.run {
         GroupHeader(clusterTributeOptionsGroupLabel)
@@ -71,6 +75,20 @@ fun ClusterTributeSection(component: ServerComponent) {
             valueRange = 50..100,
             hint = maxTributeItemUploadsHint,
             allowOutsideRange = false,
+            showManualInput = true,
+        )
+        FormOptionalSliderField(
+            value = gameUserSettings.serverSettings.minimumDinoReuploadInterval,
+            onValueChange = { newValue ->
+                component.updateServerGameUserSettings {
+                    it.copy(serverSettings = it.serverSettings.copy(minimumDinoReuploadInterval = newValue))
+                }
+            },
+            defaultValue = ServerSettings::minimumDinoReuploadInterval.defaultValueInt!!,
+            label = minimumDinoReuploadIntervalLabel,
+            hint = minimumDinoReuploadIntervalHint,
+            valueRange = 0..86_400,
+            allowOutsideRange = true,
             showManualInput = true,
         )
         FormOptionalSliderField(

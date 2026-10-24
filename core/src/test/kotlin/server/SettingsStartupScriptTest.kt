@@ -3,6 +3,7 @@
 package eu.wynq.arkascendedservermanager.core.server
 
 import eu.wynq.arkascendedservermanager.core.db.models.Server
+import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -23,7 +24,6 @@ class SettingsStartupScriptTest {
                 serverPassword = null,
                 adminPassword = "Admin123!",
                 slots = 96,
-                mods = listOf("12345", "67890")
             ),
             options = Options(enableIdlePlayerKick = true)
         )
@@ -34,7 +34,8 @@ class SettingsStartupScriptTest {
             installationLocation = "C:\\Ark",
             asaApi = false,
             settings = settings,
-            gameUserSettings = GameUserSettings()
+            gameUserSettings = GameUserSettings(),
+            game = Game()
         )
 
         val script = server.makeStartupScriptString()
@@ -45,9 +46,21 @@ class SettingsStartupScriptTest {
         assertEquals(settings.administration.queryPort, parsed.administration.queryPort)
         assertEquals(settings.administration.rconEnabled, parsed.administration.rconEnabled)
         assertEquals(settings.administration.adminPassword, parsed.administration.adminPassword)
-        assertEquals(settings.administration.mods, parsed.administration.mods)
         assertEquals(settings.options, parsed.options)
         assertTrue(script.contains("?RCONEnabled=False"))
+    }
+
+    @Test
+    fun `legacy mods are imported but not re-emitted`() {
+        val script = """start C:\\Ark\\Server.exe TheIsland_WP?ServerAdminPassword=Admin123! -mods=111,222 -OldConsole -NoGameAnalytics"""
+
+        val parsed = Settings.fromStartupScriptString(script)
+
+        assertEquals(listOf("111", "222"), parsed.administration.mods)
+        assertTrue(parsed.toStartupScriptArguments().none { it.startsWith("-mods") })
+
+        val migrated = GameUserSettings().migrateLegacyMods(parsed.administration.mods)
+        assertEquals(listOf(111, 222), migrated.serverSettings.activeMods)
     }
 
     @Test
