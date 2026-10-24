@@ -149,6 +149,29 @@ data class ServerSettings(
     val allowCaveBuildingPvE: Boolean = false,
     @IniProperty("AllowCaveBuildingPvP")
     val allowCaveBuildingPvP: Boolean = true,
+    @IniProperty("PreventOfflinePvP")
+    val preventOfflinePvP: Boolean = false,
+    @IniProperty("PreventOfflinePvPInterval")
+    val preventOfflinePvPInterval: Float = 0.0f,
+    @IniProperty("PreventMateBoost")
+    val preventMateBoost: Boolean = false,
+    @IniProperty("AllowMultipleAttachedC4")
+    val allowMultipleAttachedC4: Boolean = false,
+    @IniProperty("ForceAllStructureLocking")
+    val forceAllStructureLocking: Boolean = false,
+    @IniProperty("PvEAllowStructuresAtSupplyDrops")
+    val pveAllowStructuresAtSupplyDrops: Boolean = false,
+    @IniProperty("PvPDinoDecay")
+    val pvpDinoDecay: Boolean = false,
+    @IniProperty("PvEDinoDecayPeriodMultiplier")
+    val pveDinoDecayPeriodMultiplier: Float = 1.0f,
+    @IniProperty("DisableDinoDecayPvE")
+    val disableDinoDecayPvE: Boolean = false,
+    @IniProperty("AllowFlyingStaminaRecovery")
+    @Unsure
+    val allowFlyingStaminaRecovery: Boolean = false,
+    @IniProperty("IgnorePVPMountedWeaponryRestrictions")
+    val ignorePvpMountedWeaponryRestrictions: Boolean = false,
     @IniProperty("AllowCrateSpawnsOnTopOfStructures")
     @Unsure
     val allowCrateSpawnsOnTopOfStructures: Boolean = false,
@@ -328,6 +351,8 @@ data class ServerSettings(
     fun validateItemStack() = itemStackSizeMultiplier >= 0
     fun validateDinoFoodDrain() = dinoCharacterFoodDrainMultiplier >= 0
     fun validateSoftTameLimits() = maxTamedDinosSoftTameLimit >= 0 && maxTamedDinosSoftTameLimitCountdownForDeletionDuration >= 0
+    fun validatePreventOfflinePvPInterval() = preventOfflinePvPInterval >= 0
+    fun validatePveDinoDecayPeriodMultiplier() = pveDinoDecayPeriodMultiplier >= 0
     fun validateKickIdlePlayersPeriod() = kickIdlePlayersPeriod >= 0
     fun validateMinimumDinoReuploadInterval() = minimumDinoReuploadInterval == null || minimumDinoReuploadInterval >= 0
     fun validateTributeExpirations() = listOf(
@@ -346,7 +371,7 @@ data class ServerSettings(
     fun validateUpdateAllowedCheatersInterval() = updateAllowedCheatersInterval >= 0
     fun validateCustomDynamicConfigUrl() = customDynamicConfigUrl == null || (customDynamicConfigUrl.isNotBlank() && customDynamicConfigUrl.isValidUrl())
     fun validateTribeNameChangeCooldown() = tribeNameChangeCooldown >= 0
-    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateActiveMapMod() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateDinoFoodDrain() && validateSoftTameLimits() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
+    fun validate() = validateAutoSavePeriodMinutes() && validateActiveMods() && validateActiveMapMod() && validateDifficultyOffset() && validateStructureMultipliers() && validateStructureLimits() && validateStructurePickup() && validateStructureDecay() && validateItemStack() && validateDinoFoodDrain() && validateSoftTameLimits() && validatePreventOfflinePvPInterval() && validatePveDinoDecayPeriodMultiplier() && validateKickIdlePlayersPeriod() && validateRconServerGameLogBuffer() && validateMaxTributeDinos() && validateMaxTributeItems() && validateBanListUrl() && validateBadWordListUrl() && validateBadWordWhiteListUrl() && validateAdminListUrl() && validateCosmeticWhitelistOverride() && validateUpdateAllowedCheatersInterval() && validateCustomDynamicConfigUrl() && validateTribeNameChangeCooldown() && validateMinimumDinoReuploadInterval() && validateTributeExpirations()
 }
 
 @IniSerializable

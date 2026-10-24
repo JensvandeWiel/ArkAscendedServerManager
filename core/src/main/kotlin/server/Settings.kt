@@ -581,6 +581,8 @@ data class Options(
     val stasisKeepControllers: Boolean = false,
     @field:ArgOption(name = "passivemods", kind = ArgKind.LIST, order = 49)
     val passiveMods: List<String> = emptyList(),
+    @field:ArgOption(name = "ForceAllowCaveFlyers", kind = ArgKind.FLAG, order = 50)
+    val forceAllowCaveFlyers: Boolean = false,
 ) {
     fun validate() = true
 

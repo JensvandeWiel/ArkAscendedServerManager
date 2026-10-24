@@ -752,4 +752,49 @@
 
     <string name="server_details_dino_level_up_animations_label">Dino level-up animations</string>
     <string name="server_details_dino_level_up_animations_hint">If enabled, dinos play level-up animations.</string>
+
+    <!-- Rules additions -->
+    <string name="server_details_rules_offline_protection_header">Offline protection</string>
+    <string name="server_details_rules_prevent_offline_pvp_label">Prevent offline PvP</string>
+    <string name="server_details_rules_prevent_offline_pvp_hint">If enabled, players are protected from PvP while offline.</string>
+    <string name="server_details_rules_offline_pvp_interval_label">Offline protection interval (seconds)</string>
+    <string name="server_details_rules_offline_pvp_interval_hint">Grace period after logging out before offline protection ends. 0 uses ARK's default.</string>
+
+    <string name="server_details_rules_pvp_extras_header">PvP extras</string>
+    <string name="server_details_rules_allow_multiple_c4_label">Allow multiple C4 per creature</string>
+    <string name="server_details_rules_allow_multiple_c4_hint">If enabled, more than one C4 can be attached to a creature.</string>
+    <string name="server_details_rules_pvp_dino_decay_label">PvP dino decay</string>
+    <string name="server_details_rules_pvp_dino_decay_hint">If enabled, unclaimed dinos decay on PvP servers.</string>
+    <string name="server_details_rules_ignore_mounted_weapons_label">Ignore mounted weapon restrictions</string>
+    <string name="server_details_rules_ignore_mounted_weapons_hint">Allows mounted players to use weapons on the restricted creatures.</string>
+    <string name="server_details_rules_force_structure_locking_label">Force structure locking</string>
+    <string name="server_details_rules_force_structure_locking_hint">If enabled, all structures start locked.</string>
+    <string name="server_details_rules_prevent_mate_boost_label">Prevent mate boost</string>
+    <string name="server_details_rules_prevent_mate_boost_hint">If enabled, creatures do not receive the mate boost.</string>
+    <string name="server_details_rules_flying_stamina_recovery_label">Flying stamina recovery</string>
+    <string name="server_details_rules_flying_stamina_recovery_hint">If enabled, stamina recovers while standing on a flyer.</string>
+
+    <string name="server_details_rules_decay_header">Creature decay</string>
+    <string name="server_details_rules_disable_dino_decay_pve_label">Disable dino decay in PvE</string>
+    <string name="server_details_rules_disable_dino_decay_pve_hint">If enabled, unclaimed dinos do not decay on PvE servers.</string>
+    <string name="server_details_rules_pve_dino_decay_period_label">PvE dino decay period multiplier</string>
+    <string name="server_details_rules_pve_dino_decay_period_hint">Scales the PvE dino decay period.</string>
+
+    <string name="server_details_rules_structures_header">Structures and supply drops</string>
+    <string name="server_details_rules_allow_structures_supply_drops_label">Allow structures at supply drops</string>
+    <string name="server_details_rules_allow_structures_supply_drops_hint">If enabled, players can build near supply drops on PvE servers.</string>
+    <string name="server_details_rules_disable_structure_collision_label">Disable structure placement collision</string>
+    <string name="server_details_rules_disable_structure_collision_hint">If enabled, structures can clip into terrain.</string>
+    <string name="server_details_rules_ignore_prevention_volumes_label">Ignore prevention volumes</string>
+    <string name="server_details_rules_ignore_prevention_volumes_hint">If enabled, structures can be built inside prevention volumes.</string>
+
+    <string name="server_details_rules_leveling_header">Leveling and respecs</string>
+    <string name="server_details_rules_allow_speed_leveling_label">Allow speed leveling</string>
+    <string name="server_details_rules_allow_speed_leveling_hint">If enabled, players can spend points on movement speed.</string>
+    <string name="server_details_rules_allow_flyer_speed_leveling_label">Allow flyer speed leveling</string>
+    <string name="server_details_rules_allow_flyer_speed_leveling_hint">If enabled, flyers can spend points on movement speed.</string>
+    <string name="server_details_rules_allow_unlimited_respecs_label">Allow unlimited respecs</string>
+    <string name="server_details_rules_allow_unlimited_respecs_hint">If enabled, players can respec without a cooldown.</string>
+    <string name="server_details_rules_force_cave_flyers_label">Force allow cave flyers</string>
+    <string name="server_details_rules_force_cave_flyers_hint">Adds -ForceAllowCaveFlyers so flyers can enter caves.</string>
 </resources>

@@ -358,6 +358,38 @@ class IniRoundTripTest {
     }
 
     @Test
+    fun `rules extras round-trip`() {
+        val settings = GameUserSettings().copy(
+            serverSettings = ServerSettings(
+                preventOfflinePvP = true,
+                preventOfflinePvPInterval = 900.0f,
+                preventMateBoost = true,
+                allowMultipleAttachedC4 = true,
+                forceAllStructureLocking = true,
+                pveAllowStructuresAtSupplyDrops = true,
+                pvpDinoDecay = true,
+                pveDinoDecayPeriodMultiplier = 2.0f,
+                disableDinoDecayPvE = true,
+                allowFlyingStaminaRecovery = true,
+                ignorePvpMountedWeaponryRestrictions = true,
+            )
+        )
+
+        val parsed = IniSerializer.deserialize<GameUserSettings>(IniSerializer.serialize(settings))
+        assertEquals(settings.serverSettings, parsed.serverSettings)
+
+        val mode = ShooterGameMode(
+            allowUnlimitedRespecs = true,
+            allowSpeedLeveling = true,
+            allowFlyerSpeedLeveling = true,
+            ignoreStructuresPreventionVolumes = true,
+            disableStructurePlacementCollision = true,
+        )
+        val parsedGame = IniSerializer.deserialize<Game>(IniSerializer.serialize(Game(shooterGameMode = mode)))
+        assertEquals(mode, parsedGame.shooterGameMode)
+    }
+
+    @Test
     fun `url validation requires an http or https host`() {
         assertTrue("https://cdn2.arkdedicated.com/asa/BanList.txt".isValidUrl())
         assertTrue("http://example.com/path".isValidUrl())

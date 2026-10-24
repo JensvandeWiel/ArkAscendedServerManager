@@ -81,6 +81,16 @@ data class ShooterGameMode(
     val useSingleplayerSettings: Boolean = false,
     @IniProperty("bShowCreativeMode")
     val showCreativeMode: Boolean = false,
+    @IniProperty("bAllowUnlimitedRespecs")
+    val allowUnlimitedRespecs: Boolean = false,
+    @IniProperty("bAllowSpeedLeveling")
+    val allowSpeedLeveling: Boolean = false,
+    @IniProperty("bAllowFlyerSpeedLeveling")
+    val allowFlyerSpeedLeveling: Boolean = false,
+    @IniProperty("bIgnoreStructuresPreventionVolumes")
+    val ignoreStructuresPreventionVolumes: Boolean = false,
+    @IniProperty("bDisableStructurePlacementCollision")
+    val disableStructurePlacementCollision: Boolean = false,
     @IniProperty("bDisablePhotoMode")
     val disablePhotoMode: Boolean = false,
     @IniProperty("PhotoModeRangeLimit")

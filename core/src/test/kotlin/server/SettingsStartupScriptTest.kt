@@ -65,6 +65,12 @@ class SettingsStartupScriptTest {
     }
 
     @Test
+    fun `emits ForceAllowCaveFlyers launch flag`() {
+        val args = Settings(options = Options(forceAllowCaveFlyers = true)).toStartupScriptArguments()
+        assertTrue(args.contains("-ForceAllowCaveFlyers"))
+    }
+
+    @Test
     fun `emits advanced launch arguments`() {
         val settings = Settings(
             administration = Administration(

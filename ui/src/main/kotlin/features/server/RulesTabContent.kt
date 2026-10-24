@@ -346,6 +346,206 @@ fun RulesTabContent(component: ServerComponent) {
                     allowOutsideRange = true,
                     labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
                 )
+                GroupHeader(stringResource(Res.string.server_details_rules_offline_protection_header))
+                FormCheckboxField(
+                    gameUserSettings.serverSettings.preventOfflinePvP,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(preventOfflinePvP = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_prevent_offline_pvp_label),
+                    hint = stringResource(Res.string.server_details_rules_prevent_offline_pvp_hint)
+                )
+                FormFloatSliderField(
+                    value = gameUserSettings.serverSettings.preventOfflinePvPInterval,
+                    onValueChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(preventOfflinePvPInterval = newval))
+                        }
+                    },
+                    enabled = gameUserSettings.serverSettings.preventOfflinePvP,
+                    label = stringResource(Res.string.server_details_rules_offline_pvp_interval_label),
+                    hint = stringResource(Res.string.server_details_rules_offline_pvp_interval_hint),
+                    valueRange = 0.0f..3600.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_rules_pvp_extras_header))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        FormCheckboxField(
+                            gameUserSettings.serverSettings.allowMultipleAttachedC4,
+                            onCheckedChange = { newval ->
+                                component.updateServerGameUserSettings {
+                                    it.copy(serverSettings = it.serverSettings.copy(allowMultipleAttachedC4 = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_allow_multiple_c4_label),
+                            hint = stringResource(Res.string.server_details_rules_allow_multiple_c4_hint)
+                        )
+                        FormCheckboxField(
+                            gameUserSettings.serverSettings.pvpDinoDecay,
+                            onCheckedChange = { newval ->
+                                component.updateServerGameUserSettings {
+                                    it.copy(serverSettings = it.serverSettings.copy(pvpDinoDecay = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_pvp_dino_decay_label),
+                            hint = stringResource(Res.string.server_details_rules_pvp_dino_decay_hint)
+                        )
+                        FormCheckboxField(
+                            gameUserSettings.serverSettings.ignorePvpMountedWeaponryRestrictions,
+                            onCheckedChange = { newval ->
+                                component.updateServerGameUserSettings {
+                                    it.copy(serverSettings = it.serverSettings.copy(ignorePvpMountedWeaponryRestrictions = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_ignore_mounted_weapons_label),
+                            hint = stringResource(Res.string.server_details_rules_ignore_mounted_weapons_hint)
+                        )
+                    }
+                    Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        FormCheckboxField(
+                            gameUserSettings.serverSettings.forceAllStructureLocking,
+                            onCheckedChange = { newval ->
+                                component.updateServerGameUserSettings {
+                                    it.copy(serverSettings = it.serverSettings.copy(forceAllStructureLocking = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_force_structure_locking_label),
+                            hint = stringResource(Res.string.server_details_rules_force_structure_locking_hint)
+                        )
+                        FormCheckboxField(
+                            gameUserSettings.serverSettings.preventMateBoost,
+                            onCheckedChange = { newval ->
+                                component.updateServerGameUserSettings {
+                                    it.copy(serverSettings = it.serverSettings.copy(preventMateBoost = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_prevent_mate_boost_label),
+                            hint = stringResource(Res.string.server_details_rules_prevent_mate_boost_hint)
+                        )
+                        FormCheckboxField(
+                            gameUserSettings.serverSettings.allowFlyingStaminaRecovery,
+                            onCheckedChange = { newval ->
+                                component.updateServerGameUserSettings {
+                                    it.copy(serverSettings = it.serverSettings.copy(allowFlyingStaminaRecovery = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_flying_stamina_recovery_label),
+                            hint = stringResource(Res.string.server_details_rules_flying_stamina_recovery_hint)
+                        )
+                    }
+                }
+
+                GroupHeader(stringResource(Res.string.server_details_rules_decay_header))
+                FormCheckboxField(
+                    gameUserSettings.serverSettings.disableDinoDecayPvE,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(disableDinoDecayPvE = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_disable_dino_decay_pve_label),
+                    hint = stringResource(Res.string.server_details_rules_disable_dino_decay_pve_hint)
+                )
+                FormFloatSliderField(
+                    value = gameUserSettings.serverSettings.pveDinoDecayPeriodMultiplier,
+                    onValueChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(pveDinoDecayPeriodMultiplier = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_pve_dino_decay_period_label),
+                    hint = stringResource(Res.string.server_details_rules_pve_dino_decay_period_hint),
+                    valueRange = 0.0f..10.0f,
+                    showManualInput = true,
+                    allowOutsideRange = true,
+                    labelPosition = eu.wynq.arkascendedservermanager.ui.components.LabelPosition.Above
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_rules_structures_header))
+                FormCheckboxField(
+                    gameUserSettings.serverSettings.pveAllowStructuresAtSupplyDrops,
+                    onCheckedChange = { newval ->
+                        component.updateServerGameUserSettings {
+                            it.copy(serverSettings = it.serverSettings.copy(pveAllowStructuresAtSupplyDrops = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_allow_structures_supply_drops_label),
+                    hint = stringResource(Res.string.server_details_rules_allow_structures_supply_drops_hint)
+                )
+                FormCheckboxField(
+                    game.shooterGameMode.disableStructurePlacementCollision,
+                    onCheckedChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(disableStructurePlacementCollision = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_disable_structure_collision_label),
+                    hint = stringResource(Res.string.server_details_rules_disable_structure_collision_hint)
+                )
+                FormCheckboxField(
+                    game.shooterGameMode.ignoreStructuresPreventionVolumes,
+                    onCheckedChange = { newval ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(ignoreStructuresPreventionVolumes = newval))
+                        }
+                    },
+                    label = stringResource(Res.string.server_details_rules_ignore_prevention_volumes_label),
+                    hint = stringResource(Res.string.server_details_rules_ignore_prevention_volumes_hint)
+                )
+
+                GroupHeader(stringResource(Res.string.server_details_rules_leveling_header))
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        FormCheckboxField(
+                            game.shooterGameMode.allowSpeedLeveling,
+                            onCheckedChange = { newval ->
+                                component.updateServerGame {
+                                    it.copy(shooterGameMode = it.shooterGameMode.copy(allowSpeedLeveling = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_allow_speed_leveling_label),
+                            hint = stringResource(Res.string.server_details_rules_allow_speed_leveling_hint)
+                        )
+                        FormCheckboxField(
+                            game.shooterGameMode.allowFlyerSpeedLeveling,
+                            onCheckedChange = { newval ->
+                                component.updateServerGame {
+                                    it.copy(shooterGameMode = it.shooterGameMode.copy(allowFlyerSpeedLeveling = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_allow_flyer_speed_leveling_label),
+                            hint = stringResource(Res.string.server_details_rules_allow_flyer_speed_leveling_hint)
+                        )
+                    }
+                    Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        FormCheckboxField(
+                            game.shooterGameMode.allowUnlimitedRespecs,
+                            onCheckedChange = { newval ->
+                                component.updateServerGame {
+                                    it.copy(shooterGameMode = it.shooterGameMode.copy(allowUnlimitedRespecs = newval))
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_allow_unlimited_respecs_label),
+                            hint = stringResource(Res.string.server_details_rules_allow_unlimited_respecs_hint)
+                        )
+                        FormCheckboxField(
+                            settings.options.forceAllowCaveFlyers,
+                            onCheckedChange = { newval ->
+                                component.updateServerOptions {
+                                    it.copy(forceAllowCaveFlyers = newval)
+                                }
+                            },
+                            label = stringResource(Res.string.server_details_rules_force_cave_flyers_label),
+                            hint = stringResource(Res.string.server_details_rules_force_cave_flyers_hint)
+                        )
+                    }
+                }
             }
         }
     }
