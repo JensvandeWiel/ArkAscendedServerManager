@@ -16,6 +16,53 @@ References used:
 
 ---
 
+## 0. Decisions and current status
+
+### 0.1 Decisions
+
+- **ASA only.** An option with `inASA=No` is not implemented. `inASA=Unknown` is allowed only
+  with `@Unsure` and (from phase 2) an experimental visual marker. Audit result: **0
+  contradictions** among the modelled options.
+- **Mods are INI-first.** Mods are stored in `GameUserSettings.ini > [ServerSettings] >
+  ActiveMods` as comma-separated CurseForge project IDs. `-mods=` is no longer emitted. Legacy
+  `-mods=` startup scripts are imported into `ActiveMods` on load/save.
+  **Override point:** the wiki also documents `-mods=` for ASA and contradicts itself about
+  whether `ActiveMods` is read. If a real server does not download/load mods with INI-only,
+  add an advanced "mirror mods to `-mods=`" toggle (phase 2). Do not silently write both.
+- **Units are stored as ARK stores them.** `TribeNameChangeCooldown` is stored raw (default
+  `15`); its unit is documented as ambiguous. `TribeSlotReuseCooldown` is seconds in ARK and
+  displayed as minutes; only the hint was wrong, not the conversion.
+- **No guessing.** When the wiki is contradictory, store the raw value, say so in the hint, and
+  verify on a real server. "Implemented" does not mean "verified in game".
+
+### 0.2 Option audit
+
+`tools/audit-options.py` checks all 554 wiki rows against the Kotlin models and the UI.
+
+- **129 modelled** (65 `GameUserSettings`, 43 `Game.ini`, 21 launch; names can overlap).
+- **0 contradictions** after phase 0 (no ASA=No options, every Unknown has `@Unsure`, defaults
+  and locations match).
+- **162 ASA=Yes scalar gaps**, **24 table/struct gaps**, **30 ASE-only rows**, **36
+  DynamicConfig rows**, **172 ASA=Unknown rows** (experimental candidates), **1** `-mods`
+  covered by `ActiveMods`.
+- All exposed options now have `implemented=Yes` in the CSV (130 rows).
+- Full report: [`option-audit.md`](option-audit.md) and [`option-audit.csv`](option-audit.csv).
+
+### 0.3 Phase 0 status
+
+- [x] Fix the correctness issues in §4.
+- [x] Generic launch-argument emitter for every `ArgKind`.
+- [x] `ActiveMods` in `GameUserSettings.ini`, legacy `-mods` import, no launch-line emission.
+- [x] `DifficultyOffset` and `MinimumDinoReuploadInterval` modelled and exposed.
+- [x] `@Unsure` on every modelled `inASA=Unknown` option.
+- [x] Scraper, audit, and Python tests committed.
+- [x] Core round-trip/preservation/default tests.
+- [ ] Real-server acceptance (§8.6) — needs a disposable server.
+- [ ] CI workflow (the native `overseer` build currently fails locally on `conpty.lib`; see
+  §11.16).
+
+---
+
 ## 1. Where the app stands today
 
 Three configuration surfaces are modelled:
@@ -62,18 +109,19 @@ The CSV is generated from the wiki by `tools/scrape-ark-options.py` (see §2.1).
 
 Currently modelled: 109 INI properties + 24 launch arguments.
 
-Missing, counted against `inASA=Yes`:
+Audit view after phase 0 (see §0.2):
 
-- 88 `[ServerSettings]` keys (≈84 after removing keys the app already covers through the
-  command line: `ServerAdminPassword`, `ServerPassword`, `RCONPort`, `ActiveMods`).
-- 37 `Game.ini` keys.
-- 46 launch arguments (≈38 real; `?listen`, `-server`, `-log`, `-game`, `-d3d11`, `-vulkan`
-  are deliberately implicit or client-side).
-- 10 `DynamicConfig` keys plus the whole DynamicConfig subsystem.
+- **129 modelled** (65 `GameUserSettings` rows, 43 `Game.ini` rows, 21 launch rows; some names
+  appear in more than one place, e.g. `XPMultiplier` in the main config and DynamicConfig).
+- **162 ASA=Yes scalar gaps** — the real remaining config work.
+- **24 table / struct gaps** — §7.
+- **30 ASE-only rows** — intentionally not ported.
+- **36 DynamicConfig rows** — separate file/mechanism, not normal INI keys.
+- **172 ASA=Unknown rows** — experimental candidates; do not ship as normal settings.
+- **1** `-mods` row covered by `ActiveMods`.
 
-So this is a ~170-option gap (~150 real), not a handful of options. That is why the plan is
-phased and tab-based rather than "add a few settings". It also excludes the structured/table
-options in §7, which cover thousands of possible entries but only ~20 top-level keys.
+So the remaining scalar gap is ~160 options, plus the table editors. That is why the plan is
+phased and tab-based rather than "add a few settings".
 
 ### 2.1 Data pipeline: scrape the wiki instead of hand-editing
 
@@ -135,7 +183,7 @@ dead weight for ASA.
 |---|---|---|
 | Executable | `ShooterGameServer.exe` | `ArkAscendedServer.exe` |
 | Player cap | `?MaxPlayers=` | `-WinLiveMaxPlayers=` (replaces `MaxPlayers`) |
-| Mods | Steam Workshop, `?GameModIds=` / `-automanagedmods` / `[ModInstaller]` | CurseForge, `-mods=` (and `-passivemods=` for data-only mods) |
+| Mods | Steam Workshop, `?GameModIds=` / `-automanagedmods` / `[ModInstaller]` | CurseForge project IDs. Canonical here: `ActiveMods` in `GameUserSettings.ini > [ServerSettings]`. The wiki also documents `-mods=`; it contradicts itself about whether ASA reads `ActiveMods`, so the app writes INI only and imports legacy `-mods`. `-passivemods=` remains CLI. |
 | Platform filter | `-epiconly`, `-crossplay` (`-PublicIPForEpic`) | `-ServerPlatform=PC+XSX+PS5+WINGDK+ALL`, always crossplay |
 | Maps | `TheIsland`, `TheCenter`, … | `TheIsland_WP`, `TheCenter_WP`, `ScorchedEarth_WP`, `Ragnarok_WP`, `Aberration_WP`, `Extinction_WP`, `Valguero_WP`, `Genesis_WP`, `Astraeos_WP`, `LostColony_WP`, `BobsMissions_WP` (Club ARK mod `1005639`) |
 | Live config | none (restart required) | `-UseDynamicConfig` + `CustomDynamicConfigUrl` (applied on world save) |
@@ -206,20 +254,20 @@ dead weight for ASA.
 
 ## 4. Correctness issues found while researching
 
-Fix these before adding ~170 options, otherwise the new options inherit the same problems.
+These were the phase-0 targets. Status is current.
 
-| # | Severity | Where | Problem | Fix |
-|---|---|---|---|---|
-| 1 | High | `ui/.../RulesTabContent.kt:139-148` | "Allow creative mode" checkbox reads `showCreativeMode` but writes `useSingleplayerSettings` | write `copy(showCreativeMode = newval)` |
-| 2 | High | `GameUserSettings.kt:137` | `tribeNameChangeCooldown = 15 * 60` (900); wiki default is `15` | default `15`, store the raw ARK value |
-| 3 | Medium | `GameUserSettings.kt:129` | `allowCaveBuildingPvP` default `false`; ASA default is `true` | default `true` (new servers only) |
-| 4 | Medium | `Game.kt:48` | `hairGrowthSpeedMultiplier = 1.0f`; ASA default is `0` | default `0.0f` |
-| 5 | Medium | `Settings.kt` `Options.getEnabledOptions()` | only emits `ArgKind.FLAG`; valued/list launch options in `Options` are silently dropped | reuse the generic emitter (extract shared code from `Administration.toStartupScriptArguments`) |
-| 6 | Medium | `Settings.kt:68` | `RCONPort` default `27016`; ASA default is `27020` | change default for new servers, keep import parsing |
-| 7 | Low | `RulesTabContent.kt:232-243` | `TribeSlotReuseCooldown` hint says "a value of 60 would mean 1 hour"; the wiki says **seconds** (`3600` = 1 hour). The `/60` display conversion is correct; the hint text is not. The option is also `inASA=Unknown` on the wiki but present since patch 280.114. | fix the hint to 3600, keep the conversion, add `@Unsure` |
-| 8 | Low | `GameUserSettings.kt` | `RCONServerGameLogBuffer` / `KickIdlePlayersPeriod` are floats in ARK, ints here | acceptable; only note it |
-| 9 | Low | `server/Settings.kt` | `DifficultyOffset` is not modelled at all | add it (ASA still accepts it) |
-| 10 | Low | CSV | `implemented` column is stale (23 vs ~108 real) | automate the check (see §8.7) |
+| # | Severity | Where | Problem | Fix | Status |
+|---|---|---|---|---|---|
+| 1 | High | `ui/.../RulesTabContent.kt:139-148` | "Allow creative mode" checkbox read `showCreativeMode` but wrote `useSingleplayerSettings` | write `copy(showCreativeMode = newval)` | fixed |
+| 2 | High | `GameUserSettings.kt:137` | `tribeNameChangeCooldown = 15 * 60` (900); wiki default is `15` | default `15`, store the raw ARK value | fixed |
+| 3 | Medium | `GameUserSettings.kt:129` | `allowCaveBuildingPvP` default `false`; ASA default is `true` | default `true` (new servers only) | fixed |
+| 4 | Medium | `Game.kt:48` | `hairGrowthSpeedMultiplier = 1.0f`; ASA default is `0` | default `0.0f` | fixed |
+| 5 | Medium | `Settings.kt` `Options.getEnabledOptions()` | only emitted `ArgKind.FLAG`; valued/list launch options in `Options` were silently dropped | shared `buildStartupArguments` used by both `Administration` and `Options` | fixed |
+| 6 | Medium | `Settings.kt:68` | `RCONPort` default `27016`; ASA default is `27020` | changed default for new servers, import parsing unchanged | fixed |
+| 7 | Low | `RulesTabContent.kt:232-243` | `TribeSlotReuseCooldown` hint said "60 = 1 hour"; the wiki says **seconds** (`3600` = 1 hour). The `/60` display conversion was correct. The option is `inASA=Unknown` on the wiki. | fixed hint to 3600, kept conversion, added `@Unsure` | fixed |
+| 8 | Low | `GameUserSettings.kt` | `RCONServerGameLogBuffer` / `KickIdlePlayersPeriod` are floats in ARK, ints here | accepted; documented | accepted |
+| 9 | Low | `server/Settings.kt` | `DifficultyOffset` was not modelled at all | model + General UI added | fixed |
+| 10 | Low | CSV | `implemented` column was stale (23 vs ~108 real) | `tools/audit-options.py` + `--fix-implemented`; now 130 rows | fixed |
 
 Why #3/#4 matter: stored JSON contains explicit values, so changing a Kotlin default only
 affects newly created servers. Existing profiles keep their old values. That is the correct
@@ -649,7 +697,7 @@ reason a CSV-driven "just add fields" approach stops working.
 | 23 | `MutagenLevelBoost[0..11]`, `MutagenLevelBoost_Bred[0..11]` | indexed ints | 12-stat matrix, two tabs | Unknown | P2 |
 | 24 | `PlayerBaseStatMultipliers`, `PerLevelStatsMultiplier_{Player,DinoWild,DinoTamed,DinoTamed_Add,DinoTamed_Affinity}` | indexed floats | already modelled; add reset-to-official and inclusion masks | Yes/Unknown | P0 |
 | 25 | `ConfigOverrideSupplyCrateItems` | repeated, deeply nested: crate → item sets → entries → item class lists/weights | crate → set → entry (3 levels) | Unknown | P3 |
-| 26 | `ActiveMods`, `-mods`, `-passivemods` | ordered comma list / launch list | reorderable mod list with drag/drop + passive flags | Yes | P0 |
+| 26 | `ActiveMods` (INI), `-passivemods` (CLI) | comma-separated CurseForge ids / launch list | mod list in General, passive-mod list in Advanced; `-mods` is legacy import only | Yes | P0 |
 | 27 | `GameDifficulties`, `NPCOverrideLevel`, `NPCMin*`/`NPCMax*`, `NPCsToSpawnPercentageChance`, `ManualSpawnPointSpreadRadius`, ... | nested per-difficulty structs, documented in the Game.ini section but missing from the option table | difficulty/NPC level editor | Unknown | P3 |
 
 Not in this list: `ConfigOverrideItemMaxQuantity`'s global companion `ItemStackSizeMultiplier`
@@ -941,26 +989,26 @@ Table option:
 
 ## 9. Roadmap
 
-### Phase 0 — Correctness + foundations + test harness (S, do first)
+### Phase 0 — Correctness + foundations + test harness (S, done except L5/CI)
 
-1. Fix the 10 issues in §4.
-2. Extract the generic launch-argument emitter so `Options` supports `FLAG`, `FLAG_VALUE`,
-   `LIST`, `QUERY`, `BOOLEAN_QUERY` (needed by almost every new launch option).
-3. Add a `LaunchArguments` "raw extra args" string as an escape hatch (`-foo=bar`), so users are
-   never blocked by a missing option.
-4. Add the map selector (official ids + free text), `ActiveMapMod`, and the missing
-   `DifficultyOffset`.
-5. Commit the data pipeline: `tools/scrape-ark-options.py`, the refreshed CSV, `--check`, and the
-   Python tests. Add a CSV coverage audit that reports `implemented` mismatches and fix the 23
-   stale flags.
-6. Build the test fixtures and the first golden tests (§8.2/§8.3):
-   `official-defaults`, `custom` (unknown keys/comments/duplicate keys), a generated
-   `kitchen-sink`, a previous-release DB JSON, and startup-script variants.
-7. Stand up the `ui` test source set (state tests) and a CI workflow that runs
-   `:core:test`, `:ui:test` and the Python tests.
+1. [x] Fix the 10 issues in §4.
+2. [x] Extract the generic launch-argument emitter so `Options` supports `FLAG`, `FLAG_VALUE`,
+   `LIST`, `QUERY`, `BOOLEAN_QUERY`.
+3. [ ] Add a `LaunchArguments` "raw extra args" string as an escape hatch (`-foo=bar`).
+   *Designed; expose in phase 1.*
+4. [x] Add `DifficultyOffset` (model + General UI). [ ] Official map picker and `ActiveMapMod`
+   are phase 1.
+5. [x] Commit the data pipeline (`tools/scrape-ark-options.py`, refreshed CSV, `--check`,
+   Python tests) and `tools/audit-options.py` with `--fix-implemented`.
+6. [x] Build the first fixtures/tests: `IniRoundTripTest` (defaults, ActiveMods, unknown-key
+   preservation, old JSON), updated `SettingsStartupScriptTest` (legacy `-mods` import).
+7. [ ] Stand up the `ui` test source set and a CI workflow. The native `overseer` build currently
+   fails on `conpty.lib`, so CI must exclude `:overseer:cargoBuild` or run where it works.
+8. [ ] L5 real-server acceptance for the mod decision (§8.6). This decides whether a `-mods`
+   mirror toggle is required.
 
-Exit: build green; scrape is reproducible; the custom fixture survives save byte-for-byte;
-launch-arg round-trip covers every `ArgKind`; CI runs on every PR.
+Exit: build green (with the native workaround), scrape is reproducible, the custom fixture
+survives save, launch-arg round-trip covers every `ArgKind`, audit reports 0 action items.
 
 ### Phase 1 — New tabs with the high-value scalar options (M)
 
@@ -987,6 +1035,8 @@ listed as "intentionally omitted" (client-side / ASE-only) in this document.
 3. Map/event groups: `[Ragnarok]`, `UseAstraeosTraversalBuff`, `WorldBossKingKaijuSpawnTime`.
 4. Presets: "official defaults", "PvE relaxed", "PvP official-like", "import from install".
 5. Experimental (`@Unsure`) visual marker.
+6. If the L5 test shows INI-only mods do not download/load on a real server, add the
+   "mirror `ActiveMods` to `-mods=`" advanced toggle (off by default until proven).
 
 Exit: a new server can be created from official defaults in one click and matches the wiki
 defaults for all modelled keys; the kitchen-sink profile still round-trips.
@@ -1083,8 +1133,11 @@ serializes deterministically.
 5. **URLs.** Dynamic config and live tuning require **HTTP** (not HTTPS) for
    `CustomDynamicConfigUrl` on some versions; quote values in INI/CLI. Validate accordingly and
    explain in the hint.
-6. **`ActiveMods` in ASA.** Wiki says not needed with `-mods`; keep using `-mods`. `ActiveMapMod`
-   is new and needs verification for modded maps.
+6. **Mods in ASA are contradictory.** The wiki documents `-mods=` and its `ActiveMods` row still
+   references the ASE-only `?GameModIds`; hosting guides set both. We follow the decision in §0.1:
+   write `ActiveMods` only, import legacy `-mods`, do not emit `-mods`. **Override point:** add a
+   mirror toggle if a real server does not download/load mods from the INI. `ActiveMapMod` needs
+   verification for modded maps.
 7. **Whitelist storage.** `-exclusivejoin` needs a player list mechanism outside the INI
    (verify current ASA path/format). Do not ship a whitelist UI until the file format is confirmed.
 8. **Default drift.** Changes to Kotlin defaults affect only new profiles; existing profiles need
@@ -1109,6 +1162,11 @@ serializes deterministically.
     temp file, then replace).
 15. **Ragnarok/`Engine.GameSession`/`[ModInstaller]` sections** are unverified for ASA; keep them
     out of the default write path (add only when explicitly set, via `@OmitIfNull`).
+16. **Native build blocker.** `:overseer:cargoBuild` currently fails with `LNK1181: cannot open
+    input file 'conpty.lib'` (winpty/Windows SDK). This is pre-existing and unrelated to config
+    work, but it blocks `./gradlew test` locally. Use
+    `./gradlew :core:test -x :overseer:cargoBuild` until it is fixed. CI must either exclude the
+    task or run on an image where the native build works.
 
 ---
 
@@ -1136,8 +1194,10 @@ core/src/test/resources/fixtures/                         # official-defaults, c
 ui/src/test/kotlin/                                       # new test source set
 tools/scrape-ark-options.py                               # committed scraper
 tools/test_scrape_ark_options.py                          # scraper tests
+tools/audit-options.py                                    # model/CSV/UI audit
 tools/scrape-ark-catalogs.py                              # future: creature/item/engram catalogs
 ArkServerOptions.csv                                      # generated; implemented preserved
+docs/option-audit.md / option-audit.csv                   # generated audit report
 docs/server-configuration-parity-plan.md                 # this document
 ```
 
@@ -1153,8 +1213,14 @@ python tools/scrape-ark-options.py --check --input tools/fixtures/Server_configu
 # Scraper tests
 python -m unittest discover -s tools -p "test_*.py" -v
 
-# App tests
-./gradlew :core:test :ui:test
+# Audit every option against the model/UI; 0 action items is the gate
+python tools/audit-options.py --check
+
+# Mark modelled + exposed options as implemented (one-time reconciliation)
+python tools/audit-options.py --fix-implemented
+
+# App tests (the native overseer build currently needs the workaround)
+./gradlew :core:test :ui:test -x :overseer:cargoBuild
 ```
 
 When the wiki template changes, save the raw page (`?action=raw`) to
