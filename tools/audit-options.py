@@ -353,7 +353,15 @@ def main() -> int:
         key = norm(name)
         status = "missing"
         entries = model_by_norm.get(key, [])
-        entry = entries[0] if entries else None
+        if name.startswith("-"):
+            # Prefer a launch-arg model when the wiki row is a dash option.
+            entry = next((item for item in entries if item["file"] == "Settings.kt"), entries[0] if entries else None)
+        elif location.startswith("Configuration"):
+            # Prefer the INI model for config-file rows; a CLI-only model means
+            # the app deliberately sets it on the launch line.
+            entry = next((item for item in entries if item["file"] != "Settings.kt"), None)
+        else:
+            entry = entries[0] if entries else None
 
         if row.get("inASA") == "No":
             status = "ase-only"
