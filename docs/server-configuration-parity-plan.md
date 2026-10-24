@@ -76,6 +76,7 @@ References used:
   `SettingsStartupScriptTest`, and the fake RCON server tests.
 - [x] inisaur single-item array fix in the sibling library; app keeps a compatibility shim until
   a release containing it is published.
+- [x] Phase 1 started: **Chat & HUD** tab (16 `[ServerSettings]` + 2 `Game.ini` options).
 - [ ] Real-server acceptance (§8.6) — needs a disposable server.
 - [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
   so CI excludes it — see §11.16).
@@ -586,6 +587,9 @@ check.
 
 ### 6.8 Chat & HUD (new)
 
+**Status: implemented** in `ui/.../ChatAndHudTabContent.kt` (16 `[ServerSettings]` + 2 `Game.ini`
+options). Remaining P2 items (filters, `AlwaysNotifyPlayerLeft`, `-nosound`) are not added.
+
 - P0 `AdminLogging` (bool), `globalVoiceChat` (bool), `ProximityChat` (bool).
 - P0 `ServerCrosshair` (bool, true), `ShowMapPlayerLocation` (bool, true),
   `AllowThirdPersonPlayer` (bool, true), `AllowHitMarkers` (bool, true),
@@ -879,7 +883,7 @@ value. The test plan targets each separately.
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
 | L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
 
-Today: **36 core tests** pass (`IniRoundTripTest` 13, `SettingsStartupScriptTest` 11,
+Today: **38 core tests** pass (`IniRoundTripTest` 15, `SettingsStartupScriptTest` 11,
 `ServerIoTest` 7, RCON 5) plus **11 Python tests**; `:ui:compileKotlin` passes. The tests cover
 existing behaviour, not only the new options:
 
@@ -1055,7 +1059,8 @@ survives save, launch-arg round-trip covers every `ArgKind`, audit reports 0 act
 
 Order by admin impact:
 
-1. **Chat & HUD** (mostly booleans, low risk, high visibility).
+1. [x] **Chat & HUD** — implemented (booleans, URL word filters, photo mode). Next:
+   [ ] **Structures & Items**.
 2. **Structures & Items** (lots of bools/ints, no cross-dependencies).
 3. **Admin & Security** (flags + URLs; needs the Phase 0 emitter).
 4. **Advanced / Launch** (biggest launch coverage; performance/save/logging groups).
