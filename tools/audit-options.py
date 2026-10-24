@@ -268,9 +268,9 @@ def csv_default(value: str):
     value = (value or "").strip()
     if not value or value in ("N/A", "Unknown") or value.startswith("{{") or "<" in value:
         return None
-    if value == "False":
+    if value.lower() == "false":
         return "False"
-    if value == "True":
+    if value.lower() == "true":
         return "True"
     try:
         number = float(value)
