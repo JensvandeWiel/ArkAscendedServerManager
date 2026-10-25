@@ -20,8 +20,8 @@
 - Run `python tools/audit-options.py --check` after changing the model, CSV or UI. It must report
   **0 action items**. Use `--fix-implemented` when an option is exposed but not marked.
 - Mods are stored in `GameUserSettings.ini > [ServerSettings] > ActiveMods` as CurseForge project
-  IDs. `-mods=` is legacy import only unless `mirrorModsToLaunchArgs` is enabled (default off;
-  plan §0.1). Both routes work in ASA; keep the lists identical if mirroring.
+  IDs. The launch line always mirrors that list as `-mods=`; there is no toggle. Keep both routes
+  working in ASA and the lists identical.
 - inisaur: a sibling checkout (`../inisaur`) is used via a conditional composite build when
   present. The published `0.6.0` is the minimum version (repeated structs and `@IniString` inside
   structs). Use `-PusePublishedInisaur` to verify the published artifact locally; CI always uses

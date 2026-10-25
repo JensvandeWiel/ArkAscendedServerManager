@@ -96,7 +96,7 @@ class ServerIoTest {
         assertTrue(script.contains("?ServerPassword=secret"))
         assertTrue(script.contains("?ServerAdminPassword=Admin123!"))
         assertTrue(script.contains("-WinLiveMaxPlayers=42"))
-        assertTrue(!script.contains("-mods="), "mods are INI-only unless mirroring is enabled")
+        assertTrue(script.contains("-mods=111,222"), "ActiveMods is always mirrored to the launch line")
 
         assertTrue(server(asaApi = true).makeStartupScriptString().contains("Overseer.exe"))
     }

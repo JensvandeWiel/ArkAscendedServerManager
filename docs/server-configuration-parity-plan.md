@@ -1,4 +1,4 @@
-# Server configuration parity plan (ASA)
+﻿# Server configuration parity plan (ASA)
 
 Status: draft plan, no code changes yet.
 Scope: server-configuration features only (INI + launch arguments + dynamic config). Live
@@ -27,15 +27,14 @@ References used:
   (`C:\Users\jens\MyProjects\ServerManagers`) and the current app. The legacy manager is ASE-era
   and may contradict the wiki; `tools/audit-options.py` reports those differences instead of
   silently resolving them. The current app follows the wiki when they disagree, unless the
-  wiki is clearly wrong (see §2.1).
-- **Mods are INI-first, with an optional CLI mirror.** Mods are stored in
+  wiki is clearly wrong (see Â§2.1).
+- **Mods are stored in both places.** Mods are stored in
   `GameUserSettings.ini > [ServerSettings] > ActiveMods` as comma-separated CurseForge project
-  IDs. `-mods=` is not emitted unless the user enables `mirrorModsToLaunchArgs` (default off).
+  IDs, and the launch line always mirrors that list as `-mods=`. There is no toggle.
   Online research (Oct 2026) found that **both routes work**: `ActiveMods` is the list the engine
   reads; `-mods=` is the documented ASA route and is commonly used because it also downloads and
   updates CurseForge mods on start. If both are present, the launch argument wins, so the lists
-  must be identical (the app generates the mirror from `ActiveMods`).
-  **Override point:** enable the mirror if a real server does not download mods from INI-only.
+  must be identical (the app generates `-mods=` from `ActiveMods`).
 - **Units are stored as ARK stores them.** `TribeNameChangeCooldown` is stored raw (default
   `15`); its unit is documented as ambiguous. `TribeSlotReuseCooldown` is seconds in ARK and
   displayed as minutes; only the hint was wrong, not the conversion.
@@ -63,10 +62,10 @@ References used:
 
 ### 0.3 Phase 0 status
 
-- [x] Fix the correctness issues in §4.
+- [x] Fix the correctness issues in Â§4.
 - [x] Generic launch-argument emitter for every `ArgKind`.
-- [x] `ActiveMods` in `GameUserSettings.ini`, legacy `-mods` import, optional `-mods` mirror
-  (`mirrorModsToLaunchArgs`, default off).
+- [x] `ActiveMods` in `GameUserSettings.ini`; legacy `-mods` import; launch line always mirrors
+  `ActiveMods` as `-mods=` (no toggle).
 - [x] `DifficultyOffset` and `MinimumDinoReuploadInterval` modelled and exposed.
 - [x] `@Unsure` on every modelled `inASA=Unknown` option.
 - [x] Scraper, legacy-manager audit, and Python tests committed.
@@ -91,9 +90,9 @@ References used:
   cooldown.
 - [ ] Next: optional Cluster & Transfers tab move (options already exist in General), then
   Phase 2.
-- [ ] Real-server acceptance (§8.6) — needs a disposable server.
+- [ ] Real-server acceptance (Â§8.6) â€” needs a disposable server.
 - [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
-  so CI excludes it — see §11.16).
+  so CI excludes it â€” see Â§11.16).
 - [x] Publish inisaur with the single-item array fix and remove `withActiveModsFromRaw`
   (`0.6.0`).
 
@@ -106,8 +105,8 @@ Three configuration surfaces are modelled:
 | Surface | Model | Serialized to |
 |---|---|---|
 | Launch command | `Settings.Administration` + `Settings.Options` (`core/.../server/Settings.kt`) | `ShooterGame/Binaries/Win64/startup.bat` |
-| `GameUserSettings.ini` | `GameUserSettings` → `SessionSettings`, `MessageOfTheDay`, `ServerSettings` (`core/.../ini/GameUserSettings.kt`) | `ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini` |
-| `Game.ini` | `Game` → `ShooterGameMode` (`core/.../ini/Game.kt`) | `ShooterGame/Saved/Config/WindowsServer/Game.ini` |
+| `GameUserSettings.ini` | `GameUserSettings` â†’ `SessionSettings`, `MessageOfTheDay`, `ServerSettings` (`core/.../ini/GameUserSettings.kt`) | `ShooterGame/Saved/Config/WindowsServer/GameUserSettings.ini` |
+| `Game.ini` | `Game` â†’ `ShooterGameMode` (`core/.../ini/Game.kt`) | `ShooterGame/Saved/Config/WindowsServer/Game.ini` |
 
 UI is organised as tabs in `ui/src/main/kotlin/features/server/ServerScreen.kt`
 (Info, Profile, General, Management, Environment, Rules, Player, Dino Settings, Config Editor).
@@ -128,7 +127,7 @@ of truth for *what exists*, not for *what is done*.
 
 ## 2. Snapshot of `ArkServerOptions.csv`
 
-The CSV is generated from the wiki by `tools/scrape-ark-options.py` (see §2.1). Fresh scrape
+The CSV is generated from the wiki by `tools/scrape-ark-options.py` (see Â§2.1). Fresh scrape
 2026-10-24:
 
 | Bucket | Rows | inASA=Yes | inASA=Unknown | inASA=No |
@@ -145,15 +144,15 @@ The CSV is generated from the wiki by `tools/scrape-ark-options.py` (see §2.1).
 
 Currently modelled: 227 INI properties + 62 launch arguments (audit view).
 
-Audit view after phase 0 (see §0.2):
+Audit view after phase 0 (see Â§0.2):
 
 - **289 modelled rows** (227 INI, 62 launch; some names appear in more than one place, e.g.
   `XPMultiplier` in the main config and DynamicConfig).
-- **48 ASA=Yes scalar gaps** — the real remaining scalar config work.
-- **7 table / struct gaps** — §7.
-- **30 ASE-only rows** — intentionally not ported.
-- **36 DynamicConfig rows** — separate file/mechanism, not normal INI keys.
-- **148 ASA=Unknown rows** — experimental candidates; do not ship as normal settings.
+- **48 ASA=Yes scalar gaps** â€” the real remaining scalar config work.
+- **7 table / struct gaps** â€” Â§7.
+- **30 ASE-only rows** â€” intentionally not ported.
+- **36 DynamicConfig rows** â€” separate file/mechanism, not normal INI keys.
+- **148 ASA=Unknown rows** â€” experimental candidates; do not ship as normal settings.
 - **1** `-mods` row covered by `ActiveMods`.
 
 So the remaining scalar gap is ~48 options, plus the table editors. That is why the plan is
@@ -168,7 +167,7 @@ phased and tab-based rather than "add a few settings".
   (`{{ItemLink|...}}`), multi-line values and inline template closes are handled;
 - maps wiki headings to the CSV `Location` convention (Game.ini grouping headings are collapsed;
   only bracketed subsections such as `[ServerSettings]`/`[ModInstaller]` are kept);
-- normalises known wiki typos (`inASA = Tes` → `Yes`) and reports them as warnings;
+- normalises known wiki typos (`inASA = Tes` â†’ `Yes`) and reports them as warnings;
 - preserves the `implemented` column (by `Location+name`, then by unique `name`), so a scrape never
   resets progress;
 - `--check` prints added/removed/changed rows and exits non-zero, for CI drift detection;
@@ -207,8 +206,8 @@ Other examples:
 - `TribeSlotReuseCooldown` is `Unknown` on the wiki but has been in the game since patch 280.114
   (and the app already models it).
 
-Rule for implementation: `No` → do not add; `Unknown` → add but annotate `@Unsure` and hide
-under an "experimental / unverified" grouping; `Yes` → add normally. When a key matters,
+Rule for implementation: `No` â†’ do not add; `Unknown` â†’ add but annotate `@Unsure` and hide
+under an "experimental / unverified" grouping; `Yes` â†’ add normally. When a key matters,
 verify against the installed server binary / Community Wiki before shipping.
 
 ---
@@ -226,7 +225,7 @@ dead weight for ASA.
 | Player cap | `?MaxPlayers=` | `-WinLiveMaxPlayers=` (replaces `MaxPlayers`) |
 | Mods | Steam Workshop, `?GameModIds=` / `-automanagedmods` / `[ModInstaller]` | CurseForge project IDs. Canonical here: `ActiveMods` in `GameUserSettings.ini > [ServerSettings]`. The wiki also documents `-mods=`; it contradicts itself about whether ASA reads `ActiveMods`, so the app writes INI only and imports legacy `-mods`. `-passivemods=` remains CLI. |
 | Platform filter | `-epiconly`, `-crossplay` (`-PublicIPForEpic`) | `-ServerPlatform=PC+XSX+PS5+WINGDK+ALL`, always crossplay |
-| Maps | `TheIsland`, `TheCenter`, … | `TheIsland_WP`, `TheCenter_WP`, `ScorchedEarth_WP`, `Ragnarok_WP`, `Aberration_WP`, `Extinction_WP`, `Valguero_WP`, `Genesis_WP`, `Astraeos_WP`, `LostColony_WP`, `BobsMissions_WP` (Club ARK mod `1005639`) |
+| Maps | `TheIsland`, `TheCenter`, â€¦ | `TheIsland_WP`, `TheCenter_WP`, `ScorchedEarth_WP`, `Ragnarok_WP`, `Aberration_WP`, `Extinction_WP`, `Valguero_WP`, `Genesis_WP`, `Astraeos_WP`, `LostColony_WP`, `BobsMissions_WP` (Club ARK mod `1005639`) |
 | Live config | none (restart required) | `-UseDynamicConfig` + `CustomDynamicConfigUrl` (applied on world save) |
 | Save format | `-newsaveformat` opt-in | `-usestore` / `-converttostore` (profile inside `.ark`) |
 | Wild babies | n/a | `-NoWildBabies` |
@@ -239,7 +238,7 @@ dead weight for ASA.
   equivalent of the wiki's `[/script/shootergame.shootergamemode]`). Current code is correct.
 - `GameUserSettings.ini` is written to `ShooterGame/Saved/Config/WindowsServer/` (already in
   `Constants.CONFIG_PATH`).
-- ASA flips some defaults that ASE admins know; see §4.
+- ASA flips some defaults that ASE admins know; see Â§4.
 - ASA added a whole block of expansion keys (Lost Colony: bunkers, cryo hospital, bloodforge,
   outposts, Armadoggo/Veilwyn timers, train cars) and anti-cheat/telemetry keys.
 
@@ -272,7 +271,7 @@ dead weight for ASA.
   `-USEALLAVAILABLECORES`, `-newsaveformat`.
 - ASE maps that do not exist in ASA (Crystal Isles, Lost Island, Fjordur, Gen2, PGARK) and
   ASE-only sections (`SOTF`, Primitive Plus `PGM`, Genesis hexagon store overrides).
-- `[/Script/Engine.GameSession] MaxPlayers` — superseded by `-WinLiveMaxPlayers`.
+- `[/Script/Engine.GameSession] MaxPlayers` â€” superseded by `-WinLiveMaxPlayers`.
 - `PreventTransferForClassNames`, `ActiveTotalConversion`, `AllowedCheatersURL`,
   `DestroyUnconnectedWaterPipes` (ASE-only per CSV).
 
@@ -313,7 +312,7 @@ These were the phase-0 targets. Status is current.
 
 Why #3/#4 matter: stored JSON contains explicit values, so changing a Kotlin default only
 affects newly created servers. Existing profiles keep their old values. That is the correct
-behaviour, but it means "official defaults" must be a **preset action** (§5.2, item 2), not just defaults.
+behaviour, but it means "official defaults" must be a **preset action** (Â§5.2, item 2), not just defaults.
 
 On #2: the unit is genuinely ambiguous. The wiki says "in minutes" but gives the official value
 as `172800.0` (2 days), which only adds up if the value is **seconds**; community tests from ASE
@@ -353,7 +352,7 @@ with a settings search added later.
 | 10 | **Chat & HUD** | chat, voice, notifications, crosshair/HUD, markers, photo mode, gamma | **new tab** |
 | 11 | **Admin & Security** | ban/admin/badword lists, whitelist, dupe/mesh protection, character tracker, BattleEye | **new tab** |
 | 12 | **Advanced / Launch** | all remaining launch flags, performance, save format, logging, network, mods extras, Ragnarok section | **new tab** |
-| 13 | **Tables** | dino spawns / class multipliers / NPC replacements, spawn containers, engrams, level ramps, crafting/stack/supply overrides, stat clamps, teleports | **new tab** (phase 3: class multiplier + harvest slice implemented; master-detail still pending; see §7) |
+| 13 | **Tables** | dino spawns / class multipliers / NPC replacements, spawn containers, engrams, level ramps, crafting/stack/supply overrides, stat clamps, teleports | **new tab** (phase 3: class multiplier + harvest slice implemented; master-detail still pending; see Â§7) |
 | 14 | Management | auto-restart, crash restart, memory guard, Discord | extend |
 | 15 | Dynamic Config | live tuning URL, dynamic URL, supported keys, colorset | **new tab** (or section of Advanced) |
 | 16 | Config Editor | raw INI | keep, add dynamic config file later |
@@ -383,7 +382,7 @@ table, edit rows), not a vertical stack of fields.
 **Rules**
 - Existing: hardcore, friendly fire, PvE, caves, loot crates, creative, cryo sickness, diseases,
   tribes/alliances, recipes.
-- Add: offline raid protection, decay policy toggles that are rules (see §6.3 and §6.7), mate boost,
+- Add: offline raid protection, decay policy toggles that are rules (see Â§6.3 and Â§6.7), mate boost,
   multiple C4, structure locking, supply-drop building, respec/speed leveling, cave flyers,
   `bIgnoreStructuresPreventionVolumes`, `IgnorePVPMountedWeaponryRestrictions`, `TribeMerge*`.
 
@@ -398,7 +397,7 @@ table, edit rows), not a vertical stack of fields.
   turrets (`bHardLimitTurretsInRange`, `bLimitTurretsInRange`, `LimitTurretsNum`,
   `LimitTurretsRange`, `DinoTurretDamageMultiplier`), generators (`LimitGeneratorsNum/Range`),
   wireless crafting block, item stacks (`ItemStackSizeMultiplier`, `ClampItemStats`).
-- Lost Colony group (see §6.12) goes at the bottom, enabled only when the map is `LostColony_WP`
+- Lost Colony group (see Â§6.12) goes at the bottom, enabled only when the map is `LostColony_WP`
   or the DLC is installed.
 
 **Chat & HUD**
@@ -412,7 +411,7 @@ table, edit rows), not a vertical stack of fields.
 
 **Admin & Security**
 - Lists: `BanListURL` (moved), `AdminListURL`, `CosmeticWhitelistOverride`,
-  `AllowedCheatersURL` (ASE-only → hidden).
+  `AllowedCheatersURL` (ASE-only â†’ hidden).
 - Access: `-exclusivejoin` (+ tooltip that whitelist data lives outside INI), `-NoBattlEye`.
 - Cheat/dupe: `-UseItemDupeCheck`, `-EnableVictoryCoreDupeCheck`, `-ForceDupeLog`,
   `-DisableDupeLogDeletes`, `-ignoredupeditems`, `-SecureSendArKPayload`,
@@ -483,7 +482,7 @@ Legend: **P0** = ASA=Yes, common admin need; **P1** = ASA=Yes, niche/expansion;
 **skip** = ASE-only or superseded.
 
 Each line is `OptionName` (type, default). Where the app already surfaces an equivalent through
-the launch line, it is marked *(covered by CLI)* and needs no new field — only a consistency
+the launch line, it is marked *(covered by CLI)* and needs no new field â€” only a consistency
 check.
 
 ### 6.1 General
@@ -492,9 +491,9 @@ check.
 is still open.
 
 - P0 `DifficultyOffset` (float, 1.0); `OverrideOfficialDifficulty` (float, 0.0).
-- P0 `?AltSaveDirectoryName` (string) — save folder per map.
-- P0 map picker with the 11 official ASA map ids (§3.1) + free text for mod maps.
-- P1 `ActiveMapMod` (mod id) — mod-map selection added to the wiki after the last scrape;
+- P0 `?AltSaveDirectoryName` (string) â€” save folder per map.
+- P0 map picker with the 11 official ASA map ids (Â§3.1) + free text for mod maps.
+- P1 `ActiveMapMod` (mod id) â€” mod-map selection added to the wiki after the last scrape;
   verify whether `-mods` + the map name is enough or this key is still required.
 - P0 `-MULTIHOME`, `-ServerIP=`, `-ip=` (network group).
 - skip `[/Script/Engine.GameSession] MaxPlayers`, `ActiveTotalConversion`,
@@ -502,11 +501,11 @@ is still open.
 
 ### 6.2 Cluster & Transfers
 
-- P0 `CrossARKAllowForeignDinoDownloads` (bool, false) — move.
-- P0 `MinimumDinoReuploadInterval` (float, 0) — already modelled as `Int`, no UI.
+- P0 `CrossARKAllowForeignDinoDownloads` (bool, false) â€” move.
+- P0 `MinimumDinoReuploadInterval` (float, 0) â€” already modelled as `Int`, no UI.
 - P0 `TributeCharacterExpirationSeconds`, `TributeDinoExpirationSeconds`,
-  `TributeItemExpirationSeconds` — move with unit labels (minutes in UI today).
-- P0 `noTributeDownloads` + `Prevent{Download,Upload}{Dinos,Items,Survivors}` — move.
+  `TributeItemExpirationSeconds` â€” move with unit labels (minutes in UI today).
+- P0 `noTributeDownloads` + `Prevent{Download,Upload}{Dinos,Items,Survivors}` â€” move.
 - P1 `-usestore`, `-converttostore`, `-BackupTransferPlayerDatas` (cross-ref Advanced).
 - P2 `Tribute*ExpirationSeconds` behaviour on ASA is inherited, fine.
 
@@ -522,10 +521,10 @@ mate boost, decay, supply-drop structures, leveling/respecs, cave flyers). P2 it
 - P0 `PvEAllowStructuresAtSupplyDrops` (bool).
 - P0 `PvPDinoDecay` (bool), `PvEDinoDecayPeriodMultiplier` (float).
 - P0 `DisableDinoDecayPvE` (bool).
-- P0 `AllowCryoFridgeOnSaddle` (bool) — see Dinos.
+- P0 `AllowCryoFridgeOnSaddle` (bool) â€” see Dinos.
 - P0 `bAllowUnlimitedRespecs` (Game.ini bool), `bAllowSpeedLeveling`,
   `bAllowFlyerSpeedLeveling`.
-- P2 `AllowFlyingStaminaRecovery` (CSV says Unknown, but it is a real ASA key — add `@Unsure`).
+- P2 `AllowFlyingStaminaRecovery` (CSV says Unknown, but it is a real ASA key â€” add `@Unsure`).
 - P0 `-ForceAllowCaveFlyers`, `-pvedisallowtribewar`.
 - P1 `bIgnoreStructuresPreventionVolumes`, `bDisableStructurePlacementCollision`,
   `IgnorePVPMountedWeaponryRestrictions` (the fresh scrape moved this from `Game.ini` to
@@ -556,7 +555,7 @@ leveling/respecs live in Rules). Level ramps/XP overrides remain table work.
 - P0 `OxygenSwimSpeedStatMultiplier` (float).
 - P0 `bAllowSpeedLeveling`, `bAllowFlyerSpeedLeveling`, `bAllowUnlimitedRespecs`.
 - P0 `ImplantSuicideCD` (float, 28800).
-- P0 `PlayerHarvestingDamageMultiplier` (already modelled, exposed) — verify `@Unsure`.
+- P0 `PlayerHarvestingDamageMultiplier` (already modelled, exposed) â€” verify `@Unsure`.
 - P1 `DestroyTamesOverLevelClamp` (int).
 - P2 `OverrideMaxExperiencePointsPlayer`, `OverridePlayerLevelEngramPoints`,
   `LevelExperienceRampOverrides` (array), `-imprintlimit`,
@@ -566,7 +565,7 @@ leveling/respecs live in Rules). Level ramps/XP overrides remain table work.
 
 **Status:** P0/P1 scalars implemented in `DinoSettingsTabContent.kt` (tame limits, soft limit,
 breeding/imprinting, cryo, Gacha, level clamp, level-up animations). Per-class and spawn tables
-remain in §7.
+remain in Â§7.
 
 - P0 `DinoCharacterFoodDrainMultiplier` (missing, GUS).
 - P0 `MaxTamedDinos_SoftTameLimit` (int, 5000),
@@ -589,7 +588,7 @@ remain in §7.
 - P2 `bDisableDinoBreeding`, `bDisableDinoTaming`, `bDisableDinoRiding`,
   `bAllowUnclaimDinos`, `Prevent{Breeding,DinoTame}ClassNames`,
   `DestroyTamesOverLevelClamp`.
-- Arrays (separate track, §7): `DinoSpawnWeightMultipliers`, `NPCReplacements`,
+- Arrays (separate track, Â§7): `DinoSpawnWeightMultipliers`, `NPCReplacements`,
   `ConfigAddNPCSpawnEntriesContainer`, `ConfigOverrideNPCSpawnEntriesContainer`,
   `ConfigSubtractNPCSpawnEntriesContainer`, `DinoClassDamageMultipliers`,
   `DinoClassResistanceMultipliers`, `TamedDinoClassDamageMultipliers`,
@@ -600,7 +599,7 @@ remain in §7.
 
 **Status: implemented** in `ui/.../StructuresAndItemsTabContent.kt` (17 `[ServerSettings]` +
 11 `Game.ini` options, plus the `-AutoDestroyStructures` flag). `ItemStatClamps` remains a table
-editor (§7).
+editor (Â§7).
 
 - P0 `StructureResistanceMultiplier`, `StructurePreventResourceRadiusMultiplier`,
   `TheMaxStructuresInRange` (int, 10500), `IgnoreLimitMaxStructuresInRangeTypeFlag`.
@@ -712,12 +711,12 @@ clusters mix maps.
 
 ### 6.13 Map / event specific
 
-- P1 `UseAstraeosTraversalBuff` (bool, default true) — enables the Astraeos biome teleport;
+- P1 `UseAstraeosTraversalBuff` (bool, default true) â€” enables the Astraeos biome teleport;
   show only for `Astraeos_WP`.
-- P1 `WorldBossKingKaijuSpawnTime` (string, `19:00:00`) — UTC spawn override; show as a time
+- P1 `WorldBossKingKaijuSpawnTime` (string, `19:00:00`) â€” UTC spawn override; show as a time
   picker, validate `HH:mm:ss`.
 - P2 `[Ragnarok]` block: `AllowMultipleTamedUnicorns`, `EnableVolcano`, `UnicornSpawnInterval`,
-  `VolcanoIntensity`, `VolcanoInterval` (see §6.10).
+  `VolcanoIntensity`, `VolcanoInterval` (see Â§6.10).
 
 ---
 
@@ -749,8 +748,8 @@ reason a CSV-driven "just add fields" approach stops working.
 | 2 | `DinoClassDamageMultipliers`, `DinoClassResistanceMultipliers` | repeated `(ClassName="<class>",Multiplier=<f>)` | wild-dino class multiplier grid | Unknown | P1 |
 | 3 | `TamedDinoClassDamageMultipliers`, `TamedDinoClassResistanceMultipliers` | same | tamed-dino class multiplier grid | Unknown | P1 |
 | 4 | `TamedDinoClassSpeedMultipliers`, `TamedDinoClassStaminaMultipliers` | same | tamed-dino class multiplier grid | not in table | P2 |
-| 5 | `NPCReplacements` | repeated `(FromClassName="<class>",ToClassName="<class>")` | from → to grid with catalog | Unknown | P1 |
-| 6 | `ConfigAddNPCSpawnEntriesContainer` | one line, nested `NPCSpawnEntries` + `NPCSpawnLimits` | container → entries + limits (master-detail) | Yes | P2 |
+| 5 | `NPCReplacements` | repeated `(FromClassName="<class>",ToClassName="<class>")` | from â†’ to grid with catalog | Unknown | P1 |
+| 6 | `ConfigAddNPCSpawnEntriesContainer` | one line, nested `NPCSpawnEntries` + `NPCSpawnLimits` | container â†’ entries + limits (master-detail) | Yes | P2 |
 | 7 | `ConfigOverrideNPCSpawnEntriesContainer`, `ConfigSubtractNPCSpawnEntriesContainer` | same shape | same editor, mode switch | Unknown | P2 |
 | 8 | `HarvestResourceItemAmountClassMultipliers` | repeated `(ClassName="<resource>",Multiplier=<f>)` | resource multiplier grid | Yes | P1 |
 | 9 | `OverrideNamedEngramEntries` | repeated `(EngramClassName="<engram>",EngramHidden=<b>,EngramPointsCost=<i>,EngramLevelRequirement=<i>,RemoveEngramPreReq=<b>)` | engram grid (class, level, cost, hidden, no-prereq) | Yes | P1 |
@@ -760,7 +759,7 @@ reason a CSV-driven "just add fields" approach stops working.
 | 13 | `LevelExperienceRampOverrides` | one line, `(ExperiencePointsForLevel[0]=..,...,[N]=..)`, **twice** (players then tames) | level ramp editor, player + tame tabs | Yes | P1 |
 | 14 | `OverridePlayerLevelEngramPoints` | repeated scalar, once per level | part of the ramp editor | Unknown | P1 |
 | 15 | `OverrideMaxExperiencePointsPlayer`, `OverrideMaxExperiencePointsDino` | scalars | ramp editor header | Unknown | P1 |
-| 16 | `ConfigOverrideItemCraftingCosts` | repeated `(ItemClassString="...",BaseCraftingResourceRequirements=((ResourceItemTypeString="...",BaseResourceRequirement=<f>,bCraftingRequireExactResourceType=<b>),...))` | item → resource requirements (master-detail) | Unknown | P2 |
+| 16 | `ConfigOverrideItemCraftingCosts` | repeated `(ItemClassString="...",BaseCraftingResourceRequirements=((ResourceItemTypeString="...",BaseResourceRequirement=<f>,bCraftingRequireExactResourceType=<b>),...))` | item â†’ resource requirements (master-detail) | Unknown | P2 |
 | 17 | `ConfigOverrideItemMaxQuantity` | repeated `(ItemClassString="...",Quantity=(MaxItemQuantity=<i>,bIgnoreMultiplier=<b>))` | stack override grid | Unknown | P1 |
 | 18 | `ItemStatClamps[0..7]` | indexed ints + `ClampItemStats=true` | 8-row stat matrix with enable warning | Unknown | P1 |
 | 19 | `ExcludeItemIndices` | repeated scalar | item list | Unknown | P2 |
@@ -769,13 +768,13 @@ reason a CSV-driven "just add fields" approach stops working.
 | 22 | `CheatTeleportLocations` | repeated `(TeleportName="...",TeleportLocation=(X=<f>,Y=<f>,Z=<f>))` | name + XYZ grid, map-gated | Yes | P2 |
 | 23 | `MutagenLevelBoost[0..11]`, `MutagenLevelBoost_Bred[0..11]` | indexed ints | 12-stat matrix, two tabs | Unknown | P2 |
 | 24 | `PlayerBaseStatMultipliers`, `PerLevelStatsMultiplier_{Player,DinoWild,DinoTamed,DinoTamed_Add,DinoTamed_Affinity}` | indexed floats | already modelled; add reset-to-official and inclusion masks | Yes/Unknown | P0 |
-| 25 | `ConfigOverrideSupplyCrateItems` | repeated, deeply nested: crate → item sets → entries → item class lists/weights | crate → set → entry (3 levels) | Unknown | P3 |
+| 25 | `ConfigOverrideSupplyCrateItems` | repeated, deeply nested: crate â†’ item sets â†’ entries â†’ item class lists/weights | crate â†’ set â†’ entry (3 levels) | Unknown | P3 |
 | 26 | `ActiveMods` (INI), `-passivemods` (CLI) | comma-separated CurseForge ids / launch list | mod list in General, passive-mod list in Advanced; `-mods` is legacy import only | Yes | P0 |
 | 27 | `GameDifficulties`, `NPCOverrideLevel`, `NPCMin*`/`NPCMax*`, `NPCsToSpawnPercentageChance`, `ManualSpawnPointSpreadRadius`, ... | nested per-difficulty structs, documented in the Game.ini section but missing from the option table | difficulty/NPC level editor | Unknown | P3 |
 
 Not in this list: `ConfigOverrideItemMaxQuantity`'s global companion `ItemStackSizeMultiplier`
-(scalar, §6.7), and `ConfigOverrideSupplyCrateItems`'s global companion
-`SupplyCrateLootQualityMultiplier` (scalar, §6.4).
+(scalar, Â§6.7), and `ConfigOverrideSupplyCrateItems`'s global companion
+`SupplyCrateLootQualityMultiplier` (scalar, Â§6.4).
 
 **Implemented so far (table slices 1-3):** `ClassMultiplier` and the **Tables** tab cover rows
 #2, #3 and #8: `DinoClassDamageMultipliers`, `DinoClassResistanceMultipliers`,
@@ -793,7 +792,7 @@ repeated scalar `OverridePlayerLevelEngramPoints` (`@Unsure`). The editor now us
 scrollable body and the Jewel form controls as cells. Class-name cells are free text with a
 searchable catalog picker (`ClassNameCell` + `ClassPickerDialog`), so a class can be found by
 name/name tag/class name or entered manually. The master-detail `DataTableEditor`, import/export
-and preview from §7.5 are still pending. Remaining table work: #4 tamed
+and preview from Â§7.5 are still pending. Remaining table work: #4 tamed
 speed/stamina (not in the CSV), #6/#7 NPC spawn containers, #10 indexed engram overrides, #13
 level XP ramps, #16 crafting costs, #19 exclude item indices, #25 supply crates, #27 difficulty
 structs, plus the scalar table headers `bAutoUnlockAllEngrams`/`bOnlyAllowSpecifiedEngrams`,
@@ -826,7 +825,7 @@ intentionally not implemented.
 **Serialization**
 
 - Spike first (Wave 0). Test each shape against inisaur:
-  1. [x] repeated struct line (`DinoClassDamageMultipliers=(...)` × N) — inisaur commits
+  1. [x] repeated struct line (`DinoClassDamageMultipliers=(...)` Ã— N) â€” inisaur commits
      `78cae67` (repeated struct arrays + ARK no-space formatting) and `208dffc` (single repeated
      line as a one-item struct list); the app requires a release containing both before CI can
      consume it from Maven.
@@ -834,7 +833,7 @@ intentionally not implemented.
   3. nested list of structs (`BaseCraftingResourceRequirements=((...),(...))`)
   4. indexed subkeys (`LevelExperienceRampOverrides=(ExperiencePointsForLevel[0]=1,...)`)
   5. duplicate key (`LevelExperienceRampOverrides` twice)
-  6. repeated scalar (`OverridePlayerLevelEngramPoints` × N)
+  6. repeated scalar (`OverridePlayerLevelEngramPoints` Ã— N)
   7. indexed map (`ItemStatClamps[0..7]`, `MutagenLevelBoost[0..11]`)
   8. semicolon string list (`ValgueroMemorialEntries`)
 - If inisaur handles a shape: model it with `@IniArray`/`@IniStruct`.
@@ -888,7 +887,7 @@ intentionally not implemented.
   increasing; engram cost/level >= 0; stack size >= 1; min <= max for quantities/qualities;
   teleport coordinates are finite.
 - Cross-field warnings:
-  - `ItemStatClamps` requires `ClampItemStats=true` (deep-link to §6.7).
+  - `ItemStatClamps` requires `ClampItemStats=true` (deep-link to Â§6.7).
   - `ConfigOverrideItemMaxQuantity` interacts with `ItemStackSizeMultiplier`
     (`bIgnoreMultiplier` bypasses it).
   - `OverridePlayerLevelEngramPoints` must have one entry per player level in the ramp.
@@ -902,34 +901,34 @@ intentionally not implemented.
 
 New **Tables** tab (phase 3) with a left-hand table list and a detail pane:
 
-- **Dinos** — spawn weights, wild class damage/resistance, tamed class damage/resistance,
+- **Dinos** â€” spawn weights, wild class damage/resistance, tamed class damage/resistance,
   speed/stamina, NPC replacements.
-- **Spawn containers** — add / override / subtract (same editor, mode switch).
-- **Engrams** — named/indexed overrides, auto-unlocks, global toggles.
-- **Levels** — player ramp + engram points, tame ramp, XP caps.
-- **Items** — crafting costs, stack overrides, stat clamps, excluded items, supply crates.
-- **Resources** — harvest multipliers.
-- **Mutagen** — wild/bred stat boosts.
-- **Teleports** — named teleport locations.
-- **Mods** — ordered `-mods` / `-passivemods` list (may live in General instead).
+- **Spawn containers** â€” add / override / subtract (same editor, mode switch).
+- **Engrams** â€” named/indexed overrides, auto-unlocks, global toggles.
+- **Levels** â€” player ramp + engram points, tame ramp, XP caps.
+- **Items** â€” crafting costs, stack overrides, stat clamps, excluded items, supply crates.
+- **Resources** â€” harvest multipliers.
+- **Mutagen** â€” wild/bred stat boosts.
+- **Teleports** â€” named teleport locations.
+- **Mods** â€” ordered `-mods` / `-passivemods` list (may live in General instead).
 
 The tab header shows the catalog version/date and a "raw lines" fallback for anything the editor
 cannot parse. Keep the Config Editor as the final escape hatch.
 
 ### 7.5 Work waves
 
-Do not build all editors at once. Each wave ends with the test gates in §8.
+Do not build all editors at once. Each wave ends with the test gates in Â§8.
 
-- **Wave 0 — serialization spike (S).** Prove inisaur/codecs for the 8 shapes above; write golden
+- **Wave 0 â€” serialization spike (S).** Prove inisaur/codecs for the 8 shapes above; write golden
   tests with the wiki examples. Gate: exact round-trip and idempotence.
-- **Wave 1 — infrastructure + simple maps/lists (M).** `DataTableEditor`, catalogs, import/export,
+- **Wave 1 â€” infrastructure + simple maps/lists (M).** `DataTableEditor`, catalogs, import/export,
   class multipliers (4), harvest resources, mutagen, stat clamps, prevent-breed/tame lists,
   exclude items, teleports, ordered mod list. Gate: UI tests + real server boot.
-- **Wave 2 — repeated structs (M).** spawn weights, NPC replacements, engram overrides,
+- **Wave 2 â€” repeated structs (M).** spawn weights, NPC replacements, engram overrides,
   auto-unlocks, stack overrides, crafting costs. Gate: golden INI + server parse check.
-- **Wave 3 — nested + duplicate keys (L).** spawn containers, supply crates, level ramps,
+- **Wave 3 â€” nested + duplicate keys (L).** spawn containers, supply crates, level ramps,
   engram points. Gate: master-detail UI tests + a 10k-row performance test.
-- **Wave 4 — undocumented/edge (M).** `GameDifficulties`/NPC level overrides, custom section
+- **Wave 4 â€” undocumented/edge (M).** `GameDifficulties`/NPC level overrides, custom section
   key/value editor, catalog editor, profile import from an existing install.
 
 ### 7.6 Data sources and licensing
@@ -962,7 +961,7 @@ value. The test plan targets each separately.
 | L3 integration | temp install dirs, H2 DB, import/save/reload | `core/src/test/kotlin/integration/` | same |
 | L4 UI / state | Decompose components, table editor, validation display | `ui/src/test/kotlin/` (+ Compose UI test deps) | `./gradlew :ui:test` |
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
-| L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
+| L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | â€” |
 
 Today: **57 core tests** pass (`IniRoundTripTest` 25, `SettingsStartupScriptTest` 15,
 `ServerIoTest` 7, RCON 5, catalog 4, table spike 1) plus **11 Python tests**; `:ui:compileKotlin`
@@ -977,22 +976,22 @@ existing behaviour, not only the new options:
 - scraper/audit/CSV invariants.
 
 Still uncovered: `ServersRepository`/H2 (the DB path is global `~/.aasm`), `PowerManager` process
-control, SteamCMD/install flows, and Compose UI. Those are phase 1/3 items (see §8.5/§8.6).
+control, SteamCMD/install flows, and Compose UI. Those are phase 1/3 items (see Â§8.5/Â§8.6).
 
 ### 8.2 Fixtures (build these once, reuse everywhere)
 
-- `official-defaults/` — `GameUserSettings.ini` + `Game.ini` captured from a freshly installed
+- `official-defaults/` â€” `GameUserSettings.ini` + `Game.ini` captured from a freshly installed
   ASA server, before the app ever writes them. This is the reference for "official defaults".
-- `kitchen-sink/` — generated profile where every modelled scalar is set to a non-default value
+- `kitchen-sink/` â€” generated profile where every modelled scalar is set to a non-default value
   and every table has at least two rows, including modded class names, quotes, and duplicate
   near-misses. This is the main serializer regression test.
-- `custom/` — hand-written config with unknown keys, comments, duplicate keys, mixed casing,
+- `custom/` â€” hand-written config with unknown keys, comments, duplicate keys, mixed casing,
   blank values, repeated arrays, and a table block the app does not model. It must survive a
   save byte-for-byte (apart from managed keys).
-- `real-server/` — a real profile from a live server (redact passwords, webhooks, ban URLs).
-- `startup/` — `.bat` variants: quoted spaces, extra args, old/new layouts, malformed values.
-- `db/` — at least one JSON row from the previous release, to test model upgrades.
-- `wiki/` — a saved raw wikitext snippet for the scraper (no network in CI).
+- `real-server/` â€” a real profile from a live server (redact passwords, webhooks, ban URLs).
+- `startup/` â€” `.bat` variants: quoted spaces, extra args, old/new layouts, malformed values.
+- `db/` â€” at least one JSON row from the previous release, to test model upgrades.
+- `wiki/` â€” a saved raw wikitext snippet for the scraper (no network in CI).
 
 Helper: `TestFixtures.redact(...)` for secrets; `@TempDir` for every write; never write into a
 developer's real server install.
@@ -1002,16 +1001,16 @@ developer's real server install.
 - **Per-property coverage**: reflect over `GameUserSettings`/`Game`/`Settings`, set each
   `@IniProperty`/`ArgOption` to a non-default, serialize, assert the exact key/value/type.
   Also assert default-omission rules (`@OmitIfNull`, forced flags, conditional fields).
-- **Round-trip**: parse fixture → model → serialize → parse → model equality.
+- **Round-trip**: parse fixture â†’ model â†’ serialize â†’ parse â†’ model equality.
 - **Idempotence**: serialize twice; second output must be byte-identical (stable order, floats,
   line endings).
-- **Unknown preservation**: `custom/` fixture in → out must contain every unmanaged key, comment
+- **Unknown preservation**: `custom/` fixture in â†’ out must contain every unmanaged key, comment
   and table block unchanged, in order.
 - **Quoting/escaping**: class names, commas, semicolons, `=` inside values, empty strings,
   Windows paths with spaces, non-ASCII server names.
 - **Duplicate keys**: the two `LevelExperienceRampOverrides` lines, repeated engram/cost lines,
   and repeated `-mods` values.
-- **Table codecs**: one golden test per shape from §7.3, using the exact wiki examples as input
+- **Table codecs**: one golden test per shape from Â§7.3, using the exact wiki examples as input
   and expected output. Include a "no spaces / one line" assertion.
 - **Launch args**: every `ArgKind` round-trips, list order is preserved, quoted paths with spaces
   survive, booleans are `True`/`False`, blank values are omitted/inferred correctly.
@@ -1030,10 +1029,10 @@ classification, CSV round-trip, byte-stable output.
 
 Add:
 
-- fixture-based snapshot: `wiki/Server_configuration.raw` → expected CSV (committed);
+- fixture-based snapshot: `wiki/Server_configuration.raw` â†’ expected CSV (committed);
 - catalog scraper tests (duplicate class names, missing columns, HTML entities, wiki redirects);
 - CSV invariants: 11 columns on every row, unique `(Location,name)`, no empty `name`,
-  `inASA`/`inASE` ∈ {Yes, No, Unknown}, `implemented` only Yes/empty, `default` parses for the
+  `inASA`/`inASE` âˆˆ {Yes, No, Unknown}, `implemented` only Yes/empty, `default` parses for the
   declared `type` where possible;
 - `--check --input fixture` in CI (offline); a weekly job fetches live and opens an issue/PR on
   drift. Never make PRs depend on the wiki being reachable.
@@ -1107,7 +1106,7 @@ Table option:
 - We can prove ARK *parses* a value and that the file matches the documented syntax; we cannot
   prove the gameplay effect matches the wiki without in-game tests. Keep "implemented" and
   "verified in game" as separate concepts (optionally add a `verified` column later).
-- The wiki is not authoritative (§2.1). Scraper drift is a signal, not a truth.
+- The wiki is not authoritative (Â§2.1). Scraper drift is a signal, not a truth.
 - No fuzzing of the whole INI parser initially; a small property-based test for scalar
   parse/format (integers, floats, booleans, quoted strings) is enough.
 - UI screenshot tests are out of scope until the theme stabilises.
@@ -1116,9 +1115,9 @@ Table option:
 
 ## 9. Roadmap
 
-### Phase 0 — Correctness + foundations + test harness (S, done except L5/CI)
+### Phase 0 â€” Correctness + foundations + test harness (S, done except L5/CI)
 
-1. [x] Fix the 10 issues in §4.
+1. [x] Fix the 10 issues in Â§4.
 2. [x] Extract the generic launch-argument emitter so `Options` supports `FLAG`, `FLAG_VALUE`,
    `LIST`, `QUERY`, `BOOLEAN_QUERY`.
 3. [ ] Add a `LaunchArguments` "raw extra args" string as an escape hatch (`-foo=bar`).
@@ -1132,21 +1131,21 @@ Table option:
 7. [x] Add a CI workflow (`.github/workflows/tests.yml`) for the Python tests, audit and
    `:core:test`/`:ui:compileKotlin`. [ ] Add UI tests when the table editor exists. The native
    `overseer` build is excluded until `conpty.lib` is fixed.
-8. [ ] L5 real-server acceptance for the mod decision (§8.6). This decides whether a `-mods`
-   mirror toggle is required.
+8. [ ] L5 real-server acceptance for the mod decision: confirm `ActiveMods` + always-on
+   `-mods=` downloads and loads mods.
 
 Exit: build green (with the native workaround), scrape is reproducible, the custom fixture
 survives save, launch-arg round-trip covers every `ArgKind`, audit reports 0 action items.
 
-### Phase 1 — New tabs with the high-value scalar options (M)
+### Phase 1 â€” New tabs with the high-value scalar options (M)
 
 Order by admin impact:
 
-1. [x] **Chat & HUD** — implemented (booleans, URL word filters, photo mode). Next:
+1. [x] **Chat & HUD** â€” implemented (booleans, URL word filters, photo mode). Next:
    [ ] **Structures & Items**.
-2. [x] **Structures & Items** — implemented. Next: [ ] **Admin & Security**.
-3. [x] **Admin & Security** — implemented. Next: [ ] **Advanced / Launch**.
-4. [x] **Advanced / Launch** — implemented. Next: extend the existing Rules/Environment/Players/
+2. [x] **Structures & Items** â€” implemented. Next: [ ] **Admin & Security**.
+3. [x] **Admin & Security** â€” implemented. Next: [ ] **Advanced / Launch**.
+4. [x] **Advanced / Launch** â€” implemented. Next: extend the existing Rules/Environment/Players/
    Dinos tabs.
 5. [x] **Dinos**, **Rules**, **Environment** and **Players** P0/P1. Next: optional
    **Cluster & Transfers** tab move.
@@ -1157,7 +1156,7 @@ Every option lands with its serialization/validation test (where non-trivial) an
 `kitchen-sink` update. Exit: every `inASA=Yes` scalar option is either modelled or explicitly
 listed as "intentionally omitted" (client-side / ASE-only) in this document.
 
-### Phase 2 — Dynamic config + expansion + presets (M)
+### Phase 2 â€” Dynamic config + expansion + presets (M)
 
 1. Dynamic Config section/tab: flag + URL + live-tuning URL + preview/validation, plus the
    "serve local file" helper (small HTTP server on loopback) and RCON `ForceUpdateDynamicConfig`.
@@ -1165,39 +1164,38 @@ listed as "intentionally omitted" (client-side / ASE-only) in this document.
 3. Map/event groups: `[Ragnarok]`, `UseAstraeosTraversalBuff`, `WorldBossKingKaijuSpawnTime`.
 4. Presets: "official defaults", "PvE relaxed", "PvP official-like", "import from install".
 5. Experimental (`@Unsure`) visual marker.
-6. If the L5 test shows INI-only mods do not download/load on a real server, add the
-   "mirror `ActiveMods` to `-mods=`" advanced toggle (off by default until proven).
+6. Keep the always-on `ActiveMods` â†’ `-mods=` mirror verified on a real server.
 
 Exit: a new server can be created from official defaults in one click and matches the wiki
 defaults for all modelled keys; the kitchen-sink profile still round-trips.
 
-### Phase 3 — Tables (L, split into waves; details in §7.5)
+### Phase 3 â€” Tables (L, split into waves; details in Â§7.5)
 
-1. **Wave 0** — [x] repeated-struct spike, golden tests and inisaur support (`78cae67`, `208dffc`);
+1. **Wave 0** â€” [x] repeated-struct spike, golden tests and inisaur support (`78cae67`, `208dffc`);
    remaining shapes still to spike.
-2. **Wave 1** — `DataTableEditor`, catalogs, import/export/preview; [x] class multipliers,
+2. **Wave 1** â€” `DataTableEditor`, catalogs, import/export/preview; [x] class multipliers,
    harvest resources, dino spawn weights, NPC replacements, engram overrides/auto-unlocks,
    prevent-breed/tame lists, item stat clamps, mutagen boosts, teleport locations, stack overrides
    and player level engram points; [ ] exclude items, level XP ramps, ordered mod list.
-3. **Wave 2** — spawn weights, NPC replacements, engram overrides, auto-unlocks, stack
+3. **Wave 2** â€” spawn weights, NPC replacements, engram overrides, auto-unlocks, stack
    overrides, crafting costs.
-4. **Wave 3** — spawn containers, supply crates, player/tame level ramps (duplicate keys and
+4. **Wave 3** â€” spawn containers, supply crates, player/tame level ramps (duplicate keys and
    `OverridePlayerLevelEngramPoints`), master-detail editors.
-5. **Wave 4** — `GameDifficulties`/NPC level overrides, custom section key/value editor,
+5. **Wave 4** â€” `GameDifficulties`/NPC level overrides, custom section key/value editor,
    catalog editor, "import from install" for existing tables.
 
-Exit: every table in §7.2 is either editable or explicitly "raw only" with a documented reason;
+Exit: every table in Â§7.2 is either editable or explicitly "raw only" with a documented reason;
 each has a golden INI test, a UI test and a real-server parse check.
 
-### Phase 4 — Search, import and polish (M)
+### Phase 4 â€” Search, import and polish (M)
 
 1. Settings search/jump (Ctrl+F) across all tabs and table editors.
-2. ASE→ASA profile import (best-effort translation; warn on ASE-only keys and unsupported
+2. ASEâ†’ASA profile import (best-effort translation; warn on ASE-only keys and unsupported
    tables).
 3. Catalog editing/reload for modded servers; catalog date shown in the UI.
-4. Performance pass: 10k-row tables, startup time, JSON row size (§11, item 8).
+4. Performance pass: 10k-row tables, startup time, JSON row size (Â§11, item 8).
 
-### Phase 5 — Live/runtime features (separate, L)
+### Phase 5 â€” Live/runtime features (separate, L)
 
 Not configuration, but the rest of the old manager's value:
 
@@ -1216,20 +1214,20 @@ Follow `.agents/skills/add-options/SKILL.md`; condensed:
 
 1. Confirm `Location`, `inASA`, `default`, `type` in `ArkServerOptions.csv`.
    If the option is missing, run `python tools/scrape-ark-options.py` first; do not hand-append.
-   `inASA=No` → skip with a note; `Unknown` → add `@Unsure`.
+   `inASA=No` â†’ skip with a note; `Unknown` â†’ add `@Unsure`.
 2. Add the property to the right class:
-   - `[ServerSettings]` → `GameUserSettings.kt` / `ServerSettings`
-   - `[SessionSettings]`, `[MessageOfTheDay]` → same file, matching class
-   - `Game.ini` scalar → `Game.kt` / `ShooterGameMode`
-   - `Game.ini` table/struct → `core/.../ini/tables/` + a reference from `ShooterGameMode` (§7.3)
-   - launch boolean → `Settings.kt` / `Options`
-   - launch valued/list → `Settings.kt` / `Administration` (or the new launch model)
+   - `[ServerSettings]` â†’ `GameUserSettings.kt` / `ServerSettings`
+   - `[SessionSettings]`, `[MessageOfTheDay]` â†’ same file, matching class
+   - `Game.ini` scalar â†’ `Game.kt` / `ShooterGameMode`
+   - `Game.ini` table/struct â†’ `core/.../ini/tables/` + a reference from `ShooterGameMode` (Â§7.3)
+   - launch boolean â†’ `Settings.kt` / `Options`
+   - launch valued/list â†’ `Settings.kt` / `Administration` (or the new launch model)
 3. Type and defaults exactly as ARK expects. Time values stay in ARK units in the model;
    convert only in Compose; say the unit in the label. When the unit is ambiguous (e.g.
    `TribeNameChangeCooldown`), store the raw value and say "value used by ARK" instead of guessing.
 4. Add `validateX()` and wire it into the section `validate()`.
 5. Reference the field from the right tab/section; booleans in a 2-3 column grid, sliders and
-   text fields full width. Tables go in the Tables tab (§7.4).
+   text fields full width. Tables go in the Tables tab (Â§7.4).
 6. Add `server_details_<tab>_<field>_label` / `_hint` to
    `ui/src/main/composeResources/values/strings_servers.xml`, written from the CSV `info`
    column (clean up wiki markup) and adjusted for manager-specific units/behaviour.
@@ -1257,7 +1255,7 @@ serializes deterministically.
    extraction pass (parse the section code examples) or maintain an `ArkServerOptions.extra.csv`.
 3. **inisaur coverage.** Nested ARK structs (`ConfigAddNPCSpawnEntriesContainer`,
    `ConfigOverrideSupplyCrateItems`, `Quantity=(...)`) and duplicate keys
-   (`LevelExperienceRampOverrides` ×2) may not round-trip. The Wave 0 spike is a hard gate: if a
+   (`LevelExperienceRampOverrides` Ã—2) may not round-trip. The Wave 0 spike is a hard gate: if a
    shape fails, use a dedicated `ArkStructCodec` or raw-line storage, never a lossy model.
 4. **Space-separated vs comma lists.** `-mods` is confirmed comma-separated. `-passivemods`
    likewise. Verify before implementing the list serializer.
@@ -1265,10 +1263,9 @@ serializes deterministically.
    `CustomDynamicConfigUrl` on some versions; quote values in INI/CLI. Validate accordingly and
    explain in the hint.
 6. **Mods in ASA are contradictory.** The wiki documents `-mods=` and its `ActiveMods` row still
-   references the ASE-only `?GameModIds`; hosting guides set both. We follow the decision in §0.1:
-   write `ActiveMods` only, import legacy `-mods`, do not emit `-mods`. **Override point:** add a
-   mirror toggle if a real server does not download/load mods from the INI. `ActiveMapMod` needs
-   verification for modded maps.
+   references the ASE-only `?GameModIds`; hosting guides set both. We write `ActiveMods` and always
+   mirror it to `-mods=`, importing legacy `-mods` only when the INI list is empty. Both lists are
+   generated from the same source. `ActiveMapMod` needs verification for modded maps.
 7. **Whitelist storage.** `-exclusivejoin` needs a player list mechanism outside the INI
    (verify current ASA path/format). Do not ship a whitelist UI until the file format is confirmed.
 8. **Default drift.** Changes to Kotlin defaults affect only new profiles; existing profiles need
@@ -1393,7 +1390,7 @@ $rows | Where-Object { $_.Location -eq 'Configuration Files > GameUserSettings.i
 
 - Wiki sections: `Creature Spawn related`, `Creature stats related`, `Engram Entries related`,
   `Items related`, `Players and tames levels override related`, `Stats related`.
-- Legacy model classes (schemas to mirror): `src/ARKServerManager/Lib/Model/` —
+- Legacy model classes (schemas to mirror): `src/ARKServerManager/Lib/Model/` â€”
   `DinoSpawn`, `ClassMultiplier`, `NPCReplacement`, `Level`, `CraftingOverride`,
   `StackSizeOverride`, `SupplyCrateOverride`, `EngramEntry`, `EngramAutoUnlock`,
   `ExcludeItemIndicesOverride`, `PreventTransferOverride`, `ResourceClassMultiplier`,
@@ -1403,7 +1400,7 @@ $rows | Where-Object { $_.Location -eq 'Configuration Files > GameUserSettings.i
 
 ---
 
-## 13. Next session — 2026-10-25
+## 13. Next session â€” 2026-10-25
 
 **Ship the first AASM RC with the new tables/catalogs**
 

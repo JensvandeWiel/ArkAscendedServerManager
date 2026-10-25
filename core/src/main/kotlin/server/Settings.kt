@@ -85,17 +85,10 @@ data class Administration(
     @field:ArgOption(name = "WinLiveMaxPlayers", kind = ArgKind.FLAG_VALUE, order = 7)
     val slots: Int = 70,
 
-    // Mods live in GameUserSettings.ini [ServerSettings] ActiveMods.
-    // `-mods` is still parsed for legacy imports, but is never emitted unless the
-    // user explicitly enables the mirror toggle below.
+    // Mods live in GameUserSettings.ini [ServerSettings] ActiveMods. `-mods` is
+    // parsed for legacy imports, and the launch line always mirrors ActiveMods so
+    // both ASA routes agree.
     val mods: List<String> = emptyList(),
-
-    /**
-     * App-only. When true, the launch line also gets `-mods=<ActiveMods>`.
-     * ASA documents `-mods=` as the route that downloads/updates CurseForge mods;
-     * the wiki also says the engine reads ActiveMods. Keep the lists identical.
-     */
-    val mirrorModsToLaunchArgs: Boolean = false,
 
     @field:ArgOption(name = "clusterid", kind = ArgKind.FLAG_VALUE, order = 9)
     val clusterId: String? = null,

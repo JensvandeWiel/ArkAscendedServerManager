@@ -3,7 +3,6 @@ package eu.wynq.arkascendedservermanager.ui.features.server.general
 import androidx.compose.runtime.Composable
 import arkascendedservermanager.ui.generated.resources.*
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import eu.wynq.arkascendedservermanager.ui.components.FormCheckboxField
 import eu.wynq.arkascendedservermanager.ui.components.FormFloatSliderField
 import eu.wynq.arkascendedservermanager.ui.components.FormSelectField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextField
@@ -37,8 +36,6 @@ fun MapAndModsSection(component: ServerComponent) {
     val activeMapModHint = stringResource(Res.string.server_details_active_map_mod_hint)
     val modsLabel = stringResource(Res.string.server_details_mods_label)
     val modsHint = stringResource(Res.string.server_details_mods_hint)
-    val mirrorModsLabel = stringResource(Res.string.server_details_mirror_mods_label)
-    val mirrorModsHint = stringResource(Res.string.server_details_mirror_mods_hint)
     val difficultyLabel = stringResource(Res.string.server_details_difficulty_offset_label)
     val difficultyHint = stringResource(Res.string.server_details_difficulty_offset_hint)
 
@@ -94,16 +91,6 @@ fun MapAndModsSection(component: ServerComponent) {
             label = modsLabel,
             hint = modsHint,
             error = !gameUserSettings.serverSettings.validateActiveMods(),
-        )
-        FormCheckboxField(
-            checked = settings.administration.mirrorModsToLaunchArgs,
-            onCheckedChange = { newValue ->
-                component.updateServerAdministrationSettings {
-                    it.copy(mirrorModsToLaunchArgs = newValue)
-                }
-            },
-            label = mirrorModsLabel,
-            hint = mirrorModsHint,
         )
         FormFloatSliderField(
             value = gameUserSettings.serverSettings.difficultyOffset,

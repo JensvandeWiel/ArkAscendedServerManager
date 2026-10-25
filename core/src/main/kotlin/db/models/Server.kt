@@ -97,12 +97,10 @@ data class Server(
         sb.append(Path.of(installationLocation, Constants.SERVER_BINARY_PATH, executableName).toAbsolutePath().toString().quote())
         sb.append(" ")
         val arguments = settings.toStartupScriptArguments().toMutableList()
-        if (settings.administration.mirrorModsToLaunchArgs) {
-            val mods = gameUserSettings.serverSettings.activeMods
-            if (mods.isNotEmpty()) {
-                arguments.add("-mods=${mods.joinToString(",")}")
-            }
-        }
+        // Keep the INI list and the launch-line list identical. ActiveMods is the
+        // source of truth; -mods is always emitted so both ASA routes agree.
+        val mods = gameUserSettings.serverSettings.activeMods
+        arguments.add("-mods=${mods.joinToString(",")}")
         sb.append(arguments.joinToString(" "))
         return sb.toString()
     }

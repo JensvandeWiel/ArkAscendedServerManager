@@ -188,21 +188,20 @@ class SettingsStartupScriptTest {
     }
 
     @Test
-    fun `mirrors ActiveMods to the launch line only when enabled`() {
-        fun server(mirror: Boolean) = Server(
+    fun `always mirrors ActiveMods to the launch line`() {
+        fun server() = Server(
             id = Uuid.parse("123e4567-e89b-12d3-a456-426614174000"),
             profileName = "Test Server",
             installationLocation = "C:\\Ark",
             asaApi = false,
-            settings = Settings(administration = Administration(mirrorModsToLaunchArgs = mirror)),
+            settings = Settings(administration = Administration()),
             gameUserSettings = GameUserSettings().copy(
                 serverSettings = ServerSettings(activeMods = listOf(111, 222))
             ),
             game = Game()
         )
 
-        assertTrue(!server(mirror = false).makeStartupScriptString().contains("-mods="))
-        assertTrue(server(mirror = true).makeStartupScriptString().contains("-mods=111,222"))
+        assertTrue(server().makeStartupScriptString().contains("-mods=111,222"))
     }
 
     @Test
