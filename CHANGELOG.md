@@ -1,3 +1,49 @@
+## v0.8.0-rc1
+
+### Feature
+
+- add ASA table editors, catalogs and inisaur 0.6.0 ([59b0a4a](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/59b0a4a))
+- add release candidate update channel ([687f8f4](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/687f8f4))
+- extend Environment and Players ([be051d4](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/be051d4))
+- extend Rules with offline pvp, decay and leveling ([50a0425](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/50a0425))
+- add dino breeding, tame limits and cryo settings ([0b1b647](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/0b1b647))
+- add official map picker and ActiveMapMod ([e4c5c39](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/e4c5c39))
+- add Advanced & Launch tab ([9108f5d](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/9108f5d))
+- add Admin & Security tab ([06076c4](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/06076c4))
+- add Structures & Items tab ([39bdfb6](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/39bdfb6))
+- add Chat & HUD tab ([8b01bb1](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/8b01bb1))
+- compare the legacy manager as a third source ([37e046b](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/37e046b))
+- audit all 554 options and reconcile implemented flags ([61f5d72](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/61f5d72))
+- add wiki option scraper and refresh ASA options ([9058f94](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/9058f94))
+
+### Fix
+
+- validate URLs, cover existing I/O and add mod mirror ([74da262](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/74da262))
+- correct ASA defaults and store mods in ActiveMods ([cd40314](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/cd40314))
+
+### Chore
+
+- mark Environment and Players options implemented ([7dfb837](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/7dfb837))
+- mark Rules P0/P1 options implemented ([3e764ef](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/3e764ef))
+- mark dino P0/P1 options implemented ([8061f7e](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/8061f7e))
+- mark ActiveMapMod implemented ([114eaee](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/114eaee))
+- mark Advanced & Launch options implemented ([fcdfdc0](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/fcdfdc0))
+- mark Admin & Security options implemented ([a667e2d](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/a667e2d))
+- mark Structures & Items options implemented ([497ee00](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/497ee00))
+- mark Chat & HUD options implemented ([55799aa](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/55799aa))
+- point add-options skill at the option scraper ([8041a13](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/8041a13))
+- update changelog for v0.7.2 ([2ec5edd](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/2ec5edd))
+- add nuget configuration and setup step in release workflow ([ae560bc](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ae560bc))
+- update changelog for v0.7.2 ([ee605cc](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/ee605cc))
+- update changelog for v0.7.1 ([3e9271f](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/3e9271f))
+
+### None
+
+- ci: authenticate GitHub Packages dependency resolution ([5369d29](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/5369d29))
+- ci: skip overseer checksum when native build is excluded ([08779c8](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/08779c8))
+- ci: add data pipeline and config tests ([0cce604](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/0cce604))
+
+
 ## v0.7.2
 
 ### Chore
