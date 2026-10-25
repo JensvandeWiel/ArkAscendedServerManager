@@ -1,3 +1,19 @@
+## v0.8.0-rc2
+
+### Feature
+
+- always mirror ActiveMods to -mods ([9e4801e](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/9e4801e))
+
+### Fix
+
+- correct Overseer version checks and AsaApi display version ([f1ed7fd](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/f1ed7fd))
+- bound textarea size inside vertically scrollable tabs ([4382d7d](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/4382d7d))
+
+### Chore
+
+- update changelog for v0.8.0-rc1 ([0598f7d](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/0598f7d))
+
+
 ## v0.8.0-rc1
 
 ### Feature
