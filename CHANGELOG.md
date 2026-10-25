@@ -1,3 +1,14 @@
+## v0.8.1-rc1
+
+### Fix
+
+- use full build version for update checks ([bb42608](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/bb42608))
+
+### Chore
+
+- update changelog for v0.8.0-rc6 ([77737b4](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/77737b4))
+
+
 ## v0.8.0-rc6
 
 ### Feature
