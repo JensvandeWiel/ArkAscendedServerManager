@@ -1,3 +1,14 @@
+## v0.8.0-rc5
+
+### Feature
+
+- scroll to and highlight searched options ([9201b54](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/9201b54))
+
+### Chore
+
+- update changelog for v0.8.0-rc4 ([cd27a3e](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/cd27a3e))
+
+
 ## v0.8.0-rc4
 
 ### Feature
