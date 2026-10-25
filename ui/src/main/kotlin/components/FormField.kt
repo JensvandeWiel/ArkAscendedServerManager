@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalFoundationApi::class)
+﻿@file:OptIn(ExperimentalFoundationApi::class)
 
 package eu.wynq.arkascendedservermanager.ui.components
 
@@ -871,7 +871,8 @@ fun FormTextarea(
                     TextArea(
                         state,
                         modifier = Modifier
-                            .fillMaxSize(),
+                            .weight(1f)
+                            .heightIn(min = 80.dp, max = 240.dp),
                         enabled = enabled,
                         readOnly = readOnly,
                         inputTransformation = inputTransformation,
@@ -887,11 +888,16 @@ fun FormTextarea(
             }
 
             LabelPosition.Above -> {
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
                     Text(label, style = JewelTheme.typography.labelTextStyle)
                     TextArea(
                         state,
-                        Modifier.fillMaxSize(),
+                        Modifier
+                            .fillMaxWidth()
+                            .heightIn(min = 80.dp, max = 240.dp),
                         enabled = enabled,
                         readOnly = readOnly,
                         inputTransformation = inputTransformation,
@@ -908,7 +914,7 @@ fun FormTextarea(
         }
     }
 
-    Row(modifier) {
+    Row(modifier.fillMaxWidth()) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
