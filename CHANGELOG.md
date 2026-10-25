@@ -1,3 +1,14 @@
+## v0.8.0-rc4
+
+### Feature
+
+- add global option search palette ([46ecc6e](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/46ecc6e))
+
+### Chore
+
+- update changelog for v0.8.0-rc3 ([1e96ad7](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/1e96ad7))
+
+
 ## v0.8.0-rc3
 
 ### Fix
