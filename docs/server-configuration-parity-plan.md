@@ -1412,6 +1412,10 @@ $rows | Where-Object { $_.Location -eq 'Configuration Files > GameUserSettings.i
 - [ ] Smoke-test the RC channel: stable install must not see the RC, RC install must see it, and
   `rc1 -> rc2` must work.
 - [ ] Verify the final `v0.18.0` release moves both stable and RC users onto the same build.
+- [ ] Rename RC installer assets to include the RC suffix (for example
+  `...-0.8.0-rc1-win-x64-nsis.exe`). `installerVersion` strips `-rcN` for the numeric NSIS
+  package version, so the release workflow needs to rename the artifact and update the `url` in
+  `rc.yml`.
 
 **Finish the table wave**
 
