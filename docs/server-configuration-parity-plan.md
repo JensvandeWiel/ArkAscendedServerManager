@@ -45,11 +45,11 @@ References used:
 
 `tools/audit-options.py` checks all 554 wiki rows against the Kotlin models and the UI.
 
-- **289 wiki rows modelled** by the audit (227 INI, 62 launch; names can overlap). The CSV marks
-  **285** rows `implemented=Yes`.
+- **293 wiki rows modelled** by the audit (231 INI, 62 launch; names can overlap). The CSV marks
+  **287** rows `implemented=Yes`.
 - **0 contradictions** after phase 0 (no ASA=No options, every Unknown has `@Unsure`, defaults
   and locations match).
-- **48 ASA=Yes scalar gaps**, **7 table/struct gaps**, **30 ASE-only rows**, **36
+- **47 ASA=Yes scalar gaps**, **6 table/struct gaps**, **30 ASE-only rows**, **36
   DynamicConfig rows**, **148 ASA=Unknown rows** (experimental candidates), **1** `-mods`
   covered by `ActiveMods`.
 - **Legacy manager comparison:** 293 entries, **8 legacy-only** (all ASE-only: SOTF, PGM and the
@@ -146,10 +146,10 @@ Currently modelled: 227 INI properties + 62 launch arguments (audit view).
 
 Audit view after phase 0 (see Â§0.2):
 
-- **289 modelled rows** (227 INI, 62 launch; some names appear in more than one place, e.g.
+- **293 modelled rows** (231 INI, 62 launch; some names appear in more than one place, e.g.
   `XPMultiplier` in the main config and DynamicConfig).
-- **48 ASA=Yes scalar gaps** â€” the real remaining scalar config work.
-- **7 table / struct gaps** â€” Â§7.
+- **47 ASA=Yes scalar gaps** â€” the real remaining scalar config work.
+- **6 table / struct gaps** â€” Â§7.
 - **30 ASE-only rows** â€” intentionally not ported.
 - **36 DynamicConfig rows** â€” separate file/mechanism, not normal INI keys.
 - **148 ASA=Unknown rows** â€” experimental candidates; do not ship as normal settings.
@@ -748,13 +748,13 @@ reason a CSV-driven "just add fields" approach stops working.
 | 1 | `DinoSpawnWeightMultipliers` | repeated `(DinoNameTag=<tag>,SpawnWeightMultiplier=<f>,OverrideSpawnLimitPercentage=<b>,SpawnLimitPercentage=<f>)` | grid: dino tag (catalog), weight, override flag, limit % | Unknown | P1 |
 | 2 | `DinoClassDamageMultipliers`, `DinoClassResistanceMultipliers` | repeated `(ClassName="<class>",Multiplier=<f>)` | wild-dino class multiplier grid | Unknown | P1 |
 | 3 | `TamedDinoClassDamageMultipliers`, `TamedDinoClassResistanceMultipliers` | same | tamed-dino class multiplier grid | Unknown | P1 |
-| 4 | `TamedDinoClassSpeedMultipliers`, `TamedDinoClassStaminaMultipliers` | same | tamed-dino class multiplier grid | not in table | P2 |
+| 4 | `TamedDinoClassSpeedMultipliers`, `TamedDinoClassStaminaMultipliers` | same | tamed-dino class multiplier grid | not in table; **implemented** with `@Unsure` | P2 |
 | 5 | `NPCReplacements` | repeated `(FromClassName="<class>",ToClassName="<class>")` | from â†’ to grid with catalog | Unknown | P1 |
 | 6 | `ConfigAddNPCSpawnEntriesContainer` | one line, nested `NPCSpawnEntries` + `NPCSpawnLimits` | container â†’ entries + limits (master-detail) | Yes | P2 |
 | 7 | `ConfigOverrideNPCSpawnEntriesContainer`, `ConfigSubtractNPCSpawnEntriesContainer` | same shape | same editor, mode switch | Unknown | P2 |
 | 8 | `HarvestResourceItemAmountClassMultipliers` | repeated `(ClassName="<resource>",Multiplier=<f>)` | resource multiplier grid | Yes | P1 |
 | 9 | `OverrideNamedEngramEntries` | repeated `(EngramClassName="<engram>",EngramHidden=<b>,EngramPointsCost=<i>,EngramLevelRequirement=<i>,RemoveEngramPreReq=<b>)` | engram grid (class, level, cost, hidden, no-prereq) | Yes | P1 |
-| 10 | `OverrideEngramEntries` | repeated `(EngramIndex=<i>,EngramHidden=...,...)` | same grid, indexed mode | Unknown | P2 |
+| 10 | `OverrideEngramEntries` | repeated `(EngramIndex=<i>,EngramHidden=...,...)` | same grid, indexed mode; **implemented** with `@Unsure` | Unknown | P2 |
 | 11 | `EngramEntryAutoUnlocks` | repeated `(EngramClassName="<engram>",LevelToAutoUnlock=<i>)` | engram auto-unlock grid | Unknown | P1 |
 | 12 | `bAutoUnlockAllEngrams`, `bOnlyAllowSpecifiedEngrams` | scalar booleans | engram page header | Unknown | P1 |
 | 13 | `LevelExperienceRampOverrides` | one line, `(ExperiencePointsForLevel[0]=..,...,[N]=..)`, **twice** (players then tames) | level ramp editor, player + tame tabs | Yes | P1 |
@@ -763,7 +763,7 @@ reason a CSV-driven "just add fields" approach stops working.
 | 16 | `ConfigOverrideItemCraftingCosts` | repeated `(ItemClassString="...",BaseCraftingResourceRequirements=((ResourceItemTypeString="...",BaseResourceRequirement=<f>,bCraftingRequireExactResourceType=<b>),...))` | item â†’ resource requirements (master-detail) | Unknown | P2 |
 | 17 | `ConfigOverrideItemMaxQuantity` | repeated `(ItemClassString="...",Quantity=(MaxItemQuantity=<i>,bIgnoreMultiplier=<b>))` | stack override grid | Unknown | P1 |
 | 18 | `ItemStatClamps[0..7]` | indexed ints + `ClampItemStats=true` | 8-row stat matrix with enable warning | Unknown | P1 |
-| 19 | `ExcludeItemIndices` | repeated scalar | item list | Unknown | P2 |
+| 19 | `ExcludeItemIndices` | repeated scalar | item-ID list; **implemented** | Yes | P2 |
 | 20 | `PreventBreedingForClassNames`, `PreventDinoTameClassNames` | repeated class name | tag list with catalog | Yes / Unknown | P1 |
 | 21 | `ValgueroMemorialEntries` | semicolon-separated names | tag list | Yes | P2 |
 | 22 | `CheatTeleportLocations` | repeated `(TeleportName="...",TeleportLocation=(X=<f>,Y=<f>,Z=<f>))` | name + XYZ grid, map-gated | Yes | P2 |
@@ -789,15 +789,23 @@ The second slice adds `DinoSpawnWeightMultipliers` (#1, `@Unsure`), `NPCReplacem
 The third slice adds the indexed tables `ItemStatClamps[0..7]`, `MutagenLevelBoost[0..11]` and
 `MutagenLevelBoost_Bred[0..11]` (all `@Unsure`), the nested-struct tables
 `CheatTeleportLocations` (verified) and `ConfigOverrideItemMaxQuantity` (`@Unsure`), and the
-repeated scalar `OverridePlayerLevelEngramPoints` (`@Unsure`). The editor now uses a shared `DataTable` component with aligned columns, a header row,
+repeated scalar `OverridePlayerLevelEngramPoints` (`@Unsure`). A fourth slice adds
+`TamedDinoClassSpeedMultipliers` and `TamedDinoClassStaminaMultipliers` (#4, `@Unsure`; absent
+from the CSV), the indexed `OverrideEngramEntries` grid (#10, `@Unsure`) and the verified
+`ExcludeItemIndices` item-ID list (#19).
+The editor now uses a shared `DataTable` component with aligned columns, a header row,
 scrollable body and the Jewel form controls as cells. Class-name cells are free text with a
 searchable catalog picker (`ClassNameCell` + `ClassPickerDialog`), so a class can be found by
-name/name tag/class name or entered manually. The master-detail `DataTableEditor`, import/export
-and preview from Â§7.5 are still pending. Remaining table work: #4 tamed
-speed/stamina (not in the CSV), #6/#7 NPC spawn containers, #10 indexed engram overrides, #13
-level XP ramps, #16 crafting costs, #19 exclude item indices, #25 supply crates, #27 difficulty
-structs, plus the scalar table headers `bAutoUnlockAllEngrams`/`bOnlyAllowSpecifiedEngrams`,
-`OverrideMaxExperiencePoints*` and `ValgueroMemorialEntries`.
+name/name tag/class name or entered manually. Rows now have move-up, move-down, duplicate and
+delete actions; invalid rows (empty, duplicate or negative) get a red outline; and the catalogs'
+generation date is shown above the tables. The master-detail `DataTableEditor`, import/export
+and preview from Â§7.5 are still pending. Remaining table work: #6/#7 NPC spawn containers, #13 level XP ramps, #16 crafting costs,
+#25 supply crates, #27 difficulty structs, plus the scalar table headers
+`bAutoUnlockAllEngrams`/`bOnlyAllowSpecifiedEngrams`, `OverrideMaxExperiencePoints*` and
+`ValgueroMemorialEntries`. These all need nested collections inside a struct (map/list of child
+structs). inisaur `0.6.0` supports repeated top-level structs but not a map or list inside a
+struct (a level-ramp spike fails with `ClassCastException` in `StructValue.toString`), so extend
+inisaur before implementing them.
 
 **Legacy manager table parity:** the old manager's `DinoClass*`, `TamedDinoClass*`,
 `HarvestResourceItemAmountClassMultipliers`, `DinoSpawnWeightMultipliers`, `NPCReplacements`,
@@ -876,8 +884,9 @@ intentionally not implemented.
   `DataTableColumn<T>` cells. Implemented, using the existing Jewel form controls as cells.
 - `ClassNameCell` / `ClassPickerDialog`: free-text class name plus a searchable catalog dialog.
   Implemented; catalogs are search aids, custom class names are always accepted.
-- Still pending: add/duplicate/delete/reorder beyond the current add/remove, multi-select,
-  keyboard navigation, per-table filters, import/export, preview and row validation colouring.
+- Implemented: add, duplicate, reorder (move up/down), delete, and row validation colouring
+  (red outline for empty, duplicate or negative values).
+- Still pending: multi-select, keyboard navigation, per-table filters, import/export and preview.
 - `MasterDetailEditor<TParent,TChild>` for crafting costs, spawn containers and supply crates.
 - Toolbar: "Add row", "Import", "Export", "Reset", "Preview", row count, validation summary.
 
@@ -1175,11 +1184,12 @@ defaults for all modelled keys; the kitchen-sink profile still round-trips.
 1. **Wave 0** â€” [x] repeated-struct spike, golden tests and inisaur support (`78cae67`, `208dffc`);
    remaining shapes still to spike.
 2. **Wave 1** â€” `DataTableEditor`, catalogs, import/export/preview; [x] class multipliers,
-   harvest resources, dino spawn weights, NPC replacements, engram overrides/auto-unlocks,
-   prevent-breed/tame lists, item stat clamps, mutagen boosts, teleport locations, stack overrides
-   and player level engram points; [ ] exclude items, level XP ramps, ordered mod list.
-3. **Wave 2** â€” spawn weights, NPC replacements, engram overrides, auto-unlocks, stack
-   overrides, crafting costs.
+   harvest resources, dino spawn weights, NPC replacements, named/indexed engram overrides,
+   auto-unlocks, prevent-breed/tame lists, item stat clamps, mutagen boosts, teleport locations,
+   stack overrides, player level engram points, excluded item IDs and tamed speed/stamina
+   multipliers; [ ] level XP ramps, ordered mod list.
+3. **Wave 2** â€” [x] spawn weights, NPC replacements, engram overrides, auto-unlocks, stack
+   overrides; [ ] crafting costs.
 4. **Wave 3** â€” spawn containers, supply crates, player/tame level ramps (duplicate keys and
    `OverridePlayerLevelEngramPoints`), master-detail editors.
 5. **Wave 4** â€” `GameDifficulties`/NPC level overrides, custom section key/value editor,
@@ -1191,10 +1201,10 @@ each has a golden INI test, a UI test and a real-server parse check.
 ### Phase 4 â€” Search, import and polish (M)
 
 1. [x] Settings search/jump: generated palette (`Ctrl+F` / **Find settings**) across all tabs;
-   selecting a result switches tab. [ ] Scroll/highlight the exact field.
+   selecting a result switches tab, scrolls to the exact field and highlights it.
 2. ASEâ†’ASA profile import (best-effort translation; warn on ASE-only keys and unsupported
    tables).
-3. Catalog editing/reload for modded servers; catalog date shown in the UI.
+3. [ ] Catalog editing/reload for modded servers. [x] Catalog date shown in the UI.
 4. Performance pass: 10k-row tables, startup time, JSON row size (Â§11, item 8).
 
 ### Phase 5 â€” Live/runtime features (separate, L)

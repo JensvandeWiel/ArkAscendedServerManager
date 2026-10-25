@@ -433,7 +433,7 @@ Configuration Files > Game.ini,DinoSpawnWeightMultipliers,Unknown,Yes,(...),N/A,
 Configuration Files > Game.ini,DinoTurretDamageMultiplier,Unknown,Yes,float,1.0,modeled-game,dinoTurretDamageMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,EggHatchSpeedMultiplier,Yes,Yes,float,1.0,modeled-game,eggHatchSpeedMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,EngramEntryAutoUnlocks,Unknown,Yes,(...),N/A,modeled-game,engramEntryAutoUnlocks,Game.kt,List<EngramAutoUnlock>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,ExcludeItemIndices,Yes,Yes,integer,N/A,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,ExcludeItemIndices,Yes,Yes,integer,N/A,modeled-game,excludeItemIndices,Game.kt,List<Int>,emptyList(),,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,FastDecayInterval,Unknown,Yes,integer,43200,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,FishingLootQualityMultiplier,Unknown,Yes,float,1.0,modeled-game,fishingLootQualityMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,FuelConsumptionIntervalMultiplier,Unknown,Yes,float,1.0,modeled-game,fuelConsumptionIntervalMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
@@ -466,7 +466,7 @@ Configuration Files > Game.ini,MaxTribesPerAlliance,Unknown,Yes,integer,N/A,mode
 Configuration Files > Game.ini,NPCReplacements,Unknown,Yes,(...),N/A,modeled-game,npcReplacements,Game.kt,List<NpcReplacement>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,OverrideMaxExperiencePointsDino,Unknown,Yes,integer,N/A,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,OverrideMaxExperiencePointsPlayer,Unknown,Yes,integer,N/A,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,OverrideEngramEntries,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,,
+Configuration Files > Game.ini,OverrideEngramEntries,Unknown,Yes,(...),N/A,modeled-game,overrideEngramEntries,Game.kt,List<EngramIndexOverride>,emptyList(),yes,Yes,,,,
 Configuration Files > Game.ini,OverrideNamedEngramEntries,Yes,Yes,(...),N/A,modeled-game,overrideNamedEngramEntries,Game.kt,List<EngramOverride>,emptyList(),,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,OverridePlayerLevelEngramPoints,Unknown,Yes,integer,N/A,modeled-game,overridePlayerLevelEngramPoints,Game.kt,List<Int>,emptyList(),yes,Yes,,,,
 Configuration Files > Game.ini,PassiveTameIntervalMultiplier,Unknown,Yes,float,1.0,modeled-game,passiveTameIntervalMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini

@@ -34,6 +34,11 @@ class CatalogTest {
     }
 
     @Test
+    fun `catalog exposes its generation date`() {
+        assertTrue(ArkCatalogs.generatedAt.isNotBlank(), "the shipped catalog should have a generation date")
+    }
+
+    @Test
     fun `search matches names class names tags and aliases`() {
         val results = ArkCatalogs.search(ArkCatalogs.creatures, "mega rex")
 

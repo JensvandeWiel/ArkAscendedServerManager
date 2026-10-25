@@ -3,6 +3,7 @@ package eu.wynq.arkascendedservermanager.core.ini
 import eu.wynq.arkascendedservermanager.core.ini.tables.ClassMultiplier
 import eu.wynq.arkascendedservermanager.core.ini.tables.DinoSpawnWeight
 import eu.wynq.arkascendedservermanager.core.ini.tables.EngramAutoUnlock
+import eu.wynq.arkascendedservermanager.core.ini.tables.EngramIndexOverride
 import eu.wynq.arkascendedservermanager.core.ini.tables.EngramOverride
 import eu.wynq.arkascendedservermanager.core.ini.tables.NpcReplacement
 import eu.wynq.arkascendedservermanager.core.ini.tables.StackOverride
@@ -439,6 +440,9 @@ class IniRoundTripTest {
             overrideNamedEngramEntries = listOf(
                 EngramOverride("EngramEntry_StoneHatchet_C", false, 5, 1, false)
             ),
+            overrideEngramEntries = listOf(
+                EngramIndexOverride(18, true, 3, 2, true)
+            ),
             engramEntryAutoUnlocks = listOf(
                 EngramAutoUnlock("EngramEntry_StoneHatchet_C", 1)
             ),
@@ -452,6 +456,7 @@ class IniRoundTripTest {
                 StackOverride("PrimalItemResource_Thatch_C", StackQuantity(100, true))
             ),
             overridePlayerLevelEngramPoints = listOf(0, 10, 15),
+            excludeItemIndices = listOf(0, 150),
         )
 
         val text = IniSerializer.serialize(Game(shooterGameMode = mode))
@@ -461,6 +466,7 @@ class IniRoundTripTest {
         assertTrue(text.contains("PreventBreedingForClassNames=\"Rex_Character_BP_C\""))
         assertTrue(text.contains("PreventDinoTameClassNames=\"Giganotosaurus_Character_BP_C\""))
         assertTrue(text.contains("OverrideNamedEngramEntries=(EngramClassName=\"EngramEntry_StoneHatchet_C\""))
+        assertTrue(text.contains("OverrideEngramEntries=(EngramHidden=True,EngramIndex=18"))
         assertTrue(text.contains("EngramEntryAutoUnlocks=(EngramClassName=\"EngramEntry_StoneHatchet_C\""))
         assertTrue(text.contains("ItemStatClamps[0]=1"))
         assertTrue(text.contains("ItemStatClamps[1]=2"))
@@ -472,6 +478,8 @@ class IniRoundTripTest {
         assertTrue(text.contains("OverridePlayerLevelEngramPoints=0"))
         assertTrue(text.contains("OverridePlayerLevelEngramPoints=10"))
         assertTrue(text.contains("OverridePlayerLevelEngramPoints=15"))
+        assertTrue(text.contains("ExcludeItemIndices=0"))
+        assertTrue(text.contains("ExcludeItemIndices=150"))
 
         val parsed = IniSerializer.deserialize<Game>(text)
         assertEquals(mode, parsed.shooterGameMode)
@@ -487,6 +495,8 @@ class IniRoundTripTest {
             dinoClassResistanceMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 2.0f)),
             tamedDinoClassDamageMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 3.0f)),
             tamedDinoClassResistanceMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 4.0f)),
+            tamedDinoClassSpeedMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 1.5f)),
+            tamedDinoClassStaminaMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 2.5f)),
             harvestResourceItemAmountClassMultipliers = listOf(
                 ClassMultiplier("PrimalItemResource_Thatch_C", 2.0f)
             ),

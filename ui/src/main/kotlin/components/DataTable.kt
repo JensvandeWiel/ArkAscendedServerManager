@@ -41,6 +41,7 @@ fun <T> DataTable(
     emptyText: String,
     modifier: Modifier = Modifier,
     maxBodyHeight: Int = 420,
+    rowError: ((T) -> Boolean)? = null,
 ) {
     Column(
         modifier
@@ -80,6 +81,17 @@ fun <T> DataTable(
                                     JewelTheme.globalColors.toolwindowBackground
                                 } else {
                                     JewelTheme.globalColors.panelBackground
+                                }
+                            )
+                            .then(
+                                if (rowError?.invoke(row) == true) {
+                                    Modifier.border(
+                                        width = 1.dp,
+                                        color = JewelTheme.globalColors.outlines.error,
+                                        shape = RectangleShape,
+                                    )
+                                } else {
+                                    Modifier
                                 }
                             )
                             .padding(horizontal = 8.dp, vertical = 2.dp),

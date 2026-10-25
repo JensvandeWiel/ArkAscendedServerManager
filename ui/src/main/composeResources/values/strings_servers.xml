@@ -818,12 +818,16 @@
     <!-- Tables -->
     <string name="server_details_tables_tab">Tables</string>
     <string name="server_details_tables_intro">Repeated-struct options are edited as a table: one row per class. Unknown or unconfirmed ASA support is grouped as experimental.</string>
+    <string name="server_details_tables_catalog_info">Class catalogs generated %1$s from the ASA wiki and legacy game data. Catalog entries are suggestions; custom classnames can always be typed in.</string>
+    <string name="server_details_tables_invalid_row">Rows with a red outline have an empty, duplicate or negative value.</string>
     <string name="server_details_tables_experimental_header">Experimental — ASA support not confirmed</string>
     <string name="server_details_tables_verified_header">Verified in ASA</string>
     <string name="server_details_tables_wild_damage_label">Wild dino damage multipliers</string>
     <string name="server_details_tables_wild_resistance_label">Wild dino resistance multipliers</string>
     <string name="server_details_tables_tamed_damage_label">Tamed dino damage multipliers</string>
     <string name="server_details_tables_tamed_resistance_label">Tamed dino resistance multipliers</string>
+    <string name="server_details_tables_tamed_speed_label">Tamed dino speed multipliers</string>
+    <string name="server_details_tables_tamed_stamina_label">Tamed dino stamina multipliers</string>
     <string name="server_details_tables_harvest_resource_label">Harvest resource multipliers</string>
     <string name="server_details_tables_class_multiplier_hint">One row per class. Class names are creature classnames (for example Rex_Character_BP_C); use the exact classname from the Creature IDs page.</string>
     <string name="server_details_tables_harvest_resource_hint">One row per resource item class (for example PrimalItemResource_Thatch_C).</string>
@@ -831,6 +835,9 @@
     <string name="server_details_tables_multiplier_label">Multiplier</string>
     <string name="server_details_tables_add_row">Add row</string>
     <string name="server_details_tables_remove">Remove</string>
+    <string name="server_details_tables_move_up">Move up</string>
+    <string name="server_details_tables_move_down">Move down</string>
+    <string name="server_details_tables_duplicate">Duplicate</string>
     <string name="server_details_tables_empty">No rows yet.</string>
     <string name="server_details_find_settings">Find settings</string>
     <string name="server_details_find_settings_title">Find settings</string>
@@ -853,13 +860,15 @@
     <string name="server_details_tables_prevent_tame_hint">Classnames that are not allowed to be tamed.</string>
     <string name="server_details_tables_engram_overrides_label">Engram overrides</string>
     <string name="server_details_tables_engram_overrides_hint">Override an engram's level, cost, visibility and prerequisite requirements. Use the EngramEntry_... classname.</string>
+    <string name="server_details_tables_engram_index_overrides_label">Indexed engram overrides</string>
+    <string name="server_details_tables_engram_index_overrides_hint">Legacy index-based engram overrides. ASA support is unconfirmed; prefer the named engram overrides above.</string>
     <string name="server_details_tables_engram_auto_unlocks_label">Engram auto-unlocks</string>
     <string name="server_details_tables_engram_auto_unlocks_hint">Automatically unlock an engram at the given level. Use the EngramEntry_... classname.</string>
     <string name="server_details_tables_engram_class_label">Engram class name</string>
     <string name="server_details_tables_engram_level_label">Level requirement</string>
     <string name="server_details_tables_engram_points_label">Points cost</string>
     <string name="server_details_tables_engram_hidden_label">Hidden</string>
-    <string name="server_details_tables_engram_remove_prereq_label">Remove prerequisites</string>
+    <string name="server_details_tables_engram_remove_prereq_column">Remove prerequisites</string>
     <string name="server_details_tables_auto_unlock_level_label">Auto-unlock level</string>
     <string name="server_details_tables_item_stat_clamps_label">Item stat clamps</string>
     <string name="server_details_tables_item_stat_clamps_hint">Caps item stats at a maximum value. Leave disabled to use the game defaults.</string>
@@ -891,6 +900,9 @@
     <string name="server_details_tables_level_engram_points_label">Player level engram points</string>
     <string name="server_details_tables_level_engram_points_hint">Engram points awarded per player level. The first row is level 0.</string>
     <string name="server_details_tables_level_label">Level</string>
+    <string name="server_details_tables_exclude_items_label">Excluded item indices</string>
+    <string name="server_details_tables_exclude_items_hint">Item IDs excluded from supply crates. One item ID per row.</string>
+    <string name="server_details_tables_col_item_id">Item ID</string>
     <string name="server_details_tables_col_class">Class</string>
     <string name="server_details_tables_col_multiplier">Multiplier</string>
     <string name="server_details_tables_col_name_tag">Name tag</string>
@@ -899,6 +911,7 @@
     <string name="server_details_tables_col_limit">Limit %</string>
     <string name="server_details_tables_col_from">From</string>
     <string name="server_details_tables_col_to">To</string>
+    <string name="server_details_tables_col_index">Index</string>
     <string name="server_details_tables_col_engram">Engram</string>
     <string name="server_details_tables_col_hidden">Hidden</string>
     <string name="server_details_tables_col_points">Points</string>

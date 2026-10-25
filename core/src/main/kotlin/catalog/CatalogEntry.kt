@@ -45,19 +45,28 @@ data class Catalog(
 
 object ArkCatalogs {
     private val json = Json { ignoreUnknownKeys = true }
+    private val catalogs = mutableMapOf<String, Catalog>()
 
-    val creatures: List<CatalogEntry> by lazy { load("creatures") }
-    val engrams: List<CatalogEntry> by lazy { load("engrams") }
-    val items: List<CatalogEntry> by lazy { load("items") }
-    val resources: List<CatalogEntry> by lazy { load("resources") }
+    val creatures: List<CatalogEntry> by lazy { catalog("creatures").entries }
+    val engrams: List<CatalogEntry> by lazy { catalog("engrams").entries }
+    val items: List<CatalogEntry> by lazy { catalog("items").entries }
+    val resources: List<CatalogEntry> by lazy { catalog("resources").entries }
 
-    fun load(kind: String): List<CatalogEntry> {
-        val stream = ArkCatalogs::class.java.getResourceAsStream("/catalogs/asa/$kind.json")
-            ?: return emptyList()
-        return stream.use { input ->
-            json.decodeFromString<Catalog>(input.reader(Charsets.UTF_8).readText()).entries
+    /** Generation date of the shipped catalogs, for display in the table editors. */
+    val generatedAt: String by lazy { catalog("creatures").generatedAt }
+
+    @Synchronized
+    private fun catalog(kind: String): Catalog {
+        return catalogs.getOrPut(kind) {
+            val stream = ArkCatalogs::class.java.getResourceAsStream("/catalogs/asa/$kind.json")
+                ?: return@getOrPut Catalog()
+            stream.use { input ->
+                json.decodeFromString<Catalog>(input.reader(Charsets.UTF_8).readText())
+            }
         }
     }
+
+    fun load(kind: String): List<CatalogEntry> = catalog(kind).entries
 
     fun search(entries: List<CatalogEntry>, query: String, limit: Int = 100): List<CatalogEntry> {
         val trimmed = query.trim()

@@ -11,6 +11,7 @@ import ArrayType
 import eu.wynq.arkascendedservermanager.core.ini.tables.ClassMultiplier
 import eu.wynq.arkascendedservermanager.core.ini.tables.DinoSpawnWeight
 import eu.wynq.arkascendedservermanager.core.ini.tables.EngramAutoUnlock
+import eu.wynq.arkascendedservermanager.core.ini.tables.EngramIndexOverride
 import eu.wynq.arkascendedservermanager.core.ini.tables.EngramOverride
 import eu.wynq.arkascendedservermanager.core.ini.tables.NpcReplacement
 import eu.wynq.arkascendedservermanager.core.ini.tables.StackOverride
@@ -215,6 +216,14 @@ data class ShooterGameMode(
     @IniArray(arrayType = ArrayType.RepeatedLineArray)
     @Unsure
     val tamedDinoClassResistanceMultipliers: List<ClassMultiplier> = emptyList(),
+    @IniProperty("TamedDinoClassSpeedMultipliers")
+    @IniArray(arrayType = ArrayType.RepeatedLineArray)
+    @Unsure
+    val tamedDinoClassSpeedMultipliers: List<ClassMultiplier> = emptyList(),
+    @IniProperty("TamedDinoClassStaminaMultipliers")
+    @IniArray(arrayType = ArrayType.RepeatedLineArray)
+    @Unsure
+    val tamedDinoClassStaminaMultipliers: List<ClassMultiplier> = emptyList(),
     @IniProperty("HarvestResourceItemAmountClassMultipliers")
     @IniArray(arrayType = ArrayType.RepeatedLineArray)
     val harvestResourceItemAmountClassMultipliers: List<ClassMultiplier> = emptyList(),
@@ -236,6 +245,10 @@ data class ShooterGameMode(
     @IniProperty("OverrideNamedEngramEntries")
     @IniArray(arrayType = ArrayType.RepeatedLineArray)
     val overrideNamedEngramEntries: List<EngramOverride> = emptyList(),
+    @IniProperty("OverrideEngramEntries")
+    @IniArray(arrayType = ArrayType.RepeatedLineArray)
+    @Unsure
+    val overrideEngramEntries: List<EngramIndexOverride> = emptyList(),
     @IniProperty("EngramEntryAutoUnlocks")
     @IniArray(arrayType = ArrayType.RepeatedLineArray)
     @Unsure
@@ -251,6 +264,9 @@ data class ShooterGameMode(
     @IniArray(arrayType = ArrayType.RepeatedLineArray)
     @Unsure
     val overridePlayerLevelEngramPoints: List<Int> = emptyList(),
+    @IniProperty("ExcludeItemIndices")
+    @IniArray(arrayType = ArrayType.RepeatedLineArray)
+    val excludeItemIndices: List<Int> = emptyList(),
     @IniProperty("PassiveTameIntervalMultiplier")
     @Unsure
     val passiveTameIntervalMultiplier: Float = 1.0f,
@@ -320,6 +336,8 @@ data class ShooterGameMode(
         dinoClassResistanceMultipliers,
         tamedDinoClassDamageMultipliers,
         tamedDinoClassResistanceMultipliers,
+        tamedDinoClassSpeedMultipliers,
+        tamedDinoClassStaminaMultipliers,
         harvestResourceItemAmountClassMultipliers,
     ).all { rows ->
         rows.all { it.className.isNotBlank() && it.multiplier >= 0 } &&
@@ -336,6 +354,9 @@ data class ShooterGameMode(
     fun validateEngramAutoUnlocks() = engramEntryAutoUnlocks.all {
         it.engramClassName.isNotBlank() && it.levelToAutoUnlock >= 0
     } && engramEntryAutoUnlocks.map { it.engramClassName.lowercase() }.distinct().size == engramEntryAutoUnlocks.size
+    fun validateIndexedEngramOverrides() = overrideEngramEntries.all {
+        it.engramIndex >= 0 && it.engramPointsCost >= 0 && it.engramLevelRequirement >= 0
+    } && overrideEngramEntries.map { it.engramIndex }.distinct().size == overrideEngramEntries.size
     fun validateClassLists() = listOf(preventBreedingForClassNames, preventDinoTameClassNames).all { classes ->
         classes.all { it.isNotBlank() } && classes.map { it.lowercase() }.distinct().size == classes.size
     }
@@ -353,10 +374,13 @@ data class ShooterGameMode(
         it.itemClassString.isNotBlank() && it.quantity.maxItemQuantity >= 1
     } && configOverrideItemMaxQuantity.map { it.itemClassString.lowercase() }.distinct().size == configOverrideItemMaxQuantity.size
     fun validateLevelEngramPoints() = overridePlayerLevelEngramPoints.all { it >= 0 }
+    fun validateExcludeItemIndices() = excludeItemIndices.all { it >= 0 } &&
+            excludeItemIndices.distinct().size == excludeItemIndices.size
     fun validateTables() = validateDinoSpawnWeights() && validateNpcReplacements() &&
-            validateEngramOverrides() && validateEngramAutoUnlocks() && validateClassLists() &&
-            validateItemStatClamps() && validateMutagenLevelBoosts() && validateTeleports() &&
-            validateStackOverrides() && validateLevelEngramPoints()
+            validateEngramOverrides() && validateEngramAutoUnlocks() && validateIndexedEngramOverrides() &&
+            validateClassLists() && validateItemStatClamps() && validateMutagenLevelBoosts() &&
+            validateTeleports() && validateStackOverrides() && validateLevelEngramPoints() &&
+            validateExcludeItemIndices()
     fun validateTribeSlotReuseCooldown() = tribeSlotReuseCooldown >= 0
     fun validateMaxAlliancesPerTribe() = maxAlliancesPerTribe >= 0
     fun validateMaxTribesPerAlliance() = maxTribesPerAlliance >= 0

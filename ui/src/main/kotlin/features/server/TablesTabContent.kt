@@ -1,4 +1,4 @@
-﻿@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class)
 package eu.wynq.arkascendedservermanager.ui.features.server
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -25,6 +25,7 @@ import eu.wynq.arkascendedservermanager.core.catalog.CatalogEntry
 import eu.wynq.arkascendedservermanager.core.ini.tables.ClassMultiplier
 import eu.wynq.arkascendedservermanager.core.ini.tables.DinoSpawnWeight
 import eu.wynq.arkascendedservermanager.core.ini.tables.EngramAutoUnlock
+import eu.wynq.arkascendedservermanager.core.ini.tables.EngramIndexOverride
 import eu.wynq.arkascendedservermanager.core.ini.tables.EngramOverride
 import eu.wynq.arkascendedservermanager.core.ini.tables.NpcReplacement
 import eu.wynq.arkascendedservermanager.core.ini.tables.StackOverride
@@ -44,6 +45,7 @@ import org.jetbrains.jewel.ui.component.InfoText
 import org.jetbrains.jewel.ui.component.OutlinedButton
 import org.jetbrains.jewel.ui.component.Text
 import eu.wynq.arkascendedservermanager.ui.components.optionScrollState
+import eu.wynq.arkascendedservermanager.ui.components.optionSearchAnchor
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
@@ -61,6 +63,8 @@ fun TablesTabContent(component: ServerComponent) {
             model.server?.run {
                 GroupHeader(stringResource(Res.string.server_details_tables_tab))
                 Text(stringResource(Res.string.server_details_tables_intro))
+                InfoText(stringResource(Res.string.server_details_tables_catalog_info, ArkCatalogs.generatedAt))
+                InfoText(stringResource(Res.string.server_details_tables_invalid_row))
 
                 GroupHeader(stringResource(Res.string.server_details_tables_verified_header))
                 ClassMultiplierTable(
@@ -98,6 +102,16 @@ fun TablesTabContent(component: ServerComponent) {
                     onChange = { rows ->
                         component.updateServerGame {
                             it.copy(shooterGameMode = it.shooterGameMode.copy(cheatTeleportLocations = rows))
+                        }
+                    },
+                )
+                IntValueTable(
+                    title = stringResource(Res.string.server_details_tables_exclude_items_label),
+                    hint = stringResource(Res.string.server_details_tables_exclude_items_hint),
+                    rows = game.shooterGameMode.excludeItemIndices,
+                    onChange = { rows ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(excludeItemIndices = rows))
                         }
                     },
                 )
@@ -148,6 +162,28 @@ fun TablesTabContent(component: ServerComponent) {
                         }
                     },
                 )
+                ClassMultiplierTable(
+                    title = stringResource(Res.string.server_details_tables_tamed_speed_label),
+                    hint = stringResource(Res.string.server_details_tables_class_multiplier_hint),
+                    entries = ArkCatalogs.creatures,
+                    rows = game.shooterGameMode.tamedDinoClassSpeedMultipliers,
+                    onChange = { rows ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(tamedDinoClassSpeedMultipliers = rows))
+                        }
+                    },
+                )
+                ClassMultiplierTable(
+                    title = stringResource(Res.string.server_details_tables_tamed_stamina_label),
+                    hint = stringResource(Res.string.server_details_tables_class_multiplier_hint),
+                    entries = ArkCatalogs.creatures,
+                    rows = game.shooterGameMode.tamedDinoClassStaminaMultipliers,
+                    onChange = { rows ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(tamedDinoClassStaminaMultipliers = rows))
+                        }
+                    },
+                )
                 DinoSpawnWeightTable(
                     rows = game.shooterGameMode.dinoSpawnWeightMultipliers,
                     onChange = { rows ->
@@ -188,6 +224,14 @@ fun TablesTabContent(component: ServerComponent) {
                     onChange = { rows ->
                         component.updateServerGame {
                             it.copy(shooterGameMode = it.shooterGameMode.copy(engramEntryAutoUnlocks = rows))
+                        }
+                    },
+                )
+                EngramIndexOverrideTable(
+                    rows = game.shooterGameMode.overrideEngramEntries,
+                    onChange = { rows ->
+                        component.updateServerGame {
+                            it.copy(shooterGameMode = it.shooterGameMode.copy(overrideEngramEntries = rows))
                         }
                     },
                 )
@@ -233,6 +277,13 @@ fun TablesTabContent(component: ServerComponent) {
 }
 
 @Composable
+private fun SearchableGroupHeader(title: String) {
+    Box(Modifier.fillMaxWidth().optionSearchAnchor(title)) {
+        GroupHeader(title)
+    }
+}
+
+@Composable
 private fun ClassMultiplierTable(
     title: String,
     hint: String,
@@ -240,7 +291,7 @@ private fun ClassMultiplierTable(
     rows: List<ClassMultiplier>,
     onChange: (List<ClassMultiplier>) -> Unit,
 ) {
-    GroupHeader(title)
+    SearchableGroupHeader(title)
     val columns = listOf(
         DataTableColumn<ClassMultiplier>(stringResource(Res.string.server_details_tables_col_class), 3f) { index, row ->
             ClassNameCell(
@@ -254,11 +305,20 @@ private fun ClassMultiplierTable(
                 onChange(rows.replacing(index, row.copy(multiplier = it)))
             }
         },
-        DataTableColumn<ClassMultiplier>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<ClassMultiplier>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.className.isBlank() ||
+                row.multiplier < 0f ||
+                rows.count { it.className.equals(row.className, ignoreCase = true) } > 1
+        },
+    )
     AddRowButtons(
         entries = entries,
         hint = hint,
@@ -272,7 +332,7 @@ private fun DinoSpawnWeightTable(
     rows: List<DinoSpawnWeight>,
     onChange: (List<DinoSpawnWeight>) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_dino_spawns_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_dino_spawns_label))
     val entries = ArkCatalogs.creatures
     val columns = listOf(
         DataTableColumn<DinoSpawnWeight>(stringResource(Res.string.server_details_tables_col_name_tag), 2.4f) { index, row ->
@@ -298,11 +358,21 @@ private fun DinoSpawnWeightTable(
                 onChange(rows.replacing(index, row.copy(spawnLimitPercentage = it)))
             }
         },
-        DataTableColumn<DinoSpawnWeight>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<DinoSpawnWeight>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.dinoNameTag.isBlank() ||
+                row.spawnWeightMultiplier < 0f ||
+                row.spawnLimitPercentage < 0f ||
+                rows.count { it.dinoNameTag.equals(row.dinoNameTag, ignoreCase = true) } > 1
+        },
+    )
     AddRowButtons(
         entries = entries,
         hint = stringResource(Res.string.server_details_tables_dino_spawns_hint),
@@ -318,7 +388,7 @@ private fun NpcReplacementTable(
     rows: List<NpcReplacement>,
     onChange: (List<NpcReplacement>) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_npc_replacements_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_npc_replacements_label))
     val entries = ArkCatalogs.creatures
     val columns = listOf(
         DataTableColumn<NpcReplacement>(stringResource(Res.string.server_details_tables_col_from), 2.5f) { index, row ->
@@ -335,11 +405,19 @@ private fun NpcReplacementTable(
                 entries = entries,
             )
         },
-        DataTableColumn<NpcReplacement>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<NpcReplacement>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.fromClassName.isBlank() ||
+                rows.count { it.fromClassName.equals(row.fromClassName, ignoreCase = true) } > 1
+        },
+    )
     AddRowButtons(
         entries = entries,
         hint = stringResource(Res.string.server_details_tables_npc_replacements_hint),
@@ -353,7 +431,7 @@ private fun EngramOverrideTable(
     rows: List<EngramOverride>,
     onChange: (List<EngramOverride>) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_engram_overrides_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_engram_overrides_label))
     val entries = ArkCatalogs.engrams
     val columns = listOf(
         DataTableColumn<EngramOverride>(stringResource(Res.string.server_details_tables_col_engram), 3f) { index, row ->
@@ -378,11 +456,21 @@ private fun EngramOverrideTable(
                 onChange(rows.replacing(index, row.copy(engramLevelRequirement = it)))
             }
         },
-        DataTableColumn<EngramOverride>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<EngramOverride>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.engramClassName.isBlank() ||
+                row.engramPointsCost < 0 ||
+                row.engramLevelRequirement < 0 ||
+                rows.count { it.engramClassName.equals(row.engramClassName, ignoreCase = true) } > 1
+        },
+    )
     AddRowButtons(
         entries = entries,
         hint = stringResource(Res.string.server_details_tables_engram_overrides_hint),
@@ -396,7 +484,7 @@ private fun EngramAutoUnlockTable(
     rows: List<EngramAutoUnlock>,
     onChange: (List<EngramAutoUnlock>) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_engram_auto_unlocks_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_engram_auto_unlocks_label))
     val entries = ArkCatalogs.engrams
     val columns = listOf(
         DataTableColumn<EngramAutoUnlock>(stringResource(Res.string.server_details_tables_col_engram), 3f) { index, row ->
@@ -411,11 +499,20 @@ private fun EngramAutoUnlockTable(
                 onChange(rows.replacing(index, row.copy(levelToAutoUnlock = it)))
             }
         },
-        DataTableColumn<EngramAutoUnlock>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<EngramAutoUnlock>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.engramClassName.isBlank() ||
+                row.levelToAutoUnlock < 0 ||
+                rows.count { it.engramClassName.equals(row.engramClassName, ignoreCase = true) } > 1
+        },
+    )
     AddRowButtons(
         entries = entries,
         hint = stringResource(Res.string.server_details_tables_engram_auto_unlocks_hint),
@@ -425,11 +522,66 @@ private fun EngramAutoUnlockTable(
 }
 
 @Composable
+private fun EngramIndexOverrideTable(
+    rows: List<EngramIndexOverride>,
+    onChange: (List<EngramIndexOverride>) -> Unit,
+) {
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_engram_index_overrides_label))
+    val columns = listOf(
+        DataTableColumn<EngramIndexOverride>(stringResource(Res.string.server_details_tables_col_index), 0.9f) { index, row ->
+            TableIntField(row.engramIndex) {
+                onChange(rows.replacing(index, row.copy(engramIndex = it)))
+            }
+        },
+        DataTableColumn<EngramIndexOverride>(stringResource(Res.string.server_details_tables_col_hidden), 0.8f) { index, row ->
+            TableCheckbox(row.engramHidden) {
+                onChange(rows.replacing(index, row.copy(engramHidden = it)))
+            }
+        },
+        DataTableColumn<EngramIndexOverride>(stringResource(Res.string.server_details_tables_col_points), 1f) { index, row ->
+            TableIntField(row.engramPointsCost) {
+                onChange(rows.replacing(index, row.copy(engramPointsCost = it)))
+            }
+        },
+        DataTableColumn<EngramIndexOverride>(stringResource(Res.string.server_details_tables_col_level), 1f) { index, row ->
+            TableIntField(row.engramLevelRequirement) {
+                onChange(rows.replacing(index, row.copy(engramLevelRequirement = it)))
+            }
+        },
+        DataTableColumn<EngramIndexOverride>(stringResource(Res.string.server_details_tables_engram_remove_prereq_column), 1.6f) { index, row ->
+            TableCheckbox(row.removeEngramPreReq) {
+                onChange(rows.replacing(index, row.copy(removeEngramPreReq = it)))
+            }
+        },
+        DataTableColumn<EngramIndexOverride>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
+        },
+    )
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.engramIndex < 0 ||
+                row.engramPointsCost < 0 ||
+                row.engramLevelRequirement < 0 ||
+                rows.count { it.engramIndex == row.engramIndex } > 1
+        },
+    )
+    Column(Modifier.padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        DefaultButton(onClick = { onChange(rows + EngramIndexOverride()) }) {
+            Text(stringResource(Res.string.server_details_tables_add_row))
+        }
+        InfoText(stringResource(Res.string.server_details_tables_engram_index_overrides_hint))
+    }
+}
+
+@Composable
 private fun StackOverrideTable(
     rows: List<StackOverride>,
     onChange: (List<StackOverride>) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_stack_overrides_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_stack_overrides_label))
     val entries = ArkCatalogs.items
     val columns = listOf(
         DataTableColumn<StackOverride>(stringResource(Res.string.server_details_tables_col_item), 3f) { index, row ->
@@ -449,11 +601,20 @@ private fun StackOverrideTable(
                 onChange(rows.replacing(index, row.copy(quantity = row.quantity.copy(ignoreMultiplier = it))))
             }
         },
-        DataTableColumn<StackOverride>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<StackOverride>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.itemClassString.isBlank() ||
+                row.quantity.maxItemQuantity < 0 ||
+                rows.count { it.itemClassString.equals(row.itemClassString, ignoreCase = true) } > 1
+        },
+    )
     AddRowButtons(
         entries = entries,
         hint = stringResource(Res.string.server_details_tables_stack_overrides_hint),
@@ -467,7 +628,7 @@ private fun TeleportTable(
     rows: List<TeleportEntry>,
     onChange: (List<TeleportEntry>) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_teleports_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_teleports_label))
     val columns = listOf(
         DataTableColumn<TeleportEntry>(stringResource(Res.string.server_details_tables_col_name), 2f) { index, row ->
             FormTextField(
@@ -491,11 +652,19 @@ private fun TeleportTable(
                 onChange(rows.replacing(index, row.copy(teleportLocation = row.teleportLocation.copy(z = it))))
             }
         },
-        DataTableColumn<TeleportEntry>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<TeleportEntry>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.teleportName.isBlank() ||
+                rows.count { it.teleportName.equals(row.teleportName, ignoreCase = true) } > 1
+        },
+    )
     Column(Modifier.padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         DefaultButton(onClick = { onChange(rows + TeleportEntry()) }) {
             Text(stringResource(Res.string.server_details_tables_add_row))
@@ -512,7 +681,7 @@ private fun StringListTable(
     rows: List<String>,
     onChange: (List<String>) -> Unit,
 ) {
-    GroupHeader(title)
+    SearchableGroupHeader(title)
     val columns = listOf(
         DataTableColumn<String>(stringResource(Res.string.server_details_tables_col_class), 4f) { index, row ->
             ClassNameCell(
@@ -521,11 +690,18 @@ private fun StringListTable(
                 entries = entries,
             )
         },
-        DataTableColumn<String>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<String>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, rows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row ->
+            row.isBlank() || rows.count { it.equals(row, ignoreCase = true) } > 1
+        },
+    )
     AddRowButtons(
         entries = entries,
         hint = hint,
@@ -535,11 +711,41 @@ private fun StringListTable(
 }
 
 @Composable
+private fun IntValueTable(
+    title: String,
+    hint: String,
+    rows: List<Int>,
+    onChange: (List<Int>) -> Unit,
+) {
+    SearchableGroupHeader(title)
+    val columns = listOf(
+        DataTableColumn<Int>(stringResource(Res.string.server_details_tables_col_item_id), 4f) { index, row ->
+            TableIntField(row) { onChange(rows.replacing(index, it)) }
+        },
+        DataTableColumn<Int>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
+        },
+    )
+    DataTable(
+        columns,
+        rows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { row -> row < 0 || rows.count { it == row } > 1 },
+    )
+    Column(Modifier.padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        DefaultButton(onClick = { onChange(rows + 0) }) {
+            Text(stringResource(Res.string.server_details_tables_add_row))
+        }
+        InfoText(hint)
+    }
+}
+
+@Composable
 private fun IntListTable(
     rows: List<Int>,
     onChange: (List<Int>) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_level_engram_points_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_level_engram_points_label))
     val levelRows = rows.mapIndexed { index, points -> LevelRow(index, points) }
     val columns = listOf(
         DataTableColumn<LevelRow>(stringResource(Res.string.server_details_tables_col_level), 1f) { _, row ->
@@ -550,11 +756,16 @@ private fun IntListTable(
                 onChange(rows.replacing(row.index, newValue))
             }
         },
-        DataTableColumn<LevelRow>("", 0.5f) { index, _ ->
-            RemoveButton { onChange(rows.removing(index)) }
+        DataTableColumn<LevelRow>("", 2.2f) { index, _ ->
+            RowActions(rows, index, onChange)
         },
     )
-    DataTable(columns, levelRows, stringResource(Res.string.server_details_tables_empty))
+    DataTable(
+        columns,
+        levelRows,
+        stringResource(Res.string.server_details_tables_empty),
+        rowError = { it.points < 0 },
+    )
     Column(Modifier.padding(top = 4.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
         DefaultButton(onClick = { onChange(rows + 0) }) {
             Text(stringResource(Res.string.server_details_tables_add_row))
@@ -568,7 +779,7 @@ private fun ItemStatClampsTable(
     clamps: Map<Int, Int>?,
     onChange: (Map<Int, Int>?) -> Unit,
 ) {
-    GroupHeader(stringResource(Res.string.server_details_tables_item_stat_clamps_label))
+    SearchableGroupHeader(stringResource(Res.string.server_details_tables_item_stat_clamps_label))
     FormCheckboxField(
         checked = clamps != null,
         onCheckedChange = { enabled -> onChange(if (enabled) (0..7).associateWith { 0 } else null) },
@@ -606,7 +817,7 @@ private fun MutagenBoostTable(
     values: Map<Int, Int>?,
     onChange: (Map<Int, Int>?) -> Unit,
 ) {
-    GroupHeader(title)
+    SearchableGroupHeader(title)
     FormCheckboxField(
         checked = values != null,
         onCheckedChange = { enabled -> onChange(if (enabled) (0..11).associateWith { 0 } else null) },
@@ -673,20 +884,49 @@ private fun TableCheckbox(checked: Boolean, onCheckedChange: (Boolean) -> Unit) 
 }
 
 @Composable
-private fun RemoveButton(onClick: () -> Unit) {
+private fun <T> RowActions(
+    rows: List<T>,
+    index: Int,
+    onChange: (List<T>) -> Unit,
+) {
     Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        IconActionButton(
-            key = AllIconsKeys.General.Delete,
-            contentDescription = stringResource(Res.string.server_details_tables_remove),
-            onClick = onClick,
-            focusable = false,
-            tooltip = { Text(stringResource(Res.string.server_details_tables_remove)) },
-            tooltipPlacement = TooltipPlacement.ComponentRect(
-                Alignment.CenterStart,
-                Alignment.CenterStart,
-                offset = DpOffset((-6).dp, 0.dp),
-            ),
-        )
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(2.dp),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            IconActionButton(
+                key = AllIconsKeys.General.ArrowUp,
+                contentDescription = stringResource(Res.string.server_details_tables_move_up),
+                onClick = { onChange(rows.moving(index, index - 1)) },
+                focusable = false,
+                enabled = index > 0,
+            )
+            IconActionButton(
+                key = AllIconsKeys.General.ArrowDown,
+                contentDescription = stringResource(Res.string.server_details_tables_move_down),
+                onClick = { onChange(rows.moving(index, index + 1)) },
+                focusable = false,
+                enabled = index < rows.lastIndex,
+            )
+            IconActionButton(
+                key = AllIconsKeys.General.Copy,
+                contentDescription = stringResource(Res.string.server_details_tables_duplicate),
+                onClick = { onChange(rows.duplicating(index)) },
+                focusable = false,
+            )
+            IconActionButton(
+                key = AllIconsKeys.General.Delete,
+                contentDescription = stringResource(Res.string.server_details_tables_remove),
+                onClick = { onChange(rows.removing(index)) },
+                focusable = false,
+                tooltip = { Text(stringResource(Res.string.server_details_tables_remove)) },
+                tooltipPlacement = TooltipPlacement.ComponentRect(
+                    Alignment.CenterStart,
+                    Alignment.CenterStart,
+                    offset = DpOffset((-6).dp, 0.dp),
+                ),
+            )
+        }
     }
 }
 
@@ -734,5 +974,10 @@ private fun <T> List<T>.replacing(index: Int, value: T): List<T> =
 private fun <T> List<T>.removing(index: Int): List<T> =
     toMutableList().also { it.removeAt(index) }
 
+private fun <T> List<T>.moving(from: Int, to: Int): List<T> {
+    if (from == to) return this
+    return toMutableList().also { it.add(to, it.removeAt(from)) }
+}
 
-
+private fun <T> List<T>.duplicating(index: Int): List<T> =
+    toMutableList().also { it.add(index + 1, it[index]) }

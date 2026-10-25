@@ -25,3 +25,23 @@ data class EngramOverride(
     @IniProperty("RemoveEngramPreReq")
     val removeEngramPreReq: Boolean = false,
 )
+
+/**
+ * One line of the indexed `OverrideEngramEntries` variant:
+ *
+ * `OverrideEngramEntries=(EngramIndex=18,EngramHidden=False,EngramPointsCost=5,EngramLevelRequirement=1,RemoveEngramPreReq=False)`
+ */
+@IniStruct
+@Serializable
+data class EngramIndexOverride(
+    @IniProperty("EngramIndex")
+    val engramIndex: Int = 0,
+    @IniProperty("EngramHidden")
+    val engramHidden: Boolean = false,
+    @IniProperty("EngramPointsCost")
+    val engramPointsCost: Int = 0,
+    @IniProperty("EngramLevelRequirement")
+    val engramLevelRequirement: Int = 0,
+    @IniProperty("RemoveEngramPreReq")
+    val removeEngramPreReq: Boolean = false,
+)
