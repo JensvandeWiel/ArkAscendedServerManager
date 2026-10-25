@@ -23,6 +23,7 @@ import kotlin.io.path.isSymbolicLink
 
 data class AsaApiRelease(
     val version: Version,
+    val displayVersion: String,
     val downloadUrl: String,
 ) : Comparable<AsaApiRelease> {
     override fun compareTo(other: AsaApiRelease): Int = version.compareTo(other.version)
@@ -84,6 +85,36 @@ object AsaApiInstallManager {
         }
     }
 
+    /**
+     * Display form of an AsaApi tag. Semantic versions cannot retain leading zeros
+     * numerically, but the upstream project tags releases as `2.03`; testers expect
+     * to see `2.03.0`, not `2.3.0`.
+     */
+    internal fun displayAsaApiVersion(rawVersion: String): String {
+        val parsed = runCatching { parseAsaApiVersion(rawVersion) }.getOrNull()
+            ?: return rawVersion.trim().removePrefix("v").removePrefix("V")
+        return displayAsaApiVersion(parsed)
+    }
+
+    internal fun displayAsaApiVersion(version: Version): String {
+        val minor = if (version.major >= 2 && version.minor < 10) {
+            version.minor.toString().padStart(2, '0')
+        } else {
+            version.minor.toString()
+        }
+        return buildString {
+            append("${version.major}.$minor.${version.patch}")
+            version.preRelease?.takeIf { it.isNotBlank() }?.let {
+                append('-')
+                append(it)
+            }
+            version.buildMetadata?.takeIf { it.isNotBlank() }?.let {
+                append('+')
+                append(it)
+            }
+        }
+    }
+
     suspend fun getLatestRelease(): Result<AsaApiRelease> = runCatching {
         val request = client.get(asaApiUrl)
         if (request.status != HttpStatusCode.OK) {
@@ -102,6 +133,7 @@ object AsaApiInstallManager {
         return Result.success(
             AsaApiRelease(
                 version = parseAsaApiVersion(latest.tag_name),
+                displayVersion = displayAsaApiVersion(latest.tag_name),
                 downloadUrl = apiAsset.browser_download_url
             )
         )
@@ -147,7 +179,7 @@ object AsaApiInstallManager {
         }
 
         val versionFile = Path(server.installationLocation, Constants.ASA_API_VERSION_PATH).toFile()
-        versionFile.writeText(release.version.toString())
+        versionFile.writeText(release.displayVersion)
     }
 
     fun getApiVersion(server: Server): Version? {
@@ -160,7 +192,7 @@ object AsaApiInstallManager {
 
     fun getApiVersionAsString(server: Server): String? {
         val version = getApiVersion(server) ?: return null
-        return version.toString()
+        return displayAsaApiVersion(version)
     }
 
     fun isInstalled(server: Server): Boolean {

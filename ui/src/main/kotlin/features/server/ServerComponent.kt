@@ -20,6 +20,7 @@ import eu.wynq.arkascendedservermanager.core.server.Options
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.watchFileContent
+import support.sameMajorMinorPatch
 import eu.wynq.arkascendedservermanager.ui.stores.*
 import eu.wynq.arkascendedservermanager.ui.helpers.AppBuildInfo
 import io.github.oshai.kotlinlogging.KotlinLogging
@@ -230,7 +231,7 @@ class ServerComponent(
             runCatching {
                 val currentOverseerVersion = AsaApiInstallManager.getOverseerVersion(server) ?: return@runCatching UpdateStatus.Unknown
                 val appVersion = Version.parse(AppBuildInfo.version)
-                if (currentOverseerVersion == appVersion) UpdateStatus.UpToDate else UpdateStatus.Available
+                if (currentOverseerVersion.sameMajorMinorPatch(appVersion)) UpdateStatus.UpToDate else UpdateStatus.Available
             }.getOrElse {
                 logger.error(it) { "Failed to check Overseer update for ${server.profileName} (${server.id})" }
                 UpdateStatus.Unknown

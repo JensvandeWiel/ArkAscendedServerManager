@@ -4,6 +4,7 @@ import eu.wynq.arkascendedservermanager.core.db.models.Server
 import eu.wynq.arkascendedservermanager.core.rcon.ArkRconClient
 import eu.wynq.arkascendedservermanager.core.rcon.ArkRconConfig
 import eu.wynq.arkascendedservermanager.core.support.Constants
+import support.sameMajorMinorPatch
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
@@ -215,7 +216,7 @@ object PowerManager {
             } catch (_: Exception) {
                 return false
             }
-            if (overseerVer != appVer) return false
+            if (!overseerVer.sameMajorMinorPatch(appVer)) return false
         }
 
         return true

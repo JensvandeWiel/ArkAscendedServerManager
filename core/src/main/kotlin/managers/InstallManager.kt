@@ -23,6 +23,7 @@ import kotlinx.serialization.json.Json
 import support.AcfParser
 import support.SteamResponse
 import support.getExeVersion
+import support.sameMajorMinorPatch
 import java.nio.charset.StandardCharsets
 import java.nio.file.AtomicMoveNotSupportedException
 import java.nio.file.Files
@@ -178,7 +179,7 @@ object InstallManager {
         val currentVersion = getExeVersion(targetPath.toString())
         if (currentVersion != null) {
             val expectedParsedVersion = Version.parse(currentAppVersion)
-            if (currentVersion == expectedParsedVersion) {
+            if (currentVersion.sameMajorMinorPatch(expectedParsedVersion)) {
                 return@runCatching // Already up to date
             }
         }
