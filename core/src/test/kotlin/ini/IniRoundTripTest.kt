@@ -1,5 +1,14 @@
 package eu.wynq.arkascendedservermanager.core.ini
 
+import eu.wynq.arkascendedservermanager.core.ini.tables.ClassMultiplier
+import eu.wynq.arkascendedservermanager.core.ini.tables.DinoSpawnWeight
+import eu.wynq.arkascendedservermanager.core.ini.tables.EngramAutoUnlock
+import eu.wynq.arkascendedservermanager.core.ini.tables.EngramOverride
+import eu.wynq.arkascendedservermanager.core.ini.tables.NpcReplacement
+import eu.wynq.arkascendedservermanager.core.ini.tables.StackOverride
+import eu.wynq.arkascendedservermanager.core.ini.tables.StackQuantity
+import eu.wynq.arkascendedservermanager.core.ini.tables.TeleportEntry
+import eu.wynq.arkascendedservermanager.core.ini.tables.TeleportLocation
 import eu.wynq.arkascendedservermanager.core.server.Administration
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.isValidUrl
@@ -25,7 +34,9 @@ class IniRoundTripTest {
     @Test
     fun `default Game round-trips through the INI serializer`() {
         val original = Game()
-        val parsed = IniSerializer.deserialize<Game>(IniSerializer.serialize(original))
+        val text = IniSerializer.serialize(original)
+        assertFalse(text.contains("DinoClassDamageMultipliers"))
+        val parsed = IniSerializer.deserialize<Game>(text)
         assertEquals(original.shooterGameMode, parsed.shooterGameMode)
     }
 
@@ -184,7 +195,7 @@ class IniRoundTripTest {
             ActiveMods=111
         """.trimIndent()
 
-        val parsed = IniSerializer.deserialize<GameUserSettings>(raw).withActiveModsFromRaw(raw)
+        val parsed = IniSerializer.deserialize<GameUserSettings>(raw)
 
         assertEquals(listOf(111), parsed.serverSettings.activeMods)
     }
@@ -411,6 +422,83 @@ class IniRoundTripTest {
         val parsedGame = IniSerializer.deserialize<Game>(IniSerializer.serialize(Game(shooterGameMode = mode)))
         assertEquals(mode, parsedGame.shooterGameMode)
         assertEquals(28800.0f, ServerSettings().implantSuicideCd)
+    }
+
+    @Test
+    fun `legacy table config round-trips`() {
+        val mode = ShooterGameMode(
+            dinoSpawnWeightMultipliers = listOf(
+                DinoSpawnWeight("Rex", 0.5f, false, 2.0f)
+            ),
+            npcReplacements = listOf(
+                NpcReplacement("Rex_Character_BP_C", "MegaRex_Character_BP_C"),
+                NpcReplacement("Dodo_Character_BP_C", ""),
+            ),
+            preventBreedingForClassNames = listOf("Rex_Character_BP_C"),
+            preventDinoTameClassNames = listOf("Giganotosaurus_Character_BP_C"),
+            overrideNamedEngramEntries = listOf(
+                EngramOverride("EngramEntry_StoneHatchet_C", false, 5, 1, false)
+            ),
+            engramEntryAutoUnlocks = listOf(
+                EngramAutoUnlock("EngramEntry_StoneHatchet_C", 1)
+            ),
+            itemStatClamps = mapOf(0 to 1, 1 to 2),
+            mutagenLevelBoost = mapOf(0 to 1, 1 to 2),
+            mutagenLevelBoostBred = mapOf(2 to 3),
+            cheatTeleportLocations = listOf(
+                TeleportEntry("Base", TeleportLocation(1.0f, 2.0f, 3.0f))
+            ),
+            configOverrideItemMaxQuantity = listOf(
+                StackOverride("PrimalItemResource_Thatch_C", StackQuantity(100, true))
+            ),
+            overridePlayerLevelEngramPoints = listOf(0, 10, 15),
+        )
+
+        val text = IniSerializer.serialize(Game(shooterGameMode = mode))
+
+        assertTrue(text.contains("DinoSpawnWeightMultipliers=(DinoNameTag=\"Rex\""))
+        assertTrue(text.contains("NPCReplacements=(FromClassName=\"Dodo_Character_BP_C\",ToClassName=\"\")"))
+        assertTrue(text.contains("PreventBreedingForClassNames=\"Rex_Character_BP_C\""))
+        assertTrue(text.contains("PreventDinoTameClassNames=\"Giganotosaurus_Character_BP_C\""))
+        assertTrue(text.contains("OverrideNamedEngramEntries=(EngramClassName=\"EngramEntry_StoneHatchet_C\""))
+        assertTrue(text.contains("EngramEntryAutoUnlocks=(EngramClassName=\"EngramEntry_StoneHatchet_C\""))
+        assertTrue(text.contains("ItemStatClamps[0]=1"))
+        assertTrue(text.contains("ItemStatClamps[1]=2"))
+        assertTrue(text.contains("MutagenLevelBoost[0]=1"))
+        assertTrue(text.contains("MutagenLevelBoost_Bred[2]=3"))
+        assertTrue(text.contains("CheatTeleportLocations=(TeleportLocation=(X=1.0,Y=2.0,Z=3.0),TeleportName=\"Base\")"))
+        assertTrue(text.contains("TeleportLocation=(X=1.0,Y=2.0,Z=3.0)"))
+        assertTrue(text.contains("ConfigOverrideItemMaxQuantity=(ItemClassString=\"PrimalItemResource_Thatch_C\",Quantity=(bIgnoreMultiplier=True,MaxItemQuantity=100))"))
+        assertTrue(text.contains("OverridePlayerLevelEngramPoints=0"))
+        assertTrue(text.contains("OverridePlayerLevelEngramPoints=10"))
+        assertTrue(text.contains("OverridePlayerLevelEngramPoints=15"))
+
+        val parsed = IniSerializer.deserialize<Game>(text)
+        assertEquals(mode, parsed.shooterGameMode)
+    }
+
+    @Test
+    fun `class multiplier tables round-trip`() {
+        val mode = ShooterGameMode(
+            dinoClassDamageMultipliers = listOf(
+                ClassMultiplier("MegaRex_Character_BP_C", 0.1f),
+                ClassMultiplier("Rex_Character_BP_C", 10.0f),
+            ),
+            dinoClassResistanceMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 2.0f)),
+            tamedDinoClassDamageMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 3.0f)),
+            tamedDinoClassResistanceMultipliers = listOf(ClassMultiplier("Rex_Character_BP_C", 4.0f)),
+            harvestResourceItemAmountClassMultipliers = listOf(
+                ClassMultiplier("PrimalItemResource_Thatch_C", 2.0f)
+            ),
+        )
+
+        val text = IniSerializer.serialize(Game(shooterGameMode = mode))
+
+        assertTrue(text.contains("DinoClassDamageMultipliers=(ClassName=\"MegaRex_Character_BP_C\",Multiplier=0.1)"))
+        assertTrue(text.contains("HarvestResourceItemAmountClassMultipliers=(ClassName=\"PrimalItemResource_Thatch_C\",Multiplier=2.0)"))
+
+        val parsed = IniSerializer.deserialize<Game>(text)
+        assertEquals(mode, parsed.shooterGameMode)
     }
 
     @Test

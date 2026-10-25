@@ -34,6 +34,7 @@ fun ServerScreen(component: ServerComponent) {
     val environmentTabLabel = stringResource(Res.string.server_details_environment_tab)
     val playerTabLabel = stringResource(Res.string.server_details_player_tab)
     val dinoSettingsTabLabel = stringResource(Res.string.server_details_dino_settings_tab)
+    val tablesTabLabel = stringResource(Res.string.server_details_tables_tab)
     val chatAndHudTabLabel = stringResource(Res.string.server_details_chat_and_hud_tab)
     val structuresAndItemsTabLabel = stringResource(Res.string.server_details_structures_and_items_tab)
     val adminAndSecurityTabLabel = stringResource(Res.string.server_details_admin_and_security_tab)
@@ -47,7 +48,7 @@ fun ServerScreen(component: ServerComponent) {
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
     val tabs =
-        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel, chatAndHudTabLabel, structuresAndItemsTabLabel, adminAndSecurityTabLabel, advancedAndLaunchTabLabel) {
+        remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel, tablesTabLabel, chatAndHudTabLabel, structuresAndItemsTabLabel, adminAndSecurityTabLabel, advancedAndLaunchTabLabel) {
             listOf(
                 TabData.Default(
                     selected = selectedTab == ServerDetailsTab.INFO,
@@ -111,6 +112,14 @@ fun ServerScreen(component: ServerComponent) {
                         SimpleTabContent(label = dinoSettingsTabLabel, state = tabState)
                     },
                     onClick = component::selectDinoSettingsTab,
+                    closable = false,
+                ),
+                TabData.Default(
+                    selected = selectedTab == ServerDetailsTab.TABLES,
+                    content = { tabState ->
+                        SimpleTabContent(label = tablesTabLabel, state = tabState)
+                    },
+                    onClick = component::selectTablesTab,
                     closable = false,
                 ),
                 TabData.Default(
@@ -236,6 +245,10 @@ fun ServerScreen(component: ServerComponent) {
 
                     ServerDetailsTab.DINO_SETTINGS -> {
                         DinoSettingsTabContent(component)
+                    }
+
+                    ServerDetailsTab.TABLES -> {
+                        TablesTabContent(component)
                     }
 
                     ServerDetailsTab.CHAT_AND_HUD -> {

@@ -43,6 +43,7 @@ enum class ServerDetailsTab {
     RULES,
     PLAYER,
     DINO_SETTINGS,
+    TABLES,
     STRUCTURES_AND_ITEMS,
     ADMIN_AND_SECURITY,
     ADVANCED_AND_LAUNCH,
@@ -179,6 +180,10 @@ class ServerComponent(
 
     fun selectDinoSettingsTab() {
         selectTab(ServerDetailsTab.DINO_SETTINGS)
+    }
+
+    fun selectTablesTab() {
+        selectTab(ServerDetailsTab.TABLES)
     }
 
     fun selectChatAndHudTab() {

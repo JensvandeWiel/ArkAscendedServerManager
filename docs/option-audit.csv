@@ -412,10 +412,10 @@ Configuration Files > Game.ini,bUseCorpseLocator,Unknown,Yes,boolean,True,missin
 Configuration Files > Game.ini,bUseDinoLevelUpAnimations,Yes,Yes,boolean,True,modeled-game,useDinoLevelUpAnimations,Game.kt,Boolean,true,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bUseSingleplayerSettings,Yes,Yes,boolean,False,modeled-game,useSingleplayerSettings,Game.kt,Boolean,false,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bUseTameLimitForStructuresOnly,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,"CheatTeleportLocations=(TeleportName=""<string>"",TeleportLocation=(X=<float>,Y=-<float>,Z=<float>))",Yes,Unknown,(...),,table-missing,,,,,,,,,,
+Configuration Files > Game.ini,"CheatTeleportLocations=(TeleportName=""<string>"",TeleportLocation=(X=<float>,Y=-<float>,Z=<float>))",Yes,Unknown,(...),,modeled-game,cheatTeleportLocations,Game.kt,List<TeleportEntry>,emptyList(),,Yes,,,,
 Configuration Files > Game.ini,ConfigAddNPCSpawnEntriesContainer,Yes,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,ConfigOverrideItemCraftingCosts,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,ConfigOverrideItemMaxQuantity,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,ConfigOverrideItemMaxQuantity,Unknown,Yes,(...),N/A,modeled-game,configOverrideItemMaxQuantity,Game.kt,List<StackOverride>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,ConfigOverrideNPCSpawnEntriesContainer,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,ConfigOverrideSupplyCrateItems,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,ConfigSubtractNPCSpawnEntriesContainer,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
@@ -426,13 +426,13 @@ Configuration Files > Game.ini,CropGrowthSpeedMultiplier,Yes,Yes,float,1.0,model
 Configuration Files > Game.ini,CustomRecipeEffectivenessMultiplier,Yes,Yes,float,1.0,modeled-game,customRecipeEffectivenessMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,CustomRecipeSkillMultiplier,Yes,Yes,float,1.0,modeled-game,customRecipeSkillMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,DestroyTamesOverLevelClamp,Yes,Yes,integer,0,modeled-game,destroyTamesOverLevelClamp,Game.kt,Int,0,,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,DinoClassDamageMultipliers,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,DinoClassResistanceMultipliers,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,DinoClassDamageMultipliers,Unknown,Yes,(...),N/A,modeled-game,dinoClassDamageMultipliers,Game.kt,List<ClassMultiplier>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,DinoClassResistanceMultipliers,Unknown,Yes,(...),N/A,modeled-game,dinoClassResistanceMultipliers,Game.kt,List<ClassMultiplier>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,DinoHarvestingDamageMultiplier,Unknown,Yes,float,3.2,modeled-game,dinoHarvestingDamageMultiplier,Game.kt,Float,3.2f,yes,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,DinoSpawnWeightMultipliers,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,DinoSpawnWeightMultipliers,Unknown,Yes,(...),N/A,modeled-game,dinoSpawnWeightMultipliers,Game.kt,List<DinoSpawnWeight>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,DinoTurretDamageMultiplier,Unknown,Yes,float,1.0,modeled-game,dinoTurretDamageMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,EggHatchSpeedMultiplier,Yes,Yes,float,1.0,modeled-game,eggHatchSpeedMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,EngramEntryAutoUnlocks,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,EngramEntryAutoUnlocks,Unknown,Yes,(...),N/A,modeled-game,engramEntryAutoUnlocks,Game.kt,List<EngramAutoUnlock>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,ExcludeItemIndices,Yes,Yes,integer,N/A,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,FastDecayInterval,Unknown,Yes,integer,43200,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,FishingLootQualityMultiplier,Unknown,Yes,float,1.0,modeled-game,fishingLootQualityMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
@@ -445,12 +445,12 @@ Configuration Files > Game.ini,GlobalItemDecompositionTimeMultiplier,Yes,Yes,flo
 Configuration Files > Game.ini,GlobalPoweredBatteryDurabilityDecreasePerSecond,Unknown,Yes,float,3.0,modeled-game,globalPoweredBatteryDurabilityDecreasePerSecond,Game.kt,Float,3.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,GlobalSpoilingTimeMultiplier,Yes,Yes,float,1.0,modeled-game,globalSpoilingTimeMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,HairGrowthSpeedMultiplier,Yes,Yes,float,"1.0 (ASE), 0 (ASA)",modeled-game,hairGrowthSpeedMultiplier,Game.kt,Float,0.0f,,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,HarvestResourceItemAmountClassMultipliers,Yes,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,HarvestResourceItemAmountClassMultipliers,Yes,Yes,(...),N/A,modeled-game,harvestResourceItemAmountClassMultipliers,Game.kt,List<ClassMultiplier>,emptyList(),,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,HarvestXPMultiplier,Yes,Yes,float,1.0,modeled-game,harvestXPMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,IncreasePvPRespawnIntervalBaseAmount,Unknown,Yes,float,60.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,IncreasePvPRespawnIntervalCheckPeriod,Unknown,Yes,float,300.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,IncreasePvPRespawnIntervalMultiplier,Unknown,Yes,float,2.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,ItemStatClamps[<attribute>],Unknown,Yes,value,N/A,table-missing,,,,,,,,,,
+Configuration Files > Game.ini,ItemStatClamps[<attribute>],Unknown,Yes,value,N/A,modeled-game,itemStatClamps,Game.kt,"Map<Int, Int>?",null,yes,Yes,,,,
 Configuration Files > Game.ini,KillXPMultiplier,Yes,Yes,float,1.0,modeled-game,killXPMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,LayEggIntervalMultiplier,Yes,Yes,float,1.0,modeled-game,layEggIntervalMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,LevelExperienceRampOverrides,Yes,Yes,(...),N/A,table-missing,,,,,,,,,,
@@ -463,12 +463,12 @@ Configuration Files > Game.ini,MaxFallSpeedMultiplier,Yes,Yes,float,1.0,modeled-
 Configuration Files > Game.ini,MaxNumberOfPlayersInTribe,Unknown,Yes,integer,0,modeled-game,maxNumberOfPlayersInTribe,Game.kt,Int,0,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,MaxTribeLogs,Unknown,Yes,integer,400,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,MaxTribesPerAlliance,Unknown,Yes,integer,N/A,modeled-game,maxTribesPerAlliance,Game.kt,Int,0,yes,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,NPCReplacements,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,NPCReplacements,Unknown,Yes,(...),N/A,modeled-game,npcReplacements,Game.kt,List<NpcReplacement>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,OverrideMaxExperiencePointsDino,Unknown,Yes,integer,N/A,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,OverrideMaxExperiencePointsPlayer,Unknown,Yes,integer,N/A,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,OverrideEngramEntries,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,,
-Configuration Files > Game.ini,OverrideNamedEngramEntries,Yes,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,OverridePlayerLevelEngramPoints,Unknown,Yes,integer,N/A,missing-unknown,,,,,,,,,,
+Configuration Files > Game.ini,OverrideNamedEngramEntries,Yes,Yes,(...),N/A,modeled-game,overrideNamedEngramEntries,Game.kt,List<EngramOverride>,emptyList(),,Yes,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,OverridePlayerLevelEngramPoints,Unknown,Yes,integer,N/A,modeled-game,overridePlayerLevelEngramPoints,Game.kt,List<Int>,emptyList(),yes,Yes,,,,
 Configuration Files > Game.ini,PassiveTameIntervalMultiplier,Unknown,Yes,float,1.0,modeled-game,passiveTameIntervalMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,PerLevelStatsMultiplier_Player['''<integer>'''],Yes,Yes,float,N/A,modeled-game,perLevelStatsMultiplierPlayer,Game.kt,"Map<Int, Float>?",null,,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,PerLevelStatsMultiplier_DinoTamed'''<_type>'''['''<integer>'''],Unknown,Yes,float,N/A,modeled-game,perLevelStatsMultiplierDinoTamed,Game.kt,"Map<Int, Float>?",null,yes,Yes,,,yes,Configuration Files > Game.ini
@@ -477,8 +477,8 @@ Configuration Files > Game.ini,PhotoModeRangeLimit,Yes,No,integer,3000,modeled-g
 Configuration Files > Game.ini,PlayerBaseStatMultipliers[<attribute>],Unknown,Yes,multiplier,N/A,modeled-game,playerBaseStatMultipliers,Game.kt,"Map<Int, Float>?",null,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,PlayerHarvestingDamageMultiplier,Unknown,Yes,float,1.0,modeled-game,playerHarvestingDamageMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,PoopIntervalMultiplier,Yes,Yes,float,1.0,modeled-game,poopIntervalMultiplier,Game.kt,Float,1.0f,,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,PreventBreedingForClassNames,Yes,Yes,"""<string>""",N/A,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,PreventDinoTameClassNames,Unknown,Yes,"""<string>""",N/A,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,PreventBreedingForClassNames,Yes,Yes,"""<string>""",N/A,modeled-game,preventBreedingForClassNames,Game.kt,List<String>,emptyList(),,Yes,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,PreventDinoTameClassNames,Unknown,Yes,"""<string>""",N/A,modeled-game,preventDinoTameClassNames,Game.kt,List<String>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,PreventOfflinePvPConnectionInvincibleInterval,Unknown,Yes,float,5.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,PreventTransferForClassNames,No,Yes,"""<string>""",N/A,ase-only,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,PvPZoneStructureDamageMultiplier,Unknown,Yes,float,6.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
@@ -488,8 +488,8 @@ Configuration Files > Game.ini,SpecialXPMultiplier,Yes,Yes,float,1.0,modeled-gam
 Configuration Files > Game.ini,StructureDamageRepairCooldown,Unknown,Yes,integer,180,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,SupplyCrateLootQualityMultiplier,Unknown,Yes,float,1.0,modeled-game,supplyCrateLootQualityMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,TamedDinoCharacterFoodDrainMultiplier,Unknown,Yes,float,1.0,modeled-game,tamedDinoCharacterFoodDrainMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,TamedDinoClassDamageMultipliers,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,TamedDinoClassResistanceMultipliers,Unknown,Yes,(...),N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,TamedDinoClassDamageMultipliers,Unknown,Yes,(...),N/A,modeled-game,tamedDinoClassDamageMultipliers,Game.kt,List<ClassMultiplier>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,TamedDinoClassResistanceMultipliers,Unknown,Yes,(...),N/A,modeled-game,tamedDinoClassResistanceMultipliers,Game.kt,List<ClassMultiplier>,emptyList(),yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,TamedDinoTorporDrainMultiplier,Unknown,Yes,float,1.0,modeled-game,tamedDinoTorporDrainMultiplier,Game.kt,Float,1.0f,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,TribeTowerBonusMultiplier,Yes,No,float,2.0,missing-asa,,,,,,,,,,
 Configuration Files > Game.ini,TribeSlotReuseCooldown,Unknown,Yes,float,0.0,modeled-game,tribeSlotReuseCooldown,Game.kt,Int,0,yes,Yes,,,yes,Configuration Files > Game.ini
@@ -512,8 +512,8 @@ Configuration Files > Game.ini,bEnableWorldBuffScaling,Unknown,Yes,boolean,False
 Configuration Files > Game.ini,bGenesisUseStructuresPreventionVolumes,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,bHexStoreAllowOnlyEngramTradeOption,Unknown,Yes,boolean,False,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,HexagonCostMultiplier,Yes,Yes,float,1.0,missing-asa,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,MutagenLevelBoost['''<Stat_ID>'''],Unknown,Yes,integer,N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
-Configuration Files > Game.ini,MutagenLevelBoost_Bred['''<Stat_ID>'''],Unknown,Yes,integer,N/A,table-missing,,,,,,,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,MutagenLevelBoost['''<Stat_ID>'''],Unknown,Yes,integer,N/A,modeled-game,mutagenLevelBoost,Game.kt,"Map<Int, Int>?",null,yes,Yes,,,yes,Configuration Files > Game.ini
+Configuration Files > Game.ini,MutagenLevelBoost_Bred['''<Stat_ID>'''],Unknown,Yes,integer,N/A,modeled-game,mutagenLevelBoostBred,Game.kt,"Map<Int, Int>?",null,yes,Yes,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini,WorldBuffScalingEfficacy,Unknown,Yes,float,1.0,missing-unknown,,,,,,,,,yes,Configuration Files > Game.ini
 Configuration Files > Game.ini > [ModInstaller],ModIDS,No,Yes,ModID,,ase-only,,,,,,,,,,
 DynamicConfig,ActiveEventColors,No,Yes,string,N/A,ase-only,,,,,,,,,,
@@ -544,7 +544,7 @@ DynamicConfig,HarvestAmountMultiplier,Yes,Yes,float,1.0,dynamic-config,harvestAm
 DynamicConfig,HexagonRewardMultiplier,Yes,Yes,float,1.0,dynamic-config,,,,,,,,,,
 DynamicConfig,MatingIntervalMultiplier,Yes,Yes,float,1.0,dynamic-config,matingIntervalMultiplier,Game.kt,Float,1.0f,,,,,yes,Configuration Files > Game.ini
 DynamicConfig,MatingSpeedMultiplier,Unknown,Yes,float,1.0,dynamic-config,matingSpeedMultiplier,Game.kt,Float,1.0f,,,,,yes,Configuration Files > Game.ini
-DynamicConfig,NPCReplacements,Unknown,Yes,string,N/A,dynamic-config,,,,,,,,,yes,Configuration Files > Game.ini
+DynamicConfig,NPCReplacements,Unknown,Yes,string,N/A,dynamic-config,npcReplacements,Game.kt,List<NpcReplacement>,emptyList(),yes,,,,yes,Configuration Files > Game.ini
 DynamicConfig,PvEDinoDecayPeriodMultiplier,Unknown,Yes,float,1.0,dynamic-config,pveDinoDecayPeriodMultiplier,GameUserSettings.kt,Float,1.0f,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 DynamicConfig,PvEStructureDecayPeriodMultiplier,Unknown,Yes,float,1.0,dynamic-config,pvEStructureDecayPeriodMultiplier,GameUserSettings.kt,Float,1.0f,yes,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]
 DynamicConfig,StructureDamageMultiplier,Unknown,Yes,float,1.0,dynamic-config,,,,,,,,,yes,Configuration Files > GameUserSettings.ini > [ServerSettings]

@@ -7,7 +7,6 @@ import db.models.ClusterEntity
 import db.models.ClustersTable
 import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
-import eu.wynq.arkascendedservermanager.core.ini.withActiveModsFromRaw
 import eu.wynq.arkascendedservermanager.core.server.Settings
 import eu.wynq.arkascendedservermanager.core.support.Constants
 import eu.wynq.arkascendedservermanager.core.support.isValidPath
@@ -112,7 +111,7 @@ data class Server(
         val path = Path.of(installationLocation, Constants.GAME_USER_SETTINGS_PATH)
         if (path.toFile().exists()) {
             val text = path.toFile().readText()
-            IniSerializer.deserialize<GameUserSettings>(text).withActiveModsFromRaw(text)
+            IniSerializer.deserialize<GameUserSettings>(text)
         } else {
             null
         }

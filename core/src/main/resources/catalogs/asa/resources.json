@@ -1,0 +1,1495 @@
+{
+  "source": "Item_IDs/Resources + legacy game data",
+  "generatedAt": "2026-10-24",
+  "count": 135,
+  "entries": [
+    {
+      "name": "Absorbent Substrate",
+      "className": "PrimalItemResource_SubstrateAbsorbent_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Absorbent Substrate"
+      ]
+    },
+    {
+      "name": "Achatina Paste",
+      "className": "PrimalItemResource_SnailPaste_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Achatina Paste"
+      ]
+    },
+    {
+      "name": "Aggeravic Mushroom",
+      "className": "PrimalItemResource_CommonMushroom_C",
+      "category": "Consumables",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Aggeravic Mushroom"
+      ]
+    },
+    {
+      "name": "Allosaurus Brain",
+      "className": "PrimalItemResource_ApexDrop_Allo_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Allosaurus Brain"
+      ]
+    },
+    {
+      "name": "Alpha Basilisk Fang",
+      "className": "PrimalItemResource_ApexDrop_Basilisk_Alpha_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Basilisk Fang"
+      ]
+    },
+    {
+      "name": "Alpha Carnotaurus Arm",
+      "className": "PrimalItemResource_ApexDrop_AlphaCarno_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Carnotaurus Arm"
+      ]
+    },
+    {
+      "name": "Alpha Crystal Talon",
+      "className": "PrimalItemResource_ApexDrop_AlphaCrystalWyvern_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Crystal Talon"
+      ]
+    },
+    {
+      "name": "Alpha Karkinos Claw",
+      "className": "PrimalItemResource_ApexDrop_CrabClaw_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Karkinos Claw"
+      ]
+    },
+    {
+      "name": "Alpha Leedsichthys Blubber",
+      "className": "PrimalItemResource_ApexDrop_AlphaLeeds_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Leedsichthys Blubber"
+      ]
+    },
+    {
+      "name": "Alpha Megalodon Fin",
+      "className": "PrimalItemResource_ApexDrop_AlphaMegalodon_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Megalodon Fin"
+      ]
+    },
+    {
+      "name": "Alpha Mosasaur Tooth",
+      "className": "PrimalItemResource_ApexDrop_AlphaMosasaur_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Mosasaur Tooth"
+      ]
+    },
+    {
+      "name": "Alpha Raptor Claw",
+      "className": "PrimalItemResource_ApexDrop_AlphaRaptor_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Raptor Claw"
+      ]
+    },
+    {
+      "name": "Alpha Reaper King Barb",
+      "className": "PrimalItemResource_ApexDrop_ReaperBarb_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Reaper King Barb"
+      ]
+    },
+    {
+      "name": "Alpha Tusoteuthis Eye",
+      "className": "PrimalItemResource_ApexDrop_AlphaTuso_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Tusoteuthis Eye"
+      ]
+    },
+    {
+      "name": "Alpha Tyrannosaur Tooth",
+      "className": "PrimalItemResource_ApexDrop_AlphaRex_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Tyrannosaur Tooth"
+      ]
+    },
+    {
+      "name": "Alpha Water Talon",
+      "className": "PrimalItemResource_ApexDrop_AlphaWaterWyvern_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Water Talon"
+      ]
+    },
+    {
+      "name": "Ambergris",
+      "className": "PrimalItemResource_Ambergris_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Ambergris"
+      ]
+    },
+    {
+      "name": "Ammonite Bile",
+      "className": "PrimalItemResource_AmmoniteBlood_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Ammonite Bile"
+      ]
+    },
+    {
+      "name": "AnglerGel",
+      "className": "PrimalItemResource_AnglerGel_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Angler Gel",
+        "AnglerGel"
+      ]
+    },
+    {
+      "name": "Argentavis Talon",
+      "className": "PrimalItemResource_ApexDrop_Argentavis_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Argentavis Talon"
+      ]
+    },
+    {
+      "name": "Basilisk Scale",
+      "className": "PrimalItemResource_ApexDrop_Basilisk_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Basilisk Scale"
+      ]
+    },
+    {
+      "name": "Basilosaurus Blubber",
+      "className": "PrimalItemResource_ApexDrop_Basilo_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Basilosaurus Blubber"
+      ]
+    },
+    {
+      "name": "Beer Liquid",
+      "className": "PrimalItemResource_Beer_C",
+      "category": "Consumables",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Beer Liquid"
+      ]
+    },
+    {
+      "name": "Birthday Candle",
+      "className": "PrimalItemResource_BirthdayCandle_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Birthday Candle"
+      ]
+    },
+    {
+      "name": "Black Pearl",
+      "className": "PrimalItemResource_BlackPearl_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Black Pearl"
+      ]
+    },
+    {
+      "name": "Blood Pack",
+      "className": "PrimalItemConsumable_BloodPack_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Blood Pack"
+      ]
+    },
+    {
+      "name": "Blue Crystalized Sap",
+      "className": "PrimalItemResource_BlueSap_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Blue Crystalized Sap"
+      ]
+    },
+    {
+      "name": "Blue Gem",
+      "className": "PrimalItemResource_Gem_BioLum_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Blue Gem"
+      ]
+    },
+    {
+      "name": "Cake Slice",
+      "className": "PrimalItemResource_CakeSlice_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Cake Slice"
+      ]
+    },
+    {
+      "name": "Cementing Paste",
+      "className": "PrimalItemResource_ChitinPaste_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Cementing Paste"
+      ]
+    },
+    {
+      "name": "Cerato Venom Spine",
+      "className": "PrimalItemResource_ApexDrop_Cerato_ASA",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Cerato Venom Spine"
+      ]
+    },
+    {
+      "name": "Charcoal",
+      "className": "PrimalItemResource_Charcoal_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Charcoal"
+      ]
+    },
+    {
+      "name": "Charge Battery",
+      "className": "PrimalItem_ChargeBattery_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Charge Battery"
+      ]
+    },
+    {
+      "name": "Chitin",
+      "className": "PrimalItemResource_Chitin_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Chitin"
+      ]
+    },
+    {
+      "name": "Chitin or Keratin",
+      "className": "PrimalItemResource_ChitinOrKeratin_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Chitin or Keratin"
+      ]
+    },
+    {
+      "name": "Clay",
+      "className": "PrimalItemResource_Clay_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Clay"
+      ]
+    },
+    {
+      "name": "Coal",
+      "className": "PrimalItemResource_Coal_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Coal"
+      ]
+    },
+    {
+      "name": "Condensed Gas",
+      "className": "PrimalItemResource_CondensedGas_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Condensed Gas"
+      ]
+    },
+    {
+      "name": "Congealed Gas Ball",
+      "className": "PrimalItemResource_Gas_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Congealed Gas Ball"
+      ]
+    },
+    {
+      "name": "Corrupt Heart",
+      "className": "PrimalItemResource_RareDrop_CorruptHeart_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Corrupt Heart"
+      ]
+    },
+    {
+      "name": "Corrupted Nodule",
+      "className": "PrimalItemResource_CorruptedPolymer_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Corrupted Nodule"
+      ]
+    },
+    {
+      "name": "Corrupted Wood",
+      "className": "PrimalItemResource_CorruptedWood_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Corrupted Wood"
+      ]
+    },
+    {
+      "name": "Crafted Element Dust",
+      "className": "PrimalItemResource_ElementDustFromShards_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Crafted Element Dust",
+        "Crafted Element Dust (Element Shard)"
+      ]
+    },
+    {
+      "name": "Crafted Element Dust (Element)",
+      "className": "PrimalItemResource_ElementDustFromElement_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "Extinction",
+      "asa": "unknown",
+      "aliases": [
+        "Crafted Element Dust (Element)"
+      ]
+    },
+    {
+      "name": "Crystal",
+      "className": "PrimalItemResource_Crystal_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Crystal"
+      ]
+    },
+    {
+      "name": "Crystal Talon",
+      "className": "PrimalItemResource_ApexDrop_CrystalWyvern_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Crystal Talon"
+      ]
+    },
+    {
+      "name": "Deathworm Horn",
+      "className": "PrimalItemResource_KeratinSpike_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Deathworm Horn"
+      ]
+    },
+    {
+      "name": "Dermis",
+      "className": "PrimalItem_TaxidermyDermis_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Dermis"
+      ]
+    },
+    {
+      "name": "Dinosaur Bone",
+      "className": "PrimalItemResource_ARKBone_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Dinosaur Bone"
+      ]
+    },
+    {
+      "name": "Electronics",
+      "className": "PrimalItemResource_Electronics_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Electronics"
+      ]
+    },
+    {
+      "name": "Element",
+      "className": "PrimalItemResource_Element_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Element"
+      ]
+    },
+    {
+      "name": "Element (Crafted)",
+      "className": "PrimalItemResource_ElementPowerNode_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Element (Crafted)"
+      ]
+    },
+    {
+      "name": "Element Dust",
+      "className": "PrimalItemResource_ElementDust_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Element Dust"
+      ]
+    },
+    {
+      "name": "Element Ore",
+      "className": "PrimalItemResource_ElementOre_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Element Ore"
+      ]
+    },
+    {
+      "name": "Element Shard",
+      "className": "PrimalItemResource_ElementShard_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Element Shard"
+      ]
+    },
+    {
+      "name": "Fertilizer",
+      "className": "PrimalItemConsumable_Fertilizer_Compost_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Fertilizer"
+      ]
+    },
+    {
+      "name": "Fiber",
+      "className": "PrimalItemResource_Fibers_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Fiber"
+      ]
+    },
+    {
+      "name": "Fire Talon",
+      "className": "PrimalItemResource_ApexDrop_FireWyvern_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Fire Talon"
+      ]
+    },
+    {
+      "name": "Flint",
+      "className": "PrimalItemResource_Flint_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Flint"
+      ]
+    },
+    {
+      "name": "Fragmented Green Gem",
+      "className": "PrimalItemResource_FracturedGem_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Fragmented Green Gem"
+      ]
+    },
+    {
+      "name": "Fungal Wood",
+      "className": "PrimalItemResource_FungalWood_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Fungal Wood"
+      ]
+    },
+    {
+      "name": "Gasbags bladder",
+      "className": "PrimalItemResource_ApexDrop_GasBag_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Gasbags bladder"
+      ]
+    },
+    {
+      "name": "Gasoline",
+      "className": "PrimalItemResource_Gasoline_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Gasoline"
+      ]
+    },
+    {
+      "name": "Gasoline (Gas-Crafted)",
+      "className": "PrimalItemResource_Gasoline_GasCrafted_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Gasoline (Gas-Crafted)"
+      ]
+    },
+    {
+      "name": "Giganotosaurus Heart",
+      "className": "PrimalItemResource_ApexDrop_Giga_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Giganotosaurus Heart"
+      ]
+    },
+    {
+      "name": "Golden Nugget",
+      "className": "PrimalItemResource_GoldenNugget_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Golden Nugget"
+      ]
+    },
+    {
+      "name": "Golden Striped Megalodon Tooth",
+      "className": "PrimalItemResource_RetrieveMegTooth_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Golden Striped Megalodon Tooth"
+      ]
+    },
+    {
+      "name": "Green Gem",
+      "className": "PrimalItemResource_Gem_Fertile_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Green Gem"
+      ]
+    },
+    {
+      "name": "Gunpowder",
+      "className": "PrimalItemResource_Gunpowder_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Gunpowder"
+      ]
+    },
+    {
+      "name": "Hide",
+      "className": "PrimalItemResource_Hide_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Hide"
+      ]
+    },
+    {
+      "name": "High Quality Pollen",
+      "className": "PrimalItemResource_HighQualityPollen_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "High Quality Pollen"
+      ]
+    },
+    {
+      "name": "Human Hair",
+      "className": "PrimalItemResource_Hair_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Human Hair"
+      ]
+    },
+    {
+      "name": "Keratin",
+      "className": "PrimalItemResource_Keratin_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Keratin"
+      ]
+    },
+    {
+      "name": "Leech Blood",
+      "className": "PrimalItemResource_LeechBlood_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Leech Blood"
+      ]
+    },
+    {
+      "name": "Leech Blood or Horns",
+      "className": "PrimalItemResourceGeneric_Curing_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Leech Blood or Horns"
+      ]
+    },
+    {
+      "name": "Lightning Talon",
+      "className": "PrimalItemResource_ApexDrop_LightningWyvern_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Lightning Talon"
+      ]
+    },
+    {
+      "name": "Megalania Toxin",
+      "className": "PrimalItemResource_ApexDrop_Megalania_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Megalania Toxin"
+      ]
+    },
+    {
+      "name": "Megalodon Tooth",
+      "className": "PrimalItemResource_ApexDrop_Megalodon_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Megalodon Tooth"
+      ]
+    },
+    {
+      "name": "Metal",
+      "className": "PrimalItemResource_Metal_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Metal"
+      ]
+    },
+    {
+      "name": "Metal Ingot",
+      "className": "PrimalItemResource_MetalIngot_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Metal Ingot"
+      ]
+    },
+    {
+      "name": "Mistletoe",
+      "className": "PrimalItemResource_MistleToe_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Mistletoe"
+      ]
+    },
+    {
+      "name": "Monodon Horn",
+      "className": "PrimalItemResource_ApexDrop_Monodon_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Monodon Horn"
+      ]
+    },
+    {
+      "name": "Mutagel",
+      "className": "PrimalItemConsumable_Mutagel_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Mutagel"
+      ]
+    },
+    {
+      "name": "Mutagen",
+      "className": "PrimalItemConsumable_Mutagen_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Mutagen"
+      ]
+    },
+    {
+      "name": "Narcotic",
+      "className": "PrimalItemConsumable_Narcotic_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Narcotic"
+      ]
+    },
+    {
+      "name": "Obsidian",
+      "className": "PrimalItemResource_Obsidian_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Obsidian"
+      ]
+    },
+    {
+      "name": "Oil",
+      "className": "PrimalItemResource_Oil_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Oil"
+      ]
+    },
+    {
+      "name": "Oil (Tusoteuthis)",
+      "className": "PrimalItemResource_SquidOil_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Oil (Tusoteuthis)"
+      ]
+    },
+    {
+      "name": "Onchopristis Blade",
+      "className": "PrimalItemResource_ApexDrop_Onchopristis_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Onchopristis Blade"
+      ]
+    },
+    {
+      "name": "Organic Polymer",
+      "className": "PrimalItemResource_Polymer_Organic_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Organic Polymer"
+      ]
+    },
+    {
+      "name": "Pelt",
+      "className": "PrimalItemResource_Pelt_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Pelt"
+      ]
+    },
+    {
+      "name": "Pelt, Hair, or Wool",
+      "className": "PrimalItemResource_PeltOrHair_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Pelt or Hair",
+        "Pelt, Hair, or Wool"
+      ]
+    },
+    {
+      "name": "Poison Talon",
+      "className": "PrimalItemResource_ApexDrop_PoisonWyvern_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Poison Talon"
+      ]
+    },
+    {
+      "name": "Polymer",
+      "className": "PrimalItemResource_Polymer_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Polymer"
+      ]
+    },
+    {
+      "name": "Preserving Salt",
+      "className": "PrimalItemResource_PreservingSalt_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Preserving Salt"
+      ]
+    },
+    {
+      "name": "Primal Crystal",
+      "className": "PrimalItemResource_Crystal_IslesPrimal_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Primal Crystal"
+      ]
+    },
+    {
+      "name": "Propellant",
+      "className": "PrimalItemResource_Propellant_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Propellant"
+      ]
+    },
+    {
+      "name": "Rare Flower",
+      "className": "PrimalItemResource_RareFlower_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Rare Flower"
+      ]
+    },
+    {
+      "name": "Rare Mushroom",
+      "className": "PrimalItemResource_RareMushroom_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Rare Mushroom"
+      ]
+    },
+    {
+      "name": "Raw Salt",
+      "className": "PrimalItemResource_RawSalt_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Raw Salt"
+      ]
+    },
+    {
+      "name": "Re-Fertilizer",
+      "className": "PrimalItemConsumableMiracleGro_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Re-Fertilizer"
+      ]
+    },
+    {
+      "name": "Reaper King Pheromone Gland",
+      "className": "PrimalItemResource_RetrieveReaperGland_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Reaper King Pheromone Gland"
+      ]
+    },
+    {
+      "name": "Reaper Pheromone Gland",
+      "className": "PrimalItemResource_XenomorphPheromoneGland_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Reaper Pheromone Gland"
+      ]
+    },
+    {
+      "name": "Red Crystalized Sap",
+      "className": "PrimalItemResource_RedSap_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Red Crystalized Sap"
+      ]
+    },
+    {
+      "name": "Red Gem",
+      "className": "PrimalItemResource_Gem_Element_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Red Gem"
+      ]
+    },
+    {
+      "name": "Rock Drake Feather",
+      "className": "PrimalItemResource_ApexDrop_RockDrake_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Rock Drake Feather"
+      ]
+    },
+    {
+      "name": "Sand",
+      "className": "PrimalItemResource_Sand_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Sand"
+      ]
+    },
+    {
+      "name": "Sap",
+      "className": "PrimalItemResource_Sap_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Sap"
+      ]
+    },
+    {
+      "name": "Sarcosuchus Skin",
+      "className": "PrimalItemResource_ApexDrop_Sarco_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Sarcosuchus Skin"
+      ]
+    },
+    {
+      "name": "Sauropod Vertebra",
+      "className": "PrimalItemResource_ApexDrop_Sauro_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Sauropod Vertebra"
+      ]
+    },
+    {
+      "name": "Scrap Metal",
+      "className": "PrimalItemResource_ScrapMetal_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Scrap Metal"
+      ]
+    },
+    {
+      "name": "Scrap Metal Ingot",
+      "className": "PrimalItemResource_ScrapMetalIngot_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Scrap Metal Ingot"
+      ]
+    },
+    {
+      "name": "Shell Fragment",
+      "className": "PrimalItemResource_TurtleShell_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Shell Fragment"
+      ]
+    },
+    {
+      "name": "Silica Pearls",
+      "className": "PrimalItemResource_Silicon_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Silica Pearls"
+      ]
+    },
+    {
+      "name": "Silicate",
+      "className": "PrimalItemResource_Silicate_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Silicate"
+      ]
+    },
+    {
+      "name": "Silk",
+      "className": "PrimalItemResource_Silk_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Silk"
+      ]
+    },
+    {
+      "name": "Sparkpowder",
+      "className": "PrimalItemResource_Sparkpowder_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Sparkpowder"
+      ]
+    },
+    {
+      "name": "Spinosaurus Sail",
+      "className": "PrimalItemResource_ApexDrop_Spino_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Spinosaurus Sail"
+      ]
+    },
+    {
+      "name": "Stimulant",
+      "className": "PrimalItemConsumable_Stimulant_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Stimulant"
+      ]
+    },
+    {
+      "name": "Stone",
+      "className": "PrimalItemResource_Stone_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Stone"
+      ]
+    },
+    {
+      "name": "Sulfur",
+      "className": "PrimalItemResource_Sulfur_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Sulfur"
+      ]
+    },
+    {
+      "name": "Thatch",
+      "className": "PrimalItemResource_Thatch_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Thatch"
+      ]
+    },
+    {
+      "name": "Therizino Claws",
+      "className": "PrimalItemResource_ApexDrop_Theriz_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Therizino Claws"
+      ]
+    },
+    {
+      "name": "Thylacoleo Hook-Claw",
+      "className": "PrimalItemResource_ApexDrop_Thylaco_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Thylacoleo Hook-Claw"
+      ]
+    },
+    {
+      "name": "Titanoboa Venom",
+      "className": "PrimalItemResource_ApexDrop_Boa_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Titanoboa Venom"
+      ]
+    },
+    {
+      "name": "Tusoteuthis Tentacle",
+      "className": "PrimalItemResource_ApexDrop_Tuso_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Tusoteuthis Tentacle"
+      ]
+    },
+    {
+      "name": "Tyrannosaurus Arm",
+      "className": "PrimalItemResource_ApexDrop_Rex_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Tyrannosaurus Arm"
+      ]
+    },
+    {
+      "name": "Unstable Element",
+      "className": "PrimalItemResource_ElementRefined_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Unstable Element"
+      ]
+    },
+    {
+      "name": "Unstable Element Shard",
+      "className": "PrimalItemResource_ShardRefined_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Unstable Element Shard"
+      ]
+    },
+    {
+      "name": "Water Talon",
+      "className": "PrimalItemResource_ApexDrop_WaterWyvern_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Water Talon"
+      ]
+    },
+    {
+      "name": "Wishbone",
+      "className": "PrimalItemResource_Wishbone_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Wishbone"
+      ]
+    },
+    {
+      "name": "Wood",
+      "className": "PrimalItemResource_Wood_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Wood"
+      ]
+    },
+    {
+      "name": "Wool",
+      "className": "PrimalItemResource_Wool_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Wool"
+      ]
+    },
+    {
+      "name": "Woolly Rhino Horn",
+      "className": "PrimalItemResource_Horn_C",
+      "category": "Resources",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Woolly Rhino Horn"
+      ]
+    },
+    {
+      "name": "Yutyrannus Lungs",
+      "className": "PrimalItemResource_ApexDrop_Yuty_C",
+      "category": "Artifacts",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Yutyrannus Lungs"
+      ]
+    }
+  ]
+}

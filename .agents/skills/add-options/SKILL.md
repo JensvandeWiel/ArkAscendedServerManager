@@ -170,7 +170,7 @@ Add the field here, derive implementation details from the tab/section files to 
 
 ### UI Tab & Section Reference
 
-The app has **12 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
+The app has **14 tabs**. Each tab file lives in `ui/src/main/kotlin/features/server/`. Use this reference to determine where an option belongs:
 
 #### Profile Tab (`ProfileTabContent.kt`)
 - **Content**: Server name, installation path, ASA API toggle
@@ -214,6 +214,23 @@ Composed of **10 sub-sections**, each in its own file under `general/`:
   - Player multipliers: XP, damage, resistance, water/food/stamina drain, health recovery, harvesting damage, crafting skill, fall speed
   - **Base Stat Multipliers** (`CheckboxSectionHeader` → 12 stat sliders)
   - **Per-Level Stats Multipliers** (`CheckboxSectionHeader` → 12 stat sliders)
+
+#### Tables Tab (`TablesTabContent.kt`)
+- **Content**: repeated-struct options; one row per class, add/remove row, `@Unsure` tables grouped
+  under an "Experimental" header
+- **Components**: `DataTable` (`components/DataTable.kt`) for aligned columns, `ClassNameCell` +
+  `ClassPickerDialog` (`components/ClassPicker.kt`) for searchable class names. Catalogs come from
+  `ArkCatalogs.creatures/items/engrams/resources`; free text is always allowed for modded/custom
+  class names. Add rows with `AddRowButtons`, not a plain stack of fields.
+- **Sections**:
+  - **Verified in ASA**: harvest resource multipliers, named engram overrides, prevent breeding,
+    cheat teleport locations
+  - **Experimental — ASA support not confirmed**: wild/tamed class damage and resistance, dino
+    spawn weights, NPC replacements, prevent taming, engram auto-unlocks, item stat clamps,
+    mutagen level boosts, item stack overrides
+
+#### Dino Settings Tab (`DinoSettingsTabContent.kt`)
+- **Sections**: breeding/imprinting, cryo, tame limits, level-up animation and per-class dino settings
 
 #### Structures & Items Tab (`StructuresAndItemsTabContent.kt`)
 - **Sections**:
@@ -274,6 +291,7 @@ When the user gives you an option, follow this logic:
    - Server operation (ports, name, cluster, tribute) → **General** tab group
    - Command-line flags (idle kick, battleye, cosmetics, dinos, events) → General > **ServerOptionsSection**
    - Chat, voice, HUD/visuals, gamma, photo mode → **Chat & HUD** tab
+   - Repeated/indexed/struct Game.ini tables (class multipliers, NPC replacements, engrams, spawns) → **Tables** tab (`ini/tables/`)
    - Structures, platform saddles, turrets, item stacks, wireless crafting → **Structures & Items** tab
    - Ban/admin lists, dupe/mesh protection, character tracking → **Admin & Security** tab
    - Performance, save format, logging, network, raw launch args → **Advanced & Launch** tab

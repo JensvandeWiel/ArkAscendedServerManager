@@ -12,18 +12,25 @@
   legacy-only keys and location conflicts. Do not resolve them silently.
 - `ArkServerOptions.csv` is generated. Run `python tools/scrape-ark-options.py`; never hand-append.
   The scraper preserves the `implemented` column.
+- Class-name catalogs under `core/src/main/resources/catalogs/asa/` are generated too. Run
+  `python tools/scrape-ark-catalogs.py`; never hand-edit them. It merges the legacy
+  `ServerManagers/.../GameData/*.gamedata` files with the ASA wiki, excludes `PrimitivePlus`/`PGM`,
+  and marks entries as `asa=yes` or `asa=unknown`. Table editors must always allow free-text
+  class names for mods/custom content; the catalog is a search aid, not a whitelist.
 - Run `python tools/audit-options.py --check` after changing the model, CSV or UI. It must report
   **0 action items**. Use `--fix-implemented` when an option is exposed but not marked.
 - Mods are stored in `GameUserSettings.ini > [ServerSettings] > ActiveMods` as CurseForge project
   IDs. `-mods=` is legacy import only unless `mirrorModsToLaunchArgs` is enabled (default off;
   plan §0.1). Both routes work in ASA; keep the lists identical if mirroring.
 - inisaur: a sibling checkout (`../inisaur`) is used via a conditional composite build when
-  present. Keep `withActiveModsFromRaw` until a release with the single-item-array fix is
-  published; then remove it.
+  present. The published `0.6.0` is the minimum version (repeated structs and `@IniString` inside
+  structs). Use `-PusePublishedInisaur` to verify the published artifact locally; CI always uses
+  the published artifact.
 - Tests: `python -m unittest discover -s tools -p "test_*.py"` and
-  `./gradlew :core:test :ui:compileKotlin -x :overseer:cargoBuild` (the native `overseer` build
-  currently fails on `conpty.lib`). Existing behavior is covered by `ServerIoTest`,
-  `IniRoundTripTest`, `SettingsStartupScriptTest` and the fake RCON server tests; keep them green.
+  `./gradlew :core:test :ui:test :ui:compileKotlin -x :overseer:cargoBuild
+  -x :core:writeOverseerChecksum` (the native `overseer` build currently fails on `conpty.lib`).
+  Existing behavior is covered by `ServerIoTest`, `IniRoundTripTest`,
+  `SettingsStartupScriptTest` and the fake RCON server tests; keep them green.
 - If Compose resource accessors fail with unresolved `_collectMainString*` after adding strings,
   delete `ui/build/generated/compose` and rebuild; it is a resource-generator cache issue, not a
   code error.

@@ -1,0 +1,7096 @@
+{
+  "source": "https://ark.wiki.gg/wiki/Creature_IDs",
+  "generatedAt": "2026-10-24",
+  "count": 599,
+  "entries": [
+    {
+      "name": "Aberrant Achatina",
+      "className": "Achatina_Character_BP_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Achatina",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Achatina",
+        "Achatina"
+      ]
+    },
+    {
+      "name": "Aberrant Anglerfish",
+      "className": "Angler_Character_BP_Aberrant_C",
+      "category": "Fish",
+      "nameTag": "Angler",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Anglerfish",
+        "Angler"
+      ]
+    },
+    {
+      "name": "Aberrant Ankylosaurus",
+      "className": "Ankylo_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Anky",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Ankylosaurus",
+        "Anky",
+        "Ankylo"
+      ]
+    },
+    {
+      "name": "Aberrant Araneo",
+      "className": "SpiderS_Character_BP_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Spider",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Araneo",
+        "Spider"
+      ]
+    },
+    {
+      "name": "Aberrant Arthropluera",
+      "className": "Arthro_Character_BP_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Arthro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Arthropluera",
+        "Arthro"
+      ]
+    },
+    {
+      "name": "Aberrant Baryonyx",
+      "className": "Baryonyx_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Baryonyx",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Baryonyx",
+        "Baryonyx"
+      ]
+    },
+    {
+      "name": "Aberrant Beelzebufo",
+      "className": "Toad_Character_BP_Aberrant_C",
+      "category": "Reptiles",
+      "nameTag": "Toad",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Beelzebufo",
+        "Toad"
+      ]
+    },
+    {
+      "name": "Aberrant Carbonemys",
+      "className": "Turtle_Character_BP_Aberrant_C",
+      "category": "Reptiles",
+      "nameTag": "Turtle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Carbonemys",
+        "Turtle"
+      ]
+    },
+    {
+      "name": "Aberrant Carnotaurus",
+      "className": "Carno_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Carno",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Carnotaurus",
+        "Carno"
+      ]
+    },
+    {
+      "name": "Aberrant Cnidaria",
+      "className": "Cnidaria_Character_BP_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Cnidaria",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Cnidaria",
+        "Cnidaria"
+      ]
+    },
+    {
+      "name": "Aberrant Coelacanth",
+      "className": "Coel_Character_BP_Aberrant_C",
+      "category": "Fish",
+      "nameTag": "Coel",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Coelacanth",
+        "Coel"
+      ]
+    },
+    {
+      "name": "Aberrant Concavenator",
+      "className": "Concavenator_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Concavenator",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Concavenator",
+        "Concavenator"
+      ]
+    },
+    {
+      "name": "Aberrant Dimetrodon",
+      "className": "Dimetro_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dimetro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Dimetrodon",
+        "Dimetro"
+      ]
+    },
+    {
+      "name": "Aberrant Dimorphodon",
+      "className": "Dimorph_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dimorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Dimorphodon",
+        "Dimorph"
+      ]
+    },
+    {
+      "name": "Aberrant Diplocaulus",
+      "className": "Diplocaulus_Character_BP_Aberrant_C",
+      "category": "Amphibians",
+      "nameTag": "Diplocaulus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Diplocaulus",
+        "Diplocaulus"
+      ]
+    },
+    {
+      "name": "Aberrant Diplodocus",
+      "className": "Diplodocus_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Diplo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Diplodocus",
+        "Diplo"
+      ]
+    },
+    {
+      "name": "Aberrant Dire Bear",
+      "className": "Direbear_Character_BP_Aberrant_C",
+      "category": "Mammals",
+      "nameTag": "Direbear",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Dire Bear",
+        "Aberrant Direbear",
+        "Direbear"
+      ]
+    },
+    {
+      "name": "Aberrant Dodo",
+      "className": "Dodo_Character_BP_Aberrant_C",
+      "category": "Birds",
+      "nameTag": "Dodo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Dodo",
+        "Dodo"
+      ]
+    },
+    {
+      "name": "Aberrant Doedicurus",
+      "className": "Doed_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Doed",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Doedicurus",
+        "Doed"
+      ]
+    },
+    {
+      "name": "Aberrant Dung Beetle",
+      "className": "DungBeetle_Character_BP_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Beetle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Dung Beetle",
+        "Beetle"
+      ]
+    },
+    {
+      "name": "Aberrant Electrophorus",
+      "className": "Eel_Character_BP_Aberrant_C",
+      "category": "Fish",
+      "nameTag": "Eel",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Electrophorus",
+        "Eel"
+      ]
+    },
+    {
+      "name": "Aberrant Equus",
+      "className": "Equus_Character_BP_Aberrant_C",
+      "category": "Mammals",
+      "nameTag": "Equus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Equus",
+        "Equus"
+      ]
+    },
+    {
+      "name": "Aberrant Fasolasuchus",
+      "className": "Fasola_Character_BP_Aberrant_C",
+      "category": "Reptiles",
+      "nameTag": "Fasola",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Fasolasuchus",
+        "Fasola"
+      ]
+    },
+    {
+      "name": "Aberrant Gigantopithecus",
+      "className": "BigFoot_Character_BP_Aberrant_C",
+      "category": "Creatures",
+      "nameTag": "Bigfoot",
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Aberrant Gigantopithecus",
+        "Bigfoot"
+      ]
+    },
+    {
+      "name": "Aberrant Gigantopithecus",
+      "className": "Bigfoot_Character_BP_Aberrant_C",
+      "category": "Mammals",
+      "nameTag": "Bigfoot",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Gigantopithecus",
+        "Bigfoot"
+      ]
+    },
+    {
+      "name": "Aberrant Gigantoraptor",
+      "className": "Gigantoraptor_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Gigantoraptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Gigantoraptor",
+        "Gigantoraptor"
+      ]
+    },
+    {
+      "name": "Aberrant Iguanodon",
+      "className": "Iguanodon_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Iguanodon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Iguanodon",
+        "Iguanodon"
+      ]
+    },
+    {
+      "name": "Aberrant Lystrosaurus",
+      "className": "Lystro_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Lystro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Lystrosaurus",
+        "Lystro"
+      ]
+    },
+    {
+      "name": "Aberrant Manta",
+      "className": "Manta_Character_BP_Aberrant_C",
+      "category": "Fish",
+      "nameTag": "Manta",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Manta",
+        "Manta"
+      ]
+    },
+    {
+      "name": "Aberrant Megalania",
+      "className": "Megalania_Character_BP_Aberrant_C",
+      "category": "Reptiles",
+      "nameTag": "Megalania",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Megalania",
+        "Megalania"
+      ]
+    },
+    {
+      "name": "Aberrant Megalosaurus",
+      "className": "Megalosaurus_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Megalosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Megalosaurus",
+        "Megalosaurus"
+      ]
+    },
+    {
+      "name": "Aberrant Meganeura",
+      "className": "Dragonfly_Character_BP_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Dragonfly",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Meganeura",
+        "Dragonfly"
+      ]
+    },
+    {
+      "name": "Aberrant Moschops",
+      "className": "Moschops_Character_BP_Aberrant_C",
+      "category": "Synapsids",
+      "nameTag": "Moschops",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Moschops",
+        "Moschops"
+      ]
+    },
+    {
+      "name": "Aberrant Otter",
+      "className": "Otter_Character_BP_Aberrant_C",
+      "category": "Mammals",
+      "nameTag": "Otter",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Otter",
+        "Otter"
+      ]
+    },
+    {
+      "name": "Aberrant Oviraptor",
+      "className": "Oviraptor_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Oviraptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Oviraptor",
+        "Oviraptor"
+      ]
+    },
+    {
+      "name": "Aberrant Ovis",
+      "className": "Sheep_Character_BP_Aberrant_C",
+      "category": "Mammals",
+      "nameTag": "Sheep",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Ovis",
+        "Sheep"
+      ]
+    },
+    {
+      "name": "Aberrant Paraceratherium",
+      "className": "Paracer_Character_BP_Aberrant_C",
+      "category": "Mammals",
+      "nameTag": "Paracer",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Paraceratherium",
+        "Paracer"
+      ]
+    },
+    {
+      "name": "Aberrant Parasaur",
+      "className": "Para_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Para",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Parasaur",
+        "Para"
+      ]
+    },
+    {
+      "name": "Aberrant Piranha",
+      "className": "Piranha_Character_BP_Aberrant_C",
+      "category": "Fish",
+      "nameTag": "Piranha",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Piranha",
+        "Piranha"
+      ]
+    },
+    {
+      "name": "Aberrant Pulmonoscorpius",
+      "className": "Scorpion_Character_BP_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Scorpion",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Pulmonoscorpius",
+        "Scorpion"
+      ]
+    },
+    {
+      "name": "Aberrant Purlovia",
+      "className": "Purlovia_Character_BP_Aberrant_C",
+      "category": "Synapsids",
+      "nameTag": "Purlovia",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Purlovia",
+        "Purlovia"
+      ]
+    },
+    {
+      "name": "Aberrant Raptor",
+      "className": "Raptor_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Raptor",
+        "Raptor"
+      ]
+    },
+    {
+      "name": "Aberrant Sabertooth Salmon",
+      "className": "Salmon_Character_Aberrant_C",
+      "category": "Fish",
+      "nameTag": "Salmon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Sabertooth Salmon",
+        "Aberrant Salmon",
+        "Salmon"
+      ]
+    },
+    {
+      "name": "Aberrant Sarco",
+      "className": "Sarco_Character_BP_Aberrant_C",
+      "category": "Reptiles",
+      "nameTag": "Sarco",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Sarco",
+        "Sarco"
+      ]
+    },
+    {
+      "name": "Aberrant Spino",
+      "className": "Spino_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Spino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Spino",
+        "Spino"
+      ]
+    },
+    {
+      "name": "Aberrant Stegosaurus",
+      "className": "Stego_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Stego",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Stegosaurus",
+        "Stego"
+      ]
+    },
+    {
+      "name": "Aberrant Titanoboa",
+      "className": "BoaFrill_Character_BP_Aberrant_C",
+      "category": "Reptiles",
+      "nameTag": "Titanboa",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Titanoboa",
+        "Titanboa"
+      ]
+    },
+    {
+      "name": "Aberrant Triceratops",
+      "className": "Trike_Character_BP_Aberrant_C",
+      "category": "Dinosaurs",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Triceratops",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Aberrant Trilobite",
+      "className": "Trilobite_Character_Aberrant_C",
+      "category": "Invertebrates",
+      "nameTag": "Trilobite",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aberrant Trilobite",
+        "Trilobite"
+      ]
+    },
+    {
+      "name": "Abyssal Alpha T-Rex",
+      "className": "MegaRex_Character_BP_Abyssal_C",
+      "category": "Alpha Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Alpha T-Rex"
+      ]
+    },
+    {
+      "name": "Abyssal Ankylosaurus",
+      "className": "Ankylo_Character_BP_Abyssal_C",
+      "category": "Dinosaurs",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Ankylosaurus"
+      ]
+    },
+    {
+      "name": "Abyssal Moschops",
+      "className": "Moschops_Character_BP_Abyssal_C",
+      "category": "Synapsids",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Moschops"
+      ]
+    },
+    {
+      "name": "Abyssal Procoptodon",
+      "className": "Procoptodon_Character_BP_Abyssal_C",
+      "category": "Mammals",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Procoptodon"
+      ]
+    },
+    {
+      "name": "Abyssal Reaper King",
+      "className": "Reaper_Character_BP_Male_Abyssal_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Reaper King"
+      ]
+    },
+    {
+      "name": "Abyssal Reaper Offspring",
+      "className": "Reaper_Character_BP_Offspring_Abyssal_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Reaper Offspring"
+      ]
+    },
+    {
+      "name": "Abyssal Reaper Queen",
+      "className": "Reaper_Character_BP_Female_Abyssal_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Reaper Queen"
+      ]
+    },
+    {
+      "name": "Abyssal Rex",
+      "className": "Rex_Character_BP_Abyssal_C",
+      "category": "Dinosaurs",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Rex"
+      ]
+    },
+    {
+      "name": "Abyssal Stegosaurus",
+      "className": "Stego_Character_BP_Abyssal_C",
+      "category": "Dinosaurs",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Stegosaurus"
+      ]
+    },
+    {
+      "name": "Abyssal Therizinosaur",
+      "className": "Therizino_Character_BP_Abyssal_C",
+      "category": "Dinosaurs",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Therizinosaur"
+      ]
+    },
+    {
+      "name": "Abyssal Thylacoleo",
+      "className": "Thylacoleo_Character_BP_Abyssal_C",
+      "category": "Mammals",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Thylacoleo"
+      ]
+    },
+    {
+      "name": "Abyssal Yutyrannus",
+      "className": "Yutyrannus_Character_BP_Abyssal_C",
+      "category": "Dinosaurs",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Abyssal Yutyrannus"
+      ]
+    },
+    {
+      "name": "Achatina",
+      "className": "Achatina_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Achatina",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Achatina"
+      ]
+    },
+    {
+      "name": "Acrocanthosaurus",
+      "className": "Acrocanthosaurus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Acrocanthosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Acrocanthosaurus"
+      ]
+    },
+    {
+      "name": "Allosaurus",
+      "className": "Allo_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Allo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Allo",
+        "Allosaurus"
+      ]
+    },
+    {
+      "name": "Alpha Basilisk",
+      "className": "MegaBasilisk_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Elite Basilisk",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Basilisk",
+        "Elite Basilisk"
+      ]
+    },
+    {
+      "name": "Alpha Blood Crystal Wyvern",
+      "className": "CrystalWyvern_Character_BP_Mega_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Blood Crystal Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Alpha Carno",
+      "className": "MegaCarno_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Elite Carno",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Carno",
+        "Alpha Carnotaurus",
+        "Elite Carno"
+      ]
+    },
+    {
+      "name": "Alpha Chrysaora",
+      "className": "MegaChrysaora_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Alpha Chrysaora"
+      ]
+    },
+    {
+      "name": "Alpha Corrupted Master Controller",
+      "className": "VRMainBoss_Character_Hard_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Corrupted Master Controller"
+      ]
+    },
+    {
+      "name": "Alpha Dakosaurus",
+      "className": "Dakosaurus_Character_BP_Alpha_C",
+      "category": "Alpha Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Alpha Dakosaurus"
+      ]
+    },
+    {
+      "name": "Alpha Deathworm",
+      "className": "MegaDeathworm_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Deathworm",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Deathworm",
+        "Deathworm"
+      ]
+    },
+    {
+      "name": "Alpha Fire Wyvern",
+      "className": "MegaWyvern_Character_BP_Fire_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Fire Wyvern",
+        "Alpha Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Alpha Karkinos",
+      "className": "MegaCrab_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Elite CaveCrab",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Karkinos",
+        "Elite CaveCrab"
+      ]
+    },
+    {
+      "name": "Alpha King Titan",
+      "className": "KingKaiju_Character_BP_Alpha_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "KingTitanAlpha",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha King Titan",
+        "King Titan (Alpha)",
+        "KingTitanAlpha"
+      ]
+    },
+    {
+      "name": "Alpha Leedsichthys",
+      "className": "Alpha_Leedsichthys_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Leedsichthys",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Leedsichthys",
+        "Leedsichthys"
+      ]
+    },
+    {
+      "name": "Alpha Malleocephalus",
+      "className": "MegaMalleocephalus_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Alpha Malleocephalus"
+      ]
+    },
+    {
+      "name": "Alpha Megalodon",
+      "className": "MEgaMegalodon_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": "Elite Mega",
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Megalodon",
+        "Elite Mega"
+      ]
+    },
+    {
+      "name": "Alpha Megalodon",
+      "className": "MegaMegalodon_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Elite Mega",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Megalodon",
+        "Elite Mega"
+      ]
+    },
+    {
+      "name": "Alpha Moeder, Master of the Ocean",
+      "className": "EelBoss_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": "EelBoss",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Moeder, Master of the Ocean",
+        "EelBoss"
+      ]
+    },
+    {
+      "name": "Alpha Mosasaur",
+      "className": "Mosa_Character_BP_Mega_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Mosasaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Mosasaur",
+        "Alpha Mosasaurus",
+        "Mosasaur"
+      ]
+    },
+    {
+      "name": "Alpha Mosasaurus (Cave)",
+      "className": "Mosa_Character_BP_Mega_Cave_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Alpha Mosasaurus (Cave)"
+      ]
+    },
+    {
+      "name": "Alpha Raptor",
+      "className": "MegaRaptor_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Elite Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Raptor",
+        "Elite Raptor"
+      ]
+    },
+    {
+      "name": "Alpha Surface Reaper King",
+      "className": "MegaXenomorph_Character_BP_Male_Surface_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Elite Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Surface Reaper King",
+        "Elite Xenomorph"
+      ]
+    },
+    {
+      "name": "Alpha T-Rex",
+      "className": "MegaRex_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Elite Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha T-Rex",
+        "Elite Rex"
+      ]
+    },
+    {
+      "name": "Alpha Tridacna",
+      "className": "AlphaCorruptTridacna_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Alpha Tridacna"
+      ]
+    },
+    {
+      "name": "Alpha Tusoteuthis",
+      "className": "Mega_Tusoteuthis_Character_BP_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Tusoteuthis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha Tusoteuthis",
+        "Tusoteuthis"
+      ]
+    },
+    {
+      "name": "Alpha Water Wyvern",
+      "className": "MegaWyvern_Character_BP_Water_C",
+      "category": "Alpha Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Alpha Water Wyvern"
+      ]
+    },
+    {
+      "name": "Alpha X-Triceratops",
+      "className": "Volcano_Trike_Character_BP_Retrieve_Alpha_C",
+      "category": "Alpha Creatures",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Alpha X-Triceratops",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Amargasaurus",
+      "className": "Amargasaurus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Amarga",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Amarga",
+        "Amargasaurus"
+      ]
+    },
+    {
+      "name": "Ammonite",
+      "className": "Ammonite_Character_C",
+      "category": "Invertebrates",
+      "nameTag": "Ammonite",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ammonite"
+      ]
+    },
+    {
+      "name": "Andrewsarchus",
+      "className": "Andrewsarchus_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Andrewsarchus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Andrewsarchus"
+      ]
+    },
+    {
+      "name": "Anglerfish",
+      "className": "Angler_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Angler",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Angler",
+        "Anglerfish"
+      ]
+    },
+    {
+      "name": "Ankylosaurus",
+      "className": "Ankylo_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Anky",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Anky",
+        "Ankylosaurus"
+      ]
+    },
+    {
+      "name": "Araneo",
+      "className": "SpiderS_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Spider",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Araneo",
+        "Spider"
+      ]
+    },
+    {
+      "name": "Archaeopteryx",
+      "className": "Archa_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Archa",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Archa",
+        "Archaeopteryx"
+      ]
+    },
+    {
+      "name": "Archelon",
+      "className": "Archelon_Character_BP_ASA_C",
+      "category": "Reptiles",
+      "nameTag": "Archelon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Archelon"
+      ]
+    },
+    {
+      "name": "Argentavis",
+      "className": "Argent_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Argent",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Argent",
+        "Argentavis"
+      ]
+    },
+    {
+      "name": "Armadoggo",
+      "className": "Doggo_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Doggo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Armadoggo",
+        "Doggo"
+      ]
+    },
+    {
+      "name": "Arthropluera",
+      "className": "Arthro_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Arthro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arthro",
+        "Arthropluera"
+      ]
+    },
+    {
+      "name": "Astrocetus",
+      "className": "SpaceWhale_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Space Whale",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Astrocetus",
+        "Space Whale"
+      ]
+    },
+    {
+      "name": "Astrodelphis",
+      "className": "SpaceDolphin_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Astrodelphis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Astrodelphis"
+      ]
+    },
+    {
+      "name": "Attack Drone",
+      "className": "EndDrone_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Attack Drone"
+      ]
+    },
+    {
+      "name": "Attack Drone (Hard Variant)",
+      "className": "EndDrone_Character_BP_Hard_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Attack Drone (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Attack Drone (Medium Variant)",
+      "className": "EndDrone_Character_BP_Med_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Attack Drone (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Aureliax",
+      "className": "SnowDragon_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "SnowDragon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aureliax",
+        "SnowDragon"
+      ]
+    },
+    {
+      "name": "Baryonyx",
+      "className": "Baryonyx_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Baryonyx",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Baryonyx"
+      ]
+    },
+    {
+      "name": "Basilisk",
+      "className": "Basilisk_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Basilisk",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Basilisk"
+      ]
+    },
+    {
+      "name": "Basilisk Ghost",
+      "className": "Ghost_Basilisk_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Basilisk",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Basilisk",
+        "Basilisk Ghost"
+      ]
+    },
+    {
+      "name": "Basilosaurus",
+      "className": "Basilosaurus_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Basilosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Basilosaurus"
+      ]
+    },
+    {
+      "name": "Beelzebufo",
+      "className": "Toad_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Toad",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beelzebufo",
+        "Toad"
+      ]
+    },
+    {
+      "name": "Beta Corrupted Master Controller",
+      "className": "VRMainBoss_Character_Medium_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beta Corrupted Master Controller"
+      ]
+    },
+    {
+      "name": "Beta King Titan",
+      "className": "KingKaiju_Character_BP_Beta_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "King Titan",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beta King Titan",
+        "King Titan",
+        "King Titan (Beta)"
+      ]
+    },
+    {
+      "name": "Beta Moeder, Master of the Ocean",
+      "className": "EelBoss_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": "EelBoss",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beta Moeder, Master of the Ocean",
+        "EelBoss"
+      ]
+    },
+    {
+      "name": "Bison",
+      "className": "Bison_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Bison",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bison"
+      ]
+    },
+    {
+      "name": "Blood Crystal Wyvern",
+      "className": "CrystalWyvern_Character_BP_Blood_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Blood Crystal Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Bloodstalker",
+      "className": "BogSpider_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Bloodstalker",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bloodstalker"
+      ]
+    },
+    {
+      "name": "Boaratos",
+      "className": "Boaratos_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Boaratos",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Boaratos"
+      ]
+    },
+    {
+      "name": "Bone Fire Wyvern",
+      "className": "Bone_MegaWyvern_Character_BP_Fire_C",
+      "category": "Event Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bone Fire Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Brontosaurus",
+      "className": "Sauropod_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Bronto",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bronto",
+        "Brontosaurus"
+      ]
+    },
+    {
+      "name": "Broodmother Guardian",
+      "className": "EndBossSpiderL_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Guardian"
+      ]
+    },
+    {
+      "name": "Broodmother Guardian (Easy Variant)",
+      "className": "EndBossSpiderL_Character_BP_Easy_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Guardian (Easy Variant)"
+      ]
+    },
+    {
+      "name": "Broodmother Guardian (Hard Variant)",
+      "className": "EndBossSpiderL_Character_BP_Hard_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Guardian (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Broodmother Guardian (Medium Variant)",
+      "className": "EndBossSpiderL_Character_BP_Medium_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Guardian (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix",
+      "className": "SpiderL_Character_BP_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Broodmother Lysrix"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix",
+      "className": "SpiderL_VAL_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": "BroodmotherLysrix",
+      "mod": "Valguero",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Lysrix",
+        "BroodmotherLysrix"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix (Alpha)",
+      "className": "SpiderL_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Broodmother Lysrix (Alpha)",
+        "Broodmother Lysrix (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix (Beta)",
+      "className": "SpiderL_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Broodmother Lysrix (Beta)",
+        "Broodmother Lysrix (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix (Easy Variant)",
+      "className": "SpiderL_Character_BP_TheCenter_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "TheCenter",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Lysrix (Easy Variant)"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix (Gamma)",
+      "className": "SpiderL_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Broodmother Lysrix (Easy Variant)",
+        "Broodmother Lysrix (Gamma)"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix (Hard Variant)",
+      "className": "SpiderL_Character_BP_TheCenterHard_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "TheCenter",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Lysrix (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Broodmother Lysrix (Medium Variant)",
+      "className": "SpiderL_Character_BP_TheCenterMedium_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "TheCenter",
+      "asa": "unknown",
+      "aliases": [
+        "Broodmother Lysrix (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Brute Araneo",
+      "className": "SpiderS_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Spider",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Araneo",
+        "Spider"
+      ]
+    },
+    {
+      "name": "Brute Astrocetus",
+      "className": "SpaceWhale_Character_BP_Brute_C",
+      "category": "Brute Creatures",
+      "nameTag": "Space Whale",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Astrocetus",
+        "Space Whale"
+      ]
+    },
+    {
+      "name": "Brute Basilosaurus",
+      "className": "Basilosaurus_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Basilosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Basilosaurus",
+        "Brute Basilosaurus"
+      ]
+    },
+    {
+      "name": "Brute Bloodstalker",
+      "className": "BogSpider_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Bloodstalker",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bloodstalker",
+        "Brute Bloodstalker"
+      ]
+    },
+    {
+      "name": "Brute Ferox",
+      "className": "Shapeshifter_Large_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Bigly",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bigly",
+        "Brute Ferox"
+      ]
+    },
+    {
+      "name": "Brute Fire Wyvern",
+      "className": "Wyvern_Character_BP_Fire_GauntletBoss_C",
+      "category": "Brute Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Fire Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Brute Leedsichthys",
+      "className": "Leedsichthys_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Leedsichthys",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Leedsichthys",
+        "Leedsichthys"
+      ]
+    },
+    {
+      "name": "Brute Magmasaur",
+      "className": "Cherufe_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "LavaLizard",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Magmasaur",
+        "LavaLizard"
+      ]
+    },
+    {
+      "name": "Brute Malfunctioned Tek Giganotosaurus",
+      "className": "BionicGigant_Character_BP_Malfunctioned_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Gigant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Malfunctioned Tek Giganotosaurus",
+        "Gigant"
+      ]
+    },
+    {
+      "name": "Brute Malfunctioned Tek Rex",
+      "className": "BionicRex_Character_BP_Malfunctioned_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Malfunctioned Tek Rex",
+        "Rex"
+      ]
+    },
+    {
+      "name": "Brute Mammoth",
+      "className": "Mammoth_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Mammoth",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Mammoth",
+        "Mammoth"
+      ]
+    },
+    {
+      "name": "Brute Megaloceros",
+      "className": "Stag_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Stag",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Megaloceros",
+        "Stag"
+      ]
+    },
+    {
+      "name": "Brute Plesiosaur",
+      "className": "Plesiosaur_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Plesiosaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Plesiosaur",
+        "Plesiosaur"
+      ]
+    },
+    {
+      "name": "Brute Reaper King",
+      "className": "Xenomorph_Character_BP_Male_InitialBuryOnly_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Reaper King",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Brute Sarco",
+      "className": "Sarco_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Sarco",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Sarco",
+        "Sarco"
+      ]
+    },
+    {
+      "name": "Brute Seeker",
+      "className": "Pteroteuthis_Char_BP_HuntFollower_C",
+      "category": "Brute Creatures",
+      "nameTag": "Seeker",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Seeker",
+        "Seeker"
+      ]
+    },
+    {
+      "name": "Brute Tusoteuthis",
+      "className": "Tusoteuthis_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Tusoteuthis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute Tusoteuthis",
+        "Tusoteuthis"
+      ]
+    },
+    {
+      "name": "Brute X-Allosaurus",
+      "className": "Volcano_Allo_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Allo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Allo",
+        "Brute X-Allosaurus"
+      ]
+    },
+    {
+      "name": "Brute X-Megalodon",
+      "className": "Ocean_Megalodon_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Mega",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute X-Megalodon",
+        "Mega"
+      ]
+    },
+    {
+      "name": "Brute X-Mosasaurus",
+      "className": "Ocean_Mosa_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Mosasaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute X-Mosasaurus",
+        "Mosasaur"
+      ]
+    },
+    {
+      "name": "Brute X-Raptor",
+      "className": "Bog_Raptor_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute X-Raptor",
+        "Raptor"
+      ]
+    },
+    {
+      "name": "Brute X-Rex",
+      "className": "Volcano_Rex_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute X-Rex",
+        "Rex"
+      ]
+    },
+    {
+      "name": "Brute X-Rock Elemental",
+      "className": "Volcano_Golem_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "RockElemental",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute X-Rock Elemental",
+        "RockElemental"
+      ]
+    },
+    {
+      "name": "Brute X-Spino",
+      "className": "Bog_Spino_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Spino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute X-Spino",
+        "Spino"
+      ]
+    },
+    {
+      "name": "Brute X-Yutyrannus",
+      "className": "Snow_Yutyrannus_Character_BP_Hunt_C",
+      "category": "Brute Creatures",
+      "nameTag": "Yutyrannus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brute X-Yutyrannus",
+        "Yutyrannus"
+      ]
+    },
+    {
+      "name": "Bulbdog",
+      "className": "LanternPug_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Pug",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bulbdog",
+        "Pug"
+      ]
+    },
+    {
+      "name": "Bulbdog Ghost",
+      "className": "Ghost_LanternPug_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Pug",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bulbdog Ghost",
+        "Pug"
+      ]
+    },
+    {
+      "name": "Bunny Dodo",
+      "className": "Dodo_Character_BP_Bunny_C",
+      "category": "Event Creatures",
+      "nameTag": "Dodo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bunny Dodo",
+        "Dodo"
+      ]
+    },
+    {
+      "name": "Bunny Oviraptor",
+      "className": "BunnyOviraptor_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Ovi",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bunny Oviraptor",
+        "Ovi"
+      ]
+    },
+    {
+      "name": "Burrowbuck",
+      "className": "Jackalope_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Jackalope",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Burrowbuck",
+        "Jackalope"
+      ]
+    },
+    {
+      "name": "Carbonemys",
+      "className": "Turtle_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Turtle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carbonemys",
+        "Turtle"
+      ]
+    },
+    {
+      "name": "Carcharodontosaurus",
+      "className": "Carcha_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Carcha",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carcha",
+        "Carcharodontosaurus"
+      ]
+    },
+    {
+      "name": "Carnotaurus",
+      "className": "Carno_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Carno",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carno",
+        "Carnotaurus"
+      ]
+    },
+    {
+      "name": "Castoroides",
+      "className": "Beaver_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Beaver",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beaver",
+        "Castoroides"
+      ]
+    },
+    {
+      "name": "Cat",
+      "className": "Cat_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Cat",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cat"
+      ]
+    },
+    {
+      "name": "Ceratosaurus",
+      "className": "Ceratosaurus_Character_BP_ASA_C",
+      "category": "Dinosaurs",
+      "nameTag": "CeratosaurusAA",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ceratosaurus",
+        "CeratosaurusAA"
+      ]
+    },
+    {
+      "name": "Cerberax",
+      "className": "Cerberus_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Cerberus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cerberax",
+        "Cerberus"
+      ]
+    },
+    {
+      "name": "Chalicotherium",
+      "className": "Chalico_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Chalicotherium",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chalico",
+        "Chalicotherium"
+      ]
+    },
+    {
+      "name": "Chalk Golem",
+      "className": "ChalkGolem_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockElemental",
+      "mod": "Valguero",
+      "asa": "yes",
+      "aliases": [
+        "Chalk Golem",
+        "ChalkRockElemental",
+        "RockElemental"
+      ]
+    },
+    {
+      "name": "Chrysaora",
+      "className": "Chrysaora_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Chrysaora"
+      ]
+    },
+    {
+      "name": "Cnidaria",
+      "className": "Cnidaria_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Cnidaria",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cnidaria"
+      ]
+    },
+    {
+      "name": "Coelacanth",
+      "className": "Coel_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Coel",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Coel",
+        "Coelacanth"
+      ]
+    },
+    {
+      "name": "Coelacanth (Ocean)",
+      "className": "Coel_Character_BP_Ocean_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Coelacanth (Ocean)"
+      ]
+    },
+    {
+      "name": "Compy",
+      "className": "Compy_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Compy",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Compy"
+      ]
+    },
+    {
+      "name": "Concavenator",
+      "className": "Concavenator_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Concavenator",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Concavenator"
+      ]
+    },
+    {
+      "name": "Corrupt Tumor",
+      "className": "CorruptTumor_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Extinction",
+      "asa": "unknown",
+      "aliases": [
+        "Corrupt Tumor"
+      ]
+    },
+    {
+      "name": "Corrupted Arthropluera",
+      "className": "Arthro_Character_BP_Corrupt",
+      "category": "Creatures",
+      "nameTag": "Artho",
+      "mod": "Extinction",
+      "asa": "unknown",
+      "aliases": [
+        "Artho",
+        "Corrupted Arthropluera"
+      ]
+    },
+    {
+      "name": "Corrupted Arthropluera",
+      "className": "Arthro_Character_BP_Corrupt_C",
+      "category": "Invertebrates",
+      "nameTag": "Arthro Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arthro Corrupt",
+        "Corrupted Arthropluera"
+      ]
+    },
+    {
+      "name": "Corrupted Avatar",
+      "className": "Bot_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "?",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "?",
+        "Corrupted Avatar"
+      ]
+    },
+    {
+      "name": "Corrupted Carnotaurus",
+      "className": "Carno_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Carno Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carno",
+        "Carno Corrupt",
+        "Corrupted Carnotaurus"
+      ]
+    },
+    {
+      "name": "Corrupted Chalicotherium",
+      "className": "Chalico_Character_BP_Corrupt_C",
+      "category": "Mammals",
+      "nameTag": "Chalico",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chalico",
+        "Corrupted Chalicotherium"
+      ]
+    },
+    {
+      "name": "Corrupted Deathworm",
+      "className": "Deathworm_Character_BP_Corrupt_C",
+      "category": "Creatures",
+      "nameTag": "Deathworm",
+      "mod": "Extinction",
+      "asa": "unknown",
+      "aliases": [
+        "Corrupted Deathworm",
+        "Deathworm"
+      ]
+    },
+    {
+      "name": "Corrupted Dilophosaur",
+      "className": "Dilo_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dilo Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Dilophosaur",
+        "Dilo",
+        "Dilo Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Dimorphodon",
+      "className": "Dimorph_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dimorph Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Dimorphodon",
+        "Dimorph",
+        "Dimorph Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Giganotosaurus",
+      "className": "Gigant_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Gigant Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Giganotosaurus",
+        "Gigant",
+        "Gigant Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Paraceratherium",
+      "className": "Paracer_Character_BP_Corrupt_C",
+      "category": "Mammals",
+      "nameTag": "Paracer",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Paraceratherium",
+        "Paracer"
+      ]
+    },
+    {
+      "name": "Corrupted Pteranodon",
+      "className": "Ptero_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Ptera Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Pteranodon",
+        "Ptera Corrupt",
+        "Ptero"
+      ]
+    },
+    {
+      "name": "Corrupted Raptor",
+      "className": "Raptor_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Raptor Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Raptor",
+        "Raptor",
+        "Raptor Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Reaper King",
+      "className": "Xenomorph_Character_BP_Male_Tamed_Corrupt_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Xenomorph Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Reaper King",
+        "Xenomorph",
+        "Xenomorph Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Rex",
+      "className": "Rex_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Rex Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Rex",
+        "Rex",
+        "Rex Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Rock Drake",
+      "className": "RockDrake_Character_BP_Corrupt_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockDrake Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Rock Drake",
+        "RockDrake",
+        "RockDrake Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Spino",
+      "className": "Spino_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Spino Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Spino",
+        "Spino",
+        "Spino Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Stegosaurus",
+      "className": "Stego_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Stego Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Stegosaurus",
+        "Stego",
+        "Stego Corrupt"
+      ]
+    },
+    {
+      "name": "Corrupted Triceratops",
+      "className": "Trike_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Triceratops",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Corrupted Wyvern",
+      "className": "Wyvern_Character_BP_Fire_Corrupt_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrupted Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Cosmo",
+      "className": "JumpingSpider_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "JumpingSpider",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cosmo",
+        "JumpingSpider"
+      ]
+    },
+    {
+      "name": "Cryolophosaurus",
+      "className": "Cryolophosaurus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Cryolophosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cryolophosaurus"
+      ]
+    },
+    {
+      "name": "Crystal Wyvern Queen (Alpha)",
+      "className": "CrystalWyvern_Character_BP_Boss_Hard_C",
+      "category": "Bosses",
+      "nameTag": "Wyvern",
+      "mod": "CrystalIsles",
+      "asa": "yes",
+      "aliases": [
+        "Crystal Wyvern Queen (Alpha)",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Crystal Wyvern Queen (Beta)",
+      "className": "CrystalWyvern_Character_BP_Boss_Medium_C",
+      "category": "Bosses",
+      "nameTag": "Wyvern",
+      "mod": "CrystalIsles",
+      "asa": "yes",
+      "aliases": [
+        "Crystal Wyvern Queen (Beta)",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Crystal Wyvern Queen (Gamma)",
+      "className": "CrystalWyvern_Character_BP_Boss_Easy_C",
+      "category": "Bosses",
+      "nameTag": "Wyvern",
+      "mod": "CrystalIsles",
+      "asa": "yes",
+      "aliases": [
+        "Crystal Wyvern Queen (Gamma)",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Cymathoa",
+      "className": "Cymathoa_Character_BP_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Cymathoa"
+      ]
+    },
+    {
+      "name": "Cymathoa (Alpha)",
+      "className": "Cymathoa_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Cymathoa (Alpha)"
+      ]
+    },
+    {
+      "name": "Cymathoa (Beta)",
+      "className": "Cymathoa_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Cymathoa (Beta)"
+      ]
+    },
+    {
+      "name": "Cymathoa (Gamma)",
+      "className": "Cymathoa_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Cymathoa (Gamma)"
+      ]
+    },
+    {
+      "name": "Daeodon",
+      "className": "Daeodon_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Daeodon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Daeodon"
+      ]
+    },
+    {
+      "name": "Dakosaurus",
+      "className": "Dakosaurus_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Dakosaurus"
+      ]
+    },
+    {
+      "name": "Deathworm",
+      "className": "Deathworm_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Deathworm",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deathworm"
+      ]
+    },
+    {
+      "name": "Defense Unit",
+      "className": "Defender_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "EndTank",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Defender",
+        "Defense Unit",
+        "EndTank"
+      ]
+    },
+    {
+      "name": "Defense Unit",
+      "className": "EndTank_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Defense Unit"
+      ]
+    },
+    {
+      "name": "Defense Unit (Hard Variant)",
+      "className": "EndTank_Character_BP_Hard_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Defense Unit (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Defense Unit (Medium Variant)",
+      "className": "EndTank_Character_BP_Med_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Defense Unit (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Deinonychus",
+      "className": "Deinonychus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Deinonychus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deinonychus"
+      ]
+    },
+    {
+      "name": "Deinosuchus",
+      "className": "Deinosuchusasa_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "DeinosuchusAA",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deinosuchus",
+        "DeinosuchusAA"
+      ]
+    },
+    {
+      "name": "Deinotherium",
+      "className": "DeinotheriumASA_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "DeinotheriumASA",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deinotherium",
+        "DeinotheriumASA"
+      ]
+    },
+    {
+      "name": "Desert Titan",
+      "className": "DesertKaiju_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "DesertTitan",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desert Titan",
+        "DesertTitan"
+      ]
+    },
+    {
+      "name": "Desert Titan Flock",
+      "className": "DesertKaiju_FirstFlockChar_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Flock",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desert Titan Flock",
+        "Flock"
+      ]
+    },
+    {
+      "name": "Desmodus",
+      "className": "Desmodus_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Desmodus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desmodus"
+      ]
+    },
+    {
+      "name": "Dilophosaur",
+      "className": "Dilo_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dilo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dilo",
+        "Dilophosaur",
+        "Dilophosaurus"
+      ]
+    },
+    {
+      "name": "Dimetrodon",
+      "className": "Dimetro_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dimetro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dimetro",
+        "Dimetrodon"
+      ]
+    },
+    {
+      "name": "Dimorphodon",
+      "className": "Dimorph_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dimorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dimorph",
+        "Dimorphodon"
+      ]
+    },
+    {
+      "name": "Dinopithecus",
+      "className": "Dinopithecus_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Dinopithecus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dinopithecus"
+      ]
+    },
+    {
+      "name": "Dinopithecus King (Alpha)",
+      "className": "BossDinopithecus_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": "Dinopithecus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dinopithecus",
+        "Dinopithecus King (Alpha)"
+      ]
+    },
+    {
+      "name": "Dinopithecus King (Beta)",
+      "className": "BossDinopithecus_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": "Dinopithecus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dinopithecus",
+        "Dinopithecus King (Beta)"
+      ]
+    },
+    {
+      "name": "Dinopithecus King (Gamma)",
+      "className": "BossDinopithecus_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": "Dinopithecus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dinopithecus",
+        "Dinopithecus King (Gamma)"
+      ]
+    },
+    {
+      "name": "Diplocaulus",
+      "className": "Diplocaulus_Character_BP_C",
+      "category": "Amphibians",
+      "nameTag": "Diplocaulus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Diplocalus",
+        "Diplocaulus"
+      ]
+    },
+    {
+      "name": "Diplodocus",
+      "className": "Diplodocus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Diplo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Diplo",
+        "Diplodocus"
+      ]
+    },
+    {
+      "name": "Dire Bear",
+      "className": "Direbear_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Direbear",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dire Bear",
+        "Direbear"
+      ]
+    },
+    {
+      "name": "Direwolf",
+      "className": "Direwolf_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Direwolf",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Direwolf"
+      ]
+    },
+    {
+      "name": "Direwolf Ghost",
+      "className": "Ghost_Direwolf_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Direwolf",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Direwolf",
+        "Direwolf Ghost"
+      ]
+    },
+    {
+      "name": "Diseased Leech",
+      "className": "Leech_Character_Diseased_C",
+      "category": "Invertebrates",
+      "nameTag": "Leech",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Diseased Leech",
+        "Leech"
+      ]
+    },
+    {
+      "name": "Dodo",
+      "className": "Dodo_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Dodo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dodo"
+      ]
+    },
+    {
+      "name": "Dodo Wyvern",
+      "className": "DodoWyvern_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dodo Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "DodoRex",
+      "className": "DodoRex_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "DodoRex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "DodoRex"
+      ]
+    },
+    {
+      "name": "Doedicurus",
+      "className": "Doed_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Doed",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Doed",
+        "Doedicurus"
+      ]
+    },
+    {
+      "name": "Dragon",
+      "className": "Dragon_Character_BP_Boss_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon"
+      ]
+    },
+    {
+      "name": "Dragon (Alpha)",
+      "className": "Dragon_Character_BP_Boss_Hard_C",
+      "category": "Bosses",
+      "nameTag": "Dragon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dragon",
+        "Dragon (Alpha)",
+        "Dragon (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Dragon (Beta)",
+      "className": "Dragon_Character_BP_Boss_Medium_C",
+      "category": "Bosses",
+      "nameTag": "Dragon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dragon",
+        "Dragon (Beta)",
+        "Dragon (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Dragon (Easy Variant)",
+      "className": "Dragon_Character_BP_Boss_Easy_Ragnarok_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon (Easy Variant)"
+      ]
+    },
+    {
+      "name": "Dragon (Gamma)",
+      "className": "Dragon_Character_BP_Boss_Easy_C",
+      "category": "Bosses",
+      "nameTag": "Dragon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dragon",
+        "Dragon (Easy Variant)",
+        "Dragon (Gamma)"
+      ]
+    },
+    {
+      "name": "Dragon (Hard Variant)",
+      "className": "Dragon_Character_BP_Boss_Hard_Ragnarok_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Dragon (Medium Variant)",
+      "className": "Dragon_Character_BP_Boss_Medium_Ragnarok_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Dragon Guardian",
+      "className": "EndBossDragon_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon Guardian"
+      ]
+    },
+    {
+      "name": "Dragon Guardian (Easy Variant)",
+      "className": "EndBossDragon_Character_BP_Easy_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon Guardian (Easy Variant)"
+      ]
+    },
+    {
+      "name": "Dragon Guardian (Hard Variant)",
+      "className": "EndBossDragon_Character_BP_Hard_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon Guardian (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Dragon Guardian (Medium Variant)",
+      "className": "EndBossDragon_Character_BP_Medium_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Dragon Guardian (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Dreadmare",
+      "className": "DarkPegasus_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "DarkPegasus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "DarkPegasus",
+        "Dreadmare"
+      ]
+    },
+    {
+      "name": "Dreadnoughtus",
+      "className": "Dreadnoughtus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Dreadnoughtus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dreadnoughtus"
+      ]
+    },
+    {
+      "name": "Dung Beetle",
+      "className": "DungBeetle_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Beetle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beetle",
+        "Dung Beetle"
+      ]
+    },
+    {
+      "name": "Dunkleosteus",
+      "className": "Dunkle_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Dunkle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dunkle",
+        "Dunkleosteus"
+      ]
+    },
+    {
+      "name": "Eel Minion",
+      "className": "EelMinion_Character_BP_Easy_C",
+      "category": "Fantasy Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Eel Minion"
+      ]
+    },
+    {
+      "name": "Elderclaw",
+      "className": "SpiritBear_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "SpiritBear",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Elderclaw",
+        "SpiritBear"
+      ]
+    },
+    {
+      "name": "Electrophorus",
+      "className": "Eel_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Eel",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Eel",
+        "Electrophorus"
+      ]
+    },
+    {
+      "name": "Elemental Reaper King",
+      "className": "Xenomorph_Character_BP_Male_Minion_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Elemental Reaper King"
+      ]
+    },
+    {
+      "name": "Ember Crystal Wyvern",
+      "className": "CrystalWyvern_Character_BP_Ember_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ember Crystal Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Enforcer",
+      "className": "Enforcer_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Enforcer",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Enforcer"
+      ]
+    },
+    {
+      "name": "Enraged Corrupted Rex",
+      "className": "MegaRex_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Elite Rex Corrupt",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Elite Rex Corrupt",
+        "Enraged Corrupted Rex",
+        "MegaRex"
+      ]
+    },
+    {
+      "name": "Enraged Triceratops",
+      "className": "MegaTrike_Character_BP_Corrupt_C",
+      "category": "Dinosaurs",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Enraged Triceratops",
+        "MegaTrike",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Equus",
+      "className": "Equus_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Equus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Equus"
+      ]
+    },
+    {
+      "name": "Eurypterid",
+      "className": "Euryp_Character_C",
+      "category": "Invertebrates",
+      "nameTag": "Euryp",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Euryp",
+        "Eurypterid"
+      ]
+    },
+    {
+      "name": "Exo-Mek",
+      "className": "Exosuit_Character_BP_C",
+      "category": "Vehicles",
+      "nameTag": "Exosuit",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Exo-Mek",
+        "Exosuit"
+      ]
+    },
+    {
+      "name": "Fasolasuchus",
+      "className": "Fasola_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Fasola",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fasola",
+        "Fasolasuchus"
+      ]
+    },
+    {
+      "name": "Featherlight",
+      "className": "LanternBird_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Lantern Bird",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Featherlight",
+        "Lantern Bird"
+      ]
+    },
+    {
+      "name": "Fenrir",
+      "className": "Fenrir_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Fenrir Wolf",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fenrir",
+        "Fenrir Wolf"
+      ]
+    },
+    {
+      "name": "Ferox",
+      "className": "Shapeshifter_Small_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Gremlin",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ferox",
+        "Gremlin"
+      ]
+    },
+    {
+      "name": "Ferox (Large)",
+      "className": "Shapeshifter_Large_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Bigly",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bigly",
+        "Ferox (Large)"
+      ]
+    },
+    {
+      "name": "Fire Wyvern",
+      "className": "Wyvern_Character_BP_Fire_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fire Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Fjordhawk",
+      "className": "Fjordhawk_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Fjordhawk",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fjordhawk"
+      ]
+    },
+    {
+      "name": "Forest Titan",
+      "className": "ForestKaiju_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "ForestTitan",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Forest Titan",
+        "ForestTitan"
+      ]
+    },
+    {
+      "name": "Forest Wyvern",
+      "className": "Wyvern_Character_BP_Fire_Minion_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Forest Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Fractalis (Gamma)",
+      "className": "Fractalis_Character_BP_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Fractalis (Gamma)"
+      ]
+    },
+    {
+      "name": "Gacha",
+      "className": "Gacha_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Gacha",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gacha"
+      ]
+    },
+    {
+      "name": "GachaClaus",
+      "className": "Gacha_Claus_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Gacha",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gacha",
+        "GachaClaus"
+      ]
+    },
+    {
+      "name": "Gallimimus",
+      "className": "Galli_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Galli",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Galli",
+        "Gallimimus"
+      ]
+    },
+    {
+      "name": "Gamma Corrupted Master Controller",
+      "className": "VRMainBoss_Character_Easy_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gamma Corrupted Master Controller"
+      ]
+    },
+    {
+      "name": "Gamma King Titan",
+      "className": "KingKaiju_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "King Titan",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gamma King Titan",
+        "King Titan",
+        "King Titan (Gamma)"
+      ]
+    },
+    {
+      "name": "Gamma Moeder, Master of the Ocean",
+      "className": "EelBoss_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": "EelBoss",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "EelBoss",
+        "Gamma Moeder, Master of the Ocean"
+      ]
+    },
+    {
+      "name": "Gargantar",
+      "className": "Gargantar_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "GasBagRhino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gargantar",
+        "GasBagRhino"
+      ]
+    },
+    {
+      "name": "Gasbags",
+      "className": "GasBags_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "GasBags",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "GasBags",
+        "Gasbags"
+      ]
+    },
+    {
+      "name": "Giant Bee",
+      "className": "Bee_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Bee",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bee",
+        "Giant Bee"
+      ]
+    },
+    {
+      "name": "Giant Worker Bee",
+      "className": "HoneyBee_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Bee",
+      "mod": "CrystalIsles",
+      "asa": "yes",
+      "aliases": [
+        "Bee",
+        "Giant Worker Bee"
+      ]
+    },
+    {
+      "name": "Gigadesmodus",
+      "className": "BossBat_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "BossBat",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "BossBat",
+        "Gigadesmodus"
+      ]
+    },
+    {
+      "name": "Giganotosaurus",
+      "className": "Gigant_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Gigant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giganotosaurus",
+        "Gigant"
+      ]
+    },
+    {
+      "name": "Giganotosaurus (Tek Cave)",
+      "className": "Gigant_Character_BP_TekCave_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Giganotosaurus (Tek Cave)"
+      ]
+    },
+    {
+      "name": "Gigantopithecus",
+      "className": "BigFoot_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": "Bigfoot",
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Bigfoot",
+        "Gigantopithecus"
+      ]
+    },
+    {
+      "name": "Gigantopithecus",
+      "className": "Bigfoot_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Bigfoot",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bigfoot",
+        "Gigantopithecus"
+      ]
+    },
+    {
+      "name": "Gigantoraptor",
+      "className": "Gigantoraptor_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Gigantoraptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigantoraptor"
+      ]
+    },
+    {
+      "name": "Gloon",
+      "className": "LostCharge_LanternPet_Char_BP_C",
+      "category": "Amphibians",
+      "nameTag": "LostCharge",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gloon",
+        "LostCharge"
+      ]
+    },
+    {
+      "name": "Glowbug",
+      "className": "Lightbug_Character_BaseBP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Lightbug",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Glowbug",
+        "Lightbug"
+      ]
+    },
+    {
+      "name": "Glowtail",
+      "className": "LanternLizard_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Lantern Lizard",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Glowtail",
+        "Lantern Lizard"
+      ]
+    },
+    {
+      "name": "Golden Striped Brute Megalodon",
+      "className": "Ocean_Megalodon_Character_BP_Retrieve_Brute_C",
+      "category": "Brute Creatures",
+      "nameTag": "Mega",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Golden Striped Brute Megalodon",
+        "Mega"
+      ]
+    },
+    {
+      "name": "Golden Striped Megalodon",
+      "className": "Ocean_Megalodon_Character_BP_Retrieve_C",
+      "category": "X-Creatures",
+      "nameTag": "Mega",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Golden Striped Megalodon",
+        "Mega"
+      ]
+    },
+    {
+      "name": "Grand Tortugar",
+      "className": "GrandTortugar_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "GrandTortugar",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Grand Tortugar",
+        "GrandTortugar"
+      ]
+    },
+    {
+      "name": "Griffin",
+      "className": "Griffin_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Griffin",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Griffin"
+      ]
+    },
+    {
+      "name": "Helicoprion",
+      "className": "Helicoprion_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Helicoprion",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Helicoprion"
+      ]
+    },
+    {
+      "name": "Hesperornis",
+      "className": "Hesperornis_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Hesperornis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hesperornis"
+      ]
+    },
+    {
+      "name": "Homarus",
+      "className": "Homarus_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Homarus"
+      ]
+    },
+    {
+      "name": "Hover Skiff",
+      "className": "TekHoverSkiff_Character_BP_C",
+      "category": "Vehicles",
+      "nameTag": "Hover Skiff",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hover Skiff"
+      ]
+    },
+    {
+      "name": "Human (Female)",
+      "className": "PlayerPawnTest_Female_C",
+      "category": "Mammals",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Human (Female)"
+      ]
+    },
+    {
+      "name": "Human (Male)",
+      "className": "PlayerPawnTest_Male_C",
+      "category": "Mammals",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Human (Male)"
+      ]
+    },
+    {
+      "name": "Hyaenodon",
+      "className": "Hyaenodon_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Hyaenodon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hyaenodon"
+      ]
+    },
+    {
+      "name": "Ice Golem",
+      "className": "IceGolem_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockElemental",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ice Golem",
+        "IceRockElemental",
+        "RockElemental"
+      ]
+    },
+    {
+      "name": "Ice Titan",
+      "className": "IceKaiju_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "IceTitan",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ice Titan",
+        "IceTitan"
+      ]
+    },
+    {
+      "name": "Ice Wyvern",
+      "className": "Ragnarok_Wyvern_Override_Ice_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "Ragnarok",
+      "asa": "yes",
+      "aliases": [
+        "Ice Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Ice Wyvern",
+      "className": "Wyvern_Character_BP_Ice_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ice Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Iceworm",
+      "className": "Iceworm_Character_Minion_BP_smaller_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Iceworm"
+      ]
+    },
+    {
+      "name": "Iceworm Queen",
+      "className": "Iceworm_Queen_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Iceworm Queen"
+      ]
+    },
+    {
+      "name": "Ichthyornis",
+      "className": "Ichthyornis_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Ichthyornis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ichthyornis"
+      ]
+    },
+    {
+      "name": "Ichthyosaurus",
+      "className": "Dolphin_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Dolphin",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dolphin",
+        "Ichthy",
+        "Ichthyosaurus"
+      ]
+    },
+    {
+      "name": "Iguanodon",
+      "className": "Iguanodon_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Iguanodon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Iguanodon"
+      ]
+    },
+    {
+      "name": "Injured Brute Reaper King",
+      "className": "Xenomorph_Character_BP_Male_InitialBuryOnly_Brute_Retrieve_C",
+      "category": "Brute Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Injured Brute Reaper King",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Insect Swarm",
+      "className": "InsectSwarmChar_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "InsectSwarm",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Insect Swarm",
+        "InsectSwarm"
+      ]
+    },
+    {
+      "name": "Istiophorus",
+      "className": "Istiophorus_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Istiophorus"
+      ]
+    },
+    {
+      "name": "Jerboa",
+      "className": "Jerboa_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Jerboa",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Jerboa"
+      ]
+    },
+    {
+      "name": "Jug Bug",
+      "className": "Jugbug_Character_BaseBP_C",
+      "category": "Invertebrates",
+      "nameTag": "Jugbug",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Jug Bug",
+        "Jugbug"
+      ]
+    },
+    {
+      "name": "Kairuku",
+      "className": "Kairuku_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Kairu",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Kairu",
+        "Kairuku"
+      ]
+    },
+    {
+      "name": "Kaprosuchus",
+      "className": "Kaprosuchus_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Kaprosuchus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Kaprosuchus"
+      ]
+    },
+    {
+      "name": "Karkinos",
+      "className": "Crab_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "CaveCrab",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "CaveCrab",
+        "Karkinos"
+      ]
+    },
+    {
+      "name": "Kathreptis",
+      "className": "Kathreptis_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Kathreptis"
+      ]
+    },
+    {
+      "name": "Kentrosaurus",
+      "className": "Kentro_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Kentro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Kentro",
+        "Kentrosaurus"
+      ]
+    },
+    {
+      "name": "Lamprey",
+      "className": "Lamprey_Character_C",
+      "category": "Fish",
+      "nameTag": "Lamprey",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lamprey"
+      ]
+    },
+    {
+      "name": "Lava Golem",
+      "className": "LavaGolem_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Lava Golem"
+      ]
+    },
+    {
+      "name": "Leech",
+      "className": "Leech_Character_C",
+      "category": "Invertebrates",
+      "nameTag": "Leech",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Leech"
+      ]
+    },
+    {
+      "name": "Leedsichthys",
+      "className": "Leedsichthys_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Leedsichthys",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Leedsichthys"
+      ]
+    },
+    {
+      "name": "Lightning Wyvern",
+      "className": "Wyvern_Character_BP_Lightning_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lightning Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Liopleurodon",
+      "className": "Liopleurodon_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Liopleurodon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Liopleurodon"
+      ]
+    },
+    {
+      "name": "Lumina",
+      "className": "Lumina_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Lumina",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lumina"
+      ]
+    },
+    {
+      "name": "Lymantria",
+      "className": "Moth_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Moth",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lymantria",
+        "Moth"
+      ]
+    },
+    {
+      "name": "Lystrosaurus",
+      "className": "Lystro_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Lystro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lystro",
+        "Lystrosaurus"
+      ]
+    },
+    {
+      "name": "Macrophage",
+      "className": "Macrophage_Swarm_Character_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Macrophage",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Macrophage"
+      ]
+    },
+    {
+      "name": "Maeguana",
+      "className": "Maelizard_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Maelizard",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Maeguana",
+        "Maelizard"
+      ]
+    },
+    {
+      "name": "Maewing",
+      "className": "MilkGlider_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Maewing",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Maewing"
+      ]
+    },
+    {
+      "name": "Magmasaur",
+      "className": "Cherufe_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "LavaLizard",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "LavaLizard",
+        "Magmasaur"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Giganotosaurus",
+      "className": "BionicGigant_Character_BP_Malfunctioned_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Gigant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigant",
+        "Malfunctioned Tek Giganotosaurus"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Giganotosaurus",
+      "className": "BionicGigant_Character_BP_Malfunctioned_Gauntlet_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Gigant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigant",
+        "Malfunctioned Tek Giganotosaurus"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Parasaur",
+      "className": "BionicPara_Character_BP_Malfunctioned_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Para",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Malfunctioned Tek Parasaur",
+        "Para"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Quetzal",
+      "className": "BionicQuetz_Character_BP_Malfunctioned_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Quetz",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Malfunctioned Tek Quetzal",
+        "Quetz"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Raptor",
+      "className": "BionicRaptor_Character_BP_Malfunctioned_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Malfunctioned Tek Raptor",
+        "Raptor"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Rex",
+      "className": "BionicRex_Character_BP_Malfunctioned_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Malfunctioned Tek Rex",
+        "Rex"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Stegosaurus",
+      "className": "BionicStego_Character_BP_Malfunctioned_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Stego",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Malfunctioned Tek Stegosaurus",
+        "Stego"
+      ]
+    },
+    {
+      "name": "Malfunctioned Tek Triceratops",
+      "className": "BionicTrike_Character_BP_Malfunctioned_C",
+      "category": "Malfunctioned Tek Creatures",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Malfunctioned Tek Triceratops",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Malleocephalus",
+      "className": "Malleocephalus_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Malleocephalus"
+      ]
+    },
+    {
+      "name": "Malwyn",
+      "className": "DevilFox_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "DevilFox",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "DevilFox",
+        "Malwyn"
+      ]
+    },
+    {
+      "name": "Mammoth",
+      "className": "Mammoth_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Mammoth",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mammoth"
+      ]
+    },
+    {
+      "name": "Managarmr",
+      "className": "IceJumper_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Managarmr",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Managarmr"
+      ]
+    },
+    {
+      "name": "Manta",
+      "className": "Manta_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Manta",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Manta"
+      ]
+    },
+    {
+      "name": "Manticore",
+      "className": "Manticore_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ScorchedEarth",
+      "asa": "unknown",
+      "aliases": [
+        "Manticore"
+      ]
+    },
+    {
+      "name": "Manticore (Alpha)",
+      "className": "Manticore_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": "Manticore",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Manticore",
+        "Manticore (Alpha)",
+        "Manticore (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Manticore (Beta)",
+      "className": "Manticore_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": "Manticore",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Manticore",
+        "Manticore (Beta)",
+        "Manticore (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Manticore (Easy Variant)",
+      "className": "Manticore_Character_BP_Easy_Ragnarok_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Manticore (Easy Variant)"
+      ]
+    },
+    {
+      "name": "Manticore (Gamma)",
+      "className": "Manticore_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": "Manticore",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Manticore",
+        "Manticore (Easy Variant)",
+        "Manticore (Gamma)"
+      ]
+    },
+    {
+      "name": "Manticore (Hard Variant)",
+      "className": "Manticore_Character_BP_Hard_Ragnarok_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Manticore (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Manticore (Medium Variant)",
+      "className": "Manticore_Character_BP_Medium_Ragnarok_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Manticore (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Mantis",
+      "className": "Mantis_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Mantis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mantis"
+      ]
+    },
+    {
+      "name": "Mantis Ghost",
+      "className": "Ghost_Mantis_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Mantis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mantis",
+        "Mantis Ghost"
+      ]
+    },
+    {
+      "name": "Mantis Shrimp",
+      "className": "MantisShrimp_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Mantis Shrimp"
+      ]
+    },
+    {
+      "name": "Mega Mek",
+      "className": "MegaMek_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "MegaMek",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mega Mek",
+        "MegaMek"
+      ]
+    },
+    {
+      "name": "Megachelon",
+      "className": "GiantTurtle_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "GiantTurtle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "GiantTurtle",
+        "Megachelon"
+      ]
+    },
+    {
+      "name": "Megalania",
+      "className": "Megalania_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Megalania",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megalania"
+      ]
+    },
+    {
+      "name": "Megaloceros",
+      "className": "Stag_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Stag",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megaloceros",
+        "Stag"
+      ]
+    },
+    {
+      "name": "Megalodon",
+      "className": "Megalodon_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Mega",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mega",
+        "Megalodon"
+      ]
+    },
+    {
+      "name": "Megalosaurus",
+      "className": "Megalosaurus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Megalosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megalosaurus"
+      ]
+    },
+    {
+      "name": "Megalosaurus (Tek Cave)",
+      "className": "Megalosaurus_Character_BP_TekCave_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Megalosaurus (Tek Cave)"
+      ]
+    },
+    {
+      "name": "Meganeura",
+      "className": "Dragonfly_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Dragonfly",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dragonfly",
+        "Meganeura"
+      ]
+    },
+    {
+      "name": "Megapithecus",
+      "className": "Gorilla_Character_BP_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megapithecus"
+      ]
+    },
+    {
+      "name": "Megapithecus (Alpha)",
+      "className": "Gorilla_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": "Megapithecus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megapithecus",
+        "Megapithecus (Alpha)",
+        "Megapithecus (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Megapithecus (Beta)",
+      "className": "Gorilla_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": "Megapithecus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megapithecus",
+        "Megapithecus (Beta)",
+        "Megapithecus (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Megapithecus (Easy Variant)",
+      "className": "Gorilla_Character_BP_TheCenter_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "TheCenter",
+      "asa": "unknown",
+      "aliases": [
+        "Megapithecus (Easy Variant)"
+      ]
+    },
+    {
+      "name": "Megapithecus (Gamma)",
+      "className": "Gorilla_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": "Megapithecus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megapithecus",
+        "Megapithecus (Easy Variant)",
+        "Megapithecus (Gamma)"
+      ]
+    },
+    {
+      "name": "Megapithecus (Hard Variant)",
+      "className": "Gorilla_Character_BP_TheCenter_Hard_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "TheCenter",
+      "asa": "unknown",
+      "aliases": [
+        "Megapithecus (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Megapithecus (Medium Variant)",
+      "className": "Gorilla_Character_BP_TheCenter_Medium_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "TheCenter",
+      "asa": "unknown",
+      "aliases": [
+        "Megapithecus (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Megapithecus Guardian",
+      "className": "EndBossGorilla_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Megapithecus Guardian"
+      ]
+    },
+    {
+      "name": "Megapithecus Guardian (Easy Variant)",
+      "className": "EndBossGorilla_Character_BP_Easy_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Megapithecus Guardian (Easy Variant)"
+      ]
+    },
+    {
+      "name": "Megapithecus Guardian (Hard Variant)",
+      "className": "EndBossGorilla_Character_BP_Hard_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Megapithecus Guardian (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Megapithecus Guardian (Medium Variant)",
+      "className": "EndBossGorilla_Character_BP_Medium_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Megapithecus Guardian (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Megaraptor",
+      "className": "ValMegaraptor_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Megaraptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megaraptor"
+      ]
+    },
+    {
+      "name": "Megatherium",
+      "className": "Megatherium_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Megatherium",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megatherium"
+      ]
+    },
+    {
+      "name": "Mek",
+      "className": "Mek_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Mek",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mek"
+      ]
+    },
+    {
+      "name": "Mesopithecus",
+      "className": "Monkey_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Monkey",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mesopithecus",
+        "Monkey"
+      ]
+    },
+    {
+      "name": "Microraptor",
+      "className": "Microraptor_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Microraptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Microraptor"
+      ]
+    },
+    {
+      "name": "Monodon",
+      "className": "Monodon_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Monodon"
+      ]
+    },
+    {
+      "name": "Morellatops",
+      "className": "camelsaurus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Camelsaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Camelsaurus",
+        "Morellatops"
+      ]
+    },
+    {
+      "name": "Mosasaurus",
+      "className": "Mosa_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Mosasaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mosasaur",
+        "Mosasaurus"
+      ]
+    },
+    {
+      "name": "Mosasaurus (Cave)",
+      "className": "Mosa_Character_BP_Cave_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Mosasaurus (Cave)"
+      ]
+    },
+    {
+      "name": "Moschops",
+      "className": "Moschops_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Moschops",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Moschops"
+      ]
+    },
+    {
+      "name": "Mudpuppy",
+      "className": "Mudpuppy_Character_BP_C",
+      "category": "Amphibians",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Mudpuppy"
+      ]
+    },
+    {
+      "name": "Nameless",
+      "className": "ChupaCabra_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Chupacabra",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chupacabra",
+        "Nameless"
+      ]
+    },
+    {
+      "name": "Nameless (Minion)",
+      "className": "ChupaCabra_Character_BP_Minion_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Nameless (Minion)"
+      ]
+    },
+    {
+      "name": "Nameless (Surface)",
+      "className": "ChupaCabra_Character_BP_Surface_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Nameless (Surface)"
+      ]
+    },
+    {
+      "name": "Nameless Queen",
+      "className": "Xenomorph_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Nameless Queen",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Noglin",
+      "className": "BrainSlug_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "BrainSlug",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "BrainSlug",
+        "Noglin"
+      ]
+    },
+    {
+      "name": "Oasisaur",
+      "className": "Oasisaur_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Oasisaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Oasisaur"
+      ]
+    },
+    {
+      "name": "Ocepechelon",
+      "className": "Ocepechelon_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Ocepechelon"
+      ]
+    },
+    {
+      "name": "Oil Jug Bug",
+      "className": "Jugbug_Oil_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Jugbug",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "JugBug",
+        "Jugbug",
+        "Oil Jug Bug"
+      ]
+    },
+    {
+      "name": "Onchopristis",
+      "className": "Onchopristis_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Onchopristis"
+      ]
+    },
+    {
+      "name": "Onyc",
+      "className": "Bat_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Bat",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bat",
+        "Onyc"
+      ]
+    },
+    {
+      "name": "Ossidon",
+      "className": "SnowMonster_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "SnowMonster",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ossidon",
+        "SnowMonster"
+      ]
+    },
+    {
+      "name": "Otter",
+      "className": "Otter_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Otter",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Otter"
+      ]
+    },
+    {
+      "name": "Overseer",
+      "className": "EndBoss_Character_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Overseer"
+      ]
+    },
+    {
+      "name": "Overseer (Alpha)",
+      "className": "EndBoss_Character_Hard_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Overseer (Alpha)",
+        "Overseer (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Overseer (Beta)",
+      "className": "EndBoss_Character_Medium_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Overseer (Beta)",
+        "Overseer (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Overseer (Gamma)",
+      "className": "EndBoss_Character_Easy_C",
+      "category": "Bosses",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Overseer (Easy Variant)",
+        "Overseer (Gamma)"
+      ]
+    },
+    {
+      "name": "Oviraptor",
+      "className": "Oviraptor_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Ovi",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ovi",
+        "Oviraptor"
+      ]
+    },
+    {
+      "name": "Ovis",
+      "className": "Sheep_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Sheep",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ovis",
+        "Ovis (Sheep)",
+        "Sheep"
+      ]
+    },
+    {
+      "name": "Pachy",
+      "className": "Pachy_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Pachy",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pachy"
+      ]
+    },
+    {
+      "name": "Pachyrhinosaurus",
+      "className": "Pachyrhino_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Pachyrhinosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pachyrhino",
+        "Pachyrhinosaurus"
+      ]
+    },
+    {
+      "name": "Palaeoctopus",
+      "className": "Palaeoctopus_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Paleoctopus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Palaeoctopus",
+        "Paleoctopus"
+      ]
+    },
+    {
+      "name": "Paraceratherium",
+      "className": "Paracer_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Paracer",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Paracer",
+        "Paraceratherium"
+      ]
+    },
+    {
+      "name": "Parakeet Fish School",
+      "className": "MicrobeSwarmChar_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Swarm",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Parakeet Fish School",
+        "Swarm"
+      ]
+    },
+    {
+      "name": "Parasaur",
+      "className": "Para_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Para",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Para",
+        "Parasaur"
+      ]
+    },
+    {
+      "name": "Parrot",
+      "className": "Parrot_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Parrot",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Parrot"
+      ]
+    },
+    {
+      "name": "Pegomastax",
+      "className": "Pegomastax_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Pegomastax",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pegomastax"
+      ]
+    },
+    {
+      "name": "Pelagornis",
+      "className": "Pela_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Pela",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pela",
+        "Pelagornis"
+      ]
+    },
+    {
+      "name": "Phiomia",
+      "className": "Phiomia_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Phiomia",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Phiomia"
+      ]
+    },
+    {
+      "name": "Phoenix",
+      "className": "Phoenix_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Phoenix",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Phoenix"
+      ]
+    },
+    {
+      "name": "Piranha",
+      "className": "Piranha_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Piranha",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megapiranha",
+        "Piranha"
+      ]
+    },
+    {
+      "name": "Plesiosaur",
+      "className": "Plesiosaur_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Plesiosaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Plesiosaur"
+      ]
+    },
+    {
+      "name": "Poison Wyvern",
+      "className": "Wyvern_Character_BP_Poison_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Poison Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Polar Bear",
+      "className": "Direbear_Character_Polar_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Polar Bear"
+      ]
+    },
+    {
+      "name": "Polar Bear",
+      "className": "Polar_Bear_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Ragnarok",
+      "asa": "unknown",
+      "aliases": [
+        "Polar Bear"
+      ]
+    },
+    {
+      "name": "Procoptodon",
+      "className": "Procoptodon_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Kangaroo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Kangaroo",
+        "Procoptodon"
+      ]
+    },
+    {
+      "name": "Pteranodon",
+      "className": "Ptero_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Ptera",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ptera",
+        "Pteranodon"
+      ]
+    },
+    {
+      "name": "Pulmonoscorpius",
+      "className": "Scorpion_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Scorpion",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pulmonoscorpius",
+        "Scorpion"
+      ]
+    },
+    {
+      "name": "Purlovia",
+      "className": "Purlovia_Character_BP_C",
+      "category": "Synapsids",
+      "nameTag": "Purlovia",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Purlovia"
+      ]
+    },
+    {
+      "name": "Purlovia (Snow Cave)",
+      "className": "Purlovia_Character_BP_Polar_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Purlovia (Snow Cave)"
+      ]
+    },
+    {
+      "name": "Pygocentrus",
+      "className": "Pygocentrus_Character_BP_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Pygocentrus"
+      ]
+    },
+    {
+      "name": "Pygocentrus (Alpha)",
+      "className": "Pygocentrus_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Pygocentrus (Alpha)"
+      ]
+    },
+    {
+      "name": "Pygocentrus (Beta)",
+      "className": "Pygocentrus_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Pygocentrus (Beta)"
+      ]
+    },
+    {
+      "name": "Pygocentrus (Gamma)",
+      "className": "Pygocentrus_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Pygocentrus (Gamma)"
+      ]
+    },
+    {
+      "name": "Pyromane",
+      "className": "FireLion_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "FireLion",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "FireLion",
+        "Pyromane"
+      ]
+    },
+    {
+      "name": "Qarmoutus",
+      "className": "Qarmoutus_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Qarmoutus"
+      ]
+    },
+    {
+      "name": "Queen Bee",
+      "className": "Bee_Queen_Character_BP_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Queen Bee"
+      ]
+    },
+    {
+      "name": "Quetzal",
+      "className": "Quetz_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Quetz",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Quetz",
+        "Quetzal"
+      ]
+    },
+    {
+      "name": "R-Allosaurus",
+      "className": "Allo_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Allo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Allo",
+        "R-Allosaurus"
+      ]
+    },
+    {
+      "name": "R-Brontosaurus",
+      "className": "Sauropod_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Bronto",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bronto",
+        "R-Brontosaurus"
+      ]
+    },
+    {
+      "name": "R-Carbonemys",
+      "className": "Turtle_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Turtle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "R-Carbonemys",
+        "Turtle"
+      ]
+    },
+    {
+      "name": "R-Carnotaurus",
+      "className": "Carno_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Carno",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carno",
+        "R-Carnotaurus"
+      ]
+    },
+    {
+      "name": "R-Daeodon",
+      "className": "Daeodon_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Daeodon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Daeodon",
+        "R-Daeodon"
+      ]
+    },
+    {
+      "name": "R-Dilophosaur",
+      "className": "Dilo_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Dilo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dilo",
+        "R-Dilophosaur"
+      ]
+    },
+    {
+      "name": "R-Dire Bear",
+      "className": "Direbear_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Direbear",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Direbear",
+        "R-Dire Bear"
+      ]
+    },
+    {
+      "name": "R-Direwolf",
+      "className": "Direwolf_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Direwolf",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Direwolf",
+        "R-Direwolf"
+      ]
+    },
+    {
+      "name": "R-Equus",
+      "className": "Equus_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Equus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Equus",
+        "R-Equus"
+      ]
+    },
+    {
+      "name": "R-Gasbags",
+      "className": "GasBags_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "GasBags",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "GasBags",
+        "R-Gasbags"
+      ]
+    },
+    {
+      "name": "R-Giganotosaurus",
+      "className": "Gigant_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Gigant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigant",
+        "R-Giganotosaurus"
+      ]
+    },
+    {
+      "name": "R-Megatherium",
+      "className": "Megatherium_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Megatherium",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megatherium",
+        "R-Megatherium"
+      ]
+    },
+    {
+      "name": "R-Parasaur",
+      "className": "Para_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Para",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Para",
+        "R-Parasaur"
+      ]
+    },
+    {
+      "name": "R-Procoptodon",
+      "className": "Procoptodon_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Kangaroo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Kangaroo",
+        "R-Procoptodon"
+      ]
+    },
+    {
+      "name": "R-Quetzal",
+      "className": "Quetz_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Quetz",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Quetz",
+        "R-Quetzal"
+      ]
+    },
+    {
+      "name": "R-Reaper King",
+      "className": "Xenomorph_Character_BP_Male_Gen2_C",
+      "category": "R-Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "R-Reaper King",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "R-Reaper King (Tamed)",
+      "className": "Xenomorph_Character_BP_Male_Tamed_Gen2_C",
+      "category": "R-Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "R-Reaper King (Tamed)",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "R-Reaper Queen",
+      "className": "Xenomorph_Character_BP_Female_Gen2_C",
+      "category": "R-Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "R-Reaper Queen",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "R-Snow Owl",
+      "className": "Owl_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Owl",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Owl",
+        "R-Snow Owl"
+      ]
+    },
+    {
+      "name": "R-Thylacoleo",
+      "className": "Thylacoleo_Character_BP_Eden_C",
+      "category": "R-Creatures",
+      "nameTag": "Thylacoleo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "R-Thylacoleo",
+        "Thylacoleo"
+      ]
+    },
+    {
+      "name": "R-Velonasaur",
+      "className": "Spindles_Character_BP_Rockwell_C",
+      "category": "R-Creatures",
+      "nameTag": "Velonasaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "R-Velonasaur",
+        "Velonasaur"
+      ]
+    },
+    {
+      "name": "Raptor",
+      "className": "Raptor_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Raptor"
+      ]
+    },
+    {
+      "name": "Rare X-Sabertooth Salmon",
+      "className": "Rare_Lunar_Salmon_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "RareSalmon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rare X-Sabertooth Salmon",
+        "RareSalmon"
+      ]
+    },
+    {
+      "name": "Ravager",
+      "className": "CaveWolf_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "CaveWolf",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "CaveWolf",
+        "Ravager"
+      ]
+    },
+    {
+      "name": "Reaper King",
+      "className": "Xenomorph_Character_BP_Male_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reaper King",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Reaper King (Tamed)",
+      "className": "Xenomorph_Character_BP_Male_Tamed_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reaper King (Tamed)",
+        "Reaper King Tamed",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Reaper Prince",
+      "className": "Xenomorph_Character_BP_Male_InitialBuryOnly_Adolescent_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reaper Prince",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Reaper Queen",
+      "className": "Xenomorph_Character_BP_Female_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reaper Queen",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Rex",
+      "className": "Rex_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rex"
+      ]
+    },
+    {
+      "name": "Rex Ghost",
+      "className": "Ghost_Rex_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rex",
+        "Rex Ghost"
+      ]
+    },
+    {
+      "name": "Rhyniognatha",
+      "className": "Rhynio_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Rhynio",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rhynio",
+        "Rhyniognatha"
+      ]
+    },
+    {
+      "name": "Riftcrawler",
+      "className": "RiftCrawler_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Riftcrawler"
+      ]
+    },
+    {
+      "name": "Riftwalker",
+      "className": "Riftwalker_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Riftwalker"
+      ]
+    },
+    {
+      "name": "Rock Drake",
+      "className": "RockDrake_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockDrake",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rock Drake",
+        "RockDrake"
+      ]
+    },
+    {
+      "name": "Rock Elemental",
+      "className": "RockGolem_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockElemental",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rock Elemental",
+        "RockElemental"
+      ]
+    },
+    {
+      "name": "Rockwell",
+      "className": "Rockwell_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Rockwell",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell"
+      ]
+    },
+    {
+      "name": "Rockwell (Alpha)",
+      "className": "Rockwell_Character_BP_Hard_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Rockwell",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell",
+        "Rockwell (Alpha)",
+        "Rockwell (Hard Variant)"
+      ]
+    },
+    {
+      "name": "Rockwell (Beta)",
+      "className": "Rockwell_Character_BP_Medium_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Rockwell",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell",
+        "Rockwell (Beta)",
+        "Rockwell (Medium Variant)"
+      ]
+    },
+    {
+      "name": "Rockwell (Gamma)",
+      "className": "Rockwell_Character_BP_Easy_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Rockwell",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell",
+        "Rockwell (Easy Variant)",
+        "Rockwell (Gamma)"
+      ]
+    },
+    {
+      "name": "Rockwell Node",
+      "className": "RockwellNode_Character_BP_FinalFight_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Node",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Node (Alpha)",
+      "className": "RockwellNode_Character_BP_FinalFight_Alpha_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Node (Alpha)",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Node (Beta)",
+      "className": "RockwellNode_Character_BP_FinalFight_Beta_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Node (Beta)",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Node (Gamma)",
+      "className": "RockwellNode_Character_BP_FinalFight_Gamma_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Node (Gamma)",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Prime",
+      "className": "RockwellNode_Character_BP_Boss_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Prime",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Prime (Alpha)",
+      "className": "RockwellNode_Character_BP_Boss_Alpha_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Prime (Alpha)",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Prime (Beta)",
+      "className": "RockwellNode_Character_BP_Boss_Beta_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Prime (Beta)",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Prime (Gamma)",
+      "className": "RockwellNode_Character_BP_Boss_Gamma_C",
+      "category": "Bosses",
+      "nameTag": "RockwellPrime",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Prime (Gamma)",
+        "RockwellPrime"
+      ]
+    },
+    {
+      "name": "Rockwell Tentacle",
+      "className": "RockwellTentacle_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockwellTentacle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Tentacle",
+        "RockwellTentacle"
+      ]
+    },
+    {
+      "name": "Rockwell Tentacle (Alpha)",
+      "className": "RockwellTentacle_Character_BP_Alpha_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockwellTentacle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Tentacle (Alpha)",
+        "Rockwell Tentacle (Hard Variant)",
+        "RockwellTentacle"
+      ]
+    },
+    {
+      "name": "Rockwell Tentacle (Beta)",
+      "className": "RockwellTentacle_Character_BP_Beta_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockwellTentacle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Tentacle (Beta)",
+        "Rockwell Tentacle (Medium Variant)",
+        "RockwellTentacle"
+      ]
+    },
+    {
+      "name": "Rockwell Tentacle (Gamma)",
+      "className": "RockwellTentacle_Character_BP_Gamma_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockwellTentacle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rockwell Tentacle (Easy Variant)",
+        "Rockwell Tentacle (Gamma)",
+        "RockwellTentacle"
+      ]
+    },
+    {
+      "name": "Roll Rat",
+      "className": "MoleRat_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "MoleRat",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "MoleRat",
+        "Roll Rat"
+      ]
+    },
+    {
+      "name": "Rubble Golem",
+      "className": "RubbleGolem_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "RockElemental",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "RockElemental",
+        "Rubble Golem"
+      ]
+    },
+    {
+      "name": "Sabertooth",
+      "className": "Saber_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Sabertooth",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sabertooth"
+      ]
+    },
+    {
+      "name": "Sabertooth Salmon",
+      "className": "Salmon_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "Salmon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sabertooth Salmon",
+        "Salmon"
+      ]
+    },
+    {
+      "name": "Sarco",
+      "className": "Sarco_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Sarco",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sarco"
+      ]
+    },
+    {
+      "name": "Scout",
+      "className": "Scout_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Scout",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Scout"
+      ]
+    },
+    {
+      "name": "Seahorse",
+      "className": "Seahorse_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Seahorse"
+      ]
+    },
+    {
+      "name": "Seeker",
+      "className": "Pteroteuthis_Char_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Seeker",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bat",
+        "Seeker"
+      ]
+    },
+    {
+      "name": "Seeker (Surface)",
+      "className": "Pteroteuthis_Char_BP_Surface_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Seeker (Surface)"
+      ]
+    },
+    {
+      "name": "Shadowmane",
+      "className": "LionfishLion_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Lionfish Lion",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lionfish Lion",
+        "Shadowmane"
+      ]
+    },
+    {
+      "name": "Shastasaurus",
+      "className": "Shastasaurus_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Shasta",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shasta",
+        "Shastasaurus"
+      ]
+    },
+    {
+      "name": "Shinehorn",
+      "className": "LanternGoat_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Lantern Goat",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lantern Goat",
+        "Shinehorn"
+      ]
+    },
+    {
+      "name": "Sinomacrops",
+      "className": "Sinomacrops_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Sino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sino",
+        "Sinomacrops"
+      ]
+    },
+    {
+      "name": "Skeletal Bronto",
+      "className": "Bone_Sauropod_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Bronto",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bronto",
+        "Skeletal Bronto"
+      ]
+    },
+    {
+      "name": "Skeletal Carnotaurus",
+      "className": "Bone_MegaCarno_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Elite Carno",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Elite Carno",
+        "Skeletal Carnotaurus"
+      ]
+    },
+    {
+      "name": "Skeletal Giganotosaurus",
+      "className": "Bone_Gigant_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Gigant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigant",
+        "Skeletal Giganotosaurus"
+      ]
+    },
+    {
+      "name": "Skeletal Jerboa",
+      "className": "Bone_Jerboa_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Jerboa",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Jerboa",
+        "Skeletal Jerboa"
+      ]
+    },
+    {
+      "name": "Skeletal Quetzal",
+      "className": "Bone_Quetz_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Quetz",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Quetz",
+        "Skeletal Quetzal"
+      ]
+    },
+    {
+      "name": "Skeletal Raptor",
+      "className": "Bone_MegaRaptor_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Bone Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bone Raptor",
+        "Skeletal Raptor"
+      ]
+    },
+    {
+      "name": "Skeletal Rex",
+      "className": "Bone_MegaRex_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Bone Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bone Rex",
+        "Skeletal Rex"
+      ]
+    },
+    {
+      "name": "Skeletal Stego",
+      "className": "Bone_Stego_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Stego",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Skeletal Stego",
+        "Stego"
+      ]
+    },
+    {
+      "name": "Skeletal Trike",
+      "className": "Bone_Trike_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Skeletal Trike",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Snow Owl",
+      "className": "Owl_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Owl",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Owl",
+        "Snow Owl"
+      ]
+    },
+    {
+      "name": "Snow Owl Ghost",
+      "className": "Ghost_Owl_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Owl",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Owl",
+        "Snow Owl Ghost"
+      ]
+    },
+    {
+      "name": "Solwyn",
+      "className": "AngelFox_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "AngelFox",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "AngelFox",
+        "Solwyn"
+      ]
+    },
+    {
+      "name": "Spino",
+      "className": "Spino_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Spino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Spino",
+        "Spinosaurus"
+      ]
+    },
+    {
+      "name": "Stegosaurus",
+      "className": "Stego_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Stego",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stego",
+        "Stegosaurus"
+      ]
+    },
+    {
+      "name": "Stereolepis",
+      "className": "Stereolepis_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Stereolepis"
+      ]
+    },
+    {
+      "name": "Subterranean Reaper King",
+      "className": "Xenomorph_Character_BP_Male_Chupa_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Subterranean Reaper King"
+      ]
+    },
+    {
+      "name": "Summoner",
+      "className": "Summoner_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Summoner",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Summoner"
+      ]
+    },
+    {
+      "name": "Super Turkey",
+      "className": "Turkey_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Super Turkey"
+      ]
+    },
+    {
+      "name": "Surface Reaper King",
+      "className": "Xenomorph_Character_BP_Male_Surface_C",
+      "category": "Creatures",
+      "nameTag": null,
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Surface Reaper King"
+      ]
+    },
+    {
+      "name": "Surface Reaper King Ghost",
+      "className": "Ghost_Xenomorph_Character_BP_Male_Surface_C",
+      "category": "Event Creatures",
+      "nameTag": "Xenomorph",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Surface Reaper King Ghost",
+        "Xenomorph"
+      ]
+    },
+    {
+      "name": "Takifugu",
+      "className": "Takifugu_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Takifugu"
+      ]
+    },
+    {
+      "name": "Tapejara",
+      "className": "Tapejara_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Tapejara",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tapejara"
+      ]
+    },
+    {
+      "name": "Tek Giganotosaurus",
+      "className": "BionicGigant_Character_BP_C",
+      "category": "Tek Creatures",
+      "nameTag": "Gigant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigant",
+        "Tek Giganotosaurus"
+      ]
+    },
+    {
+      "name": "Tek Parasaur",
+      "className": "BionicPara_Character_BP_C",
+      "category": "Tek Creatures",
+      "nameTag": "Para",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Para",
+        "Tek Parasaur"
+      ]
+    },
+    {
+      "name": "Tek Quetzal",
+      "className": "BionicQuetz_Character_BP_C",
+      "category": "Tek Creatures",
+      "nameTag": "Quetz",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Quetz",
+        "Tek Quetzal"
+      ]
+    },
+    {
+      "name": "Tek Raptor",
+      "className": "BionicRaptor_Character_BP_C",
+      "category": "Tek Creatures",
+      "nameTag": "Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Raptor",
+        "Tek Raptor"
+      ]
+    },
+    {
+      "name": "Tek Rex",
+      "className": "BionicRex_Character_BP_C",
+      "category": "Tek Creatures",
+      "nameTag": "Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rex",
+        "Tek Rex"
+      ]
+    },
+    {
+      "name": "Tek Stegosaurus",
+      "className": "BionicStego_Character_BP_C",
+      "category": "Tek Creatures",
+      "nameTag": "Stego",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stego",
+        "Tek Stegosaurus"
+      ]
+    },
+    {
+      "name": "Tek Stryder",
+      "className": "TekStrider_Character_BP_C",
+      "category": "Mechanical Creatures",
+      "nameTag": "TekStrider",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Stryder",
+        "TekStrider"
+      ]
+    },
+    {
+      "name": "Tek Triceratops",
+      "className": "BionicTrike_Character_BP_C",
+      "category": "Tek Creatures",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Triceratops",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Terror Bird",
+      "className": "TerrorBird_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "TerrorBird",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Terror Bird",
+        "TerrorBird"
+      ]
+    },
+    {
+      "name": "Therizinosaur",
+      "className": "Therizino_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Therizinosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Therizinosaur",
+        "Therizinosaurus"
+      ]
+    },
+    {
+      "name": "Thorny Dragon",
+      "className": "SpineyLizard_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "SpineyLizard",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "SpineyLizard",
+        "Thorny Dragon"
+      ]
+    },
+    {
+      "name": "Thunnus",
+      "className": "Thunnus_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Thunnus"
+      ]
+    },
+    {
+      "name": "Thylacoleo",
+      "className": "Thylacoleo_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Thylacoleo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Thylacoleo"
+      ]
+    },
+    {
+      "name": "Tidepup",
+      "className": "Axolotl_Small_Character_BP_C",
+      "category": "Amphibians",
+      "nameTag": "Axolotl_Small",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Axolotl_Small",
+        "Tidepup"
+      ]
+    },
+    {
+      "name": "Tidepup (Large)",
+      "className": "Axolotl_Large_Character_BP_C",
+      "category": "Amphibians",
+      "nameTag": "Axolotl_Large",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Axolotl_Large",
+        "Tidepup (Large)"
+      ]
+    },
+    {
+      "name": "Tiktaalik",
+      "className": "Tiktaalik_Character_BP_C",
+      "category": "Fish",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Tiktaalik"
+      ]
+    },
+    {
+      "name": "Titanoboa",
+      "className": "BoaFrill_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "TitanBoa",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "TitanBoa",
+        "Titanboa",
+        "Titanoboa"
+      ]
+    },
+    {
+      "name": "Titanomyrma",
+      "className": "Ant_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Ant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ant",
+        "Titanomyrma",
+        "Titanomyrma Drone"
+      ]
+    },
+    {
+      "name": "Titanomyrma",
+      "className": "FlyingAnt_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Ant",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ant",
+        "Titanomyrma",
+        "Titanomyrma Soldier"
+      ]
+    },
+    {
+      "name": "Titanosaur",
+      "className": "Titanosaur_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Titan",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Titan",
+        "Titanosaur"
+      ]
+    },
+    {
+      "name": "Triceratops",
+      "className": "Trike_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Triceratops",
+        "Trike"
+      ]
+    },
+    {
+      "name": "Tridacna",
+      "className": "Tridacna_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Tridacna"
+      ]
+    },
+    {
+      "name": "Trilobite",
+      "className": "Trilobite_Character_C",
+      "category": "Invertebrates",
+      "nameTag": "Trilobite",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Trilobite"
+      ]
+    },
+    {
+      "name": "Troodon",
+      "className": "Troodon_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Troodon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Troodon"
+      ]
+    },
+    {
+      "name": "Tropeognathus",
+      "className": "Tropeognathus_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Tropeognathus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tropeognathus"
+      ]
+    },
+    {
+      "name": "Tropical Crystal Wyvern",
+      "className": "CrystalWyvern_Character_BP_WS_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tropical Crystal Wyvern",
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "Turkey",
+      "className": "TurkeyBase_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Turkey"
+      ]
+    },
+    {
+      "name": "Tusoteuthis",
+      "className": "Tusoteuthis_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Tusoteuthis",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tusoteuthis"
+      ]
+    },
+    {
+      "name": "Umbra",
+      "className": "Umbra_Character_BP_C",
+      "category": "Reptiles",
+      "nameTag": "Umbra",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Umbra"
+      ]
+    },
+    {
+      "name": "Unicorn",
+      "className": "Equus_Character_BP_Unicorn_C",
+      "category": "Mammals",
+      "nameTag": "Equus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Equus",
+        "Unicorn"
+      ]
+    },
+    {
+      "name": "Veilwyn",
+      "className": "YoungIceFox_DinoCompanion_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "YoungIceFox",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Veilwyn",
+        "YoungIceFox"
+      ]
+    },
+    {
+      "name": "Velonasaur",
+      "className": "Spindles_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Velonasaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Velonasaur"
+      ]
+    },
+    {
+      "name": "Voidwyrm",
+      "className": "TekWyvern_Character_BP_C",
+      "category": "Mechanical Creatures",
+      "nameTag": "TekWyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "TekWyvern",
+        "Voidwyrm"
+      ]
+    },
+    {
+      "name": "Vulcanite",
+      "className": "Vulcanite_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Vulcanite"
+      ]
+    },
+    {
+      "name": "Vulcanithys",
+      "className": "Vulcanithys_Character_BP_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Vulcanithys"
+      ]
+    },
+    {
+      "name": "Vulcanithys (Alpha)",
+      "className": "Vulcanithys_Character_BP_Hard_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Vulcanithys (Alpha)"
+      ]
+    },
+    {
+      "name": "Vulcanithys (Beta)",
+      "className": "Vulcanithys_Character_BP_Medium_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Vulcanithys (Beta)"
+      ]
+    },
+    {
+      "name": "Vulcanithys (Gamma)",
+      "className": "Vulcanithys_Character_BP_Easy_C",
+      "category": "Bosses",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Vulcanithys (Gamma)"
+      ]
+    },
+    {
+      "name": "Vulture",
+      "className": "Vulture_Character_BP_C",
+      "category": "Birds",
+      "nameTag": "Vulture",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Vulture"
+      ]
+    },
+    {
+      "name": "Water Jug Bug",
+      "className": "Jugbug_Water_Character_BP_C",
+      "category": "Invertebrates",
+      "nameTag": "Jugbug",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Jugbug",
+        "Water Jug Bug"
+      ]
+    },
+    {
+      "name": "Water Wyvern",
+      "className": "Wyvern_Character_BP_Water_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "???",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "???",
+        "Water Wyvern"
+      ]
+    },
+    {
+      "name": "Winter Drakeling",
+      "className": "ShoulderDragon_Character_BP_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "ShoulderDragon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "ShoulderDragon",
+        "Winter Drakeling"
+      ]
+    },
+    {
+      "name": "Woolly Rhino",
+      "className": "Rhino_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Rhino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rhino",
+        "Woolly Rhino"
+      ]
+    },
+    {
+      "name": "Wyvern",
+      "className": "Wyvern_Character_BP_Base_C",
+      "category": "Fantasy Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wyvern"
+      ]
+    },
+    {
+      "name": "X-Acrocanthosaurus",
+      "className": "Bog_Acro_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Acro",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Acro",
+        "X-Acrocanthosaurus"
+      ]
+    },
+    {
+      "name": "X-Allosaurus",
+      "className": "Volcano_Allo_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Allo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Allo",
+        "X-Allosaurus"
+      ]
+    },
+    {
+      "name": "X-Ankylosaurus",
+      "className": "Volcano_Ankylo_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Anky",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Anky",
+        "X-Ankylosaurus"
+      ]
+    },
+    {
+      "name": "X-Archelon",
+      "className": "Ocean_Archelon_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Archelon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Archelon",
+        "X-Archelon"
+      ]
+    },
+    {
+      "name": "X-Argentavis",
+      "className": "Snow_Argent_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Argent",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Argent",
+        "X-Argentavis"
+      ]
+    },
+    {
+      "name": "X-Basilosaurus",
+      "className": "Ocean_Basilosaurus_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Basilosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Basilosaurus",
+        "X-Basilosaurus"
+      ]
+    },
+    {
+      "name": "X-Concavenator",
+      "className": "Volcano_Concavenator_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Concavenator",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Concavenator",
+        "X-Concavenator"
+      ]
+    },
+    {
+      "name": "X-Cryolophosaurus",
+      "className": "Snow_Cryolophosaurus_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Cryolophosaurus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cryolophosaurus",
+        "X-Cryolophosaurus"
+      ]
+    },
+    {
+      "name": "X-Deinosuchus",
+      "className": "Bog_Deinosuchus_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Deinosuchus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deinosuchus",
+        "X-Deinosuchus"
+      ]
+    },
+    {
+      "name": "X-Dunkleosteus",
+      "className": "Ocean_Dunkle_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Dunkle",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dunkle",
+        "X-Dunkleosteus"
+      ]
+    },
+    {
+      "name": "X-Helicoprion",
+      "className": "Ocean_Helicoprion_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Helicoprion",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Helicoprion",
+        "X-Helicoprion"
+      ]
+    },
+    {
+      "name": "X-Ichthyosaurus",
+      "className": "Ocean_Dolphin_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Dolphin",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dolphin",
+        "X-Ichthyosaurus"
+      ]
+    },
+    {
+      "name": "X-Megalodon",
+      "className": "Ocean_Megalodon_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Mega",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mega",
+        "X-Megalodon"
+      ]
+    },
+    {
+      "name": "X-Mosasaurus",
+      "className": "Ocean_Mosa_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Mosasaur",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mosasaur",
+        "X-Mosasaurus"
+      ]
+    },
+    {
+      "name": "X-Otter",
+      "className": "Snow_Otter_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Otter",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Otter",
+        "X-Otter"
+      ]
+    },
+    {
+      "name": "X-Paraceratherium",
+      "className": "Bog_Paracer_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Paracer",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Paracer",
+        "X-Paraceratherium"
+      ]
+    },
+    {
+      "name": "X-Parasaur",
+      "className": "Bog_Para_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Para",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Para",
+        "X-Parasaur"
+      ]
+    },
+    {
+      "name": "X-Raptor",
+      "className": "Bog_Raptor_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Raptor",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Raptor",
+        "X-Raptor"
+      ]
+    },
+    {
+      "name": "X-Rex",
+      "className": "Volcano_Rex_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Rex",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rex",
+        "X-Rex"
+      ]
+    },
+    {
+      "name": "X-Rock Elemental",
+      "className": "Volcano_Golem_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "RockElemental",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "RockElemental",
+        "X-Rock Elemental"
+      ]
+    },
+    {
+      "name": "X-Sabertooth",
+      "className": "Snow_Saber_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Sabertooth",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sabertooth",
+        "X-Sabertooth"
+      ]
+    },
+    {
+      "name": "X-Sabertooth Salmon",
+      "className": "Lunar_Salmon_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Salmon",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Salmon",
+        "X-Sabertooth Salmon"
+      ]
+    },
+    {
+      "name": "X-Spino",
+      "className": "Bog_Spino_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Spino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Spino",
+        "X-Spino"
+      ]
+    },
+    {
+      "name": "X-Tapejara",
+      "className": "Bog_Tapejara_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Tapejara",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tapejara",
+        "X-Tapejara"
+      ]
+    },
+    {
+      "name": "X-Triceratops",
+      "className": "Volcano_Trike_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Trike",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Trike",
+        "X-Triceratops"
+      ]
+    },
+    {
+      "name": "X-Woolly Rhino",
+      "className": "Snow_Rhino_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Rhino",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rhino",
+        "X-Woolly Rhino"
+      ]
+    },
+    {
+      "name": "X-Xiphactinus",
+      "className": "Ocean_Xiphactinus_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Xiphactinus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "X-Xiphactinus",
+        "Xiphactinus"
+      ]
+    },
+    {
+      "name": "X-Yutyrannus",
+      "className": "Snow_Yutyrannus_Character_BP_C",
+      "category": "X-Creatures",
+      "nameTag": "Yutyrannus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "X-Yutyrannus",
+        "Yutyrannus"
+      ]
+    },
+    {
+      "name": "Xiphactinus",
+      "className": "Xiphactinus_Character_BP_ASA_C",
+      "category": "Fish",
+      "nameTag": "XiphactinusAA",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Xiphactinus",
+        "XiphactinusAA"
+      ]
+    },
+    {
+      "name": "Yeti",
+      "className": "Yeti_Character_BP_C",
+      "category": "Mammals",
+      "nameTag": "Bigfoot",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bigfoot",
+        "Yeti"
+      ]
+    },
+    {
+      "name": "Yi Ling",
+      "className": "YiLing_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "YiLing",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Yi Ling",
+        "YiLing"
+      ]
+    },
+    {
+      "name": "Yutyrannus",
+      "className": "Yutyrannus_Character_BP_C",
+      "category": "Dinosaurs",
+      "nameTag": "Yutyrannus",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Yutyrannus"
+      ]
+    },
+    {
+      "name": "Zombie Fire Wyvern",
+      "className": "Wyvern_Character_BP_ZombieFire_C",
+      "category": "Event Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wyvern",
+        "Zombie Fire Wyvern"
+      ]
+    },
+    {
+      "name": "Zombie Lightning Wyvern",
+      "className": "Wyvern_Character_BP_ZombieLightning_C",
+      "category": "Event Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wyvern",
+        "Zombie Lightning Wyvern"
+      ]
+    },
+    {
+      "name": "Zombie Poison Wyvern",
+      "className": "Wyvern_Character_BP_ZombiePoison_C",
+      "category": "Event Creatures",
+      "nameTag": "Wyvern",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wyvern",
+        "Zombie Poison Wyvern"
+      ]
+    },
+    {
+      "name": "Zomdodo",
+      "className": "ZombieDodo_Character_BP_C",
+      "category": "Event Creatures",
+      "nameTag": "Dodo",
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dodo",
+        "Zomdodo"
+      ]
+    }
+  ]
+}

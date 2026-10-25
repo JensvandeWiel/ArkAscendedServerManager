@@ -46,13 +46,12 @@ References used:
 
 `tools/audit-options.py` checks all 554 wiki rows against the Kotlin models and the UI.
 
-- **129 wiki rows modelled** (65 `GameUserSettings`, 43 `Game.ini`, 21 launch; names can overlap).
-  The audit sees 134 model entries; the extra 5 are manager-only entries or names the wiki writes
-  differently (see the audit's "App-only settings" section).
+- **289 wiki rows modelled** by the audit (227 INI, 62 launch; names can overlap). The CSV marks
+  **285** rows `implemented=Yes`.
 - **0 contradictions** after phase 0 (no ASA=No options, every Unknown has `@Unsure`, defaults
   and locations match).
-- **162 ASA=Yes scalar gaps**, **24 table/struct gaps**, **30 ASE-only rows**, **36
-  DynamicConfig rows**, **172 ASA=Unknown rows** (experimental candidates), **1** `-mods`
+- **48 ASA=Yes scalar gaps**, **7 table/struct gaps**, **30 ASE-only rows**, **36
+  DynamicConfig rows**, **148 ASA=Unknown rows** (experimental candidates), **1** `-mods`
   covered by `ActiveMods`.
 - **Legacy manager comparison:** 293 entries, **8 legacy-only** (all ASE-only: SOTF, PGM and the
   ASE extinction event) and **3 location conflicts**: `Port` and `MultiHome` (legacy writes
@@ -74,8 +73,8 @@ References used:
 - [x] Existing-behavior tests: `ServerIoTest` (INI file I/O, startup script, install detection,
   version, unknown keys), expanded `IniRoundTripTest` (existing sections, validation, URLs),
   `SettingsStartupScriptTest`, and the fake RCON server tests.
-- [x] inisaur single-item array fix in the sibling library; app keeps a compatibility shim until
-  a release containing it is published.
+- [x] inisaur `0.6.0` published; app dependency bumped and the `withActiveModsFromRaw`
+  compatibility shim removed.
 - [x] Phase 1 started: **Chat & HUD** tab (16 `[ServerSettings]` + 2 `Game.ini` options).
 - [x] Phase 1: **Structures & Items** tab (17 `[ServerSettings]` + 11 `Game.ini` options +
   `-AutoDestroyStructures`).
@@ -95,7 +94,8 @@ References used:
 - [ ] Real-server acceptance (§8.6) — needs a disposable server.
 - [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
   so CI excludes it — see §11.16).
-- [ ] Publish inisaur with the single-item array fix and remove `withActiveModsFromRaw`.
+- [x] Publish inisaur with the single-item array fix and remove `withActiveModsFromRaw`
+  (`0.6.0`).
 
 ---
 
@@ -143,20 +143,20 @@ The CSV is generated from the wiki by `tools/scrape-ark-options.py` (see §2.1).
 | `Game.ini > [ModInstaller]` | 1 | 0 | 0 | 1 |
 | **Total** | **554** | **279** | **245** | **30** |
 
-Currently modelled: 109 INI properties + 24 launch arguments.
+Currently modelled: 227 INI properties + 62 launch arguments (audit view).
 
 Audit view after phase 0 (see §0.2):
 
-- **129 modelled** (65 `GameUserSettings` rows, 43 `Game.ini` rows, 21 launch rows; some names
-  appear in more than one place, e.g. `XPMultiplier` in the main config and DynamicConfig).
-- **162 ASA=Yes scalar gaps** — the real remaining config work.
-- **24 table / struct gaps** — §7.
+- **289 modelled rows** (227 INI, 62 launch; some names appear in more than one place, e.g.
+  `XPMultiplier` in the main config and DynamicConfig).
+- **48 ASA=Yes scalar gaps** — the real remaining scalar config work.
+- **7 table / struct gaps** — §7.
 - **30 ASE-only rows** — intentionally not ported.
 - **36 DynamicConfig rows** — separate file/mechanism, not normal INI keys.
-- **172 ASA=Unknown rows** — experimental candidates; do not ship as normal settings.
+- **148 ASA=Unknown rows** — experimental candidates; do not ship as normal settings.
 - **1** `-mods` row covered by `ActiveMods`.
 
-So the remaining scalar gap is ~160 options, plus the table editors. That is why the plan is
+So the remaining scalar gap is ~48 options, plus the table editors. That is why the plan is
 phased and tab-based rather than "add a few settings".
 
 ### 2.1 Data pipeline: scrape the wiki instead of hand-editing
@@ -288,8 +288,9 @@ dead weight for ASA.
   shutdown, world save backup/restore, auto-update + version feed, plugin manager, CPU
   affinity, profile import/sync, **settings search** (`FindSettingWindow`).
 - Its data files (`GameData/*.gamedata`, 14 files, e.g. `SurvivalEvolved.gamedata` 356 KB) are
-  the ASE item/dino catalogs used by spawn-weight and engram editors. For ASA these must be
-  regenerated; they cannot be copied as-is.
+  the ASE item/dino catalogs. `ArkData` itself is player/tribe/SSQL data, not class data. The
+  class catalogs are now generated from these files plus the ASA wiki by
+  `tools/scrape-ark-catalogs.py`; ASE-only `PrimitivePlus`/`PGM` data is excluded.
 
 ---
 
@@ -332,11 +333,11 @@ way: one setting, one home.
 
 ## 5. Target information architecture
 
-Current 9 tabs do not scale to ~400 settings. Target after phase 1: **14 tabs** (current 9 +
-Cluster & Transfers, Structures & Items, Chat & HUD, Admin & Security, Advanced/Launch), with
-Dynamic Config living inside Advanced. Phase 3 adds a **Tables** tab (15), and if Dynamic Config
-is later promoted to its own tab that becomes 16. Heavy tabs stay split by
-`GroupHeader`/`CheckboxSectionHeader` as today, with a settings search added later.
+The app currently has **14 tabs** (Info, General, Profile, Management, Environment, Rules, Players,
+Dino Settings, Tables, Structures & Items, Chat & HUD, Admin & Security, Advanced & Launch, Config
+Editor). A **Cluster & Transfers** extraction would make 15; if Dynamic Config is later promoted to
+its own tab that becomes 16. Heavy tabs stay split by `GroupHeader`/`CheckboxSectionHeader` as today,
+with a settings search added later.
 
 | # | Tab | Content | Change |
 |---|---|---|---|
@@ -352,7 +353,7 @@ is later promoted to its own tab that becomes 16. Heavy tabs stay split by
 | 10 | **Chat & HUD** | chat, voice, notifications, crosshair/HUD, markers, photo mode, gamma | **new tab** |
 | 11 | **Admin & Security** | ban/admin/badword lists, whitelist, dupe/mesh protection, character tracker, BattleEye | **new tab** |
 | 12 | **Advanced / Launch** | all remaining launch flags, performance, save format, logging, network, mods extras, Ragnarok section | **new tab** |
-| 13 | **Tables** | dino spawns / class multipliers / NPC replacements, spawn containers, engrams, level ramps, crafting/stack/supply overrides, stat clamps, teleports | **new tab** (phase 3, master-detail; see §7) |
+| 13 | **Tables** | dino spawns / class multipliers / NPC replacements, spawn containers, engrams, level ramps, crafting/stack/supply overrides, stat clamps, teleports | **new tab** (phase 3: class multiplier + harvest slice implemented; master-detail still pending; see §7) |
 | 14 | Management | auto-restart, crash restart, memory guard, Discord | extend |
 | 15 | Dynamic Config | live tuning URL, dynamic URL, supported keys, colorset | **new tab** (or section of Advanced) |
 | 16 | Config Editor | raw INI | keep, add dynamic config file later |
@@ -776,6 +777,38 @@ Not in this list: `ConfigOverrideItemMaxQuantity`'s global companion `ItemStackS
 (scalar, §6.7), and `ConfigOverrideSupplyCrateItems`'s global companion
 `SupplyCrateLootQualityMultiplier` (scalar, §6.4).
 
+**Implemented so far (table slices 1-3):** `ClassMultiplier` and the **Tables** tab cover rows
+#2, #3 and #8: `DinoClassDamageMultipliers`, `DinoClassResistanceMultipliers`,
+`TamedDinoClassDamageMultipliers`, `TamedDinoClassResistanceMultipliers` (all `inASA=Unknown`, so
+marked `@Unsure` and grouped under "Experimental") and `HarvestResourceItemAmountClassMultipliers`
+(`inASA=Yes`, grouped under "Verified in ASA").
+The second slice adds `DinoSpawnWeightMultipliers` (#1, `@Unsure`), `NPCReplacements` (#5,
+`@Unsure`), `OverrideNamedEngramEntries` (#9, verified), `EngramEntryAutoUnlocks` (#11,
+`@Unsure`), and the repeated-scalar lists `PreventBreedingForClassNames` (#20, verified) and
+`PreventDinoTameClassNames` (#20, `@Unsure`).
+The third slice adds the indexed tables `ItemStatClamps[0..7]`, `MutagenLevelBoost[0..11]` and
+`MutagenLevelBoost_Bred[0..11]` (all `@Unsure`), the nested-struct tables
+`CheatTeleportLocations` (verified) and `ConfigOverrideItemMaxQuantity` (`@Unsure`), and the
+repeated scalar `OverridePlayerLevelEngramPoints` (`@Unsure`). The editor now uses a shared `DataTable` component with aligned columns, a header row,
+scrollable body and the Jewel form controls as cells. Class-name cells are free text with a
+searchable catalog picker (`ClassNameCell` + `ClassPickerDialog`), so a class can be found by
+name/name tag/class name or entered manually. The master-detail `DataTableEditor`, import/export
+and preview from §7.5 are still pending. Remaining table work: #4 tamed
+speed/stamina (not in the CSV), #6/#7 NPC spawn containers, #10 indexed engram overrides, #13
+level XP ramps, #16 crafting costs, #19 exclude item indices, #25 supply crates, #27 difficulty
+structs, plus the scalar table headers `bAutoUnlockAllEngrams`/`bOnlyAllowSpecifiedEngrams`,
+`OverrideMaxExperiencePoints*` and `ValgueroMemorialEntries`.
+
+**Legacy manager table parity:** the old manager's `DinoClass*`, `TamedDinoClass*`,
+`HarvestResourceItemAmountClassMultipliers`, `DinoSpawnWeightMultipliers`, `NPCReplacements`,
+`PreventBreedingForClassNames`, `PreventDinoTameClassNames`, `OverrideNamedEngramEntries`,
+`EngramEntryAutoUnlocks`, `ConfigOverrideItemMaxQuantity`, `ItemStatClamps[0..7]`,
+`MutagenLevelBoost`/`_Bred` and `OverridePlayerLevelEngramPoints` lists are now covered. Still
+legacy-only: `ConfigOverrideItemCraftingCosts`, the three NPC spawn-container lists,
+`ConfigOverrideSupplyCrateItems`, `ExcludeItemIndices`, and the player/dino
+`LevelExperienceRampOverrides` XP tables. `PreventTransferForClassNames` is `inASA=No` and is
+intentionally not implemented.
+
 ### 7.3 Architecture
 
 **Models (`core/src/main/kotlin/ini/tables/`)**
@@ -793,7 +826,10 @@ Not in this list: `ConfigOverrideItemMaxQuantity`'s global companion `ItemStackS
 **Serialization**
 
 - Spike first (Wave 0). Test each shape against inisaur:
-  1. repeated struct line (`DinoClassDamageMultipliers=(...)` × N)
+  1. [x] repeated struct line (`DinoClassDamageMultipliers=(...)` × N) — inisaur commits
+     `78cae67` (repeated struct arrays + ARK no-space formatting) and `208dffc` (single repeated
+     line as a one-item struct list); the app requires a release containing both before CI can
+     consume it from Maven.
   2. nested struct (`ConfigOverrideItemMaxQuantity=(...,Quantity=(...))`)
   3. nested list of structs (`BaseCraftingResourceRequirements=((...),(...))`)
   4. indexed subkeys (`LevelExperienceRampOverrides=(ExperiencePointsForLevel[0]=1,...)`)
@@ -820,30 +856,29 @@ Not in this list: `ConfigOverrideItemMaxQuantity`'s global companion `ItemStackS
 
 **Catalogs**
 
-- Ship JSON catalogs under `core/src/main/resources/catalogs/` (creatures, items, engrams,
-  spawn containers, supply crates, maps) with `name`, `className`, `mod`, flags
-  (`spawnable`, `tameable`, `breedable`, `harvestable`).
-- Build them from the wiki's `Creature IDs`, `Item IDs`, `Engram classnames`, `Spawn entries`
-  and `Supply Crates` pages with a second scraper (`tools/scrape-ark-catalogs.py`), reusing the
-  template/table parser. Version + date them and show that in the UI.
-- Allow a user-provided catalog folder (old manager's `GameData` model) and a reload button, so
-  modded servers can extend the lists.
-- Free text is always allowed. Unknown class name = warning, not error; show a "valid / unknown /
-  invalid" status like the old manager's `Y`/`W`/`N` row colouring.
+- Ship JSON catalogs under `core/src/main/resources/catalogs/asa/`: `creatures.json`,
+  `engrams.json`, `items.json`, `resources.json`. Each entry has `name`, `className`,
+  `category`, `nameTag`, `mod`, `asa` (`yes`/`unknown`) and aliases.
+- Build them with `python tools/scrape-ark-catalogs.py`. It merges the old manager's
+  `GameData/*.gamedata` files (schema and class names) with the current ASA wiki
+  `Creature IDs` and `Engram class names` pages, and the `Item IDs/*` subpages.
+  Generated files are committed, so runtime and CI need no network access. The scraper marks
+  wiki-ASA entries `yes`; legacy-only/ASE item entries `unknown`, which the UI shows as
+  "Not ASA-verified".
+- Cover the catalog data with `CatalogTest` (known creatures/engrams/resources, search matching).
+  The old `PrimitivePlus`/`PGM` data is deliberately excluded.
+- Allow a user-provided catalog folder and a reload action later, so modded servers can extend
+  the lists. Free text is always allowed; an unknown class is a warning, not an error.
 
-**Shared editor (`ui/src/main/kotlin/components/table/`)**
+**Shared editor (`ui/src/main/kotlin/components/`)**
 
-- `DataTableEditor<T>`:
-  - typed columns (`Column<T>` with title, width, cell editor, validator, optional tooltip)
-  - add / duplicate / delete / reorder, multi-select, keyboard navigation
-  - search/filter, row count, empty state
-  - row status: valid / warning / invalid, with an inline error text
-  - import/export CSV (per table), reset to official defaults, "Preview INI" pane
-  - unsaved-changes guard when switching table or tab
-  - virtualised list for large tables (10k rows must stay responsive)
+- `DataTable<T>`: aligned header/rows, alternating row background, scrollable body and typed
+  `DataTableColumn<T>` cells. Implemented, using the existing Jewel form controls as cells.
+- `ClassNameCell` / `ClassPickerDialog`: free-text class name plus a searchable catalog dialog.
+  Implemented; catalogs are search aids, custom class names are always accepted.
+- Still pending: add/duplicate/delete/reorder beyond the current add/remove, multi-select,
+  keyboard navigation, per-table filters, import/export, preview and row validation colouring.
 - `MasterDetailEditor<TParent,TChild>` for crafting costs, spawn containers and supply crates.
-- Reuse existing `FormTextField` / `FormSliderField` / `FormSelectField` for cells; do not write a
-  second form system.
 - Toolbar: "Add row", "Import", "Export", "Reset", "Preview", row count, validation summary.
 
 **Validation and dependencies**
@@ -899,11 +934,14 @@ Do not build all editors at once. Each wave ends with the test gates in §8.
 
 ### 7.6 Data sources and licensing
 
-- Old manager `.gamedata` files are ASE-era and cannot be copied as-is. Their *schema* is a good
-  reference (`CreatureDataItem`, `EngramDataItem`, `ItemDataItem`, `SupplyCrateDataItem`, etc.).
-- ASA catalogs should be generated from the wiki and shipped as JSON, with attribution (wiki
-  content is CC BY-SA) and a visible "catalog date" in the UI.
-- Allow user catalogs (modded servers) and a "reload catalogs" action.
+- Old manager `.gamedata` files are ASE-era and are used as a class-name/alias source only.
+  Their *schema* is a good reference (`CreatureDataItem`, `EngramDataItem`, `ItemDataItem`,
+  `SupplyCrateDataItem`, etc.); `PrimitivePlus` and `PGM` are excluded.
+- ASA catalogs are generated by `tools/scrape-ark-catalogs.py` from the legacy data plus the
+  current wiki, and shipped as JSON with attribution (wiki content is CC BY-SA). Every entry
+  records whether it came from an ASA-specific page (`asa=yes`) or only legacy data
+  (`asa=unknown`).
+- Allow user catalogs (modded servers) and a "reload catalogs" action later.
 - If a catalog is missing/outdated, the editor must still work with free text.
 
 ---
@@ -926,8 +964,9 @@ value. The test plan targets each separately.
 | L5 system | real ASA server boot + config parse + gameplay spot-checks | disposable Windows VM / self-hosted runner | manual checklist |
 | L6 CI | L0-L4 on PR, live scrape drift on schedule | GitHub Actions | — |
 
-Today: **50 core tests** pass (`IniRoundTripTest` 23, `SettingsStartupScriptTest` 15,
-`ServerIoTest` 7, RCON 5) plus **11 Python tests**; `:ui:compileKotlin` passes. The tests cover
+Today: **57 core tests** pass (`IniRoundTripTest` 25, `SettingsStartupScriptTest` 15,
+`ServerIoTest` 7, RCON 5, catalog 4, table spike 1) plus **11 Python tests**; `:ui:compileKotlin`
+passes. The tests cover
 existing behaviour, not only the new options:
 
 - model round-trip for existing sections/fields, defaults, validation, URL validation;
@@ -1038,8 +1077,9 @@ in-game"; do not claim they work just because the file was written.
   (the app and the path-based file I/O tests are Windows-first) plus the Python tests and
   `python tools/audit-options.py --check`.
 - The CI checkout does not include the sibling `inisaur` repo, so it resolves the published
-  `0.5.0` and the app keeps a compatibility shim for single-item `ActiveMods`. A local developer
-  checkout uses the sibling `../inisaur` via a conditional composite build.
+  `0.6.0` (repeated-struct support, no shim). A local developer checkout uses the sibling
+  `../inisaur` via a conditional composite build; pass `-PusePublishedInisaur` to verify the
+  published artifact locally.
 - Weekly: live scrape `--check` (network) as a separate job; on drift, open a PR with the
   regenerated CSV and a summary (added/removed/changed).
 - Release: all of the above + the L5 checklist.
@@ -1133,11 +1173,12 @@ defaults for all modelled keys; the kitchen-sink profile still round-trips.
 
 ### Phase 3 — Tables (L, split into waves; details in §7.5)
 
-1. **Wave 0** — serialization spike for the 8 shapes in §7.3; golden tests with the wiki
-   examples; decide annotations vs a dedicated `ArkStructCodec`.
-2. **Wave 1** — `DataTableEditor`, catalogs, import/export/preview; class multipliers, harvest
-   resources, mutagen, stat clamps, prevent-breed/tame lists, exclude items, teleports, ordered
-   mod list.
+1. **Wave 0** — [x] repeated-struct spike, golden tests and inisaur support (`78cae67`, `208dffc`);
+   remaining shapes still to spike.
+2. **Wave 1** — `DataTableEditor`, catalogs, import/export/preview; [x] class multipliers,
+   harvest resources, dino spawn weights, NPC replacements, engram overrides/auto-unlocks,
+   prevent-breed/tame lists, item stat clamps, mutagen boosts, teleport locations, stack overrides
+   and player level engram points; [ ] exclude items, level XP ramps, ordered mod list.
 3. **Wave 2** — spawn weights, NPC replacements, engram overrides, auto-unlocks, stack
    overrides, crafting costs.
 4. **Wave 3** — spawn containers, supply crates, player/tame level ramps (duplicate keys and
@@ -1256,11 +1297,11 @@ serializes deterministically.
     input file 'conpty.lib'` (winpty/Windows SDK). This is pre-existing and unrelated to config
     work, but it blocks `./gradlew test` locally. Use
     `./gradlew :core:test -x :overseer:cargoBuild` until it is fixed. CI excludes the task.
-17. **inisaur single-item arrays.** Published inisaur `0.5.0` parses `ActiveMods=111` as a scalar
-    and returns an empty list for a `List<Int>` property. The sibling library now wraps a `Plain`
-    value as a one-item array when a collection is requested; the app uses that via a conditional
-    composite build. The app keeps `withActiveModsFromRaw` as a compatibility shim until a new
-    inisaur release containing the fix is published; remove it then.
+17. **inisaur single-item arrays and struct arrays.** Published inisaur `0.6.0` contains the
+    single-item comma-array fix, repeated-struct arrays, single repeated-struct lines and
+    `@IniString` quoting inside structs. The app depends on `0.6.0`; the temporary
+    `withActiveModsFromRaw` shim has been removed. CI uses the published artifact; local builds
+    can still use the sibling checkout unless `-PusePublishedInisaur` is passed.
 18. **Legacy manager conflicts.** `Port`/`MultiHome` (legacy `[SessionSettings]`, wiki CLI) and
     `MaxNumberOfPlayersInTribe` (legacy `[ServerSettings]`, wiki/ASA `Game.ini`) are reported by
     the audit. The app follows the wiki. Re-check if a real ASA server rejects a value.
@@ -1292,7 +1333,8 @@ ui/src/test/kotlin/                                       # new test source set
 tools/scrape-ark-options.py                               # committed scraper
 tools/test_scrape_ark_options.py                          # scraper tests
 tools/audit-options.py                                    # model/CSV/UI audit
-tools/scrape-ark-catalogs.py                              # future: creature/item/engram catalogs
+tools/scrape-ark-catalogs.py                              # creature/item/engram catalogs
+core/src/main/resources/catalogs/asa/                     # generated catalogs
 ArkServerOptions.csv                                      # generated; implemented preserved
 docs/option-audit.md / option-audit.csv                   # generated audit report
 docs/server-configuration-parity-plan.md                 # this document
@@ -1317,7 +1359,7 @@ python tools/audit-options.py --check
 python tools/audit-options.py --fix-implemented
 
 # App tests (the native overseer build currently needs the workaround)
-./gradlew :core:test :ui:test -x :overseer:cargoBuild
+./gradlew :core:test :ui:test :ui:compileKotlin -x :overseer:cargoBuild -x :core:writeOverseerChecksum
 ```
 
 When the wiki template changes, save the raw page (`?action=raw`) to
@@ -1325,8 +1367,8 @@ When the wiki template changes, save the raw page (`?action=raw`) to
 
 ### 12.3 Measurement snippets
 
-Fresh scrape: 554 rows = 279 `Yes` + 245 `Unknown` + 30 `No`; 109 INI properties + 24 launch
-arguments modelled.
+Fresh scrape: 554 rows = 279 `Yes` + 245 `Unknown` + 30 `No`; 227 INI properties + 62 launch
+arguments modelled. Current tests: 57 core, 5 UI and 15 Python tests.
 
 Count modelled options:
 
@@ -1358,3 +1400,38 @@ $rows | Where-Object { $_.Location -eq 'Configuration Files > GameUserSettings.i
   `NPCSpawner` / `NPCSpawnContainer` / `NPCSpawnEntry` / `NPCSpawnLimit`.
 - Legacy editor reference: `UserControls/ServerSettingsControl.xaml` sections 9, 12, 17-23
   (Dino, Engrams, Levels, Crafting, Stack, Spawner, Supply Crate, Exclude, Prevent Transfer).
+
+---
+
+## 13. Next session — 2026-10-25
+
+**Ship the first AASM RC with the new tables/catalogs**
+
+- [ ] Tag and publish an AASM RC (for example `v0.18.0-rc1`) from the current `master`; the
+  release workflow must publish it as a prerelease and produce `rc.yml`.
+- [ ] Smoke-test the RC channel: stable install must not see the RC, RC install must see it, and
+  `rc1 -> rc2` must work.
+- [ ] Verify the final `v0.18.0` release moves both stable and RC users onto the same build.
+
+**Finish the table wave**
+
+- [ ] `ConfigAddNPCSpawnEntriesContainer` plus subtract/override variants (master-detail).
+- [ ] `ConfigOverrideItemCraftingCosts` (nested resource requirements).
+- [ ] `ConfigOverrideSupplyCrateItems` (crate -> item set -> entries).
+- [ ] `LevelExperienceRampOverrides` + duplicate-key player/dino XP ramps.
+- [ ] `OverrideEngramEntries` (indexed variant).
+- [ ] `ExcludeItemIndices`, `TamedDinoClassSpeedMultipliers`,
+  `TamedDinoClassStaminaMultipliers`, `GameDifficulties` / NPC level overrides.
+- [ ] Table UX: import/export, duplicate/reorder, per-row validation colouring, catalog date,
+  and real master-detail editors.
+
+**Parity / verification**
+
+- [ ] Close the remaining 48 `inASA=Yes` scalar gaps reported by the audit.
+- [ ] Review the 148 `inASA=Unknown` entries; implement only with `@Unsure` + experimental UI.
+- [ ] L5 real-server pass: fresh install, upgrade from the previous release, 2-server cluster,
+  modded map, and an INI written by the table editor.
+- [ ] Re-run `python tools/scrape-ark-catalogs.py` if the wiki/legacy data changes.
+- [ ] Replace the hard-coded `-PreleaseChannel=beta` workaround in the RC release workflow if
+  Nucleus adds native `rc` channel support.
+

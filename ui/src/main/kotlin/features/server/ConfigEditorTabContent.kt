@@ -14,7 +14,6 @@ import org.jetbrains.jewel.ui.component.*
 import arkascendedservermanager.ui.generated.resources.*
 import eu.wynq.arkascendedservermanager.core.ini.Game
 import eu.wynq.arkascendedservermanager.core.ini.GameUserSettings
-import eu.wynq.arkascendedservermanager.core.ini.withActiveModsFromRaw
 import eu.wynq.arkascendedservermanager.ui.components.FormTextField
 import eu.wynq.arkascendedservermanager.ui.components.FormTextarea
 import eu.wynq.arkascendedservermanager.ui.notifications.ToastBannerManager
@@ -76,7 +75,7 @@ fun ConfigEditorTabContent(component: ServerComponent) {
                 if (errors.isEmpty()) {
                     component.updateServerGame { gameResult.getOrThrow() }
                     component.updateServerGameUserSettings {
-                        gameUserSettingsResult.getOrThrow().withActiveModsFromRaw(editedGameUserSettingsIni.value)
+                        gameUserSettingsResult.getOrThrow()
                     }
                     ToastBannerManager.show(ToastBannerType.SUCCESS, "Configs applied successfully, make sure to save the profile as well, otherwise they won't be applied")
                 } else {

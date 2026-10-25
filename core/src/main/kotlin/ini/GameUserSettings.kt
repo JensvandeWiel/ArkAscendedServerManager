@@ -417,25 +417,3 @@ data class GameUserSettings(
     }
 }
 
-private val ACTIVE_MODS_LINE = Regex("""(?m)^\s*ActiveMods\s*=\s*(.*?)\s*$""")
-
-/**
- * Compatibility shim for inisaur 0.5.0.
- *
- * Inisaur treats a one-item comma list as a scalar, so `ActiveMods=111` deserializes as an
- * empty list. The sibling library has been fixed to wrap a `Plain` value when a collection is
- * requested; remove this shim once a release containing that fix is published.
- */
-fun GameUserSettings.withActiveModsFromRaw(rawText: String): GameUserSettings {
-    if (serverSettings.activeMods.isNotEmpty()) return this
-    val raw = ACTIVE_MODS_LINE.find(rawText)?.groupValues?.get(1)?.trim() ?: return this
-    val ids = raw.removeSurrounding("\"")
-        .split(',')
-        .mapNotNull { it.trim().toIntOrNull() }
-        .filter { it > 0 }
-    return if (ids.isNotEmpty()) {
-        copy(serverSettings = serverSettings.copy(activeMods = ids))
-    } else {
-        this
-    }
-}

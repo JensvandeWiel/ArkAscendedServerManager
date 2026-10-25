@@ -1,0 +1,8357 @@
+{
+  "source": "https://ark.wiki.gg/wiki/Engram_class_names",
+  "generatedAt": "2026-10-24",
+  "count": 746,
+  "entries": [
+    {
+      "name": "Absorbent Substrate",
+      "className": "EngramEntry_SubstrateAbsorbent_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Absorbent Substrate"
+      ]
+    },
+    {
+      "name": "Acro Saddle",
+      "className": "EngramEntry_SaddleAcro_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Acro Saddle"
+      ]
+    },
+    {
+      "name": "Adobe Ceiling",
+      "className": "EngramEntry_AdobeCeiling_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Ceiling"
+      ]
+    },
+    {
+      "name": "Adobe Dinosaur Gate",
+      "className": "EngramEntry_AdobeGateway_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Dinosaur Gate",
+        "Adobe Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Adobe Dinosaur Gateway",
+      "className": "EngramEntry_AdobeGate_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Dinosaur Gate",
+        "Adobe Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Adobe Door",
+      "className": "EngramEntry_AdobeDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Door"
+      ]
+    },
+    {
+      "name": "Adobe Doorframe",
+      "className": "EngramEntry_AdobeWallWithDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Doorframe"
+      ]
+    },
+    {
+      "name": "Adobe Double Door",
+      "className": "EngramEntry_DoubleDoor_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Double Door"
+      ]
+    },
+    {
+      "name": "Adobe Double Doorframe",
+      "className": "EngramEntry_DoubleDoorframe_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Double Doorframe"
+      ]
+    },
+    {
+      "name": "Adobe Fence Foundation",
+      "className": "EngramEntry_AdobeFenceFoundation_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Fence Foundation"
+      ]
+    },
+    {
+      "name": "Adobe Fence Support",
+      "className": "EngramEntry_FenceSupport_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Fence Support"
+      ]
+    },
+    {
+      "name": "Adobe Foundation",
+      "className": "EngramEntry_AdobeFloor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Foundation"
+      ]
+    },
+    {
+      "name": "Adobe Hatchframe",
+      "className": "EngramEntry_AdobeCeilingWithTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Hatchframe"
+      ]
+    },
+    {
+      "name": "Adobe Ladder",
+      "className": "EngramEntry_AdobeLadder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Ladder"
+      ]
+    },
+    {
+      "name": "Adobe Pillar",
+      "className": "EngramEntry_AdobePillar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Pillar"
+      ]
+    },
+    {
+      "name": "Adobe Railing",
+      "className": "EngramEntry_AdobeRailing_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Railing"
+      ]
+    },
+    {
+      "name": "Adobe Ramp",
+      "className": "EngramEntry_AdobeRamp_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Ramp"
+      ]
+    },
+    {
+      "name": "Adobe Staircase",
+      "className": "EngramEntry_AdobeStairs_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Staircase"
+      ]
+    },
+    {
+      "name": "Adobe Stairs",
+      "className": "EngramEntry_Ramp_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Ramp",
+        "Adobe Stairs"
+      ]
+    },
+    {
+      "name": "Adobe Trapdoor",
+      "className": "EngramEntry_AdobeTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Trapdoor"
+      ]
+    },
+    {
+      "name": "Adobe Triangle Ceiling",
+      "className": "EngramEntry_TriCeiling_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Triangle Ceiling"
+      ]
+    },
+    {
+      "name": "Adobe Triangle Foundation",
+      "className": "EngramEntry_TriFoundation_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Triangle Foundation"
+      ]
+    },
+    {
+      "name": "Adobe Triangle Roof",
+      "className": "EngramEntry_TriRoof_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Triangle Roof"
+      ]
+    },
+    {
+      "name": "Adobe Wall",
+      "className": "EngramEntry_AdobeWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Wall"
+      ]
+    },
+    {
+      "name": "Adobe Window",
+      "className": "EngramEntry_AdobeWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Window"
+      ]
+    },
+    {
+      "name": "Adobe Windowframe",
+      "className": "EngramEntry_AdobeWallWithWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Windowframe"
+      ]
+    },
+    {
+      "name": "Advanced Bullet",
+      "className": "EngramEntry_AdvancedBullet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Advanced Bullet"
+      ]
+    },
+    {
+      "name": "Advanced Rifle Bullet",
+      "className": "EngramEntry_AdvancedRifleBullet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Advanced Rifle Bullet"
+      ]
+    },
+    {
+      "name": "Advanced Sniper Bullet",
+      "className": "EngramEntry_AdvancedSniperBullet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Advanced Sniper Bullet"
+      ]
+    },
+    {
+      "name": "Air Conditioner",
+      "className": "EngramEntry_AirConditioner_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Air Conditioner"
+      ]
+    },
+    {
+      "name": "Allosaurus Saddle",
+      "className": "EngramEntry_Saddle_Allo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Allosaurus Saddle",
+        "Saddle - Allosaurus"
+      ]
+    },
+    {
+      "name": "Amargasaurus Saddle",
+      "className": "EngramEntry_Saddle_Amarga_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Amargasaurus Saddle"
+      ]
+    },
+    {
+      "name": "Ammo Box",
+      "className": "EngramEntry_AmmoBox_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ammo Box"
+      ]
+    },
+    {
+      "name": "Andrewsarchus Saddle",
+      "className": "EngramEntry_Saddle_Andrewsarchus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Andrewsarchus Saddle"
+      ]
+    },
+    {
+      "name": "Ankylo Saddle",
+      "className": "EngramEntry_Saddle_Ankylo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ankylo Saddle",
+        "Saddle - Ankylo"
+      ]
+    },
+    {
+      "name": "Aquarium",
+      "className": "EngramEntry_Fishtank_ToF_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aquarium"
+      ]
+    },
+    {
+      "name": "Aquatic Compartment",
+      "className": "EngramEntry_ReverseVacuumCompartment_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aquatic Compartment"
+      ]
+    },
+    {
+      "name": "Araneo Saddle",
+      "className": "EngramEntry_Saddle_Spider_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Araneo Saddle",
+        "Saddle - Araneo"
+      ]
+    },
+    {
+      "name": "Archelon Saddle",
+      "className": "EngramEntry_Saddle_Archelon_ASA_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Archelon Saddle"
+      ]
+    },
+    {
+      "name": "Arctic Scout Boots",
+      "className": "EngramEntry_ArcticBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arctic Scout Boots"
+      ]
+    },
+    {
+      "name": "Arctic Scout Chestpiece",
+      "className": "EngramEntry_ArcticShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arctic Scout Chestpiece"
+      ]
+    },
+    {
+      "name": "Arctic Scout Gauntlets",
+      "className": "EngramEntry_ArcticGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arctic Scout Gauntlets"
+      ]
+    },
+    {
+      "name": "Arctic Scout Leggings",
+      "className": "EngramEntry_ArcticPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arctic Scout Leggings"
+      ]
+    },
+    {
+      "name": "Arctic Scout Mask",
+      "className": "EngramEntry_ArcticHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arctic Scout Mask"
+      ]
+    },
+    {
+      "name": "Argentavis Saddle",
+      "className": "EngramEntry_Saddle_Argentavis_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Argentavis Saddle",
+        "Saddle - Argentavis"
+      ]
+    },
+    {
+      "name": "Armadoggo Armor",
+      "className": "EngramEntry_Wasteland_DoggoArmor_Saddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Armadoggo Armor"
+      ]
+    },
+    {
+      "name": "Arthropluera Saddle",
+      "className": "EngramEntry_Saddle_Arthro_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Arthropluera Saddle",
+        "Saddle - Arthropluera"
+      ]
+    },
+    {
+      "name": "Artifact Pedestal",
+      "className": "EngramEntry_TrophyBase_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Artifact Pedestal",
+        "Trophy Base"
+      ]
+    },
+    {
+      "name": "Assault Rifle",
+      "className": "EngramEntry_MachinedRifle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Assault Rifle"
+      ]
+    },
+    {
+      "name": "Astrocetus Tek Saddle",
+      "className": "EngramEntry_TekSpaceWhaleSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Astrocetus Tek Saddle"
+      ]
+    },
+    {
+      "name": "Astrodelphis Starwing Saddle",
+      "className": "EngramEntry_SpaceDolphin_Saddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Astrodelphis Starwing Saddle"
+      ]
+    },
+    {
+      "name": "Aureliax Saddle",
+      "className": "EngramEntry_LostColony_Saddle_SnowDragon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Aureliax Saddle"
+      ]
+    },
+    {
+      "name": "Auto Turret",
+      "className": "EngramEntry_Turret_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Auto Turret"
+      ]
+    },
+    {
+      "name": "Ballista Turret",
+      "className": "EngramEntry_BallistaTurret_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Balista Turret",
+        "Ballista Turret"
+      ]
+    },
+    {
+      "name": "Barrel Storage",
+      "className": "EngramEntry_Frontier_Barrel_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Barrel Storage"
+      ]
+    },
+    {
+      "name": "Baryonyx Saddle",
+      "className": "EngramEntry_Saddle_Baryonyx_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Baryonyx Saddle",
+        "Saddle - Baryonyx"
+      ]
+    },
+    {
+      "name": "Basilisk Saddle",
+      "className": "EngramEntry_BasiliskSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Basilisk Saddle",
+        "Saddle - Basilisk"
+      ]
+    },
+    {
+      "name": "Basilosaurus Saddle",
+      "className": "EngramEntry_Saddle_Basilosaurus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Basilosaurus Saddle",
+        "Saddle - Basilosaurus"
+      ]
+    },
+    {
+      "name": "BattleRig Garage",
+      "className": "EngramEntry_Wasteland_VehicleGarage_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "BattleRig Garage"
+      ]
+    },
+    {
+      "name": "Bear Trap",
+      "className": "EngramEntry_BearTrap_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bear Trap"
+      ]
+    },
+    {
+      "name": "Beelzebufo Saddle",
+      "className": "EngramEntry_Saddle_Toad_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beelzebufo Saddle",
+        "Saddle - Beelzebufo"
+      ]
+    },
+    {
+      "name": "Beer Barrel",
+      "className": "EngramEntry_BeerBarrel_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Beer Barrel"
+      ]
+    },
+    {
+      "name": "Behemoth Adobe Dinosaur Gate",
+      "className": "EngramEntry_AdobeGate_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Adobe Dinosaur Gate"
+      ]
+    },
+    {
+      "name": "Behemoth Adobe Dinosaur Gateway",
+      "className": "EngramEntry_AdobeGateway_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Adobe Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Behemoth Gate",
+      "className": "EngramEntry_MetalGate_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Gate"
+      ]
+    },
+    {
+      "name": "Behemoth Gateway",
+      "className": "EngramEntry_MetalGateway_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Gateway"
+      ]
+    },
+    {
+      "name": "Behemoth Reinforced Dinosaur Gate",
+      "className": "EngramEntry_StoneGateLarge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Reinforced Dinosaur Gate"
+      ]
+    },
+    {
+      "name": "Behemoth Stone Dinosaur Gateway",
+      "className": "EngramEntry_StoneGateway_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Stone Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Behemoth Tek Gate",
+      "className": "EngramEntry_Tek_Gate_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Tek Gate",
+        "Tek Behemoth Gate"
+      ]
+    },
+    {
+      "name": "Behemoth Tek Gateway",
+      "className": "EngramEntry_Tek_Gategrame_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Behemoth Tek Gateway",
+        "Tek Behemoth Gateway"
+      ]
+    },
+    {
+      "name": "Bio-Grinder",
+      "className": "EngramEntry_Wasteland_BioGrinder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bio-Grinder"
+      ]
+    },
+    {
+      "name": "Bladewasp Hive",
+      "className": "EngramEntry_Wasteland_AntiFlyerTurret_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bladewasp Hive"
+      ]
+    },
+    {
+      "name": "Blood Extraction Syringe",
+      "className": "EngramEntry_BloodExtractor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Blood Extraction Syringe"
+      ]
+    },
+    {
+      "name": "Bloodforge",
+      "className": "EngramEntry_LostColony_Bloodforge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bloodforge"
+      ]
+    },
+    {
+      "name": "Bola",
+      "className": "EngramEntry_Bola_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bola"
+      ]
+    },
+    {
+      "name": "Bookshelf",
+      "className": "EngramEntry_Bookshelf_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bookshelf"
+      ]
+    },
+    {
+      "name": "Boomerang",
+      "className": "EngramEntry_Boomerang_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Boomerang"
+      ]
+    },
+    {
+      "name": "Bounty Board",
+      "className": "EngramEntry_TOF_BountyBoard_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bounty Board"
+      ]
+    },
+    {
+      "name": "Bow",
+      "className": "EngramEntry_Bow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bow"
+      ]
+    },
+    {
+      "name": "Brigantine",
+      "className": "EngramEntry_TOF_Brigantine_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Brigantine"
+      ]
+    },
+    {
+      "name": "Bronto Platform Saddle",
+      "className": "EngramEntry_Saddle_Sauro_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bronto Platform Saddle",
+        "Saddle - Bronto Platform"
+      ]
+    },
+    {
+      "name": "Bronto Saddle",
+      "className": "EngramEntry_Saddle_Sauro_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bronto Saddle",
+        "Saddle - Bronto"
+      ]
+    },
+    {
+      "name": "Bug Repellant",
+      "className": "EngramEntry_BugRepel_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bug Repelant",
+        "Bug Repellant"
+      ]
+    },
+    {
+      "name": "Bunk Bed",
+      "className": "EngramEntry_ModernBed_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Bunk Bed"
+      ]
+    },
+    {
+      "name": "Burrowbuck Saddle",
+      "className": "EngramEntry_Saddle_Jackalope_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Burrowbuck Saddle"
+      ]
+    },
+    {
+      "name": "C4 Charge",
+      "className": "EngramEntry_C4Ammo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "C4 Charge"
+      ]
+    },
+    {
+      "name": "C4 Remote Detonator",
+      "className": "EngramEntry_WeaponC4_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "C4 Remote Detonator"
+      ]
+    },
+    {
+      "name": "Camera",
+      "className": "EngramEntry_Camera_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Camera"
+      ]
+    },
+    {
+      "name": "Campfire",
+      "className": "EngramEntry_Campfire_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Campfire"
+      ]
+    },
+    {
+      "name": "Cannon",
+      "className": "EngramEntry_Cannon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cannon"
+      ]
+    },
+    {
+      "name": "Cannon Ball",
+      "className": "EngramEntry_CannonBall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cannon Ball"
+      ]
+    },
+    {
+      "name": "Cannon Shell",
+      "className": "EngramEntry_MekCannonShell_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cannon Shell"
+      ]
+    },
+    {
+      "name": "Canoe",
+      "className": "EngramEntry_Canoe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Canoe"
+      ]
+    },
+    {
+      "name": "Canteen",
+      "className": "EngramEntry_Canteen_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Canteen"
+      ]
+    },
+    {
+      "name": "Carbonemys Saddle",
+      "className": "EngramEntry_Saddle_Turtle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carbonemys Saddle",
+        "Saddle - Carbonemys"
+      ]
+    },
+    {
+      "name": "Carcharo Saddle",
+      "className": "EngramEntry_Saddle_Carcha_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carcharo Saddle",
+        "Saddle - Carcharodontosaurus"
+      ]
+    },
+    {
+      "name": "Cargo Ledger",
+      "className": "EngramEntry_CargoLedger_ToF_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cargo Ledger"
+      ]
+    },
+    {
+      "name": "Carno Saddle",
+      "className": "EngramEntry_Saddle_Carno_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Carno Saddle",
+        "Saddle - Carno"
+      ]
+    },
+    {
+      "name": "Castoroides Saddle",
+      "className": "EngramEntry_Saddle_Beaver_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Castoroides Saddle",
+        "Saddle - Castoroides"
+      ]
+    },
+    {
+      "name": "Catapult Turret",
+      "className": "EngramEntry_CatapultTurret_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Catapult Turret"
+      ]
+    },
+    {
+      "name": "Cementing Paste",
+      "className": "EngramEntry_ChitinPaste_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cementing Paste"
+      ]
+    },
+    {
+      "name": "Ceratosaurus Saddle",
+      "className": "EngramEntry_CeratosaurusSaddle_ASA_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ceratosaurus Saddle"
+      ]
+    },
+    {
+      "name": "Cerberax Saddle",
+      "className": "EngramEntry_Saddle_Cerberus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cerberax Saddle"
+      ]
+    },
+    {
+      "name": "Chain Bola",
+      "className": "EngramEntry_ChainBola_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chain Bola"
+      ]
+    },
+    {
+      "name": "Chainsaw",
+      "className": "EngramEntry_ChainSaw_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chainsaw"
+      ]
+    },
+    {
+      "name": "Chalicotherium Saddle",
+      "className": "EngramEntry_Saddle_Chalico_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chalicotherium Saddle",
+        "Saddle - Chalicotherium"
+      ]
+    },
+    {
+      "name": "Charge Battery",
+      "className": "EngramEntry_ChargeBattery_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Charge Battery"
+      ]
+    },
+    {
+      "name": "Charge Lantern",
+      "className": "EngramEntry_ChargeLantern_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Charge Lantern"
+      ]
+    },
+    {
+      "name": "Chemistry Bench",
+      "className": "EngramEntry_ChemBench_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chemistry Bench"
+      ]
+    },
+    {
+      "name": "Chitin Boots",
+      "className": "EngramEntry_ChitinBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chitin Boots"
+      ]
+    },
+    {
+      "name": "Chitin Chestpiece",
+      "className": "EngramEntry_ChitinShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chitin Chestpiece"
+      ]
+    },
+    {
+      "name": "Chitin Gauntlets",
+      "className": "EngramEntry_ChitinGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chitin Gauntlets"
+      ]
+    },
+    {
+      "name": "Chitin Helmet",
+      "className": "EngramEntry_ChitinHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chitin Helmet"
+      ]
+    },
+    {
+      "name": "Chitin Leggings",
+      "className": "EngramEntry_ChitinPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Chitin Leggings"
+      ]
+    },
+    {
+      "name": "Clay",
+      "className": "EngramEntry_Clay_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Clay"
+      ]
+    },
+    {
+      "name": "Climbing Pick",
+      "className": "EngramEntry_ClimbingPick_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Climbing Pick"
+      ]
+    },
+    {
+      "name": "Clockface",
+      "className": "EngramEntry_Steampunk_TimeClock_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Clockface"
+      ]
+    },
+    {
+      "name": "Cloning Chamber",
+      "className": "EngramEntry_TekCloningChamber_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cloning Chamber",
+        "Tek Cloning Chamber"
+      ]
+    },
+    {
+      "name": "Cloth Boots",
+      "className": "EngramEntry_ClothBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cloth Boots"
+      ]
+    },
+    {
+      "name": "Cloth Gloves",
+      "className": "EngramEntry_ClothGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cloth Gloves"
+      ]
+    },
+    {
+      "name": "Cloth Hat",
+      "className": "EngramEntry_ClothHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cloth Hat"
+      ]
+    },
+    {
+      "name": "Cloth Pants",
+      "className": "EngramEntry_ClothPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cloth Pants"
+      ]
+    },
+    {
+      "name": "Cloth Shirt",
+      "className": "EngramEntry_ClothShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cloth Shirt"
+      ]
+    },
+    {
+      "name": "Cluster Grenade",
+      "className": "EngramEntry_ClusterGrenade_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cluster Grenade"
+      ]
+    },
+    {
+      "name": "Coffin",
+      "className": "EngramEntry_Frontier_Coffin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Coffin"
+      ]
+    },
+    {
+      "name": "Companion Ammo Box",
+      "className": "EngramEntry_Wasteland_DoggoArmor_AmmoBox_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Ammo Box"
+      ]
+    },
+    {
+      "name": "Companion Bait Trap",
+      "className": "EngramEntry_Wasteland_DoggoArmor_MeatSack_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Bait Trap"
+      ]
+    },
+    {
+      "name": "Companion Battle-Spikes",
+      "className": "EngramEntry_Wasteland_DoggoArmor_Spikes_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Battle-Spikes"
+      ]
+    },
+    {
+      "name": "Companion Camping Gear",
+      "className": "EngramEntry_Wasteland_DoggoArmor_SleepingBag_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Camping Gear"
+      ]
+    },
+    {
+      "name": "Companion Chibi-Carrier",
+      "className": "EngramEntry_Wasteland_DoggoArmor_ChibiBasket_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Chibi-Carrier"
+      ]
+    },
+    {
+      "name": "Companion Extra Armor",
+      "className": "EngramEntry_Wasteland_DoggoArmor_ExtraArmor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Extra Armor"
+      ]
+    },
+    {
+      "name": "Companion Medpack",
+      "className": "EngramEntry_Wasteland_DoggoArmor_Medkit_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Medpack"
+      ]
+    },
+    {
+      "name": "Companion Oxygen Tank",
+      "className": "EngramEntry_Wasteland_DoggoArmor_OxygenTank_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Oxygen Tank"
+      ]
+    },
+    {
+      "name": "Companion Picnic Set",
+      "className": "EngramEntry_Wasteland_DoggoArmor_FoodBasket_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Picnic Set"
+      ]
+    },
+    {
+      "name": "Companion Rucksack",
+      "className": "EngramEntry_Wasteland_DoggoArmor_Bag_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Rucksack"
+      ]
+    },
+    {
+      "name": "Companion Speed Booster",
+      "className": "EngramEntry_Wasteland_DoggoArmor_Movespeed_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Speed Booster"
+      ]
+    },
+    {
+      "name": "Companion Spykit",
+      "className": "EngramEntry_Wasteland_DoggoArmor_Spyglass_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Companion Spykit"
+      ]
+    },
+    {
+      "name": "Compass",
+      "className": "EngramEntry_Compass_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Compass"
+      ]
+    },
+    {
+      "name": "Compost Bin",
+      "className": "EngramEntry_CompostBin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Compost Bin"
+      ]
+    },
+    {
+      "name": "Compound Bow",
+      "className": "EngramEntry_CompoundBow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Compound Bow"
+      ]
+    },
+    {
+      "name": "Cooking Pot",
+      "className": "EngramEntry_CookingPot_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cooking Pot"
+      ]
+    },
+    {
+      "name": "Corrosive Ship Cannonball",
+      "className": "EngramEntry_TOF_Cannonball_Corrosive_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Corrosive Ship Cannonball"
+      ]
+    },
+    {
+      "name": "Crossbow",
+      "className": "EngramEntry_Crossbow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Crossbow"
+      ]
+    },
+    {
+      "name": "Cruise Missile",
+      "className": "EngramEntry_CruiseMissile_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cruise Missile"
+      ]
+    },
+    {
+      "name": "Cryo Hospital",
+      "className": "EngramEntry_LostColony_CryoHospital_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cryo Hospital"
+      ]
+    },
+    {
+      "name": "Cryofridge",
+      "className": "EngramEntry_CryoFridge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cryofridge"
+      ]
+    },
+    {
+      "name": "Cryopod",
+      "className": "EngramEntry_EmptyCryopod_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Cryopod",
+        "Empty Cryopod"
+      ]
+    },
+    {
+      "name": "Daeodon Saddle",
+      "className": "EngramEntry_Saddle_Daeodon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Daeodon Saddle",
+        "Saddle - Daeodon"
+      ]
+    },
+    {
+      "name": "Decor Box",
+      "className": "EngramEntry_DecorBox_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Decor Box"
+      ]
+    },
+    {
+      "name": "Deinonychus Saddle",
+      "className": "EngramEntry_Saddle_Deinonychus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deinonychus Saddle"
+      ]
+    },
+    {
+      "name": "Deinosuchus Saddle",
+      "className": "EngramEntry_Saddle_Deinosuchus_ASA_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deinosuchus Saddle"
+      ]
+    },
+    {
+      "name": "Deinotherium Saddle",
+      "className": "EngramEntry_SaddleDeinotherium_ASA_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Deinotherium Saddle"
+      ]
+    },
+    {
+      "name": "Delivery Crate",
+      "className": "EngramEntry_StorageBox_Balloon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Delivery Crate"
+      ]
+    },
+    {
+      "name": "Desert Cloth Boots",
+      "className": "EngramEntry_DesertClothBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desert Cloth Boots"
+      ]
+    },
+    {
+      "name": "Desert Cloth Gloves",
+      "className": "EngramEntry_DesertClothGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desert Cloth Gloves"
+      ]
+    },
+    {
+      "name": "Desert Cloth Pants",
+      "className": "EngramEntry_DesertClothPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desert Cloth Pants"
+      ]
+    },
+    {
+      "name": "Desert Cloth Shirt",
+      "className": "EngramEntry_DesertClothShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desert Cloth Shirt"
+      ]
+    },
+    {
+      "name": "Desert Goggles and Hat",
+      "className": "EngramEntry_DesertClothGooglesHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desert Goggles and Hat"
+      ]
+    },
+    {
+      "name": "Desmodus Saddle",
+      "className": "EngramEntry_Saddle_Desmodus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Desmodus Saddle"
+      ]
+    },
+    {
+      "name": "Dino Leash",
+      "className": "EngramEntry_DinoLeash_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dino Leash"
+      ]
+    },
+    {
+      "name": "Dinosaur Gate",
+      "className": "EngramEntry_WoodGate_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dinosaur Gate"
+      ]
+    },
+    {
+      "name": "Dinosaur Gateway",
+      "className": "EngramEntry_WoodGateway_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Diplodocus Saddle",
+      "className": "EngramEntry_Saddle_Diplodocus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Diplodocus Saddle",
+        "Saddle - Diplodocus"
+      ]
+    },
+    {
+      "name": "Dire Bear Saddle",
+      "className": "EngramEntry_Saddle_Direbear_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dire Bear Saddle",
+        "Saddle - Dire Bear"
+      ]
+    },
+    {
+      "name": "Display Case",
+      "className": "EngramEntry_DisplayCase_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Display Case"
+      ]
+    },
+    {
+      "name": "Doedicurus Saddle",
+      "className": "EngramEntry_Saddle_Doed_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Doedicurus Saddle",
+        "Saddle - Doedicurus"
+      ]
+    },
+    {
+      "name": "Drake Claw",
+      "className": "EngramEntry_DrakeClaw_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Drake Claw"
+      ]
+    },
+    {
+      "name": "Drawing Paper",
+      "className": "EngramEntry_Frontier_DrawingSheet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Drawing Paper"
+      ]
+    },
+    {
+      "name": "Dreadnoughtus Platform Saddle",
+      "className": "EngramEntry_DreadSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dreadnoughtus Platform Saddle"
+      ]
+    },
+    {
+      "name": "Dunkleosteus Saddle",
+      "className": "EngramEntry_Saddle_Dunkle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Dunkleosteus Saddle",
+        "Saddle - Dunkleosteus"
+      ]
+    },
+    {
+      "name": "Egg Incubator",
+      "className": "EngramEntry_EggIncubator_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Egg Incubator"
+      ]
+    },
+    {
+      "name": "Electric Prod",
+      "className": "EngramEntry_ElectricProd_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electric Prod"
+      ]
+    },
+    {
+      "name": "Electrical Cable Intersection",
+      "className": "EngramEntry_PowerCableIntersection_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electrical Cable Intersection"
+      ]
+    },
+    {
+      "name": "Electrical Generator",
+      "className": "EngramEntry_PowerGenerator_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electrical Generator"
+      ]
+    },
+    {
+      "name": "Electrical Outlet",
+      "className": "EngramEntry_PowerOutlet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electrical Outlet"
+      ]
+    },
+    {
+      "name": "Electronics",
+      "className": "EngramEntry_Electronics_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electronics"
+      ]
+    },
+    {
+      "name": "Elevator Track",
+      "className": "EngramEntry_ElevatorTrack_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Elevator Track"
+      ]
+    },
+    {
+      "name": "Embryo Incubator",
+      "className": "EngramEntry_Steampunk_EmbryoIncubator_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Embryo Incubator"
+      ]
+    },
+    {
+      "name": "Equus Saddle",
+      "className": "EngramEntry_Saddle_Equus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Equus Saddle",
+        "Saddle - Equus"
+      ]
+    },
+    {
+      "name": "Explosive Spear",
+      "className": "EngramEntry_Wasteland_ExplosiveSpear_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Explosive Spear"
+      ]
+    },
+    {
+      "name": "Extinguisher Grenade",
+      "className": "EngramEntry_Wasteland_AntifireGrenade_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Extinguisher Grenade"
+      ]
+    },
+    {
+      "name": "Fabricated Crossbow",
+      "className": "EngramEntry_LostColony_FabCrossbow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fabricated Crossbow"
+      ]
+    },
+    {
+      "name": "Fabricated Pistol",
+      "className": "EngramEntry_MachinedPistol_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fabricated Pistol"
+      ]
+    },
+    {
+      "name": "Fabricated Sniper Rifle",
+      "className": "EngramEntry_MachinedSniper_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fabricated Sniper Rifle"
+      ]
+    },
+    {
+      "name": "Fabricator",
+      "className": "EngramEntry_Fabricator_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fabricator"
+      ]
+    },
+    {
+      "name": "Fancy Armchair",
+      "className": "EngramEntry_Frontier_FancyArmchair_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fancy Armchair"
+      ]
+    },
+    {
+      "name": "Fancy Sofa",
+      "className": "EngramEntry_Frontier_FancyCouch_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fancy Sofa"
+      ]
+    },
+    {
+      "name": "Fasolasuchus Saddle",
+      "className": "EngramEntry_Saddle_Fasola_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fasolasuchus Saddle"
+      ]
+    },
+    {
+      "name": "Feeding Trough",
+      "className": "EngramEntry_FeedingTrough_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Feeding Trough"
+      ]
+    },
+    {
+      "name": "Fish Basket",
+      "className": "EngramEntry_Fishbasket_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fish Basket"
+      ]
+    },
+    {
+      "name": "Fish Net",
+      "className": "EngramEntry_FishingNet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fish Net"
+      ]
+    },
+    {
+      "name": "Fishing Rod",
+      "className": "EngramEntry_FishingRod_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fishing Rod"
+      ]
+    },
+    {
+      "name": "Flak Boots",
+      "className": "EngramEntry_MetalBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flak Boots"
+      ]
+    },
+    {
+      "name": "Flak Chestpiece",
+      "className": "EngramEntry_MetalShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flak Chestpiece"
+      ]
+    },
+    {
+      "name": "Flak Gauntlets",
+      "className": "EngramEntry_MetalGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flak Gauntlets"
+      ]
+    },
+    {
+      "name": "Flak Helmet",
+      "className": "EngramEntry_MetalHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flak Helmet"
+      ]
+    },
+    {
+      "name": "Flak Leggings",
+      "className": "EngramEntry_MetalPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flak Leggings"
+      ]
+    },
+    {
+      "name": "Flame Arrow",
+      "className": "EngramEntry_FlameArrow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flame Arrow"
+      ]
+    },
+    {
+      "name": "Flamethrower",
+      "className": "EngramEntry_Flamethrower_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flamethrower"
+      ]
+    },
+    {
+      "name": "Flamethrower Ammo",
+      "className": "EngramEntry_FlamethrowerAmmo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flamethrower Ammo"
+      ]
+    },
+    {
+      "name": "Flare Gun",
+      "className": "EngramEntry_FlareLauncher_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flare Gun"
+      ]
+    },
+    {
+      "name": "Flashlight Attachment",
+      "className": "EngramEntry_Flashlight_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flashlight Attachment"
+      ]
+    },
+    {
+      "name": "Flexible Electrical Cable",
+      "className": "EngramEntry_Wire_Flex_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Flexible Electrical Cable"
+      ]
+    },
+    {
+      "name": "Frontier Lamp",
+      "className": "EngramEntry_Frontier_OilLamp_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Frontier Lamp"
+      ]
+    },
+    {
+      "name": "Fur Boots",
+      "className": "EngramEntry_FurBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fur Boots"
+      ]
+    },
+    {
+      "name": "Fur Cap",
+      "className": "EngramEntry_FurHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fur Cap"
+      ]
+    },
+    {
+      "name": "Fur Chestpiece",
+      "className": "EngramEntry_FurShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fur Chestpiece"
+      ]
+    },
+    {
+      "name": "Fur Gauntlets",
+      "className": "EngramEntry_FurGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fur Gauntlets"
+      ]
+    },
+    {
+      "name": "Fur Leggings",
+      "className": "EngramEntry_FurPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fur Leggings"
+      ]
+    },
+    {
+      "name": "Gacha Saddle",
+      "className": "EngramEntry_GachaSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gacha Saddle"
+      ]
+    },
+    {
+      "name": "Gallimimus Saddle",
+      "className": "EngramEntry_Saddle_Galli_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gallimimus Saddle",
+        "Saddle - Gallimimus"
+      ]
+    },
+    {
+      "name": "Gas Collector",
+      "className": "EngramEntry_GasCollector_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gas Collector"
+      ]
+    },
+    {
+      "name": "Gas Mask",
+      "className": "EngramEntry_GasMask_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gas Mask"
+      ]
+    },
+    {
+      "name": "Gasbags Saddle",
+      "className": "EngramEntry_GasBagsSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gasbags Saddle"
+      ]
+    },
+    {
+      "name": "Gene Scanner",
+      "className": "EngramEntry_Steampunk_GeneScanner_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gene Scanner"
+      ]
+    },
+    {
+      "name": "Gene Storage",
+      "className": "EngramEntry_Steampunk_GeneInfuser_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gene Storage"
+      ]
+    },
+    {
+      "name": "Ghillie Boots",
+      "className": "EngramEntry_GhillieBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ghillie Boots"
+      ]
+    },
+    {
+      "name": "Ghillie Chestpiece",
+      "className": "EngramEntry_GhillieShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ghillie Chestpiece"
+      ]
+    },
+    {
+      "name": "Ghillie Gauntlets",
+      "className": "EngramEntry_GhillieGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ghillie Gauntlets"
+      ]
+    },
+    {
+      "name": "Ghillie Leggings",
+      "className": "EngramEntry_GhilliePants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ghillie Leggings"
+      ]
+    },
+    {
+      "name": "Ghillie Mask",
+      "className": "EngramEntry_GhillieHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ghillie Mask"
+      ]
+    },
+    {
+      "name": "Giant Adobe Hatchframe",
+      "className": "EngramEntry_AdobeCeilingWithDoorWay_Giant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giant Adobe Hatchframe"
+      ]
+    },
+    {
+      "name": "Giant Adobe Trapdoor",
+      "className": "EngramEntry_AdobeCeilingDoorGiant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giant Adobe Trapdoor"
+      ]
+    },
+    {
+      "name": "Giant Metal Hatchframe",
+      "className": "EngramEntry_MetalCeilingWithTrapdoorGiant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giant Metal Hatchframe"
+      ]
+    },
+    {
+      "name": "Giant Metal Trapdoor",
+      "className": "EngramEntry_MetalTrapdoorGiant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giant Metal Trapdoor"
+      ]
+    },
+    {
+      "name": "Giant Reinforced Trapdoor",
+      "className": "EngramEntry_StoneTrapdoorGiant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giant Reinforced Trapdoor"
+      ]
+    },
+    {
+      "name": "Giant Stone Hatchframe",
+      "className": "EngramEntry_StoneCeilingWithTrapdoorGiant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giant Stone Hatchframe"
+      ]
+    },
+    {
+      "name": "Gigadesmodus Platform Saddle",
+      "className": "EngramEntry_LostColony_BossBatSaddle_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigadesmodus Platform Saddle"
+      ]
+    },
+    {
+      "name": "Gigadesmodus Saddle",
+      "className": "EngramEntry_LostColony_BossBatSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigadesmodus Saddle"
+      ]
+    },
+    {
+      "name": "Giganotosaurus Saddle",
+      "className": "EngramEntry_Saddle_Gigant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Giganotosaurus Saddle",
+        "Saddle - Giganotosaurus"
+      ]
+    },
+    {
+      "name": "Gigantoraptor Saddle",
+      "className": "EngramEntry_Saddle_Gigantoraptor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gigantoraptor Saddle"
+      ]
+    },
+    {
+      "name": "Glider Suit Skin",
+      "className": "EngramEntry_Glider_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Glider Suit",
+        "Glider Suit Skin"
+      ]
+    },
+    {
+      "name": "Glow Stick",
+      "className": "EngramEntry_GlowStick_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "Aberration",
+      "asa": "unknown",
+      "aliases": [
+        "Glow Stick"
+      ]
+    },
+    {
+      "name": "Glow Stick",
+      "className": "EngramEntry_Glowstick_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Glow Stick"
+      ]
+    },
+    {
+      "name": "Goo Gun",
+      "className": "EngramEntry_Steampunk_GooGun_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Goo Gun"
+      ]
+    },
+    {
+      "name": "GPS",
+      "className": "EngramEntry_GPS_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "GPS"
+      ]
+    },
+    {
+      "name": "Grand Tortugar Platform Saddle",
+      "className": "EngramEntry_Saddle_GrandTortugar_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Grand Tortugar Platform Saddle"
+      ]
+    },
+    {
+      "name": "Grand Tortugar Saddle",
+      "className": "EngramEntry_Saddle_GrandTortugar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Grand Tortugar Saddle"
+      ]
+    },
+    {
+      "name": "Grapeshot",
+      "className": "EngramEntry_TOF_Grapeshot_TOF_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Grapeshot"
+      ]
+    },
+    {
+      "name": "Grappling Hook",
+      "className": "EngramEntry_GrapplingHook_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Grappling Hook"
+      ]
+    },
+    {
+      "name": "Gravestone",
+      "className": "EngramEntry_Gravestone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gravestone"
+      ]
+    },
+    {
+      "name": "Greenhouse Ceiling",
+      "className": "EngramEntry_GreenhouseCeiling_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Ceiling"
+      ]
+    },
+    {
+      "name": "Greenhouse Door",
+      "className": "EngramEntry_GreenhouseDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Door"
+      ]
+    },
+    {
+      "name": "Greenhouse Doorframe",
+      "className": "EngramEntry_GreenhouseWallWithDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Doorframe"
+      ]
+    },
+    {
+      "name": "Greenhouse Double Door",
+      "className": "EngramEntry_DoubleDoor_Greenhouse_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Double Door"
+      ]
+    },
+    {
+      "name": "Greenhouse Double Doorframe",
+      "className": "EngramEntry_DoubleDoorframe_Greenhouse_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Double Doorframe"
+      ]
+    },
+    {
+      "name": "Greenhouse Triangle Ceiling",
+      "className": "EngramEntry_TriCeiling_Greenhouse_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Triangle Ceiling"
+      ]
+    },
+    {
+      "name": "Greenhouse Triangle Roof",
+      "className": "EngramEntry_TriRoof_Greenhouse_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Triangle Roof"
+      ]
+    },
+    {
+      "name": "Greenhouse Wall",
+      "className": "EngramEntry_GreenhouseWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Wall"
+      ]
+    },
+    {
+      "name": "Greenhouse Window",
+      "className": "EngramEntry_GreenhouseWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Window"
+      ]
+    },
+    {
+      "name": "Grenade",
+      "className": "EngramEntry_Grenade_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Grenade"
+      ]
+    },
+    {
+      "name": "Gunpowder",
+      "className": "EngramEntry_Gunpowder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Gunpowder"
+      ]
+    },
+    {
+      "name": "Hand Cannon",
+      "className": "EngramEntry_HandCannon_ToF_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hand Cannon"
+      ]
+    },
+    {
+      "name": "Handcuffs",
+      "className": "EngramEntry_Handcuffs_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Handcuffs"
+      ]
+    },
+    {
+      "name": "Harpoon Launcher",
+      "className": "EngramEntry_HarpoonGun_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Harpoon Launcher"
+      ]
+    },
+    {
+      "name": "Hazard Suit Boots",
+      "className": "EngramEntry_HazardSuit_Boots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hazard Suit Boots"
+      ]
+    },
+    {
+      "name": "Hazard Suit Gloves",
+      "className": "EngramEntry_HazardSuit_Gloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hazard Suit Gloves"
+      ]
+    },
+    {
+      "name": "Hazard Suit Hat",
+      "className": "EngramEntry_HazardSuit_Helmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hazard Suit Hat"
+      ]
+    },
+    {
+      "name": "Hazard Suit Pants",
+      "className": "EngramEntry_HazardSuit_Pants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hazard Suit Pants"
+      ]
+    },
+    {
+      "name": "Hazard Suit Shirt",
+      "className": "EngramEntry_HazardSuit_Chest_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hazard Suit Shirt"
+      ]
+    },
+    {
+      "name": "Heavy Auto Turret",
+      "className": "EngramEntry_HeavyTurret_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Heavy Auto Turret"
+      ]
+    },
+    {
+      "name": "Heavy Miner's Helmet",
+      "className": "EngramEntry_MinersHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Heavy Miner's Helmet"
+      ]
+    },
+    {
+      "name": "Hemogoblin Cocktail",
+      "className": "EngramEntry_HemogoblinCocktail_ASA_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hemogoblin Cocktail"
+      ]
+    },
+    {
+      "name": "Hide Boots",
+      "className": "EngramEntry_HideBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hide Boots"
+      ]
+    },
+    {
+      "name": "Hide Gloves",
+      "className": "EngramEntry_HideGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hide Gloves"
+      ]
+    },
+    {
+      "name": "Hide Hat",
+      "className": "EngramEntry_HideHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hide Hat"
+      ]
+    },
+    {
+      "name": "Hide Pants",
+      "className": "EngramEntry_HidePants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hide Pants"
+      ]
+    },
+    {
+      "name": "Hide Shirt",
+      "className": "EngramEntry_HideShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hide Shirt"
+      ]
+    },
+    {
+      "name": "Hide Sleeping Bag",
+      "className": "EngramEntry_HideSleepingBag_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hide Sleeping Bag"
+      ]
+    },
+    {
+      "name": "Holo-Decoy Grenade",
+      "className": "EngramEntry_LostColony_HoloDecoy_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Holo-Decoy Grenade"
+      ]
+    },
+    {
+      "name": "Holo-Scope Attachment",
+      "className": "EngramEntry_HoloScope_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Holo-Scope Attachment"
+      ]
+    },
+    {
+      "name": "Homing Underwater Mine",
+      "className": "EngramEntry_SeaMine_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Homing Underwater Mine"
+      ]
+    },
+    {
+      "name": "Hyaenodon Meatpack",
+      "className": "EngramEntry_Saddle_Hyaenodon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Hyaenodon Meatpack",
+        "Saddle - Hyaenodon (Meatpack)"
+      ]
+    },
+    {
+      "name": "Ichthyosaurus Saddle",
+      "className": "EngramEntry_Saddle_Dolphin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ichthyosaurus Saddle",
+        "Saddle - Ichthyosaurus"
+      ]
+    },
+    {
+      "name": "Iguanodon Saddle",
+      "className": "EngramEntry_Saddle_Iguanodon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Iguanodon Saddle",
+        "Saddle - Iguanodon"
+      ]
+    },
+    {
+      "name": "Improvised Explosive Device",
+      "className": "EngramEntry_TripwireC4_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Improvised Explosive Device"
+      ]
+    },
+    {
+      "name": "Incendiary Ship Cannonball",
+      "className": "EngramEntry_TOF_Cannonball_Incendiary_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Incendiary Ship Cannonball"
+      ]
+    },
+    {
+      "name": "Inclined Electrical Cable",
+      "className": "EngramEntry_PowerCableIncline_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electrical Cable Inclined",
+        "Inclined Electrical Cable"
+      ]
+    },
+    {
+      "name": "Industrial Cooker",
+      "className": "EngramEntry_IndustrialCookingPot_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Industrial Cooker"
+      ]
+    },
+    {
+      "name": "Industrial Forge",
+      "className": "EngramEntry_IndustrialForge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Industrial Forge"
+      ]
+    },
+    {
+      "name": "Industrial Grill",
+      "className": "EngramEntry_Grill_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Industrial Grill"
+      ]
+    },
+    {
+      "name": "Industrial Grinder",
+      "className": "EngramEntry_Grinder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Industrial Grinder"
+      ]
+    },
+    {
+      "name": "Industrial Preserving Bin",
+      "className": "EngramEntry_Steampunk_IndustrialPreservingBin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Industrial Preserving Bin"
+      ]
+    },
+    {
+      "name": "Jar of Pitch",
+      "className": "EngramEntry_Boulder_Fire_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Jar of Pitch"
+      ]
+    },
+    {
+      "name": "Kaprosuchus Saddle",
+      "className": "EngramEntry_Saddle_Kaprosuchus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Kaprosuchus Saddle",
+        "Saddle - Kaprosuchus"
+      ]
+    },
+    {
+      "name": "Karkinos Saddle",
+      "className": "EngramEntry_KarkinoSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Karkinos Saddle",
+        "Saddle - Karkino"
+      ]
+    },
+    {
+      "name": "Lamppost",
+      "className": "EngramEntry_Lamppost_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lamppost"
+      ]
+    },
+    {
+      "name": "Lance",
+      "className": "EngramEntry_Lance_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lance"
+      ]
+    },
+    {
+      "name": "Large Adobe Wall",
+      "className": "EngramEntry_LargeWall_Adobe_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Adobe Wall"
+      ]
+    },
+    {
+      "name": "Large Bear Trap",
+      "className": "EngramEntry_BearTrap_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Bear Trap"
+      ]
+    },
+    {
+      "name": "Large Crop Plot",
+      "className": "EngramEntry_CropPlot_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Crop Plot"
+      ]
+    },
+    {
+      "name": "Large Elevator Platform",
+      "className": "EngramEntry_ElevatorPlatformLarge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Elevator Platform (Large)",
+        "Large Elevator Platform"
+      ]
+    },
+    {
+      "name": "Large Metal Wall",
+      "className": "EngramEntry_LargeWall_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Metal Wall"
+      ]
+    },
+    {
+      "name": "Large Stone Wall",
+      "className": "EngramEntry_LargeWall_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Stone Wall"
+      ]
+    },
+    {
+      "name": "Large Storage Box",
+      "className": "EngramEntry_StorageBox_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Storage Box"
+      ]
+    },
+    {
+      "name": "Large Taxidermy Base",
+      "className": "EngramEntry_TaxidermyBase_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Taxidermy Base"
+      ]
+    },
+    {
+      "name": "Large Tek Wall",
+      "className": "EngramEntry_LargeWall_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Tek Wall"
+      ]
+    },
+    {
+      "name": "Large Wood Elevator Platform",
+      "className": "EngramEntry_WoodElevatorPlatform_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Wood Elevator Platform",
+        "Wood Elevator Platform (Large)"
+      ]
+    },
+    {
+      "name": "Large Wooden Wall",
+      "className": "EngramEntry_LargeWall_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Large Wood Wall",
+        "Large Wooden Wall"
+      ]
+    },
+    {
+      "name": "Laser Attachment",
+      "className": "EngramEntry_Laser_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Laser Attachment"
+      ]
+    },
+    {
+      "name": "Lesser Antidote",
+      "className": "EngramEntry_CureLow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lesser Antidote"
+      ]
+    },
+    {
+      "name": "Library Storage",
+      "className": "EngramEntry_Steampunk_LibraryStorage_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Library Storage"
+      ]
+    },
+    {
+      "name": "Linked Storage Box",
+      "className": "EngramEntry_Steampunk_LinkedStorage_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Linked Storage Box"
+      ]
+    },
+    {
+      "name": "Loadout Mannequin",
+      "className": "EngramEntry_LoadoutMannequin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Loadout Mannequin"
+      ]
+    },
+    {
+      "name": "Locomotive",
+      "className": "EngramEntry_Frontier_Train_Car_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Locomotive"
+      ]
+    },
+    {
+      "name": "Longneck Rifle",
+      "className": "EngramEntry_SimpleRifle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Longneck Rifle"
+      ]
+    },
+    {
+      "name": "Lost Colony Lights",
+      "className": "EngramEntry_LostColony_Lights_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lost Colony Lights"
+      ]
+    },
+    {
+      "name": "Lumina Saddle",
+      "className": "EngramEntry_Saddle_Lumina_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lumina Saddle"
+      ]
+    },
+    {
+      "name": "Lymantria Saddle",
+      "className": "EngramEntry_Saddle_Moth_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Lymantria Saddle",
+        "Saddle - Lymantria"
+      ]
+    },
+    {
+      "name": "M.D.S.M.",
+      "className": "EngramEntry_MekBackpack_Shield_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "M.D.S.M.",
+        "M.D.S.M. (Mek Deployable Shield Module)"
+      ]
+    },
+    {
+      "name": "M.R.L.M.",
+      "className": "EngramEntry_MekBackpack_Missiles_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "M.R.L.M.",
+        "M.R.L.M. (Mek Rocket Launcher Module)"
+      ]
+    },
+    {
+      "name": "M.S.C.M.",
+      "className": "EngramEntry_MekBackpack_Cannon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "M.S.C.M.",
+        "M.S.C.M. (Mek Siege Cannon Module)"
+      ]
+    },
+    {
+      "name": "Maeguana Saddle",
+      "className": "EngramEntry_Maelizard_Saddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Maeguana Saddle"
+      ]
+    },
+    {
+      "name": "Maewing Saddle",
+      "className": "EngramEntry_Milkglider_Saddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Maewing Saddle"
+      ]
+    },
+    {
+      "name": "Magmasaur Saddle",
+      "className": "EngramEntry_CherufeSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Magmasaur Saddle"
+      ]
+    },
+    {
+      "name": "Magnifying Glass",
+      "className": "EngramEntry_MagnifyingGlass_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Magnifying Glass"
+      ]
+    },
+    {
+      "name": "Makeshift Megalab",
+      "className": "EngramEntry_Wasteland_TekChemBench_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Makeshift Megalab"
+      ]
+    },
+    {
+      "name": "Malwyn Saddle",
+      "className": "EngramEntry_LostColony_Saddle_DevilFox_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Malwyn Saddle"
+      ]
+    },
+    {
+      "name": "Mammoth Saddle",
+      "className": "EngramEntry_Saddle_Mammoth_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mammoth Saddle",
+        "Saddle - Mammoth"
+      ]
+    },
+    {
+      "name": "Managarmr Saddle",
+      "className": "EngramEntry_IceJumperSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Managarmr Saddle"
+      ]
+    },
+    {
+      "name": "Manta Saddle",
+      "className": "EngramEntry_Saddle_Manta_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Manta Saddle",
+        "Saddle - Manta"
+      ]
+    },
+    {
+      "name": "Mantis Saddle",
+      "className": "EngramEntry_Saddle_Mantis_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mantis Saddle",
+        "Saddle - Mantis"
+      ]
+    },
+    {
+      "name": "Market",
+      "className": "EngramEntry_TOF_Market_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Market"
+      ]
+    },
+    {
+      "name": "Medical Stand",
+      "className": "EngramEntry_LostColony_MedicalStand_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Medical Stand"
+      ]
+    },
+    {
+      "name": "Medium Crop Plot",
+      "className": "EngramEntry_CropPlot_Medium_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Medium Crop Plot"
+      ]
+    },
+    {
+      "name": "Medium Elevator Platform",
+      "className": "EngramEntry_ElevatorPlatformMedium_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Elevator Platform (Medium)",
+        "Medium Elevator Platform"
+      ]
+    },
+    {
+      "name": "Medium Taxidermy Base",
+      "className": "EngramEntry_TaxidermyBase_Medium_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Medium Taxidermy Base"
+      ]
+    },
+    {
+      "name": "Medium Tek Teleporter",
+      "className": "EngramEntry_TekTeleporterSmall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Medium Tek Teleporter"
+      ]
+    },
+    {
+      "name": "Medium Wood Elevator Platform",
+      "className": "EngramEntry_WoodElevatorPlatform_Medium_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Medium Wood Elevator Platform",
+        "Wood Elevator Platform (Medium)"
+      ]
+    },
+    {
+      "name": "Megachelon Platform Saddle",
+      "className": "EngramEntry_GiantTurtleSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megachelon Platform Saddle"
+      ]
+    },
+    {
+      "name": "Megalania Saddle",
+      "className": "EngramEntry_Saddle_Megalania_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megalania Saddle",
+        "Saddle - Megalania"
+      ]
+    },
+    {
+      "name": "Megaloceros Saddle",
+      "className": "EngramEntry_Saddle_Stag_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megaloceros Saddle",
+        "Saddle - Megaloceros"
+      ]
+    },
+    {
+      "name": "Megalodon Saddle",
+      "className": "EngramEntry_Saddle_Megalodon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megalodon Saddle",
+        "Saddle - Megalodon"
+      ]
+    },
+    {
+      "name": "Megalodon Tek Saddle",
+      "className": "EngramEntry_TekMegalodonSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megalodon Tek Saddle",
+        "Tek Saddle - Megalodon"
+      ]
+    },
+    {
+      "name": "Megalosaurus Saddle",
+      "className": "EngramEntry_Saddle_Megalosaurus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megalosaurus Saddle",
+        "Saddle - Megalosaurus"
+      ]
+    },
+    {
+      "name": "Megatherium Saddle",
+      "className": "EngramEntry_Saddle_Megatherium_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Megatherium Saddle",
+        "Saddle - Megatherium"
+      ]
+    },
+    {
+      "name": "Metal Arrow",
+      "className": "EngramEntry_CompoundArrow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Arrow"
+      ]
+    },
+    {
+      "name": "Metal Billboard",
+      "className": "EngramEntry_MetalSign_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Billboard"
+      ]
+    },
+    {
+      "name": "Metal Catwalk",
+      "className": "EngramEntry_MetalCatwalk_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Catwalk"
+      ]
+    },
+    {
+      "name": "Metal Ceiling",
+      "className": "EngramEntry_MetalCeiling_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Ceiling"
+      ]
+    },
+    {
+      "name": "Metal Cliff Platform",
+      "className": "EngramEntry_MetalCliffPlatform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Cliff Platform"
+      ]
+    },
+    {
+      "name": "Metal Dinosaur Gate",
+      "className": "EngramEntry_MetalGate_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Dinosaur Gate"
+      ]
+    },
+    {
+      "name": "Metal Dinosaur Gateway",
+      "className": "EngramEntry_MetalGateway_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Metal Door",
+      "className": "EngramEntry_MetalDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Door"
+      ]
+    },
+    {
+      "name": "Metal Doorframe",
+      "className": "EngramEntry_MetalWallWithDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Doorframe"
+      ]
+    },
+    {
+      "name": "Metal Double Door",
+      "className": "EngramEntry_DoubleDoor_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Double Door"
+      ]
+    },
+    {
+      "name": "Metal Double Doorframe",
+      "className": "EngramEntry_DoubleDoorframe_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Double Doorframe"
+      ]
+    },
+    {
+      "name": "Metal Fence Foundation",
+      "className": "EngramEntry_MetalFenceFoundation_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Fence Foundation"
+      ]
+    },
+    {
+      "name": "Metal Fence Support",
+      "className": "EngramEntry_FenceSupport_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Fence Support"
+      ]
+    },
+    {
+      "name": "Metal Foundation",
+      "className": "EngramEntry_MetalFloor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Foundation"
+      ]
+    },
+    {
+      "name": "Metal Hatchet",
+      "className": "EngramEntry_MetalHatchet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Hatchet"
+      ]
+    },
+    {
+      "name": "Metal Hatchframe",
+      "className": "EngramEntry_MetalCeilingWithTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Hatchframe"
+      ]
+    },
+    {
+      "name": "Metal Irrigation Pipe - Flexible",
+      "className": "EngramEntry_PipeFlex_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Irrigation Pipe - Flexible",
+        "Metal Pipe - Flexible"
+      ]
+    },
+    {
+      "name": "Metal Irrigation Pipe - Inclined",
+      "className": "EngramEntry_MetalPipeIncline_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Irrigation Pipe - Inclined"
+      ]
+    },
+    {
+      "name": "Metal Irrigation Pipe - Intake",
+      "className": "EngramEntry_MetalPipeIntake_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Irrigation Pipe - Intake"
+      ]
+    },
+    {
+      "name": "Metal Irrigation Pipe - Intersection",
+      "className": "EngramEntry_MetalPipeIntersection_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Irrigation Pipe - Intersection"
+      ]
+    },
+    {
+      "name": "Metal Irrigation Pipe - Straight",
+      "className": "EngramEntry_MetalPipeStraight_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Irrigation Pipe - Straight"
+      ]
+    },
+    {
+      "name": "Metal Irrigation Pipe - Tap",
+      "className": "EngramEntry_MetalPipeTap_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Irrigation Pipe - Tap"
+      ]
+    },
+    {
+      "name": "Metal Irrigation Pipe - Vertical",
+      "className": "EngramEntry_MetalPipeVertical_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Irrigation Pipe - Vertical"
+      ]
+    },
+    {
+      "name": "Metal Ladder",
+      "className": "EngramEntry_MetalLadder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Ladder"
+      ]
+    },
+    {
+      "name": "Metal Ocean Platform",
+      "className": "EngramEntry_OceanPlatformMetal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Ocean Platform"
+      ]
+    },
+    {
+      "name": "Metal Pick",
+      "className": "EngramEntry_MetalPick_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Pick"
+      ]
+    },
+    {
+      "name": "Metal Pillar",
+      "className": "EngramEntry_MetalPillar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Pillar"
+      ]
+    },
+    {
+      "name": "Metal Railing",
+      "className": "EngramEntry_MetalRailing_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Railing"
+      ]
+    },
+    {
+      "name": "Metal Ramp",
+      "className": "EngramEntry_MetalRamp_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Ramp"
+      ]
+    },
+    {
+      "name": "Metal Shield",
+      "className": "EngramEntry_MetalShield_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Shield"
+      ]
+    },
+    {
+      "name": "Metal Sickle",
+      "className": "EngramEntry_MetalSickle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Sickle"
+      ]
+    },
+    {
+      "name": "Metal Sign",
+      "className": "EngramEntry_MetalSign_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Sign"
+      ]
+    },
+    {
+      "name": "Metal Spike Wall",
+      "className": "EngramEntry_MetalSpikeWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Spike Wall"
+      ]
+    },
+    {
+      "name": "Metal Staircase",
+      "className": "EngramEntry_MetalStairs_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Staircase"
+      ]
+    },
+    {
+      "name": "Metal Stairs",
+      "className": "EngramEntry_Ramp_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Ramp",
+        "Metal Stairs"
+      ]
+    },
+    {
+      "name": "Metal Trapdoor",
+      "className": "EngramEntry_MetalTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Trapdoor"
+      ]
+    },
+    {
+      "name": "Metal Tree Platform",
+      "className": "EngramEntry_TreePlatformMetal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Tree Platform"
+      ]
+    },
+    {
+      "name": "Metal Triangle Ceiling",
+      "className": "EngramEntry_TriCeiling_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Triangle Ceiling"
+      ]
+    },
+    {
+      "name": "Metal Triangle Foundation",
+      "className": "EngramEntry_TriFoundation_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Triangle Foundation"
+      ]
+    },
+    {
+      "name": "Metal Triangle Roof",
+      "className": "EngramEntry_TriRoof_Metal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Triangle Roof"
+      ]
+    },
+    {
+      "name": "Metal Wall",
+      "className": "EngramEntry_MetalWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Wall"
+      ]
+    },
+    {
+      "name": "Metal Wall Sign",
+      "className": "EngramEntry_MetalSign_Wall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Wall Sign"
+      ]
+    },
+    {
+      "name": "Metal Water Reservoir",
+      "className": "EngramEntry_WaterTankMetal_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Water Reservoir",
+        "Metal Water Resevoir"
+      ]
+    },
+    {
+      "name": "Metal Window",
+      "className": "EngramEntry_MetalWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Window"
+      ]
+    },
+    {
+      "name": "Metal Windowframe",
+      "className": "EngramEntry_MetalWallWithWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Windowframe"
+      ]
+    },
+    {
+      "name": "Mini Charge Battery",
+      "className": "EngramEntry_ChargeBattery_Mini_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mini Charge Battery"
+      ]
+    },
+    {
+      "name": "Minigun",
+      "className": "EngramEntry_Minigun_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Minigun"
+      ]
+    },
+    {
+      "name": "Minigun Turret",
+      "className": "EngramEntry_MinigunTurret_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Minigun Turret"
+      ]
+    },
+    {
+      "name": "Mining Drill",
+      "className": "EngramEntry_MiningDrill_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mining Drill"
+      ]
+    },
+    {
+      "name": "Mirror",
+      "className": "EngramEntry_Mirror_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mirror"
+      ]
+    },
+    {
+      "name": "Morellatops Saddle",
+      "className": "EngramEntry_Saddle_Camelsaurus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Morellatops Saddle",
+        "Saddle - Morellatops"
+      ]
+    },
+    {
+      "name": "Mortar and Pestle",
+      "className": "EngramEntry_MortarAndPestle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mortar and Pestle"
+      ]
+    },
+    {
+      "name": "Mosasaur Platform Saddle",
+      "className": "EngramEntry_Saddle_Mosa_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mosasaur Platform Saddle",
+        "Saddle - Mosasaur Platform"
+      ]
+    },
+    {
+      "name": "Mosasaur Saddle",
+      "className": "EngramEntry_Saddle_Mosa_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mosasaur Saddle",
+        "Saddle - Mosasaur"
+      ]
+    },
+    {
+      "name": "Mosasaur Tek Saddle",
+      "className": "EngramEntry_TekMosaSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Mosasaur Tek Saddle",
+        "Tek Saddle - Mosasaur"
+      ]
+    },
+    {
+      "name": "Motorboat",
+      "className": "EngramEntry_Motorboat_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Motorboat"
+      ]
+    },
+    {
+      "name": "Multi-Panel Flag",
+      "className": "EngramEntry_Flag_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Multi-Panel Flag"
+      ]
+    },
+    {
+      "name": "Narcotic",
+      "className": "EngramEntry_Narcotic_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Narcotic"
+      ]
+    },
+    {
+      "name": "Net Projectile",
+      "className": "EngramEntry_NetGun_Ammo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Net Projectile"
+      ]
+    },
+    {
+      "name": "Night Vision Goggles",
+      "className": "EngramEntry_NightVisionGoggles_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Night Vision Goggles"
+      ]
+    },
+    {
+      "name": "Note",
+      "className": "EngramEntry_NotePaper_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Note"
+      ]
+    },
+    {
+      "name": "Oil Jar",
+      "className": "EngramEntry_OilJar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Oil Jar"
+      ]
+    },
+    {
+      "name": "Oil Pump",
+      "className": "EngramEntry_OilPump_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Oil Pump"
+      ]
+    },
+    {
+      "name": "Omnidirectional Lamppost",
+      "className": "EngramEntry_LamppostOmni_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Omnidirectional Lamppost"
+      ]
+    },
+    {
+      "name": "Ossidon Saddle",
+      "className": "EngramEntry_LostColony_Saddle_SnowMonster_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ossidon Saddle"
+      ]
+    },
+    {
+      "name": "Pachy Saddle",
+      "className": "EngramEntry_Saddle_Pachy_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pachy Saddle",
+        "Saddle - Pachy"
+      ]
+    },
+    {
+      "name": "Pachyrhinosaurus Saddle",
+      "className": "EngramEntry_Saddle_PachyRhino_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pachyrhinosaurus Saddle",
+        "Saddle - Pachyrhinosaurus"
+      ]
+    },
+    {
+      "name": "Paintbrush",
+      "className": "EngramEntry_Paintbrush_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Paintbrush"
+      ]
+    },
+    {
+      "name": "Painting Canvas",
+      "className": "EngramEntry_PaintingCanvas_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Painting Canvas"
+      ]
+    },
+    {
+      "name": "Paracer Platform Saddle",
+      "className": "EngramEntry_Saddle_Paracer_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Paracer Platform Saddle",
+        "Saddle - Paracer Platform"
+      ]
+    },
+    {
+      "name": "Paracer Saddle",
+      "className": "EngramEntry_Saddle_Paracer_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Paracer Saddle",
+        "Saddle - Paracer"
+      ]
+    },
+    {
+      "name": "Parachute",
+      "className": "EngramEntry_Parachute_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Parachute"
+      ]
+    },
+    {
+      "name": "Parasaur Saddle",
+      "className": "EngramEntry_Saddle_Para_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Parasaur Saddle",
+        "Saddle - Parasaur"
+      ]
+    },
+    {
+      "name": "Pelagornis Saddle",
+      "className": "EngramEntry_Saddle_Pela_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pelagornis Saddle",
+        "Saddle - Pelagornis"
+      ]
+    },
+    {
+      "name": "Pet Display",
+      "className": "EngramEntry_LostColony_ShoulderPetDisplayStand_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pet Display"
+      ]
+    },
+    {
+      "name": "Pheromone Dart",
+      "className": "EngramEntry_AggroTranqDart_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pheromone Dart"
+      ]
+    },
+    {
+      "name": "Phiomia Saddle",
+      "className": "EngramEntry_Saddle_Phiomia_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Phiomia Saddle",
+        "Saddle - Phiomia"
+      ]
+    },
+    {
+      "name": "Pike",
+      "className": "EngramEntry_Pike_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pike"
+      ]
+    },
+    {
+      "name": "Plant Pot",
+      "className": "EngramEntry_Frontier_PlantPot_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Plant Pot"
+      ]
+    },
+    {
+      "name": "Platform Cart",
+      "className": "EngramEntry_Frontier_Saddle_Carriage_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Platform Cart"
+      ]
+    },
+    {
+      "name": "Plesiosaur Platform Saddle",
+      "className": "EngramEntry_Saddle_Plesio_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Plesiosaur Platform Saddle",
+        "Saddle - Plesiosaur Platform"
+      ]
+    },
+    {
+      "name": "Plesiosaur Saddle",
+      "className": "EngramEntry_Saddle_Plesia_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Plesiosaur Saddle",
+        "Saddle - Plesiosaur"
+      ]
+    },
+    {
+      "name": "Pliers",
+      "className": "EngramEntry_Pliers_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pliers"
+      ]
+    },
+    {
+      "name": "Poison Grenade",
+      "className": "EngramEntry_PoisonGrenade_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Poison Grenade"
+      ]
+    },
+    {
+      "name": "Poker Table",
+      "className": "EngramEntry_Frontier_PokerTable_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Poker Table"
+      ]
+    },
+    {
+      "name": "Polymer",
+      "className": "EngramEntry_Polymer_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Polymer"
+      ]
+    },
+    {
+      "name": "Portable Rope Ladder",
+      "className": "EngramEntry_PortableRopeLadder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Portable Rope Ladder"
+      ]
+    },
+    {
+      "name": "Preserving Bin",
+      "className": "EngramEntry_PreservingBin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Preserving Bin"
+      ]
+    },
+    {
+      "name": "Preserving Salt",
+      "className": "EngramEntry_PreservingSalt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Preserving Salt"
+      ]
+    },
+    {
+      "name": "Pressure Plate",
+      "className": "EngramEntry_PressurePlate_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pressure Plate"
+      ]
+    },
+    {
+      "name": "Procoptodon Saddle",
+      "className": "EngramEntry_Saddle_Procop_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Procoptodon Saddle",
+        "Saddle - Procoptodon"
+      ]
+    },
+    {
+      "name": "Propellant",
+      "className": "EngramEntry_Propellant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Propellant"
+      ]
+    },
+    {
+      "name": "Pteranodon Saddle",
+      "className": "EngramEntry_Saddle_Ptero_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pteranodon Saddle",
+        "Saddle - Pteranodon"
+      ]
+    },
+    {
+      "name": "Pulmonoscorpius Saddle",
+      "className": "EngramEntry_Saddle_Scorpion_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pulmonoscorpius Saddle",
+        "Saddle - Pulmonoscorpius"
+      ]
+    },
+    {
+      "name": "Pump-Action Shotgun",
+      "className": "EngramEntry_MachinedShotgun_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Pump-Action Shotgun"
+      ]
+    },
+    {
+      "name": "Quetz Platform Saddle",
+      "className": "EngramEntry_Saddle_Quetz_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Quetz Platform Saddle",
+        "Saddle - Quetz Platform"
+      ]
+    },
+    {
+      "name": "Quetz Saddle",
+      "className": "EngramEntry_Saddle_Quetz_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Quetz Saddle",
+        "Saddle - Quetz"
+      ]
+    },
+    {
+      "name": "Radio",
+      "className": "EngramEntry_Radio_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Radio"
+      ]
+    },
+    {
+      "name": "Raptor Saddle",
+      "className": "EngramEntry_Saddle_Raptor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Raptor Saddle",
+        "Saddle - Raptor"
+      ]
+    },
+    {
+      "name": "Ravager Saddle",
+      "className": "EngramEntry_RavagerSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Ravager Saddle",
+        "Saddle - Ravager"
+      ]
+    },
+    {
+      "name": "Re-Fertilizer",
+      "className": "EngramEntry_MiracleGro_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Re-Fertilizer"
+      ]
+    },
+    {
+      "name": "Refining Forge",
+      "className": "EngramEntry_Forge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Refining Forge"
+      ]
+    },
+    {
+      "name": "Refrigerator",
+      "className": "EngramEntry_IceBox_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Refrigerator"
+      ]
+    },
+    {
+      "name": "Reinforced Dinosaur Gate",
+      "className": "EngramEntry_StoneGate_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reinforced Dinosaur Gate"
+      ]
+    },
+    {
+      "name": "Reinforced Double Door",
+      "className": "EngramEntry_DoubleDoor_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reinforced Double Door"
+      ]
+    },
+    {
+      "name": "Reinforced Ship Cannonball",
+      "className": "EngramEntry_TOF_Cannonball_Reinforced_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reinforced Ship Cannonball"
+      ]
+    },
+    {
+      "name": "Reinforced Trapdoor",
+      "className": "EngramEntry_StoneTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reinforced Trapdoor"
+      ]
+    },
+    {
+      "name": "Reinforced Window",
+      "className": "EngramEntry_StoneWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reinforced Window"
+      ]
+    },
+    {
+      "name": "Reinforced Wooden Door",
+      "className": "EngramEntry_StoneDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Reinforced Wooden Door"
+      ]
+    },
+    {
+      "name": "Remote Keypad",
+      "className": "EngramEntry_Keypad_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Remote Keypad"
+      ]
+    },
+    {
+      "name": "Rex Saddle",
+      "className": "EngramEntry_Saddle_Rex_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rex Saddle",
+        "Saddle - Rex"
+      ]
+    },
+    {
+      "name": "Rex Tek Saddle",
+      "className": "EngramEntry_TekRexSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rex Tek Saddle",
+        "Tek Saddle - Rex"
+      ]
+    },
+    {
+      "name": "Rhyniognatha Saddle",
+      "className": "EngramEntry_Saddle_Rhynio_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rhyniognatha Saddle"
+      ]
+    },
+    {
+      "name": "Riot Boots",
+      "className": "EngramEntry_RiotBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Riot Boots"
+      ]
+    },
+    {
+      "name": "Riot Chestpiece",
+      "className": "EngramEntry_RiotShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Riot Chestpiece"
+      ]
+    },
+    {
+      "name": "Riot Gauntlets",
+      "className": "EngramEntry_RiotGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Riot Gauntlets"
+      ]
+    },
+    {
+      "name": "Riot Helmet",
+      "className": "EngramEntry_RiotHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Riot Helmet"
+      ]
+    },
+    {
+      "name": "Riot Leggings",
+      "className": "EngramEntry_RiotPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Riot Leggings"
+      ]
+    },
+    {
+      "name": "Riot Shield",
+      "className": "EngramEntry_RiotShield_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Riot Shield"
+      ]
+    },
+    {
+      "name": "Rock Drake Saddle",
+      "className": "EngramEntry_ShadowDrakeSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rock Drake Saddle",
+        "Saddle - Rock Drake"
+      ]
+    },
+    {
+      "name": "Rock Drake Tek Saddle",
+      "className": "EngramEntry_TekRockDrakeSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rock Drake Tek Saddle",
+        "Tek Saddle - Rock Drake"
+      ]
+    },
+    {
+      "name": "Rock Golem Saddle",
+      "className": "EngramEntry_Saddle_RockGolem_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rock Golem Saddle",
+        "Saddle - Rock Golem"
+      ]
+    },
+    {
+      "name": "Rocket Homing Missile",
+      "className": "EngramEntry_RocketHommingAmmo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rocket Homing Missile"
+      ]
+    },
+    {
+      "name": "Rocket Launcher",
+      "className": "EngramEntry_RocketLauncher_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rocket Launcher"
+      ]
+    },
+    {
+      "name": "Rocket Pod",
+      "className": "EngramEntry_MekRocketPod_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rocket Pod"
+      ]
+    },
+    {
+      "name": "Rocket Propelled Grenade",
+      "className": "EngramEntry_RocketAmmo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rocket Propelled Grenade"
+      ]
+    },
+    {
+      "name": "Rocket Turret",
+      "className": "EngramEntry_RocketTurret_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rocket Turret"
+      ]
+    },
+    {
+      "name": "Roll Rat Saddle",
+      "className": "EngramEntry_RollratSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Roll Rat Saddle",
+        "Saddle - Roll Rat"
+      ]
+    },
+    {
+      "name": "Rope Ladder",
+      "className": "EngramEntry_RopeLadder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Rope Ladder"
+      ]
+    },
+    {
+      "name": "Sabertooth Saddle",
+      "className": "EngramEntry_Saddle_Saber_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sabertooth Saddle",
+        "Saddle - Sabertooth"
+      ]
+    },
+    {
+      "name": "Saloon Chair",
+      "className": "EngramEntry_Frontier_SaloonChair_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saloon Chair"
+      ]
+    },
+    {
+      "name": "Saloon Piano",
+      "className": "EngramEntry_Frontier_SaloonPiano_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saloon Piano"
+      ]
+    },
+    {
+      "name": "Saloon Table",
+      "className": "EngramEntry_Frontier_SaloonTable_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saloon Table"
+      ]
+    },
+    {
+      "name": "Sarco Saddle",
+      "className": "EngramEntry_Saddle_Sarco_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Sarco",
+        "Sarco Saddle"
+      ]
+    },
+    {
+      "name": "Scissors",
+      "className": "EngramEntry_Scissors_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Scissors"
+      ]
+    },
+    {
+      "name": "Scope Attachment",
+      "className": "EngramEntry_Scope_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Scope Attachment"
+      ]
+    },
+    {
+      "name": "SCUBA Flippers",
+      "className": "EngramEntry_ScubaBoots_Flippers_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "SCUBA Flippers"
+      ]
+    },
+    {
+      "name": "SCUBA Leggings",
+      "className": "EngramEntry_ScubaPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "SCUBA Leggings"
+      ]
+    },
+    {
+      "name": "SCUBA Mask",
+      "className": "EngramEntry_ScubaHelmet_Goggles_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "SCUBA Mask"
+      ]
+    },
+    {
+      "name": "SCUBA Tank",
+      "className": "EngramEntry_ScubaShirt_SuitWithTank_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "SCUBA Tank"
+      ]
+    },
+    {
+      "name": "Shag Rug",
+      "className": "EngramEntry_ShagRug_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shag Rug"
+      ]
+    },
+    {
+      "name": "Shastasaurus Submarine Saddle",
+      "className": "EngramEntry_ShastaSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shastasaurus Submarine Saddle"
+      ]
+    },
+    {
+      "name": "Shipyard",
+      "className": "EngramEntry_TOF_Shipyard_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shipyard"
+      ]
+    },
+    {
+      "name": "Shocking Tranquilizer Dart",
+      "className": "EngramEntry_RefinedTranqDart_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shocking Tranquilizer Dart"
+      ]
+    },
+    {
+      "name": "Shootable Bottle",
+      "className": "EngramEntry_Frontier_ShootableBottle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shootable Bottle"
+      ]
+    },
+    {
+      "name": "Shotgun",
+      "className": "EngramEntry_SimpleShotgun_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shotgun"
+      ]
+    },
+    {
+      "name": "Shovel",
+      "className": "EngramEntry_Frontier_Shovel_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Shovel"
+      ]
+    },
+    {
+      "name": "Silencer Attachment",
+      "className": "EngramEntry_Silencer_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Silencer Attachment"
+      ]
+    },
+    {
+      "name": "Simple Bed",
+      "className": "EngramEntry_SimpleBed_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Simple Bed"
+      ]
+    },
+    {
+      "name": "Simple Bullet",
+      "className": "EngramEntry_SimpleBullet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Simple Bullet"
+      ]
+    },
+    {
+      "name": "Simple Pistol",
+      "className": "EngramEntry_Pistol_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Simple Pistol"
+      ]
+    },
+    {
+      "name": "Simple Rifle Ammo",
+      "className": "EngramEntry_SimpleRifleBullet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Simple Rifle Ammo"
+      ]
+    },
+    {
+      "name": "Simple Shotgun Ammo",
+      "className": "EngramEntry_SimpleShotgunBullet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Simple Shotgun Ammo"
+      ]
+    },
+    {
+      "name": "Single Panel Flag",
+      "className": "EngramEntry_FlagSingle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Single Panel Flag"
+      ]
+    },
+    {
+      "name": "Slingshot",
+      "className": "EngramEntry_Slingshot_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Slingshot"
+      ]
+    },
+    {
+      "name": "Sloop",
+      "className": "EngramEntry_TOF_Sloop_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloop"
+      ]
+    },
+    {
+      "name": "Sloped Adobe Roof",
+      "className": "EngramEntry_AdobeRoof_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Roof Sloped",
+        "Sloped Adobe Roof"
+      ]
+    },
+    {
+      "name": "Sloped Adobe Wall Left",
+      "className": "EngramEntry_AdobeSlopedWall_Left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Wall Sloped Left",
+        "Sloped Adobe Wall Left"
+      ]
+    },
+    {
+      "name": "Sloped Adobe Wall Right",
+      "className": "EngramEntry_AdobeSlopedWall_Right_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Adobe Wall Sloped Right",
+        "Sloped Adobe Wall Right"
+      ]
+    },
+    {
+      "name": "Sloped Greenhouse Roof",
+      "className": "EngramEntry_GreenhouseRoof_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Roof Sloped",
+        "Sloped Greenhouse Roof"
+      ]
+    },
+    {
+      "name": "Sloped Greenhouse Wall Left",
+      "className": "EngramEntry_GreenhouseSlopedWall_Left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Wall Sloped Left",
+        "Sloped Greenhouse Wall Left"
+      ]
+    },
+    {
+      "name": "Sloped Greenhouse Wall Right",
+      "className": "EngramEntry_GreenhouseSlopedWall_Right_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Greenhouse Wall Sloped Right",
+        "Sloped Greenhouse Wall Right"
+      ]
+    },
+    {
+      "name": "Sloped Metal Roof",
+      "className": "EngramEntry_MetalRoof_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Roof Sloped",
+        "Sloped Metal Roof"
+      ]
+    },
+    {
+      "name": "Sloped Metal Wall Left",
+      "className": "EngramEntry_MetalSlopedWall_Left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Wall Sloped Left",
+        "Sloped Metal Wall Left"
+      ]
+    },
+    {
+      "name": "Sloped Metal Wall Right",
+      "className": "EngramEntry_MetalSlopedWall_Right_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Metal Wall Sloped Right",
+        "Sloped Metal Wall Right"
+      ]
+    },
+    {
+      "name": "Sloped Stone Roof",
+      "className": "EngramEntry_StoneRoof_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Stone Roof",
+        "Stone Roof Sloped"
+      ]
+    },
+    {
+      "name": "Sloped Stone Wall Left",
+      "className": "EngramEntry_StoneSlopedWall_Left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Stone Wall Left",
+        "Stone Wall Sloped Left"
+      ]
+    },
+    {
+      "name": "Sloped Stone Wall Right",
+      "className": "EngramEntry_StoneSlopedWall_Right_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Stone Wall Right",
+        "Stone Wall Sloped Right"
+      ]
+    },
+    {
+      "name": "Sloped Tek Roof",
+      "className": "EngramEntry_TekRoof_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Tek Roof",
+        "Tek Sloped Roof"
+      ]
+    },
+    {
+      "name": "Sloped Tek Wall Left",
+      "className": "EngramEntry_TekSlopedWall_Left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Tek Wall Left",
+        "Tek Sloped Wall Left"
+      ]
+    },
+    {
+      "name": "Sloped Tek Wall Right",
+      "className": "EngramEntry_TekSlopedWall_Right_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Tek Wall Right",
+        "Tek Sloped Wall Right"
+      ]
+    },
+    {
+      "name": "Sloped Thatch Roof",
+      "className": "EngramEntry_ThatchRoof_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Thatch Roof",
+        "Thatch Roof Sloped"
+      ]
+    },
+    {
+      "name": "Sloped Thatch Wall Left",
+      "className": "EngramEntry_ThatchSlopedWall_left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Thatch Wall Left"
+      ]
+    },
+    {
+      "name": "Sloped Thatch Wall Right",
+      "className": "EngramEntry_ThatchSlopedWall_Right_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Thatch Wall Right",
+        "Thatch Wall Sloped Right"
+      ]
+    },
+    {
+      "name": "Sloped Wood Wall Left",
+      "className": "EngramEntry_WoodSlopedWall_Left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Wood Wall Left",
+        "Wooden Wall Sloped Left"
+      ]
+    },
+    {
+      "name": "Sloped Wood Wall Right",
+      "className": "EngramEntry_WoodSlopedWall_Right_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Wood Wall Right",
+        "Wooden Wall Sloped Right"
+      ]
+    },
+    {
+      "name": "Sloped Wooden Roof",
+      "className": "EngramEntry_WoodRoof_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sloped Wooden Roof",
+        "Wooden Roof Sloped"
+      ]
+    },
+    {
+      "name": "Small Crop Plot",
+      "className": "EngramEntry_CropPlot_Small_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Small Crop Plot"
+      ]
+    },
+    {
+      "name": "Small Elevator Platform",
+      "className": "EngramEntry_ElevatorPlatformSmall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Elevator Platform (Small)",
+        "Small Elevator Platform"
+      ]
+    },
+    {
+      "name": "Small Taxidermy Base",
+      "className": "EngramEntry_TaxidermyBase_Small_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Small Taxidermy Base"
+      ]
+    },
+    {
+      "name": "Small Tek Teleporter",
+      "className": "EngramEntry_TekTeleporterMini_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Small Tek Teleporter"
+      ]
+    },
+    {
+      "name": "Small Wood Elevator Platform",
+      "className": "EngramEntry_WoodElevatorPlatform_Small_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Small Wood Elevator Platform",
+        "Wood Elevator Platform (Small)"
+      ]
+    },
+    {
+      "name": "Smithy",
+      "className": "EngramEntry_AnvilBench_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Smithy"
+      ]
+    },
+    {
+      "name": "Smoke Grenade",
+      "className": "EngramEntry_GasGrenade_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Smoke Grenade"
+      ]
+    },
+    {
+      "name": "Snow Owl Saddle",
+      "className": "EngramEntry_OwlSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Snow Owl Saddle"
+      ]
+    },
+    {
+      "name": "Solwyn Saddle",
+      "className": "EngramEntry_LostColony_Saddle_AngelFox_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Solwyn Saddle"
+      ]
+    },
+    {
+      "name": "Sparkpowder",
+      "className": "EngramEntry_Sparkpowder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sparkpowder"
+      ]
+    },
+    {
+      "name": "Spear",
+      "className": "EngramEntry_Spear_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Spear"
+      ]
+    },
+    {
+      "name": "Spear Bolt",
+      "className": "EngramEntry_BallistaArrow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Spear Bolt"
+      ]
+    },
+    {
+      "name": "Spino Saddle",
+      "className": "EngramEntry_Saddle_Spino_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Spino",
+        "Spino Saddle"
+      ]
+    },
+    {
+      "name": "Spotlight",
+      "className": "EngramEntry_Steampunk_Spotlight_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Spotlight"
+      ]
+    },
+    {
+      "name": "Spray Painter",
+      "className": "EngramEntry_SprayPainter_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Spray Painter"
+      ]
+    },
+    {
+      "name": "Spyglass",
+      "className": "EngramEntry_Spyglass_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Spyglass"
+      ]
+    },
+    {
+      "name": "Standing Torch",
+      "className": "EngramEntry_StandingTorch_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Standing Torch"
+      ]
+    },
+    {
+      "name": "Steam Forge",
+      "className": "EngramEntry_Steampunk_MegaForge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Steam Forge"
+      ]
+    },
+    {
+      "name": "Steam Lights & Lamps",
+      "className": "EngramEntry_Steampunk_Lights_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Steam Lights & Lamps"
+      ]
+    },
+    {
+      "name": "Stego Saddle",
+      "className": "EngramEntry_Saddle_Stego_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Stego",
+        "Stego Saddle"
+      ]
+    },
+    {
+      "name": "Stimulant",
+      "className": "EngramEntry_Stimulant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stimulant"
+      ]
+    },
+    {
+      "name": "Stone Arrow",
+      "className": "EngramEntry_ArrowStone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Arrow"
+      ]
+    },
+    {
+      "name": "Stone Ceiling",
+      "className": "EngramEntry_StoneCeiling_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Ceiling"
+      ]
+    },
+    {
+      "name": "Stone Cliff Platform",
+      "className": "EngramEntry_StoneCliffPlatform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Cliff Platform"
+      ]
+    },
+    {
+      "name": "Stone Dinosaur Gateway",
+      "className": "EngramEntry_StoneGateway_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Stone Doorframe",
+      "className": "EngramEntry_StoneWallWithDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Doorframe"
+      ]
+    },
+    {
+      "name": "Stone Double Doorframe",
+      "className": "EngramEntry_DoubleDoorframe_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Double Doorframe"
+      ]
+    },
+    {
+      "name": "Stone Fence Foundation",
+      "className": "EngramEntry_StoneFenceFoundation_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Fence Foundation"
+      ]
+    },
+    {
+      "name": "Stone Fence Support",
+      "className": "EngramEntry_FenceSupport_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Fence Support"
+      ]
+    },
+    {
+      "name": "Stone Fireplace",
+      "className": "EngramEntry_Fireplace_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Fireplace",
+        "Stone Fireplace"
+      ]
+    },
+    {
+      "name": "Stone Foundation",
+      "className": "EngramEntry_StoneFloor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Foundation"
+      ]
+    },
+    {
+      "name": "Stone Hatchet",
+      "className": "EngramEntry_StoneHatchet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Hatchet"
+      ]
+    },
+    {
+      "name": "Stone Hatchframe",
+      "className": "EngramEntry_StoneCeilingWithTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Hatchframe"
+      ]
+    },
+    {
+      "name": "Stone Irrigation Pipe - Flexible",
+      "className": "EngramEntry_PipeFlex_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Irrigation Pipe - Flexible",
+        "Stone Pipe - Flexible"
+      ]
+    },
+    {
+      "name": "Stone Irrigation Pipe - Inclined",
+      "className": "EngramEntry_StonePipeInclined_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Irrigation Pipe - Inclined"
+      ]
+    },
+    {
+      "name": "Stone Irrigation Pipe - Intake",
+      "className": "EngramEntry_StonePipeIntake_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Irrigation Pipe - Intake"
+      ]
+    },
+    {
+      "name": "Stone Irrigation Pipe - Intersection",
+      "className": "EngramEntry_StonePipeIntersection_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Irrigation Pipe - Intersection"
+      ]
+    },
+    {
+      "name": "Stone Irrigation Pipe - Straight",
+      "className": "EngramEntry_StonePipeStraight_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Irrigation Pipe - Straight"
+      ]
+    },
+    {
+      "name": "Stone Irrigation Pipe - Tap",
+      "className": "EngramEntry_StonePipeTap_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Irrigation Pipe - Tap"
+      ]
+    },
+    {
+      "name": "Stone Irrigation Pipe - Vertical",
+      "className": "EngramEntry_StonePipeVertical_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Irrigation Pipe - Vertical"
+      ]
+    },
+    {
+      "name": "Stone Pick",
+      "className": "EngramEntry_StonePick_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Pick"
+      ]
+    },
+    {
+      "name": "Stone Pillar",
+      "className": "EngramEntry_StonePillar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Pillar"
+      ]
+    },
+    {
+      "name": "Stone Railing",
+      "className": "EngramEntry_StoneRailing_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Railing"
+      ]
+    },
+    {
+      "name": "Stone Staircase",
+      "className": "EngramEntry_StoneStairs_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Staircase"
+      ]
+    },
+    {
+      "name": "Stone Stairs",
+      "className": "EngramEntry_Ramp_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Ramp",
+        "Stone Stairs"
+      ]
+    },
+    {
+      "name": "Stone Tree Platform",
+      "className": "EngramEntry_TreePlatformStone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Tree Platform"
+      ]
+    },
+    {
+      "name": "Stone Triangle Ceiling",
+      "className": "EngramEntry_TriCeiling_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Triangle Ceiling"
+      ]
+    },
+    {
+      "name": "Stone Triangle Foundation",
+      "className": "EngramEntry_TriFoundation_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Triangle Foundation"
+      ]
+    },
+    {
+      "name": "Stone Triangle Roof",
+      "className": "EngramEntry_TriRoof_Stone_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Triangle Roof"
+      ]
+    },
+    {
+      "name": "Stone Wall",
+      "className": "EngramEntry_StoneWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Wall"
+      ]
+    },
+    {
+      "name": "Stone Windowframe",
+      "className": "EngramEntry_StoneWallWithWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stone Windowframe"
+      ]
+    },
+    {
+      "name": "Stopwatch",
+      "className": "EngramEntry_Steampunk_Stopwatch_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Stopwatch"
+      ]
+    },
+    {
+      "name": "Storage Box",
+      "className": "EngramEntry_StorageBox_Small_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Storage Box"
+      ]
+    },
+    {
+      "name": "Straight Electrical Cable",
+      "className": "EngramEntry_PowerCableStraight_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electrical Cable Straight",
+        "Straight Electrical Cable"
+      ]
+    },
+    {
+      "name": "Swivel Stool",
+      "className": "EngramEntry_Frontier_SaloonStool_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Swivel Stool"
+      ]
+    },
+    {
+      "name": "Sword",
+      "className": "EngramEntry_Sword_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Sword"
+      ]
+    },
+    {
+      "name": "Tapejara Saddle",
+      "className": "EngramEntry_Saddle_Tapejara_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Tapejara",
+        "Tapejara Saddle"
+      ]
+    },
+    {
+      "name": "Tapejara Tek Saddle",
+      "className": "EngramEntry_TekTapejaraSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tapejara Tek Saddle",
+        "Tek Saddle - Tapejara"
+      ]
+    },
+    {
+      "name": "Taxidermy Tool",
+      "className": "EngramEntry_TaxidermyTool_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Taxidermy Tool"
+      ]
+    },
+    {
+      "name": "Tek ATV",
+      "className": "EngramEntry_TekATV_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek ATV"
+      ]
+    },
+    {
+      "name": "Tek Behemoth Cellar Door",
+      "className": "EngramEntry_Ceiling_Door_XL_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Behemoth Cellar Door"
+      ]
+    },
+    {
+      "name": "Tek Binoculars",
+      "className": "EngramEntry_TekBinoculars_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Binoculars"
+      ]
+    },
+    {
+      "name": "Tek Boots",
+      "className": "EngramEntry_TekBoots_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Boots"
+      ]
+    },
+    {
+      "name": "Tek Bow",
+      "className": "EngramEntry_TekBow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Bow"
+      ]
+    },
+    {
+      "name": "Tek Bridge",
+      "className": "EngramEntry_TekBridge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Bridge"
+      ]
+    },
+    {
+      "name": "Tek Bunker",
+      "className": "EngramEntry_LostColony_TekBunker_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Bunker"
+      ]
+    },
+    {
+      "name": "Tek Canteen",
+      "className": "EngramEntry_TekCanteen_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Canteen"
+      ]
+    },
+    {
+      "name": "Tek Catwalk",
+      "className": "EngramEntry_TekCatwalk_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Catwalk"
+      ]
+    },
+    {
+      "name": "Tek Ceiling",
+      "className": "EngramEntry_TekCeiling_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Ceiling"
+      ]
+    },
+    {
+      "name": "Tek Chestpiece",
+      "className": "EngramEntry_TekShirt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Chestpiece"
+      ]
+    },
+    {
+      "name": "Tek Claws",
+      "className": "EngramEntry_TekClaws_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Claws"
+      ]
+    },
+    {
+      "name": "Tek Crop Plot",
+      "className": "EngramEntry_TekCropPlot_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Crop Plot"
+      ]
+    },
+    {
+      "name": "Tek Dedicated Storage",
+      "className": "EngramEntry_DedicatedStorage_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Dedicated Storage"
+      ]
+    },
+    {
+      "name": "Tek Dinosaur Gate",
+      "className": "EngramEntry_Tek_Gate_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Dinosaur Gate"
+      ]
+    },
+    {
+      "name": "Tek Dinosaur Gateway",
+      "className": "EngramEntry_Tek_Gategrame_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Dinosaur Gateway"
+      ]
+    },
+    {
+      "name": "Tek Door",
+      "className": "EngramEntry_TekDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Door"
+      ]
+    },
+    {
+      "name": "Tek Doorframe",
+      "className": "EngramEntry_TekWallWithDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Doorframe"
+      ]
+    },
+    {
+      "name": "Tek Double Door",
+      "className": "EngramEntry_DoubleDoor_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Double Door"
+      ]
+    },
+    {
+      "name": "Tek Double Doorframe",
+      "className": "EngramEntry_DoubleDoorframe_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Double Doorframe"
+      ]
+    },
+    {
+      "name": "Tek Fence Foundation",
+      "className": "EngramEntry_TekFenceFoundation_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Fence Foundation"
+      ]
+    },
+    {
+      "name": "Tek Fence Support",
+      "className": "EngramEntry_FenceSupport_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Fence Support"
+      ]
+    },
+    {
+      "name": "Tek Forcefield",
+      "className": "EngramEntry_TekShield_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Forcefield"
+      ]
+    },
+    {
+      "name": "Tek Foundation",
+      "className": "EngramEntry_TekFloor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Foundation"
+      ]
+    },
+    {
+      "name": "Tek Gauntlets",
+      "className": "EngramEntry_TekGloves_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Gauntlets"
+      ]
+    },
+    {
+      "name": "Tek Generator",
+      "className": "EngramEntry_TekGenerator_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Generator"
+      ]
+    },
+    {
+      "name": "Tek Gravity Grenade",
+      "className": "EngramEntry_TekGravityGrenade_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Gravity Grenade"
+      ]
+    },
+    {
+      "name": "Tek Grenade",
+      "className": "EngramEntry_TekGrenade_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Grenade"
+      ]
+    },
+    {
+      "name": "Tek Grenade Launcher",
+      "className": "EngramEntry_TekGrenadeLauncher_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Grenade Launcher"
+      ]
+    },
+    {
+      "name": "Tek Hatchframe",
+      "className": "EngramEntry_TekCeilingWithTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Hatchframe"
+      ]
+    },
+    {
+      "name": "Tek Helmet",
+      "className": "EngramEntry_TekHelmet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Helmet"
+      ]
+    },
+    {
+      "name": "Tek Hoversail",
+      "className": "EngramEntry_TekHoverSail_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Hoversail"
+      ]
+    },
+    {
+      "name": "Tek Jump Pad",
+      "className": "EngramEntry_JumpPad_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Jump Pad"
+      ]
+    },
+    {
+      "name": "Tek Ladder",
+      "className": "EngramEntry_TekLadder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Ladder"
+      ]
+    },
+    {
+      "name": "Tek Large Cellar Door",
+      "className": "EngramEntry_TekCeilingDoor_Giant_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Large Cellar Door"
+      ]
+    },
+    {
+      "name": "Tek Leggings",
+      "className": "EngramEntry_TekPants_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Leggings"
+      ]
+    },
+    {
+      "name": "Tek Light",
+      "className": "EngramEntry_TekLight_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Light"
+      ]
+    },
+    {
+      "name": "Tek Phase Pistol",
+      "className": "EngramEntry_TekPistol_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Phase Pistol"
+      ]
+    },
+    {
+      "name": "Tek Pillar",
+      "className": "EngramEntry_TekPillar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Pillar"
+      ]
+    },
+    {
+      "name": "Tek Railgun",
+      "className": "EngramEntry_TekSniper_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Railgun"
+      ]
+    },
+    {
+      "name": "Tek Railing",
+      "className": "EngramEntry_TekRailing_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Railing"
+      ]
+    },
+    {
+      "name": "Tek Ramp",
+      "className": "EngramEntry_TekRamp_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Ramp"
+      ]
+    },
+    {
+      "name": "Tek Replicator",
+      "className": "EngramEntry_TekReplicator_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Replicator"
+      ]
+    },
+    {
+      "name": "Tek Rifle",
+      "className": "EngramEntry_TekRifle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Rifle"
+      ]
+    },
+    {
+      "name": "Tek Sensor",
+      "className": "EngramEntry_TekAlarm_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Sensor"
+      ]
+    },
+    {
+      "name": "Tek Shield",
+      "className": "EngramEntry_TekShieldArmor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Shield"
+      ]
+    },
+    {
+      "name": "Tek Shoulder Cannon",
+      "className": "EngramEntry_ShoulderCannon_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Shoulder Cannon"
+      ]
+    },
+    {
+      "name": "Tek Sleeping Pod",
+      "className": "EngramEntry_TekBed_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Sleeping Pod"
+      ]
+    },
+    {
+      "name": "Tek Spear",
+      "className": "EngramEntry_LostColony_TekSpear_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Spear"
+      ]
+    },
+    {
+      "name": "Tek Staircase",
+      "className": "EngramEntry_TekStairs_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Staircase"
+      ]
+    },
+    {
+      "name": "Tek Stairs",
+      "className": "EngramEntry_Ramp_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Ramp",
+        "Tek Stairs"
+      ]
+    },
+    {
+      "name": "Tek Surveillance Console",
+      "className": "EngramEntry_TekSecuirtyConsole_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Surveillance Console"
+      ]
+    },
+    {
+      "name": "Tek Sword",
+      "className": "EngramEntry_TekSword_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Sword"
+      ]
+    },
+    {
+      "name": "Tek Teleporter",
+      "className": "EngramEntry_TekTeleporter_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Teleporter"
+      ]
+    },
+    {
+      "name": "Tek Transmitter",
+      "className": "EngramEntry_TekTransmitter_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Transmitter"
+      ]
+    },
+    {
+      "name": "Tek Trapdoor",
+      "className": "EngramEntry_TekTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Trapdoor"
+      ]
+    },
+    {
+      "name": "Tek Triangle Ceiling",
+      "className": "EngramEntry_TriCeiling_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Triangle Ceiling"
+      ]
+    },
+    {
+      "name": "Tek Triangle Foundation",
+      "className": "EngramEntry_TriFoundation_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Triangle Foundation"
+      ]
+    },
+    {
+      "name": "Tek Triangle Roof",
+      "className": "EngramEntry_TriRoof_Tek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Triangle Roof"
+      ]
+    },
+    {
+      "name": "Tek Trough",
+      "className": "EngramEntry_TekTrough_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Trough"
+      ]
+    },
+    {
+      "name": "Tek Turret",
+      "className": "EngramEntry_TurretTek_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Turret"
+      ]
+    },
+    {
+      "name": "Tek Wall",
+      "className": "EngramEntry_TekWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Wall"
+      ]
+    },
+    {
+      "name": "Tek Window",
+      "className": "EngramEntry_TekWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Window"
+      ]
+    },
+    {
+      "name": "Tek Windowframe",
+      "className": "EngramEntry_TekWallWithWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Windowframe"
+      ]
+    },
+    {
+      "name": "Template Hammer",
+      "className": "EngramEntry_ClipboardHammer_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Template Hammer"
+      ]
+    },
+    {
+      "name": "Tent",
+      "className": "EngramEntry_Tent_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tent"
+      ]
+    },
+    {
+      "name": "Terror Bird Saddle",
+      "className": "EngramEntry_Saddle_TerrorBird_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Terror Bird",
+        "Terror Bird Saddle"
+      ]
+    },
+    {
+      "name": "Tesla Coil",
+      "className": "EngramEntry_Steampunk_TeslaCoil_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tesla Coil"
+      ]
+    },
+    {
+      "name": "Thatch Ceiling",
+      "className": "EngramEntry_ThatchCeiling_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Thatch Ceiling",
+        "Thatch Roof"
+      ]
+    },
+    {
+      "name": "Thatch Door",
+      "className": "EngramEntry_ThatchDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Thatch Door"
+      ]
+    },
+    {
+      "name": "Thatch Doorframe",
+      "className": "EngramEntry_ThatchWallWithDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Thatch Doorframe"
+      ]
+    },
+    {
+      "name": "Thatch Foundation",
+      "className": "EngramEntry_ThatchFloor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Thatch Foundation"
+      ]
+    },
+    {
+      "name": "Thatch Wall",
+      "className": "EngramEntry_ThatchWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Thatch Wall"
+      ]
+    },
+    {
+      "name": "Thatch Wall Sloped Left",
+      "className": "EngramEntry_ThatchSlopedWall_Left_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "unknown",
+      "aliases": [
+        "Thatch Wall Sloped Left"
+      ]
+    },
+    {
+      "name": "Therizinosaurus Saddle",
+      "className": "EngramEntry_Saddle_Therizino_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Therizinosaurus",
+        "Therizinosaurus Saddle"
+      ]
+    },
+    {
+      "name": "Thorny Dragon Saddle",
+      "className": "EngramEntry_Saddle_SpineyLizard_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Thorny Dragon",
+        "Thorny Dragon Saddle"
+      ]
+    },
+    {
+      "name": "Thylacoleo Saddle",
+      "className": "EngramEntry_Saddle_Thylaco_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Thylacoleo",
+        "Thylacoleo Saddle"
+      ]
+    },
+    {
+      "name": "Tidepup Saddle",
+      "className": "EngramEntry_Saddle_Axolotl_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tidepup Saddle"
+      ]
+    },
+    {
+      "name": "Tinkering Desk",
+      "className": "EngramEntry_Steampunk_TinkeringDesk_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tinkering Desk"
+      ]
+    },
+    {
+      "name": "Titanosaur Platform Saddle",
+      "className": "EngramEntry_Saddle_Titano_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Titanosaur Platform",
+        "Titanosaur Platform Saddle"
+      ]
+    },
+    {
+      "name": "TOF Lights",
+      "className": "EngramEntry_TOF_Lights_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "TOF Lights"
+      ]
+    },
+    {
+      "name": "Toilet",
+      "className": "EngramEntry_Toilet_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Toilet"
+      ]
+    },
+    {
+      "name": "Torch",
+      "className": "EngramEntry_Torch_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Torch"
+      ]
+    },
+    {
+      "name": "Town Bell",
+      "className": "EngramEntry_Frontier_TownBell_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Town Bell"
+      ]
+    },
+    {
+      "name": "Train Platform Car",
+      "className": "EngramEntry_Frontier_Train_Platform_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Train Platform Car"
+      ]
+    },
+    {
+      "name": "Train Track",
+      "className": "EngramEntry_Frontier_Train_TracksAuto_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Train Track"
+      ]
+    },
+    {
+      "name": "Training Dummy",
+      "className": "EngramEntry_TrainingDummy_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Training Dummy"
+      ]
+    },
+    {
+      "name": "Tranq Arrow",
+      "className": "EngramEntry_ArrowTranq_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tranq Arrow"
+      ]
+    },
+    {
+      "name": "Tranq Spear Bolt",
+      "className": "EngramEntry_TranqSpearBolt_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tranq Spear Bolt"
+      ]
+    },
+    {
+      "name": "Tranquilizer Dart",
+      "className": "EngramEntry_TranqDart_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tranquilizer Dart"
+      ]
+    },
+    {
+      "name": "Transponder Node",
+      "className": "EngramEntry_TransGPSAmmo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Transponder Node"
+      ]
+    },
+    {
+      "name": "Transponder Tracker",
+      "className": "EngramEntry_TransGPS_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Transponder Tracker"
+      ]
+    },
+    {
+      "name": "Treasure Chest",
+      "className": "EngramEntry_Frontier_TreasureCache_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Treasure Chest"
+      ]
+    },
+    {
+      "name": "Tree Sap Tap",
+      "className": "EngramEntry_TreeSapTap_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tree Sap Tap"
+      ]
+    },
+    {
+      "name": "Tribe Tower",
+      "className": "EngramEntry_Wasteland_TribeTower_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tribe Tower"
+      ]
+    },
+    {
+      "name": "Trike Saddle",
+      "className": "EngramEntry_Saddle_Trike_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Trike",
+        "Trike Saddle"
+      ]
+    },
+    {
+      "name": "Tripwire Alarm Trap",
+      "className": "EngramEntry_AlarmTrap_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tripwire Alarm Trap"
+      ]
+    },
+    {
+      "name": "Tripwire Narcotic Trap",
+      "className": "EngramEntry_PoisonTrap_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tripwire Narcotic Trap"
+      ]
+    },
+    {
+      "name": "Tropeognathus Saddle",
+      "className": "EngramEntry_Saddle_Tropeognathus_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tropeognathus Saddle"
+      ]
+    },
+    {
+      "name": "Trophy Wall-Mount",
+      "className": "EngramEntry_TrophyWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Trophy Wall-Mount"
+      ]
+    },
+    {
+      "name": "Tusoteuthis Saddle",
+      "className": "EngramEntry_Saddle_Tuso_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Tusoteuthis",
+        "Tusoteuthis Saddle"
+      ]
+    },
+    {
+      "name": "Umbra Saddle",
+      "className": "EngramEntry_Dragontopia_Saddle_Umbra_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Umbra Saddle"
+      ]
+    },
+    {
+      "name": "Unassembled Exo-Mek",
+      "className": "EngramEntry_TekExosuit_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Unassembled Exo-Mek"
+      ]
+    },
+    {
+      "name": "Unassembled Mek",
+      "className": "EngramEntry_MekSpawner_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Unassembled Mek"
+      ]
+    },
+    {
+      "name": "Unassembled Sir 5rM8",
+      "className": "EngramEntry_Steampunk_HelperBot_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Unassembled Sir 5rM8"
+      ]
+    },
+    {
+      "name": "Unassembled TEK Hover Skiff",
+      "className": "EngramEntry_HoverSkiff_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Unassembled TEK Hover Skiff"
+      ]
+    },
+    {
+      "name": "Unstable Element",
+      "className": "EngramEntry_RefinedElement_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Unstable Element"
+      ]
+    },
+    {
+      "name": "Unstable Element Shard",
+      "className": "EngramEntry_RefinedShards_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Unstable Element Shard"
+      ]
+    },
+    {
+      "name": "Vacuum Compartment",
+      "className": "EngramEntry_TekUnderwaterBase_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Vacuum Compartment",
+        "Vacuum Compartment"
+      ]
+    },
+    {
+      "name": "Vacuum Compartment Moonpool",
+      "className": "EngramEntry_TekUnderwaterBase_BottomEntry_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Tek Vacuum Compartment Moonpool",
+        "Vacuum Compartment Moonpool"
+      ]
+    },
+    {
+      "name": "Vault",
+      "className": "EngramEntry_StorageBox_Huge_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Vault"
+      ]
+    },
+    {
+      "name": "Velonasaur Saddle",
+      "className": "EngramEntry_SpindlesSaddle_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Velonasaur Saddle"
+      ]
+    },
+    {
+      "name": "Vertical Electrical Cable",
+      "className": "EngramEntry_PowerCableVertical_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Electrical Cable Vertical",
+        "Vertical Electrical Cable"
+      ]
+    },
+    {
+      "name": "Vessel",
+      "className": "EngramEntry_Vessel_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Vessel"
+      ]
+    },
+    {
+      "name": "Wall Torch",
+      "className": "EngramEntry_WallTorch_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wall Torch"
+      ]
+    },
+    {
+      "name": "War Map",
+      "className": "EngramEntry_WarMap_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "War Map"
+      ]
+    },
+    {
+      "name": "Warbench",
+      "className": "EngramEntry_LostColony_Warbench_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Warbench"
+      ]
+    },
+    {
+      "name": "Wardrums",
+      "className": "EngramEntry_Wardrums_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wardrums"
+      ]
+    },
+    {
+      "name": "Wasteland Lights",
+      "className": "EngramEntry_Wasteland_Lights_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wasteland Lights"
+      ]
+    },
+    {
+      "name": "Water Jar",
+      "className": "EngramEntry_WaterJar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Water Jar"
+      ]
+    },
+    {
+      "name": "Water Reservoir",
+      "className": "EngramEntry_Frontier_WaterTank_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Water Reservoir"
+      ]
+    },
+    {
+      "name": "Water Reservoir",
+      "className": "EngramEntry_WaterTank_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Water Reservoir",
+        "Water Resevoir"
+      ]
+    },
+    {
+      "name": "Water Well",
+      "className": "EngramEntry_WaterWell_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Water Well"
+      ]
+    },
+    {
+      "name": "Waterskin",
+      "className": "EngramEntry_Waterskin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Waterskin"
+      ]
+    },
+    {
+      "name": "Whip",
+      "className": "EngramEntry_WeaponWhip_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Whip"
+      ]
+    },
+    {
+      "name": "Wind Turbine",
+      "className": "EngramEntry_WindTurbine_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wind Turbine"
+      ]
+    },
+    {
+      "name": "Windmill",
+      "className": "EngramEntry_Frontier_Windmill_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Windmill"
+      ]
+    },
+    {
+      "name": "Wood Elevator Top Switch",
+      "className": "EngramEntry_WoodElevator_Switch_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Elevator Top Switch"
+      ]
+    },
+    {
+      "name": "Wood Elevator Track",
+      "className": "EngramEntry_WoodElevator_Track_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Elevator Track"
+      ]
+    },
+    {
+      "name": "Wood Ocean Platform",
+      "className": "EngramEntry_OceanPlatformWood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Ocean Platform"
+      ]
+    },
+    {
+      "name": "Wood Scaffolding",
+      "className": "EngramEntry_Frontier_Scaffolding_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Scaffolding"
+      ]
+    },
+    {
+      "name": "Wooden Bench",
+      "className": "EngramEntry_WoodBench_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Bench"
+      ]
+    },
+    {
+      "name": "Wooden Billboard",
+      "className": "EngramEntry_WoodSign_Large_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Billboard"
+      ]
+    },
+    {
+      "name": "Wooden Cage",
+      "className": "EngramEntry_WoodCage_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Cage"
+      ]
+    },
+    {
+      "name": "Wooden Catwalk",
+      "className": "EngramEntry_WoodCatwalk_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Catwalk"
+      ]
+    },
+    {
+      "name": "Wooden Ceiling",
+      "className": "EngramEntry_WoodCeiling_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Ceiling"
+      ]
+    },
+    {
+      "name": "Wooden Chair",
+      "className": "EngramEntry_WoodChair_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Chair"
+      ]
+    },
+    {
+      "name": "Wooden Club",
+      "className": "EngramEntry_StoneClub_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Club"
+      ]
+    },
+    {
+      "name": "Wooden Door",
+      "className": "EngramEntry_WoodDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Door"
+      ]
+    },
+    {
+      "name": "Wooden Doorframe",
+      "className": "EngramEntry_WoodWallWithDoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Doorframe"
+      ]
+    },
+    {
+      "name": "Wooden Double Door",
+      "className": "EngramEntry_DoubleDoor_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Double Door",
+        "Wooden Double Door"
+      ]
+    },
+    {
+      "name": "Wooden Double Doorframe",
+      "className": "EngramEntry_DoubleDoorframe_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Double Doorframe",
+        "Wooden Double Doorframe"
+      ]
+    },
+    {
+      "name": "Wooden Fence Foundation",
+      "className": "EngramEntry_WoodFenceFoundation_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Fence Foundation"
+      ]
+    },
+    {
+      "name": "Wooden Fence Support",
+      "className": "EngramEntry_FenceSupport_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Fence Support",
+        "Wooden Fence Support"
+      ]
+    },
+    {
+      "name": "Wooden Foundation",
+      "className": "EngramEntry_WoodFloor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Foundation"
+      ]
+    },
+    {
+      "name": "Wooden Hanging Sign",
+      "className": "EngramEntry_Frontier_Sign_Hanging_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Hanging Sign"
+      ]
+    },
+    {
+      "name": "Wooden Hatchframe",
+      "className": "EngramEntry_WoodCeilingWithTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Hatchframe"
+      ]
+    },
+    {
+      "name": "Wooden Ladder",
+      "className": "EngramEntry_WoodLadder_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Ladder"
+      ]
+    },
+    {
+      "name": "Wooden Pillar",
+      "className": "EngramEntry_WoodPillar_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Pillar"
+      ]
+    },
+    {
+      "name": "Wooden Raft",
+      "className": "EngramEntry_Raft_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Raft",
+        "Wooden Raft"
+      ]
+    },
+    {
+      "name": "Wooden Railing",
+      "className": "EngramEntry_WoodRailing_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Railing"
+      ]
+    },
+    {
+      "name": "Wooden Ramp",
+      "className": "EngramEntry_WoodRamp_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Ramp"
+      ]
+    },
+    {
+      "name": "Wooden Shield",
+      "className": "EngramEntry_WoodShield_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Shield"
+      ]
+    },
+    {
+      "name": "Wooden Sign",
+      "className": "EngramEntry_WoodSign_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Sign"
+      ]
+    },
+    {
+      "name": "Wooden Spike Wall",
+      "className": "EngramEntry_WoodSpikeWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Spike Wall"
+      ]
+    },
+    {
+      "name": "Wooden Staircase",
+      "className": "EngramEntry_WoodStairs_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Staircase"
+      ]
+    },
+    {
+      "name": "Wooden Stairs",
+      "className": "EngramEntry_Ramp_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Ramp",
+        "Wooden Stairs"
+      ]
+    },
+    {
+      "name": "Wooden Table",
+      "className": "EngramEntry_Furniture_WoodTable_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Table"
+      ]
+    },
+    {
+      "name": "Wooden Trapdoor",
+      "className": "EngramEntry_WoodTrapdoor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Trapdoor"
+      ]
+    },
+    {
+      "name": "Wooden Tree Platform",
+      "className": "EngramEntry_TreePlatformWood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Tree Platform"
+      ]
+    },
+    {
+      "name": "Wooden Triangle Ceiling",
+      "className": "EngramEntry_TriCeiling_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Triangle Ceiling",
+        "Wooden Triangle Ceiling"
+      ]
+    },
+    {
+      "name": "Wooden Triangle Foundation",
+      "className": "EngramEntry_TriFoundation_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Triangle Foundation",
+        "Wooden Triangle Foundation"
+      ]
+    },
+    {
+      "name": "Wooden Triangle Roof",
+      "className": "EngramEntry_TriRoof_Wood_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wood Triangle Roof",
+        "Wooden Triangle Roof"
+      ]
+    },
+    {
+      "name": "Wooden Wall",
+      "className": "EngramEntry_WoodWall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Wall"
+      ]
+    },
+    {
+      "name": "Wooden Wall Sign",
+      "className": "EngramEntry_WoodSign_Wall_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Wall Sign"
+      ]
+    },
+    {
+      "name": "Wooden Window",
+      "className": "EngramEntry_WoodWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Window"
+      ]
+    },
+    {
+      "name": "Wooden Windowframe",
+      "className": "EngramEntry_WoodWallWithWindow_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Wooden Windowframe"
+      ]
+    },
+    {
+      "name": "Woolly Rhino Saddle",
+      "className": "EngramEntry_Saddle_Rhino_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Woolly Rhino",
+        "Woolly Rhino Saddle"
+      ]
+    },
+    {
+      "name": "Xiphactinus Saddle",
+      "className": "EngramEntry_Saddle_Xiphactinus_ASA_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Xiphactinus Saddle"
+      ]
+    },
+    {
+      "name": "Yi Ling Saddle",
+      "className": "EngramEntry_Saddle_YiLing_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Yi Ling Saddle"
+      ]
+    },
+    {
+      "name": "Yutyrannus Saddle",
+      "className": "EngramEntry_Saddle_Yuty_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Saddle - Yutyrannus",
+        "Yutyrannus Saddle"
+      ]
+    },
+    {
+      "name": "Zeppelin",
+      "className": "EngramEntry_Steampunk_Zeppelin_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Zeppelin"
+      ]
+    },
+    {
+      "name": "Zip-Line Anchor",
+      "className": "EngramEntry_ZiplineAmmo_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Zip-Line Anchor"
+      ]
+    },
+    {
+      "name": "Zip-Line Motor Attachment Skin",
+      "className": "EngramEntry_ZiplineMotor_C",
+      "category": "Engrams",
+      "nameTag": null,
+      "mod": "ArkPrime",
+      "asa": "yes",
+      "aliases": [
+        "Zip-Line Motor Attachment",
+        "Zip-Line Motor Attachment Skin"
+      ]
+    }
+  ]
+}
