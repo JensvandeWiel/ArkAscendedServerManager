@@ -832,6 +832,11 @@
     <string name="server_details_tables_add_row">Add row</string>
     <string name="server_details_tables_remove">Remove</string>
     <string name="server_details_tables_empty">No rows yet.</string>
+    <string name="server_details_find_settings">Find settings</string>
+    <string name="server_details_find_settings_title">Find settings</string>
+    <string name="server_details_find_settings_search_label">Search settings by name, hint or tab</string>
+    <string name="server_details_find_settings_count">%1$d of %2$d settings</string>
+    <string name="server_details_find_settings_empty">No matching settings.</string>
     <string name="server_details_tables_dino_spawns_label">Dino spawn weight multipliers</string>
     <string name="server_details_tables_dino_spawns_hint">DinoNameTag from the spawn entries page (for example Rex). Weight and limit percentages are multipliers; 1.0 is the default.</string>
     <string name="server_details_tables_dino_name_tag_label">Dino name tag</string>

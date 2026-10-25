@@ -461,8 +461,9 @@ table, edit rows), not a vertical stack of fields.
 ### 5.2 Cross-cutting improvements worth doing once
 
 1. **Settings search / jump** (old manager's `FindSettingWindow`). With 400+ options this is
-   more valuable than perfect tab placement. Index label strings in memory, `Ctrl+F` opens a
-   palette, selecting a result switches tab, scrolls and highlights the field.
+   more valuable than perfect tab placement. Implemented: generated label/hint/tab index, `Ctrl+F`
+   or **Find settings** opens a palette, selecting a result switches to the owning tab.
+   Still pending: scroll to and highlight the exact field.
 2. **Presets**: "ASA official defaults", "PvE relaxed", "PvP official-like", "Import from
    install". Import hooks already exist (`Server.getGusFromInstall`, `getGameFromInstall`,
    `Settings.fromStartupScriptString`).
@@ -1189,7 +1190,8 @@ each has a golden INI test, a UI test and a real-server parse check.
 
 ### Phase 4 â€” Search, import and polish (M)
 
-1. Settings search/jump (Ctrl+F) across all tabs and table editors.
+1. [x] Settings search/jump: generated palette (`Ctrl+F` / **Find settings**) across all tabs;
+   selecting a result switches tab. [ ] Scroll/highlight the exact field.
 2. ASEâ†’ASA profile import (best-effort translation; warn on ASE-only keys and unsupported
    tables).
 3. Catalog editing/reload for modded servers; catalog date shown in the UI.

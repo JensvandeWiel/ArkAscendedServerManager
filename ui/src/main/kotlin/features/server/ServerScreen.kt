@@ -8,6 +8,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isCtrlPressed
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
@@ -41,12 +47,14 @@ fun ServerScreen(component: ServerComponent) {
     val advancedAndLaunchTabLabel = stringResource(Res.string.server_details_advanced_and_launch_tab)
     val saveServerLabel = stringResource(Res.string.action_save_server)
     val deleteServerLabel = stringResource(Res.string.action_delete_server)
+    val findSettingsLabel = stringResource(Res.string.server_details_find_settings)
     val deleteDialogTitleFormat = stringResource(Res.string.server_details_delete_dialog_title_format)
     val deleteDialogMessage = stringResource(Res.string.server_details_delete_dialog_message)
     val deleteDialogDefaultTarget = stringResource(Res.string.server_details_delete_dialog_target_default)
     val model by component.model.subscribeAsState()
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
+    var optionSearchOpen by remember { mutableStateOf(false) }
     val tabs =
         remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel, tablesTabLabel, chatAndHudTabLabel, structuresAndItemsTabLabel, adminAndSecurityTabLabel, advancedAndLaunchTabLabel) {
             listOf(
@@ -174,8 +182,27 @@ fun ServerScreen(component: ServerComponent) {
         )
     }
 
+    if (optionSearchOpen) {
+        OptionSearchDialog(
+            onSelect = { entry ->
+                component.selectTab(entry.tab)
+                optionSearchOpen = false
+            },
+            onDismiss = { optionSearchOpen = false },
+        )
+    }
 
-    Column {
+
+    Column(
+        modifier = Modifier.onPreviewKeyEvent { event ->
+            if (event.type == KeyEventType.KeyDown && event.isCtrlPressed && event.key == Key.F) {
+                optionSearchOpen = true
+                true
+            } else {
+                false
+            }
+        },
+    ) {
         Row(
             Modifier.fillMaxWidth().padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -196,6 +223,9 @@ fun ServerScreen(component: ServerComponent) {
                     offset = DpOffset((6).dp, 0.dp)
                 ))
             Spacer(Modifier.weight(1f))
+            OutlinedButton(onClick = { optionSearchOpen = true }) {
+                Text(findSettingsLabel)
+            }
             DefaultButton(onClick = component::saveServer, enabled = model.canSave()) {
                 Text(saveServerLabel)
             }
