@@ -1,3 +1,14 @@
+## v0.8.0-rc6
+
+### Feature
+
+- finish table gaps and table UX ([9692c46](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/9692c46))
+
+### Chore
+
+- update changelog for v0.8.0-rc5 ([4ecfcb3](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/4ecfcb3))
+
+
 ## v0.8.0-rc5
 
 ### Feature
