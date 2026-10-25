@@ -43,6 +43,7 @@ import org.jetbrains.jewel.ui.component.IconActionButton
 import org.jetbrains.jewel.ui.component.InfoText
 import org.jetbrains.jewel.ui.component.OutlinedButton
 import org.jetbrains.jewel.ui.component.Text
+import eu.wynq.arkascendedservermanager.ui.components.optionScrollState
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 import org.jetbrains.jewel.ui.icons.AllIconsKeys
@@ -52,7 +53,7 @@ import org.jetbrains.jewel.ui.typography
 fun TablesTabContent(component: ServerComponent) {
     val model = component.model.subscribeAsState().value
 
-    VerticallyScrollableContainer {
+    VerticallyScrollableContainer(scrollState = optionScrollState()) {
         Column(
             modifier = Modifier.padding(end = scrollbarContentSafePadding()),
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -732,5 +733,6 @@ private fun <T> List<T>.replacing(index: Int, value: T): List<T> =
 
 private fun <T> List<T>.removing(index: Int): List<T> =
     toMutableList().also { it.removeAt(index) }
+
 
 

@@ -1,4 +1,4 @@
-package eu.wynq.arkascendedservermanager.ui.features.server
+﻿package eu.wynq.arkascendedservermanager.ui.features.server
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -12,6 +12,7 @@ import eu.wynq.arkascendedservermanager.ui.components.FormSliderField
 import eu.wynq.arkascendedservermanager.ui.components.CheckboxSectionHeader
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.ui.component.GroupHeader
+import eu.wynq.arkascendedservermanager.ui.components.optionScrollState
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 import arkascendedservermanager.ui.generated.resources.*
@@ -23,7 +24,7 @@ import kotlin.uuid.ExperimentalUuidApi
 fun DinoSettingsTabContent(component: ServerComponent) {
     val model = component.model.subscribeAsState().value
 
-    VerticallyScrollableContainer {
+    VerticallyScrollableContainer(scrollState = optionScrollState()) {
         Column(
             modifier = Modifier.padding(end = scrollbarContentSafePadding()),
             verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -1266,3 +1267,4 @@ fun DinoSettingsTabContent(component: ServerComponent) {
         }
     }
 }
+

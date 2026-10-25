@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalUuidApi::class)
+﻿@file:OptIn(ExperimentalUuidApi::class)
 
 package eu.wynq.arkascendedservermanager.ui.features.server
 
@@ -18,13 +18,14 @@ import eu.wynq.arkascendedservermanager.ui.features.server.general.SavesSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.ServerOptionsSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.TributeDownloadSection
 import eu.wynq.arkascendedservermanager.ui.features.server.general.TributeUploadSection
+import eu.wynq.arkascendedservermanager.ui.components.optionScrollState
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 import kotlin.uuid.ExperimentalUuidApi
 
 @Composable
 fun GeneralTabContent(component: ServerComponent) {
-    VerticallyScrollableContainer {
+    VerticallyScrollableContainer(scrollState = optionScrollState()) {
         Column(
             modifier = Modifier.padding(end = scrollbarContentSafePadding(), bottom = 4.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp)

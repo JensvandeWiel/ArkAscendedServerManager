@@ -1,4 +1,4 @@
-package eu.wynq.arkascendedservermanager.ui.features.server
+﻿package eu.wynq.arkascendedservermanager.ui.features.server
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +28,7 @@ import eu.wynq.arkascendedservermanager.ui.features.server.general.TributeDownlo
 import eu.wynq.arkascendedservermanager.ui.features.server.general.TributeUploadSection
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.jewel.ui.component.GroupHeader
+import eu.wynq.arkascendedservermanager.ui.components.optionScrollState
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 import kotlin.uuid.ExperimentalUuidApi
@@ -43,7 +44,7 @@ fun ProfileTabContent(component: ServerComponent) {
     val asaApiLabel = stringResource(Res.string.server_details_asa_api_label)
     val asaApiHint = stringResource(Res.string.server_details_asa_api_hint)
 
-    VerticallyScrollableContainer {
+    VerticallyScrollableContainer(scrollState = optionScrollState()) {
         Column(
             modifier = Modifier.padding(end = scrollbarContentSafePadding()),
             verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -85,4 +86,5 @@ fun ProfileTabContent(component: ServerComponent) {
         }
     }
 }
+
 

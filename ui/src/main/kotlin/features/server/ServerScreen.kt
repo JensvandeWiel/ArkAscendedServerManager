@@ -14,6 +14,8 @@ import androidx.compose.ui.input.key.isCtrlPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.input.key.type
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import arkascendedservermanager.ui.generated.resources.*
@@ -55,6 +57,14 @@ fun ServerScreen(component: ServerComponent) {
     val error by component.error.collectAsState()
     val selectedTab by component.selectedTab.subscribeAsState()
     var optionSearchOpen by remember { mutableStateOf(false) }
+    val optionSearchNavigation = remember { OptionSearchNavigation() }
+
+    LaunchedEffect(selectedTab) {
+        optionSearchNavigation.scrollState.scrollTo(0)
+        if (optionSearchNavigation.targetTabName != selectedTab.name) {
+            optionSearchNavigation.clear()
+        }
+    }
     val tabs =
         remember(selectedTab, infoTabLabel, generalTabLabel, profileTabLabel, managementTabLabel, environmentTabLabel, playerTabLabel, dinoSettingsTabLabel, tablesTabLabel, chatAndHudTabLabel, structuresAndItemsTabLabel, adminAndSecurityTabLabel, advancedAndLaunchTabLabel) {
             listOf(
@@ -185,6 +195,7 @@ fun ServerScreen(component: ServerComponent) {
     if (optionSearchOpen) {
         OptionSearchDialog(
             onSelect = { entry ->
+                optionSearchNavigation.select(entry.tab.name, entry.label)
                 component.selectTab(entry.tab)
                 optionSearchOpen = false
             },
@@ -239,12 +250,17 @@ fun ServerScreen(component: ServerComponent) {
             modifier = Modifier.fillMaxWidth(),
         )
         Column(
-            modifier = Modifier.padding(8.dp),
+            modifier = Modifier
+                .padding(8.dp)
+                .onGloballyPositioned { coordinates ->
+                    optionSearchNavigation.viewportTop = coordinates.positionInRoot().y.toInt()
+                },
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             val loadedServer = model.initialServer
             if (loadedServer != null) {
-                when (selectedTab) {
+                CompositionLocalProvider(LocalOptionSearchNavigation provides optionSearchNavigation) {
+                    when (selectedTab) {
                     ServerDetailsTab.INFO -> {
                         InfoTabContent(component)
                     }
@@ -300,6 +316,7 @@ fun ServerScreen(component: ServerComponent) {
                     ServerDetailsTab.CONFIG_EDITOR -> {
                         ConfigEditorTabContent(component)
                     }
+                }
                 }
             } else if (error != null) {
                 Text(stringResource(Res.string.server_details_error_format, errorLabel, error ?: ""))

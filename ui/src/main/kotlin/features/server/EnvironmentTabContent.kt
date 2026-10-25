@@ -1,4 +1,4 @@
-package eu.wynq.arkascendedservermanager.ui.features.server
+﻿package eu.wynq.arkascendedservermanager.ui.features.server
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +12,7 @@ import eu.wynq.arkascendedservermanager.ui.components.FormFloatSliderField
 import org.jetbrains.compose.resources.stringResource
 import arkascendedservermanager.ui.generated.resources.*
 import org.jetbrains.jewel.ui.component.GroupHeader
+import eu.wynq.arkascendedservermanager.ui.components.optionScrollState
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 
@@ -19,7 +20,7 @@ import org.jetbrains.jewel.ui.component.scrollbarContentSafePadding
 fun EnvironmentTabContent(component: ServerComponent) {
     val model = component.model.subscribeAsState().value
 
-    VerticallyScrollableContainer {
+    VerticallyScrollableContainer(scrollState = optionScrollState()) {
         Column(
             modifier = Modifier.padding(end = scrollbarContentSafePadding()),
             verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -433,3 +434,4 @@ fun EnvironmentTabContent(component: ServerComponent) {
         }
     }
 }
+

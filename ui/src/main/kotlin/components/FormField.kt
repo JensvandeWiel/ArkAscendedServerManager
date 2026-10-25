@@ -297,7 +297,7 @@ fun FormTextField(
         }
     }
 
-    Row(modifier) {
+    Row(modifier.optionSearchAnchor(label)) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
@@ -337,7 +337,7 @@ fun FormCheckboxField(
     }
 
 
-    Row(modifier) {
+    Row(modifier.optionSearchAnchor(label)) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
@@ -519,7 +519,7 @@ fun FormSliderField(
         }
     }
 
-    Row(modifier) {
+    Row(modifier.optionSearchAnchor(label)) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
@@ -769,7 +769,7 @@ fun FormFloatSliderField(
         }
     }
 
-    Row(modifier) {
+    Row(modifier.optionSearchAnchor(label)) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
@@ -914,7 +914,7 @@ fun FormTextarea(
         }
     }
 
-    Row(modifier.fillMaxWidth()) {
+    Row(modifier.fillMaxWidth().optionSearchAnchor(label)) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
@@ -1054,7 +1054,7 @@ fun FormPathField(
         }
     }
 
-    Row(modifier) {
+    Row(modifier.optionSearchAnchor(label)) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
@@ -1132,7 +1132,7 @@ fun <T : Any> FormSelectField(
         }
     }
 
-    Row(modifier) {
+    Row(modifier.optionSearchAnchor(label)) {
         if (hint != null) {
             Tooltip(tooltip = {
                 Text(hint, style = JewelTheme.typography.labelTextStyle)
