@@ -1,3 +1,14 @@
+## v0.8.0-rc3
+
+### Fix
+
+- restore Overseer log capture with portable-pty ([f6f4653](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/f6f4653))
+
+### Chore
+
+- update changelog for v0.8.0-rc2 ([c0cac6e](https://github.com/JensvandeWiel/ArkAscendedServerManager/commit/c0cac6e))
+
+
 ## v0.8.0-rc2
 
 ### Feature
