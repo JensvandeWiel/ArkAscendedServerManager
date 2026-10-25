@@ -116,6 +116,11 @@ private sealed interface StartupState {
 
 private fun buildUpdater(updateChannel: UpdateChannel = UpdateChannel.STABLE): NucleusUpdater = NucleusUpdater {
     provider = GitHubProvider(owner = UPDATE_OWNER, repo = UPDATE_REPO)
+    // jpackage's app-version is intentionally numeric (0.8.0) because Windows
+    // installer versions cannot carry an RC suffix. That would make an RC
+    // (0.8.0-rcN) look older than its own base version, so use the full build
+    // version for update comparisons instead.
+    currentVersion = AppBuildInfo.version
     this.channel = updateChannel.updaterChannel
     allowPrerelease = updateChannel.allowPrerelease
 }

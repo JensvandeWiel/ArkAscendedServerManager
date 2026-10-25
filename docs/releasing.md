@@ -31,6 +31,18 @@ prerelease.
 
 This avoids publishing the final build to `rc.yml`; the version comparison handles the transition.
 
+## RC version comparison
+
+The Windows installer version is numeric (`0.8.0`), because jpackage/NSIS cannot carry an `-rcN`
+suffix. The updater therefore sets `currentVersion` from `AppBuildInfo.version` (for example
+`0.8.0-rc7`) rather than the numeric `jpackage.app-version`. Without that, an RC looks older than
+its own base version and never updates.
+
+Builds up to and including `0.8.0-rc6` still used the numeric version. If one of those is on the
+RC channel, publish the next RC with a higher patch (`0.8.1-rc1`) so it is visible as newer. After
+that install, the normal `0.8.1-rc2`, `0.8.1-rc3`, ... chain works, and the final `0.8.1` moves
+everyone forward.
+
 ## Workflow details
 
 - `release.yml` reads `-rc`, `-beta` and `-alpha` from the tag.

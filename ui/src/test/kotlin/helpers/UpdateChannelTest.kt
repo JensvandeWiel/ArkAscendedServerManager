@@ -17,6 +17,16 @@ class UpdateChannelTest {
     }
 
     @Test
+    fun `stable patch release wins over its rc`() {
+        assertTrue(shouldPreferStable("0.8.1", "0.8.1-rc1"))
+    }
+
+    @Test
+    fun `later rc is newer than an earlier stable base`() {
+        assertFalse(shouldPreferStable("0.8.0", "0.8.1-rc1"))
+    }
+
+    @Test
     fun `stable is preferred when rc is unavailable`() {
         assertTrue(shouldPreferStable("0.18.0", null))
     }
