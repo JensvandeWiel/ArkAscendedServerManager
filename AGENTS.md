@@ -27,10 +27,9 @@
   structs). Use `-PusePublishedInisaur` to verify the published artifact locally; CI always uses
   the published artifact.
 - Tests: `python -m unittest discover -s tools -p "test_*.py"` and
-  `./gradlew :core:test :ui:test :ui:compileKotlin -x :overseer:cargoBuild
-  -x :core:writeOverseerChecksum` (the native `overseer` build currently fails on `conpty.lib`).
-  Existing behavior is covered by `ServerIoTest`, `IniRoundTripTest`,
-  `SettingsStartupScriptTest` and the fake RCON server tests; keep them green.
+  `./gradlew :core:test :ui:test :ui:compileKotlin` (the native `overseer` build uses
+  `portable-pty` and is no longer excluded). Existing behavior is covered by `ServerIoTest`,
+  `IniRoundTripTest`, `SettingsStartupScriptTest` and the fake RCON server tests; keep them green.
 - If Compose resource accessors fail with unresolved `_collectMainString*` after adding strings,
   delete `ui/build/generated/compose` and rebuild; it is a resource-generator cache issue, not a
   code error.

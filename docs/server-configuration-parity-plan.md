@@ -91,8 +91,8 @@ References used:
 - [ ] Next: optional Cluster & Transfers tab move (options already exist in General), then
   Phase 2.
 - [ ] Real-server acceptance (Â§8.6) â€” needs a disposable server.
-- [ ] CI workflow (added; the native `overseer` build currently fails locally on `conpty.lib`,
-  so CI excludes it â€” see Â§11.16).
+- [x] CI workflow (added; the native `overseer` build now uses `portable-pty`)
+
 - [x] Publish inisaur with the single-item array fix and remove `withActiveModsFromRaw`
   (`0.6.0`).
 
@@ -1072,7 +1072,7 @@ in-game"; do not claim they work just because the file was written.
 
 ### 8.7 CI
 
-- PR: `./gradlew :core:test :ui:compileKotlin -x :overseer:cargoBuild` on a Windows runner
+- PR: `./gradlew :core:test :ui:test :ui:compileKotlin` on a Windows runner
   (the app and the path-based file I/O tests are Windows-first) plus the Python tests and
   `python tools/audit-options.py --check`.
 - The CI checkout does not include the sibling `inisaur` repo, so it resolves the published
@@ -1130,12 +1130,12 @@ Table option:
    preservation, old JSON), updated `SettingsStartupScriptTest` (legacy `-mods` import).
 7. [x] Add a CI workflow (`.github/workflows/tests.yml`) for the Python tests, audit and
    `:core:test`/`:ui:compileKotlin`. [ ] Add UI tests when the table editor exists. The native
-   `overseer` build is excluded until `conpty.lib` is fixed.
+   `overseer` build now uses `portable-pty`, so no exclusion is needed.
 8. [ ] L5 real-server acceptance for the mod decision: confirm `ActiveMods` + always-on
    `-mods=` downloads and loads mods.
 
-Exit: build green (with the native workaround), scrape is reproducible, the custom fixture
-survives save, launch-arg round-trip covers every `ArgKind`, audit reports 0 action items.
+Exit: build green, scrape is reproducible, the custom fixture survives save, launch-arg
+round-trip covers every `ArgKind`, audit reports 0 action items.
 
 ### Phase 1 â€” New tabs with the high-value scalar options (M)
 
@@ -1290,10 +1290,9 @@ serializes deterministically.
     temp file, then replace).
 15. **Ragnarok/`Engine.GameSession`/`[ModInstaller]` sections** are unverified for ASA; keep them
     out of the default write path (add only when explicitly set, via `@OmitIfNull`).
-16. **Native build blocker.** `:overseer:cargoBuild` currently fails with `LNK1181: cannot open
-    input file 'conpty.lib'` (winpty/Windows SDK). This is pre-existing and unrelated to config
-    work, but it blocks `./gradlew test` locally. Use
-    `./gradlew :core:test -x :overseer:cargoBuild` until it is fixed. CI excludes the task.
+16. **Native build.** `:overseer:cargoBuild` now uses `portable-pty` and builds without
+    the old `conpty.lib` link error. The full Gradle build, including
+    `:core:writeOverseerChecksum`, is used in CI again.
 17. **inisaur single-item arrays and struct arrays.** Published inisaur `0.6.0` contains the
     single-item comma-array fix, repeated-struct arrays, single repeated-struct lines and
     `@IniString` quoting inside structs. The app depends on `0.6.0`; the temporary
@@ -1355,8 +1354,8 @@ python tools/audit-options.py --check
 # Mark modelled + exposed options as implemented (one-time reconciliation)
 python tools/audit-options.py --fix-implemented
 
-# App tests (the native overseer build currently needs the workaround)
-./gradlew :core:test :ui:test :ui:compileKotlin -x :overseer:cargoBuild -x :core:writeOverseerChecksum
+# App tests
+./gradlew :core:test :ui:test :ui:compileKotlin
 ```
 
 When the wiki template changes, save the raw page (`?action=raw`) to
@@ -1435,4 +1434,5 @@ $rows | Where-Object { $_.Location -eq 'Configuration Files > GameUserSettings.i
 - [ ] Re-run `python tools/scrape-ark-catalogs.py` if the wiki/legacy data changes.
 - [ ] Replace the hard-coded `-PreleaseChannel=beta` workaround in the RC release workflow if
   Nucleus adds native `rc` channel support.
+
 
